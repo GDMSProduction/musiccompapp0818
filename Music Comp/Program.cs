@@ -6,6 +6,88 @@ using System.Windows.Forms;
 
 namespace Music_Comp
 {
+    public enum Key
+    {
+        Cflat = -7,
+        Gflat,
+        Dflat,
+        Aflat,
+        Eflat,
+        Bflat,
+        F,
+        C,
+        G,
+        D,
+        A,
+        E,
+        B,
+        Fsharp,
+        Csharp
+    }
+    public enum Mode
+    {
+        Ionian,
+        Dorian,
+        Phrygian,
+        Lydian,
+        Mixolydian,
+        Aeolian,
+        Locrian
+    }
+    public enum Time
+    {
+        NineEight = -3,
+        SixEight,
+        ThreeEight,
+        CompoundDuple = -2,
+        CompoundTripple,
+        SimpleQuadruple,
+        SimpleDuple,
+        SimpleTriple,
+        Common = 0,
+        TwoFour,
+        ThreeFour,
+        FourFour = 0,
+    }
+    public enum Clef
+    {
+        Treble,
+        Alto,
+        Bass,
+        Tenor = -1,
+        G = 0,
+        C,
+        F
+    }
+    public enum Accidental
+    {
+        DoubleFlat = -2,
+        Flat,
+        Natural,
+        Sharp,
+        DoubleSharp
+    }
+    public enum Pitch
+    {
+        C,
+        D,
+        E,
+        F,
+        G,
+        A,
+        B,
+        Rest
+    }
+    public enum Durration
+    {
+        Whole,
+        Half,
+        Quarter,
+        Eighth,
+        Sixteenth,
+        Triplet,
+        Drag
+    }
     static class Program
     {
         /// <summary>
