@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace Music_Comp
 {
@@ -63,11 +64,11 @@ namespace Music_Comp
                 Song.cursorY += Staff.HEIGHT + Song.STAFF_SPACING;
             }
         }
-        public void Draw()
+        public void Draw(PaintEventArgs e)
         {
             foreach (Staff staff in mStaves)
             {
-                staff.Draw();
+                staff.Draw(e);
             }
         }
     }

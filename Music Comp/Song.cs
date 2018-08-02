@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace Music_Comp
 {
@@ -13,9 +14,6 @@ namespace Music_Comp
         public static int cursorY = TOP_MARGIN;
         public static int cursorX = LEFT_MARGIN;
 
-        public static string TITLE = "";
-        public static int TITLE_SIZE = 50;
-
 
         public static Key KEY = Key.C;
         public static Time TIME = Time.Common;
@@ -26,12 +24,10 @@ namespace Music_Comp
         }
         public Song(string title)
         {
-            TITLE = title;
+
         }
         public Song(string title, Key k, Time t)
         {
-            TITLE = title;
-
             KEY = k;
             TIME = t;
         }
@@ -42,10 +38,6 @@ namespace Music_Comp
         public Instrument GetInstrument(int i)
         {
             return mInstruments[i];
-        }
-        public void EditTitle(string t)
-        {
-            TITLE = t;
         }
         public void Transpose(Key k)
         {
@@ -74,12 +66,12 @@ namespace Music_Comp
             mInstruments = new List<Instrument>();
             mInstruments.Add(new Instrument(clef1, clef2, clef3, clef4));
         }
-        public void Draw()
+        public void Draw(PaintEventArgs e)
         {
 
             foreach (Instrument instrument in mInstruments)
             {
-                instrument.Draw();
+                instrument.Draw(e);
             }
 
             int stanzas = mInstruments[0].GetNumberOfStaves() / mInstruments[0].GetNumberOfClefs();

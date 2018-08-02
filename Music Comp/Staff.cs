@@ -1,5 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Windows.Forms;
+using System.Drawing;
 
 namespace Music_Comp
 {
@@ -8,7 +9,7 @@ namespace Music_Comp
         List<Measure> measures;
 
         public static readonly int LINE_SPACING = 30;
-        //public static readonly int LENGTH = GraphicsPanel1.WIDTH - Song.LEFT_MARGIN - Song.RIGHT_MARGIN;
+        public static readonly int LENGTH = 1920 - Song.LEFT_MARGIN - Song.RIGHT_MARGIN;
         public static readonly int HEIGHT = 4 * LINE_SPACING;
 
         public int mYPosition;
@@ -30,8 +31,12 @@ namespace Music_Comp
         {
 
         }
-        public void Draw()
+        public void Draw(PaintEventArgs e)
         {
+            PointF p = new PointF(Song.LEFT_MARGIN, Song.TOP_MARGIN);
+            SizeF s = new SizeF(LENGTH, HEIGHT);
+            RectangleF imageRect = new RectangleF(p, s);
+            e.Graphics.DrawImage(Properties.Resources.Staff, imageRect);
             switch (mClef)
             {
                 case Clef.Treble:

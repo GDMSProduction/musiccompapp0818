@@ -42,7 +42,7 @@
             this.graphicsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.graphicsPanel.Location = new System.Drawing.Point(0, 0);
             this.graphicsPanel.Name = "graphicsPanel";
-            this.graphicsPanel.Size = new System.Drawing.Size(800, 450);
+            this.graphicsPanel.Size = new System.Drawing.Size(820, 475);
             this.graphicsPanel.TabIndex = 0;
             this.graphicsPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.graphicsPanel_Paint);
             // 
@@ -66,7 +66,7 @@
             this.titleTextBox.Location = new System.Drawing.Point(250, 3);
             this.titleTextBox.MaximumSize = new System.Drawing.Size(500, 100);
             this.titleTextBox.Name = "titleTextBox";
-            this.titleTextBox.Size = new System.Drawing.Size(300, 68);
+            this.titleTextBox.Size = new System.Drawing.Size(320, 68);
             this.titleTextBox.TabIndex = 0;
             this.titleTextBox.Text = "TITLE";
             this.titleTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -76,10 +76,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.AutoSize = true;
+            this.ClientSize = new System.Drawing.Size(820, 475);
             this.Controls.Add(this.graphicsPanel);
             this.Name = "MainForm";
-            this.Text = "Form1";
+            this.Text = "Music Composition App";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.graphicsPanel.ResumeLayout(false);
             this.graphicsPanel.PerformLayout();
             this.ResumeLayout(false);

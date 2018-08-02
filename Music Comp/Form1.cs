@@ -12,16 +12,25 @@ namespace Music_Comp
 {
     public partial class MainForm : Form
     {
+        Song song;
+
         public MainForm()
         {
             InitializeComponent();
+            song = new Song();
+            song.AddInstrument(Clef.Treble);
         }
 
         private void graphicsPanel_Paint(object sender, PaintEventArgs e)
         {
-            Pen drawpen = new Pen(Color.Black, 2);
+            Pen drawPen = new Pen(Color.Black, 2);
             Rectangle rectangle = new Rectangle(10, 50, graphicsPanel.Width - 20, graphicsPanel.Height / 2);
-            e.Graphics.DrawRectangle(drawpen, rectangle);
+            drawSong(e);
+        }
+
+        private void drawSong(PaintEventArgs e)
+        {
+            song.Draw(e);
         }
 
         private void titleTextBox_TextChanged(object sender, EventArgs e)
