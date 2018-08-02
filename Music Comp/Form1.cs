@@ -29,6 +29,7 @@ namespace Music_Comp
             Pen drawPen = new Pen(Color.Black, 2);
             Rectangle rectangle = new Rectangle(10, 50, Screen.PrimaryScreen.Bounds.Width - 20, Screen.PrimaryScreen.Bounds.Height / 2);
             drawSong(e);
+            drawPen.Dispose();
         }
 
         private void drawSong(PaintEventArgs e)
