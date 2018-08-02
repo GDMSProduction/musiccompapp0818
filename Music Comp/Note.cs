@@ -2,29 +2,35 @@
 {
     class Note
     {
-        Pitch pitch;
-        Accidental accidental;
-        Durration durration;
-        byte octave = 4;
+        Pitch mPitch;
+        Accidental mAccidental;
+        Durration mDurration;
 
-        public Note(Pitch p, Accidental a, Durration d, byte o)
+        sbyte mOctave = 4;
+
+        public Note(Pitch p, Accidental a, Durration d, sbyte o)
         {
-            pitch = p;
-            accidental = a;
-            durration = d;
-            octave = o;
+            mPitch = p;
+            mAccidental = a;
+            mDurration = d;
+
+            mOctave = o;
         }
-        public Pitch getPitch()
+        public Pitch GetPitch()
         {
-            return pitch;
+            return mPitch;
         }
-        public Accidental getAccidental()
+        public Accidental GetAccidental()
         {
-            return accidental;
+            return mAccidental;
         }
-        public Durration getDurration()
+        public Durration GetDurration()
         {
-            return durration;
+            return mDurration;
+        }
+        public sbyte GetOctave()
+        {
+            return mOctave;
         }
     }
 }
