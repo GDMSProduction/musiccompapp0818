@@ -98,8 +98,6 @@ namespace Music_Comp
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
-
-            /* This is a merge test */
         }
     }
 }

@@ -121,11 +121,50 @@
   <data name="BassClef" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bassClef.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="DoubleFlat" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\681px-Doubleflat.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DoubleSharp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2000px-Double_sharp_sign.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="EighthNote" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\corbeau-Eighth-note.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="EighthRest" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2000px-Eighth_rest.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flat" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2000px-Flat.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FourFour" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\4-4meter-original.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="HalfNote" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\kisspng-musical-note-half-note-eighth-note-rest-clef-notes-5ac44a91a75f99.9225747315228135856856.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="QuarterNote" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="HalfRest" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\hrest.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Natural" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1000px-Natural_sign.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Note" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\3ddb4058-36ba-4c87-9d8b-0ef29bd8ab09.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="QuarterRest" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2000px-Quarter_rest.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Sharp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2000px-Sharp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SixEight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Key_Signature_6_8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SixteenthNote" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\kisspng-sixteenth-note-musical-note-quarter-note-eighth-no-music-notes-5ac3f15c3e76b2.7995407015227907482559.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SixteenthRest" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2000px-16th_rest.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Staff" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\2000px-Music-staff.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -135,5 +174,8 @@
   </data>
   <data name="WholeNote" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\2000px-WholeNote.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WholeRest" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2000px-Whole_rest.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
