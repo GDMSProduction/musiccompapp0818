@@ -10,31 +10,30 @@ using System.Windows.Forms;
 
 namespace Music_Comp
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
-
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
+        private void graphicsPanel_Paint(object sender, PaintEventArgs e)
         {
             Pen drawpen = new Pen(Color.Black, 2);
-            Rectangle rectangle = new Rectangle(10, 50, panel1.Width - 20, panel1.Height / 2);
+            Rectangle rectangle = new Rectangle(10, 50, graphicsPanel.Width - 20, graphicsPanel.Height / 2);
             e.Graphics.DrawRectangle(drawpen, rectangle);
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void titleTextBox_TextChanged(object sender, EventArgs e)
         {
-            this.SetStyle(ControlStyles.SupportsTransparentBackColor, true);
-            this.BackColor = Color.Transparent;
+            SetStyle(ControlStyles.SupportsTransparentBackColor, true);
+            BackColor = Color.Transparent;
         }
 
-        private void textBox2_TextChanged(object sender, EventArgs e)
+        private void composerTextBox_TextChanged(object sender, EventArgs e)
         {
-            this.SetStyle(ControlStyles.SupportsTransparentBackColor, true);
-            this.BackColor = Color.Transparent;
+            SetStyle(ControlStyles.SupportsTransparentBackColor, true);
+            BackColor = Color.Transparent;
         }
     }
 }

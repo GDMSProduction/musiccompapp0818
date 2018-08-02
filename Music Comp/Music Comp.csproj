@@ -63,6 +63,9 @@
     </Compile>
     <Compile Include="Song.cs" />
     <Compile Include="Staff.cs" />
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
@@ -85,19 +88,67 @@
     <None Include="Resources\3ddb4058-36ba-4c87-9d8b-0ef29bd8ab09.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\4-4meter-original.png" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Resources\7f2acb1d0c86a291d0b788510c39b502.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\2000px-Music-staff.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\2000px-WholeNote.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\bassClef.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\blank-manuscript-paper.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\corbeau-Eighth-note.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\hrest.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Key_Signature_6_8.png" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Resources\kisspng-musical-note-half-note-eighth-note-rest-clef-notes-5ac44a91a75f99.9225747315228135856856.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\kisspng-sixteenth-note-musical-note-quarter-note-eighth-no-music-notes-5ac3f15c3e76b2.7995407015227907482559.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\whole_note_by_raqib09-dbcpb7t.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\681px-Doubleflat.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1000px-Natural_sign.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2000px-16th_rest.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2000px-Double_sharp_sign.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2000px-Eighth_rest.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2000px-Flat.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2000px-Music-staff.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2000px-Quarter_rest.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2000px-Sharp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2000px-Whole_rest.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2000px-WholeNote.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
