@@ -5,7 +5,6 @@ namespace Music_Comp
     class Instrument
     {
         Staff[] mStaves;
-
         Clef[] mClefs;
 
         public Instrument(Clef c)
