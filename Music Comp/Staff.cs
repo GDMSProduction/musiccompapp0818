@@ -7,6 +7,10 @@ namespace Music_Comp
     {
         List<Measure> measures;
 
+        public static readonly int LINE_SPACING = 30;
+        //public static readonly int LENGTH = GraphicsPanel1.WIDTH - Song.LEFT_MARGIN - Song.RIGHT_MARGIN;
+        public static readonly int HEIGHT = 4 * LINE_SPACING;
+
         public int mYPosition;
         public int mCursorX;
 
