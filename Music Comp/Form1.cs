@@ -17,14 +17,17 @@ namespace Music_Comp
         public MainForm()
         {
             InitializeComponent();
+            titleTextBox.Location = new Point(graphicsPanel.Width / 2 - titleTextBox.Width / 2, 120);
+            composerTextBox.Location = new Point(graphicsPanel.Width - composerTextBox.Width * 2, 200);
             song = new Song();
             song.AddInstrument(Clef.Treble);
+            //song.AddInstrument(Clef.Bass);
         }
 
         private void graphicsPanel_Paint(object sender, PaintEventArgs e)
         {
             Pen drawPen = new Pen(Color.Black, 2);
-            Rectangle rectangle = new Rectangle(10, 50, graphicsPanel.Width - 20, graphicsPanel.Height / 2);
+            Rectangle rectangle = new Rectangle(10, 50, Screen.PrimaryScreen.Bounds.Width - 20, Screen.PrimaryScreen.Bounds.Height / 2);
             drawSong(e);
         }
 

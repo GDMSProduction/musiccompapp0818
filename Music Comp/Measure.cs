@@ -29,7 +29,7 @@ namespace Music_Comp
         {
             return mNotes[i];
         }
-        public void AddNotes(Note n)
+        public void AddNote(Note n)
         {
             mNotes.Add(n);
         }

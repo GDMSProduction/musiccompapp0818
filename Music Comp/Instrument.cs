@@ -11,8 +11,8 @@ namespace Music_Comp
         public Instrument(Clef c)
         {
             mClefs = new Clef[1];
-            AddStaves(1);
             mClefs[0] = c;
+            AddStaves(1);
         }
         public Instrument(Clef c1, Clef c2)
         {
@@ -59,8 +59,7 @@ namespace Music_Comp
             mStaves = new Staff[numberOfStaves];
             for (int i = 0; i < mStaves.Length; i++)
             {
-                Staff s = new Staff(mClefs[i], Song.cursorY);
-                mStaves[i] = s;
+                mStaves[i] = new Staff(mClefs[i], Song.cursorY);
                 Song.cursorY += Staff.HEIGHT + Song.STAFF_SPACING;
             }
         }

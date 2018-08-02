@@ -8,8 +8,8 @@ namespace Music_Comp
         List<Instrument> mInstruments = new List<Instrument>();
 
         public static readonly int TOP_MARGIN = 300;
-        public static readonly int LEFT_MARGIN = 50;
-        public static readonly int RIGHT_MARGIN = 20;
+        public static readonly int LEFT_MARGIN = 100;
+        public static readonly int RIGHT_MARGIN = 50;
         public static readonly int STAFF_SPACING = 60;
         public static int cursorY = TOP_MARGIN;
         public static int cursorX = LEFT_MARGIN;
@@ -49,7 +49,6 @@ namespace Music_Comp
         }
         public void AddInstrument(Clef clef)
         {
-            mInstruments = new List<Instrument>();
             mInstruments.Add(new Instrument(clef));
         }
         public void AddInstrument(Clef clef1, Clef clef2)
@@ -58,26 +57,17 @@ namespace Music_Comp
         }
         public void AddInstrument(Clef clef1, Clef clef2, Clef clef3)
         {
-            mInstruments = new List<Instrument>();
             mInstruments.Add(new Instrument(clef1, clef2, clef3));
         }
         public void AddInstrument(Clef clef1, Clef clef2, Clef clef3, Clef clef4)
         {
-            mInstruments = new List<Instrument>();
             mInstruments.Add(new Instrument(clef1, clef2, clef3, clef4));
         }
         public void Draw(PaintEventArgs e)
         {
-
             foreach (Instrument instrument in mInstruments)
             {
                 instrument.Draw(e);
-            }
-
-            int stanzas = mInstruments[0].GetNumberOfStaves() / mInstruments[0].GetNumberOfClefs();
-            for (int i = 0; i < stanzas; i++)
-            {
-
             }
         }
     }
