@@ -56,17 +56,18 @@
     <Compile Include="Note.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Song.cs" />
     <Compile Include="Staff.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -79,6 +80,24 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3ddb4058-36ba-4c87-9d8b-0ef29bd8ab09.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\7f2acb1d0c86a291d0b788510c39b502.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2000px-Music-staff.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2000px-WholeNote.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bassClef.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\kisspng-musical-note-half-note-eighth-note-rest-clef-notes-5ac44a91a75f99.9225747315228135856856.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
