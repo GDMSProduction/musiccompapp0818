@@ -39,6 +39,7 @@ namespace Music_Comp
         private void graphicsPanel_Paint(object sender, PaintEventArgs e)
         {
             drawSong(e);
+            drawPen.Dispose();
         }
 
         private void drawSong(PaintEventArgs e)
