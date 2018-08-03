@@ -36,28 +36,33 @@ namespace Music_Comp
         }
         public void Draw(PaintEventArgs e)
         {
-            PointF p = new PointF(Song.LEFT_MARGIN, Song.TOP_MARGIN);
-            SizeF s = new SizeF(LENGTH, HEIGHT);
-            RectangleF imageRect = new RectangleF(p, s);
+            Point location = new Point(Song.LEFT_MARGIN, Song.TOP_MARGIN + mYPosition);
+            Size size = new Size(LENGTH, HEIGHT);
+            Rectangle imageRect = new Rectangle(location, size);
 
             e.Graphics.DrawImage(Properties.Resources.Staff, imageRect);
-
-            p.X = Song.LEFT_MARGIN - 50;
-            p.Y = Song.TOP_MARGIN - 50;
-            s.Width = HEIGHT * 1.5f;
-            s.Height = HEIGHT * 2;
-
-            imageRect = new RectangleF(p, s);
 
             switch (mClef)
             {
                 case Clef.Treble:
+                    location.X = Song.LEFT_MARGIN - 49 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH;
+                    location.Y = Song.TOP_MARGIN - 60 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH + mYPosition;
+                    size.Width = (int)(HEIGHT * 1.50f);
+                    size.Height = (int)(HEIGHT * 2.28);
+                    imageRect = new Rectangle(location, size);
+
                     e.Graphics.DrawImage(Properties.Resources.TrebleClef, imageRect);
                     break;
                 case Clef.Alto:
 
                     break;
                 case Clef.Bass:
+                    location.X = Song.LEFT_MARGIN - 35 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH;
+                    location.Y = Song.TOP_MARGIN - 50 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH + mYPosition;
+                    size.Width = (int)(HEIGHT * 1.48f);
+                    size.Height = (int)(HEIGHT * 1.82f);
+                    imageRect = new Rectangle(location, size);
+
                     e.Graphics.DrawImage(Properties.Resources.BassClef, imageRect);
                     break;
                 case Clef.Tenor:
@@ -234,7 +239,13 @@ namespace Music_Comp
 
                     break;
                 case Time.SixEight:
+                    location.X = Song.LEFT_MARGIN * Song.PAGE_WIDTH / Song.SCREEN_WIDTH + 120;
+                    location.Y = Song.TOP_MARGIN - 1 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH + mYPosition;
+                    size.Width = (int)(HEIGHT * 0.5);
+                    size.Height = (int)(HEIGHT);
+                    imageRect = new Rectangle(location, size);
 
+                    e.Graphics.DrawImage(Properties.Resources.SixEight, imageRect);
                     break;
                 case Time.ThreeEight:
 
@@ -246,7 +257,13 @@ namespace Music_Comp
 
                     break;
                 case Time.FourFour:
+                    location.X = Song.LEFT_MARGIN * Song.PAGE_WIDTH / Song.SCREEN_WIDTH + 120;
+                    location.Y = Song.TOP_MARGIN - 1 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH + mYPosition;
+                    size.Width = (int)(HEIGHT * 0.5);
+                    size.Height = (int)(HEIGHT);
+                    imageRect = new Rectangle(location, size);
 
+                    e.Graphics.DrawImage(Properties.Resources.FourFour, imageRect);
                     break;
             }
 

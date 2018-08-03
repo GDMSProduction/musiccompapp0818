@@ -32,14 +32,14 @@ namespace Music_Comp
             composerTextBox.Location = new Point(PAGE_WIDTH - composerTextBox.Width - 100 * PAGE_WIDTH / SCREEN_WIDTH, 220 * PAGE_WIDTH / SCREEN_WIDTH);
 
             song = new Song(graphicsPanel.Width);
-            song.AddInstrument(Clef.Treble);
-            //song.AddInstrument(Clef.Bass);
+            song.AddInstrument(Clef.Treble, Clef.Bass);
+            song.AddInstrument(Clef.Bass);
+            //song.EditTimeSignature(Time.CompoundDuple);
         }
 
         private void graphicsPanel_Paint(object sender, PaintEventArgs e)
         {
             drawSong(e);
-            drawPen.Dispose();
         }
 
         private void drawSong(PaintEventArgs e)
