@@ -87,6 +87,7 @@ namespace Music_Comp
         Triplet,
         Drag
     }
+
     static class Program
     {
         /// <summary>

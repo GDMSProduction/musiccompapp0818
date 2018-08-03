@@ -41,20 +41,23 @@
             this.graphicsPanel.Controls.Add(this.titleTextBox);
             this.graphicsPanel.Location = new System.Drawing.Point(0, 0);
             this.graphicsPanel.Name = "graphicsPanel";
-            this.graphicsPanel.Size = new System.Drawing.Size(2880, 1800);
+            this.graphicsPanel.Size = new System.Drawing.Size(2500, 2500);
             this.graphicsPanel.TabIndex = 0;
             this.graphicsPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.graphicsPanel_Paint);
+            this.graphicsPanel.Resize += new System.EventHandler(this.graphicsPanel_Resize);
             // 
             // composerTextBox
             // 
             this.composerTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.composerTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.composerTextBox.Location = new System.Drawing.Point(449, 57);
+            this.composerTextBox.Location = new System.Drawing.Point(478, 85);
+            this.composerTextBox.MaxLength = 20;
             this.composerTextBox.Name = "composerTextBox";
-            this.composerTextBox.Size = new System.Drawing.Size(201, 46);
+            this.composerTextBox.Size = new System.Drawing.Size(203, 46);
             this.composerTextBox.TabIndex = 1;
             this.composerTextBox.TabStop = false;
             this.composerTextBox.Text = "Composer";
+            this.composerTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.composerTextBox.TextChanged += new System.EventHandler(this.composerTextBox_TextChanged);
             // 
             // titleTextBox
@@ -64,10 +67,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.titleTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.titleTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 60F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.titleTextBox.Location = new System.Drawing.Point(0, 3);
-            this.titleTextBox.MaximumSize = new System.Drawing.Size(500, 100);
+            this.titleTextBox.Location = new System.Drawing.Point(12, 12);
+            this.titleTextBox.MaximumSize = new System.Drawing.Size(2000, 200);
+            this.titleTextBox.MaxLength = 20;
             this.titleTextBox.Name = "titleTextBox";
-            this.titleTextBox.Size = new System.Drawing.Size(500, 100);
+            this.titleTextBox.Size = new System.Drawing.Size(460, 136);
             this.titleTextBox.TabIndex = 0;
             this.titleTextBox.TabStop = false;
             this.titleTextBox.Text = "TITLE";
@@ -79,11 +83,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(814, 503);
+            this.ClientSize = new System.Drawing.Size(1078, 652);
             this.Controls.Add(this.graphicsPanel);
             this.Name = "MainForm";
             this.Text = "Music Composition App";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Resize += new System.EventHandler(this.MainForm_Resize);
             this.graphicsPanel.ResumeLayout(false);
             this.graphicsPanel.PerformLayout();
             this.ResumeLayout(false);

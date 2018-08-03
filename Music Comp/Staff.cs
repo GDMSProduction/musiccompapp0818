@@ -8,9 +8,9 @@ namespace Music_Comp
     {
         List<Measure> measures;
 
-        public static readonly int LINE_SPACING = 30;
-        public static readonly int LENGTH = 1920 - Song.LEFT_MARGIN - Song.RIGHT_MARGIN;
-        public static readonly int HEIGHT = 4 * LINE_SPACING;
+        public static int LINE_SPACING;
+        public static int LENGTH;
+        public static int HEIGHT;
 
         public int mYPosition;
         public int mCursorX;
@@ -19,6 +19,9 @@ namespace Music_Comp
 
         public Staff(Clef c, int ypos)
         {
+            LINE_SPACING = 30 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH;
+            LENGTH = Song.PAGE_WIDTH - Song.LEFT_MARGIN - Song.RIGHT_MARGIN * Song.PAGE_WIDTH / Song.SCREEN_WIDTH;
+            HEIGHT = 4 * LINE_SPACING * Song.PAGE_WIDTH / Song.SCREEN_WIDTH;
             mClef = c;
             mYPosition = ypos;
             mCursorX = Song.LEFT_MARGIN;

@@ -12,22 +12,32 @@ namespace Music_Comp
 {
     public partial class MainForm : Form
     {
+        public static int SCREEN_WIDTH;
+        public static int PAGE_WIDTH;
+
         Song song;
 
         public MainForm()
         {
             InitializeComponent();
-            titleTextBox.Location = new Point(graphicsPanel.Width / 2 - titleTextBox.Width / 2, 120);
-            composerTextBox.Location = new Point(graphicsPanel.Width - composerTextBox.Width * 2, 200);
-            song = new Song();
+
+            SCREEN_WIDTH = Screen.PrimaryScreen.Bounds.Width;
+            PAGE_WIDTH = graphicsPanel.Width;
+
+            titleTextBox.Font = new Font("Microsoft Sans Serif", 70 * PAGE_WIDTH / SCREEN_WIDTH);
+            titleTextBox.Size = new Size(1470 * PAGE_WIDTH / SCREEN_WIDTH, 140 * PAGE_WIDTH / SCREEN_WIDTH);
+            titleTextBox.Location = new Point(PAGE_WIDTH / 2 - titleTextBox.Width / 2, 120 * PAGE_WIDTH / SCREEN_WIDTH);
+            composerTextBox.Font = new Font("Microsoft Sans Serif", 25 * PAGE_WIDTH / SCREEN_WIDTH);
+            composerTextBox.Size = new Size(615 * PAGE_WIDTH / SCREEN_WIDTH, 50 * PAGE_WIDTH / SCREEN_WIDTH);
+            composerTextBox.Location = new Point(PAGE_WIDTH - composerTextBox.Width - 100 * PAGE_WIDTH / SCREEN_WIDTH, 220 * PAGE_WIDTH / SCREEN_WIDTH);
+
+            song = new Song(graphicsPanel.Width);
             song.AddInstrument(Clef.Treble);
             //song.AddInstrument(Clef.Bass);
         }
 
         private void graphicsPanel_Paint(object sender, PaintEventArgs e)
         {
-            Pen drawPen = new Pen(Color.Black, 2);
-            Rectangle rectangle = new Rectangle(10, 50, Screen.PrimaryScreen.Bounds.Width - 20, Screen.PrimaryScreen.Bounds.Height / 2);
             drawSong(e);
         }
 
@@ -46,6 +56,25 @@ namespace Music_Comp
         {
             SetStyle(ControlStyles.SupportsTransparentBackColor, true);
             BackColor = Color.Transparent;
+        }
+
+        private void MainForm_Resize(object sender, EventArgs e)
+        {
+            if (Width > graphicsPanel.Width)
+                graphicsPanel.Location = new Point(Width / 2 - graphicsPanel.Width / 2, 0);
+            else
+                graphicsPanel.Location = new Point(0, 0);
+        }
+
+        private void graphicsPanel_Resize(object sender, EventArgs e)
+        {
+            SCREEN_WIDTH = Screen.PrimaryScreen.Bounds.Width;
+            PAGE_WIDTH = graphicsPanel.Width;
+
+            titleTextBox.Location = new Point(PAGE_WIDTH / 2 - titleTextBox.Width / 2, 120 * PAGE_WIDTH / SCREEN_WIDTH);
+            composerTextBox.Location = new Point(PAGE_WIDTH - composerTextBox.Width - 100 * PAGE_WIDTH / SCREEN_WIDTH, 220 * PAGE_WIDTH / SCREEN_WIDTH);
+
+            graphicsPanel.Invalidate();
         }
     }
 }

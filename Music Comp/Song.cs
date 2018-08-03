@@ -7,10 +7,12 @@ namespace Music_Comp
     {
         List<Instrument> mInstruments = new List<Instrument>();
 
-        public static readonly int TOP_MARGIN = 300;
-        public static readonly int LEFT_MARGIN = 100;
-        public static readonly int RIGHT_MARGIN = 50;
-        public static readonly int STAFF_SPACING = 60;
+        public static int SCREEN_WIDTH;
+        public static int PAGE_WIDTH;
+        public static int TOP_MARGIN;
+        public static int LEFT_MARGIN;
+        public static int RIGHT_MARGIN;
+        public static int STAFF_SPACING;
         public static int cursorY = TOP_MARGIN;
         public static int cursorX = LEFT_MARGIN;
 
@@ -18,13 +20,14 @@ namespace Music_Comp
         public static Key KEY = Key.C;
         public static Time TIME = Time.Common;
 
-        public Song()
+        public Song(int panelWidth)
         {
-
-        }
-        public Song(string title)
-        {
-
+            SCREEN_WIDTH = Screen.PrimaryScreen.Bounds.Width;
+            PAGE_WIDTH = panelWidth;
+            TOP_MARGIN = 300 * PAGE_WIDTH / SCREEN_WIDTH;
+            LEFT_MARGIN = 100 * PAGE_WIDTH / SCREEN_WIDTH;
+            RIGHT_MARGIN = 50 * PAGE_WIDTH / SCREEN_WIDTH;
+            STAFF_SPACING = 60 * PAGE_WIDTH / SCREEN_WIDTH;
         }
         public Song(string title, Key k, Time t)
         {
