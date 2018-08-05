@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Forms;
-
+using System.Drawing;
 namespace Music_Comp
 {
     class Instrument
@@ -66,9 +66,7 @@ namespace Music_Comp
         public void Draw(PaintEventArgs e)
         {
             foreach (Staff staff in mStaves)
-            {
                 staff.Draw(e);
-            }
         }
     }
 }

@@ -25,6 +25,7 @@ namespace Music_Comp
             mClef = c;
             mYPosition = ypos;
             mCursorX = Song.LEFT_MARGIN;
+            Song.TOTAL_STAVES++;
         }
         public Measure GetMeasure(int i)
         {
