@@ -27,14 +27,15 @@ namespace Music_Comp
             titleTextBox.Font = new Font("Microsoft Sans Serif", 70 * PAGE_WIDTH / SCREEN_WIDTH);
             titleTextBox.Size = new Size(1470 * PAGE_WIDTH / SCREEN_WIDTH, 140 * PAGE_WIDTH / SCREEN_WIDTH);
             titleTextBox.Location = new Point(PAGE_WIDTH / 2 - titleTextBox.Width / 2, 120 * PAGE_WIDTH / SCREEN_WIDTH);
+
             composerTextBox.Font = new Font("Microsoft Sans Serif", 25 * PAGE_WIDTH / SCREEN_WIDTH);
             composerTextBox.Size = new Size(615 * PAGE_WIDTH / SCREEN_WIDTH, 50 * PAGE_WIDTH / SCREEN_WIDTH);
             composerTextBox.Location = new Point(PAGE_WIDTH - composerTextBox.Width - 100 * PAGE_WIDTH / SCREEN_WIDTH, 220 * PAGE_WIDTH / SCREEN_WIDTH);
 
             song = new Song(graphicsPanel.Width);
             song.AddInstrument(Clef.Treble, Clef.Bass);
-            song.AddInstrument(Clef.Bass);
-            //song.EditTimeSignature(Time.CompoundDuple);
+            song.AddInstrument(Clef.Treble);
+            song.EditTimeSignature(Time.CompoundDuple);
         }
 
         private void graphicsPanel_Paint(object sender, PaintEventArgs e)

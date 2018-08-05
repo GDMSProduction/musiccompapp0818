@@ -77,7 +77,7 @@ namespace Music_Comp
         B,
         Rest
     }
-    public enum Durration
+    public enum Duration
     {
         Whole,
         Half,

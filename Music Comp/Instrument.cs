@@ -61,6 +61,8 @@ namespace Music_Comp
             {
                 mStaves[i] = new Staff(mClefs[i], Song.cursorY);
                 Song.cursorY += Staff.HEIGHT + Song.STAFF_SPACING;
+                if (i == mStaves.Length - 1)
+                    Song.cursorY += Song.INSTRUMENT_SPACING;
             }
         }
         public void Draw(PaintEventArgs e)

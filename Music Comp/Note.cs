@@ -4,15 +4,15 @@
     {
         Pitch mPitch;
         Accidental mAccidental;
-        Durration mDurration;
+        Duration mDuration;
 
         sbyte mOctave = 4;
 
-        public Note(Pitch p, Accidental a, Durration d, sbyte o)
+        public Note(Pitch p, Accidental a, Duration d, sbyte o)
         {
             mPitch = p;
             mAccidental = a;
-            mDurration = d;
+            mDuration = d;
 
             mOctave = o;
         }
@@ -24,9 +24,9 @@
         {
             return mAccidental;
         }
-        public Durration GetDurration()
+        public Duration GetDurration()
         {
-            return mDurration;
+            return mDuration;
         }
         public sbyte GetOctave()
         {

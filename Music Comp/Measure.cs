@@ -7,14 +7,14 @@ namespace Music_Comp
     {
         List<Note> mNotes;
 
-        int mXPos;
+        float mXPos;
         int mLength;
 
         Clef mClef;
         Key mKey;
         Time mTime;
 
-        public Measure(int cursorX)
+        public Measure(float cursorX)
         {
             mXPos = cursorX;
             mNotes = new List<Note>();
