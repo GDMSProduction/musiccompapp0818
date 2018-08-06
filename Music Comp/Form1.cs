@@ -40,24 +40,14 @@ namespace Music_Comp
 
         private void graphicsPanel_Paint(object sender, PaintEventArgs e)
         {
+            zoomInButton.Location = new Point(Width - 110, Height - 200);
+            zoomOutButton.Location = new Point(Width - 110, Height - 150);
             drawSong(e);
         }
 
         private void drawSong(PaintEventArgs e)
         {
             song.Draw(e);
-        }
-
-        private void titleTextBox_TextChanged(object sender, EventArgs e)
-        {
-            SetStyle(ControlStyles.SupportsTransparentBackColor, true);
-            BackColor = Color.Transparent;
-        }
-
-        private void composerTextBox_TextChanged(object sender, EventArgs e)
-        {
-            SetStyle(ControlStyles.SupportsTransparentBackColor, true);
-            BackColor = Color.Transparent;
         }
 
         private void MainForm_Resize(object sender, EventArgs e)
@@ -73,10 +63,41 @@ namespace Music_Comp
             SCREEN_WIDTH = Screen.PrimaryScreen.Bounds.Width;
             PAGE_WIDTH = graphicsPanel.Width;
 
+            titleTextBox.Font = new Font("Microsoft Sans Serif", 70 * PAGE_WIDTH / SCREEN_WIDTH);
+            titleTextBox.Size = new Size(1470 * PAGE_WIDTH / SCREEN_WIDTH, 140 * PAGE_WIDTH / SCREEN_WIDTH);
             titleTextBox.Location = new Point(PAGE_WIDTH / 2 - titleTextBox.Width / 2, 120 * PAGE_WIDTH / SCREEN_WIDTH);
+
+            composerTextBox.Font = new Font("Microsoft Sans Serif", 25 * PAGE_WIDTH / SCREEN_WIDTH);
+            composerTextBox.Size = new Size(615 * PAGE_WIDTH / SCREEN_WIDTH, 50 * PAGE_WIDTH / SCREEN_WIDTH);
             composerTextBox.Location = new Point(PAGE_WIDTH - composerTextBox.Width - 100 * PAGE_WIDTH / SCREEN_WIDTH, 220 * PAGE_WIDTH / SCREEN_WIDTH);
 
+            Song.PAGE_WIDTH = graphicsPanel.Width;
+            Song.TOP_MARGIN = 300 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH;
+            Song.LEFT_MARGIN = 100 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH;
+            Song.RIGHT_MARGIN = 50 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH;
+            Song.STAFF_SPACING = 60 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH;
+            Song.INSTRUMENT_SPACING = 80 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH;
+
+            Staff.LINE_SPACING = 30 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH;
+            Staff.LENGTH = Song.PAGE_WIDTH - Song.LEFT_MARGIN - Song.RIGHT_MARGIN;
+            Staff.HEIGHT = 4 * Staff.LINE_SPACING;
+
+            if (Width > graphicsPanel.Width)
+                graphicsPanel.Location = new Point(Width / 2 - graphicsPanel.Width / 2, 0);
+            else
+                graphicsPanel.Location = new Point(0, 0);
+
             graphicsPanel.Invalidate();
+        }
+
+        private void zoomInButton_Click(object sender, EventArgs e)
+        {
+            graphicsPanel.Size = new Size(graphicsPanel.Size.Width + 100, graphicsPanel.Size.Height);
+        }
+
+        private void zoomOutButton_Click(object sender, EventArgs e)
+        {
+            graphicsPanel.Size = new Size(graphicsPanel.Size.Width - 100, graphicsPanel.Size.Height);
         }
     }
 }

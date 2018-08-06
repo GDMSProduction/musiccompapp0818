@@ -15,7 +15,8 @@ namespace Music_Comp
         public static float RIGHT_MARGIN;
         public static float STAFF_SPACING;
         public static float INSTRUMENT_SPACING;
-        public static float TOTAL_STAVES;
+        public static int TOTAL_INSTRUMENTS;
+        public static int TOTAL_STAVES;
         public static float cursorY = TOP_MARGIN;
         public static float cursorX = LEFT_MARGIN;
 

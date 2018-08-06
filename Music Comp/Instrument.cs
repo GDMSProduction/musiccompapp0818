@@ -59,10 +59,10 @@ namespace Music_Comp
             mStaves = new Staff[numberOfStaves];
             for (int i = 0; i < mStaves.Length; i++)
             {
-                mStaves[i] = new Staff(mClefs[i], Song.cursorY);
+                mStaves[i] = new Staff(mClefs[i], Song.TOTAL_INSTRUMENTS, Song.TOTAL_STAVES);
                 Song.cursorY += Staff.HEIGHT + Song.STAFF_SPACING;
                 if (i == mStaves.Length - 1)
-                    Song.cursorY += Song.INSTRUMENT_SPACING;
+                    Song.TOTAL_INSTRUMENTS++;
             }
         }
         public void Draw(PaintEventArgs e)

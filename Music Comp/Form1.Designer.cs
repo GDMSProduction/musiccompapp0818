@@ -29,8 +29,10 @@
         private void InitializeComponent()
         {
             this.graphicsPanel = new System.Windows.Forms.Panel();
+            this.zoomInButton = new System.Windows.Forms.Button();
             this.composerTextBox = new System.Windows.Forms.TextBox();
             this.titleTextBox = new System.Windows.Forms.TextBox();
+            this.zoomOutButton = new System.Windows.Forms.Button();
             this.graphicsPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -46,6 +48,19 @@
             this.graphicsPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.graphicsPanel_Paint);
             this.graphicsPanel.Resize += new System.EventHandler(this.graphicsPanel_Resize);
             // 
+            // zoomInButton
+            // 
+            this.zoomInButton.BackColor = System.Drawing.Color.White;
+            this.zoomInButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.zoomInButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.zoomInButton.Location = new System.Drawing.Point(900, 450);
+            this.zoomInButton.Name = "zoomInButton";
+            this.zoomInButton.Size = new System.Drawing.Size(75, 75);
+            this.zoomInButton.TabIndex = 1;
+            this.zoomInButton.Text = "+";
+            this.zoomInButton.UseVisualStyleBackColor = false;
+            this.zoomInButton.Click += new System.EventHandler(this.zoomInButton_Click);
+            // 
             // composerTextBox
             // 
             this.composerTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -58,7 +73,6 @@
             this.composerTextBox.TabStop = false;
             this.composerTextBox.Text = "Composer";
             this.composerTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.composerTextBox.TextChanged += new System.EventHandler(this.composerTextBox_TextChanged);
             // 
             // titleTextBox
             // 
@@ -76,7 +90,19 @@
             this.titleTextBox.TabStop = false;
             this.titleTextBox.Text = "TITLE";
             this.titleTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.titleTextBox.TextChanged += new System.EventHandler(this.titleTextBox_TextChanged);
+            // 
+            // zoomOutButton
+            // 
+            this.zoomOutButton.BackColor = System.Drawing.Color.White;
+            this.zoomOutButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.zoomOutButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.zoomOutButton.Location = new System.Drawing.Point(900, 550);
+            this.zoomOutButton.Name = "zoomOutButton";
+            this.zoomOutButton.Size = new System.Drawing.Size(75, 75);
+            this.zoomOutButton.TabIndex = 2;
+            this.zoomOutButton.Text = "-";
+            this.zoomOutButton.UseVisualStyleBackColor = false;
+            this.zoomOutButton.Click += new System.EventHandler(this.zoomOutButton_Click);
             // 
             // MainForm
             // 
@@ -84,6 +110,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1078, 652);
+            this.Controls.Add(this.zoomOutButton);
+            this.Controls.Add(this.zoomInButton);
             this.Controls.Add(this.graphicsPanel);
             this.Name = "MainForm";
             this.Text = "Music Composition App";
@@ -100,6 +128,8 @@
         private System.Windows.Forms.Panel graphicsPanel;
         private System.Windows.Forms.TextBox titleTextBox;
         private System.Windows.Forms.TextBox composerTextBox;
+        private System.Windows.Forms.Button zoomInButton;
+        private System.Windows.Forms.Button zoomOutButton;
     }
 }
 

@@ -12,19 +12,28 @@ namespace Music_Comp
         public static float LENGTH;
         public static float HEIGHT;
 
-        public float mYPosition;
-        public float mCursorX;
+        int instrumentNumber;
+        int staffNumber;
+
+        float mYPosition;
+        float mCursorX;
 
         Clef mClef;
 
-        public Staff(Clef c, float ypos)
+        public Staff(Clef c, int inst, int staff)
         {
             LINE_SPACING = 30 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH;
             LENGTH = Song.PAGE_WIDTH - Song.LEFT_MARGIN - Song.RIGHT_MARGIN;
             HEIGHT = 4 * LINE_SPACING;
-            mClef = c;
-            mYPosition = ypos;
+
+            instrumentNumber = inst;
+            staffNumber = staff;
+
+            mYPosition = instrumentNumber * Song.INSTRUMENT_SPACING + staffNumber * (HEIGHT + Song.STAFF_SPACING);
             mCursorX = Song.LEFT_MARGIN;
+
+            mClef = c;
+
             Song.TOTAL_STAVES++;
         }
         public Measure GetMeasure(int i)
@@ -37,6 +46,8 @@ namespace Music_Comp
         }
         public void Draw(PaintEventArgs e)
         {
+            mYPosition = instrumentNumber * Song.INSTRUMENT_SPACING + staffNumber * (HEIGHT + Song.STAFF_SPACING);
+
             PointF location = new PointF(Song.LEFT_MARGIN, Song.TOP_MARGIN + mYPosition);
             SizeF size = new SizeF(LENGTH, HEIGHT);
 
@@ -238,7 +249,7 @@ namespace Music_Comp
                     break;
                 case Time.SixEight:
                     location.X = Song.LEFT_MARGIN + 120 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH;
-                    location.Y = Song.TOP_MARGIN - 1 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH + mYPosition;
+                    location.Y = Song.TOP_MARGIN + mYPosition;
                     size.Width = HEIGHT * 0.5f;
                     size.Height = HEIGHT;
 
@@ -255,7 +266,7 @@ namespace Music_Comp
                     break;
                 case Time.FourFour:
                     location.X = Song.LEFT_MARGIN + 120 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH;
-                    location.Y = Song.TOP_MARGIN - 1 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH + mYPosition;
+                    location.Y = Song.TOP_MARGIN + mYPosition;
                     size.Width = HEIGHT * 0.5f;
                     size.Height = HEIGHT;
 
