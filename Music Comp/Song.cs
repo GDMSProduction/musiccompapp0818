@@ -17,8 +17,8 @@ namespace Music_Comp
         public static float INSTRUMENT_SPACING;
         public static int TOTAL_INSTRUMENTS;
         public static int TOTAL_STAVES;
-        public static float cursorY = TOP_MARGIN;
-        public static float cursorX = LEFT_MARGIN;
+        public static float cursorY;
+        public static float cursorX;
 
 
         public static Key KEY = Key.C;
@@ -34,6 +34,8 @@ namespace Music_Comp
             STAFF_SPACING = 60 * PAGE_WIDTH / SCREEN_WIDTH;
             INSTRUMENT_SPACING = 80 * PAGE_WIDTH / SCREEN_WIDTH;
             TOTAL_STAVES = 0;
+            cursorY = TOP_MARGIN;
+            cursorX = LEFT_MARGIN;
         }
         public Song(int panelWidth, Key k, Time t)
         {

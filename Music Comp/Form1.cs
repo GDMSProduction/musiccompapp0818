@@ -14,6 +14,7 @@ namespace Music_Comp
     {
         public static int SCREEN_WIDTH;
         public static int PAGE_WIDTH;
+        public static int PAGE_HEIGHT;
 
         Song song;
 
@@ -23,6 +24,7 @@ namespace Music_Comp
 
             SCREEN_WIDTH = Screen.PrimaryScreen.Bounds.Width;
             PAGE_WIDTH = graphicsPanel.Width;
+            PAGE_HEIGHT = graphicsPanel.Height;
 
             titleTextBox.Font = new Font("Microsoft Sans Serif", 70 * PAGE_WIDTH / SCREEN_WIDTH);
             titleTextBox.Size = new Size(1470 * PAGE_WIDTH / SCREEN_WIDTH, 140 * PAGE_WIDTH / SCREEN_WIDTH);
@@ -32,7 +34,7 @@ namespace Music_Comp
             composerTextBox.Size = new Size(615 * PAGE_WIDTH / SCREEN_WIDTH, 50 * PAGE_WIDTH / SCREEN_WIDTH);
             composerTextBox.Location = new Point(PAGE_WIDTH - composerTextBox.Width - 100 * PAGE_WIDTH / SCREEN_WIDTH, 220 * PAGE_WIDTH / SCREEN_WIDTH);
 
-            song = new Song(graphicsPanel.Width);
+            song = new Song(PAGE_WIDTH);
             song.AddInstrument(Clef.Treble, Clef.Bass);
             song.AddInstrument(Clef.Treble);
             song.EditTimeSignature(Time.CompoundDuple);
@@ -52,8 +54,8 @@ namespace Music_Comp
 
         private void MainForm_Resize(object sender, EventArgs e)
         {
-            if (Width > graphicsPanel.Width)
-                graphicsPanel.Location = new Point(Width / 2 - graphicsPanel.Width / 2, 0);
+            if (Width > PAGE_WIDTH)
+                graphicsPanel.Location = new Point(Width / 2 - PAGE_WIDTH / 2, 0);
             else
                 graphicsPanel.Location = new Point(0, 0);
         }
@@ -62,6 +64,7 @@ namespace Music_Comp
         {
             SCREEN_WIDTH = Screen.PrimaryScreen.Bounds.Width;
             PAGE_WIDTH = graphicsPanel.Width;
+            PAGE_HEIGHT = graphicsPanel.Height;
 
             titleTextBox.Font = new Font("Microsoft Sans Serif", 70 * PAGE_WIDTH / SCREEN_WIDTH);
             titleTextBox.Size = new Size(1470 * PAGE_WIDTH / SCREEN_WIDTH, 140 * PAGE_WIDTH / SCREEN_WIDTH);
@@ -92,12 +95,14 @@ namespace Music_Comp
 
         private void zoomInButton_Click(object sender, EventArgs e)
         {
-            graphicsPanel.Size = new Size(graphicsPanel.Size.Width + 100, graphicsPanel.Size.Height);
+            if (Song.PAGE_WIDTH < 5000)
+                graphicsPanel.Size = new Size(PAGE_WIDTH + 100, PAGE_HEIGHT + 100 * PAGE_HEIGHT / PAGE_WIDTH);
         }
 
         private void zoomOutButton_Click(object sender, EventArgs e)
         {
-            graphicsPanel.Size = new Size(graphicsPanel.Size.Width - 100, graphicsPanel.Size.Height);
+            if (Song.PAGE_WIDTH > 500)
+                graphicsPanel.Size = new Size(PAGE_WIDTH - 100, PAGE_HEIGHT - 100 * PAGE_HEIGHT / PAGE_WIDTH);
         }
     }
 }

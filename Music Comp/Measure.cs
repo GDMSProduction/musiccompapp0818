@@ -7,7 +7,7 @@ namespace Music_Comp
     {
         List<Note> mNotes;
 
-        float mXPos;
+        float mXPosition;
         int mLength;
 
         Clef mClef;
@@ -16,7 +16,7 @@ namespace Music_Comp
 
         public Measure(float cursorX)
         {
-            mXPos = cursorX;
+            mXPosition = cursorX;
             mNotes = new List<Note>();
             DrawBarLine();
             //add to cursor
