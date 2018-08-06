@@ -44,6 +44,40 @@ namespace Music_Comp
         {
             measures.Add(new Measure(mCursorX));
         }
+        public void DrawAccidental(float x, float y, Accidental a, PaintEventArgs e)
+        {
+            PointF location;
+            SizeF size;
+
+            switch (a)
+            {
+                case Accidental.DoubleFlat:
+                    location = new PointF(x, y - 50 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH);
+                    size = new SizeF(60 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH, 70 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH);
+                    e.Graphics.DrawImage(Properties.Resources.DoubleFlat, new RectangleF(location, size));
+                    break;
+                case Accidental.Flat:
+                    location = new PointF(x, y - 50 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH);
+                    size = new SizeF(35 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH, 68 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH);
+                    e.Graphics.DrawImage(Properties.Resources.Flat, new RectangleF(location, size));
+                    break;
+                case Accidental.Natural:
+                    location = new PointF(x, y - 38 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH);
+                    size = new SizeF(20 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH, 70 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH);
+                    e.Graphics.DrawImage(Properties.Resources.Natural, new RectangleF(location, size));
+                    break;
+                case Accidental.Sharp:
+                    location = new PointF(x, y - 38 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH);
+                    size = new SizeF(35 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH, 70 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH);
+                    e.Graphics.DrawImage(Properties.Resources.Sharp, new RectangleF(location, size));
+                    break;
+                case Accidental.DoubleSharp:
+                    location = new PointF(x, y - 20 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH);
+                    size = new SizeF(35 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH, 35 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH);
+                    e.Graphics.DrawImage(Properties.Resources.DoubleSharp, new RectangleF(location, size));
+                    break;
+            }
+        }
         public void Draw(PaintEventArgs e)
         {
             mYPosition = instrumentNumber * Song.INSTRUMENT_SPACING + staffNumber * (HEIGHT + Song.STAFF_SPACING);
@@ -62,6 +96,13 @@ namespace Music_Comp
                     size.Height = HEIGHT * 2.28f;
 
                     e.Graphics.DrawImage(Properties.Resources.TrebleClef, new RectangleF(location, size));
+
+                    DrawAccidental(400 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH, 420 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH, Accidental.DoubleFlat, e);
+                    DrawAccidental(500 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH, 420 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH, Accidental.Flat, e);
+                    DrawAccidental(600 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH, 420 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH, Accidental.Natural, e);
+                    DrawAccidental(700 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH, 420 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH, Accidental.Sharp, e);
+                    DrawAccidental(800 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH, 420 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH, Accidental.DoubleSharp, e);
+
                     break;
                 case Clef.Alto:
 
@@ -209,7 +250,7 @@ namespace Music_Comp
                         cursor += 2;
                         if (key > (Key)1)
                         {
-                            drawAccidental(12, (staffNumber) * height * icount + height * inum + 10 + (int)clef, Accidental.Sharp);                         //A
+                            drawAccidental(12, (staffNumber) * height * icount + height * inum + 10 + (int)clef, Accidental.Sharp);                        //A
                             cursor += 2;
                             if (key > (Key)2)
                             {
@@ -229,7 +270,7 @@ namespace Music_Comp
                                             cursor += 2;
                                             if (key > (Key)6)
                                             {
-                                                drawAccidental(22, (staffNumber) * height * icount + height * inum + 4 + (int)clef, Accidental.Sharp);         //F
+                                                drawAccidental(22, (staffNumber) * height * icount + height * inum + 4 + (int)clef, Accidental.Sharp);     //F
                                                 cursor += 2;
                                             }
                                         }
