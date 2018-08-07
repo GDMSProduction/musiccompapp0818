@@ -39,6 +39,9 @@ namespace Music_Comp
 
             song = new Song(PAGE_WIDTH, Key.Eflat, Time.Common);
             song.AddInstrument(Clef.Treble, Clef.Treble, Clef.Treble, Clef.Bass);
+            ActiveControl = graphicsPanel;
+
+            (graphicsPanel as Control).KeyUp += new KeyEventHandler(graphicsPanel_KeyUp);
         }
 
         private void graphicsPanel_Paint(object sender, PaintEventArgs e)
@@ -117,6 +120,45 @@ namespace Music_Comp
             {
                 
             }
+        }
+
+        private void graphicsPanel_KeyUp(object sender, KeyEventArgs e)
+        {
+            Note n = new Note(Pitch.A, Accidental.Natural, Duration.Quarter, 4);
+
+            if (e.KeyCode == Keys.D1 || e.KeyCode == Keys.A)
+            {
+                n = new Note(Pitch.A, Accidental.Natural, Duration.Quarter, 4);
+            }
+            else if (e.KeyCode == Keys.D2 || e.KeyCode == Keys.B)
+            {
+                n = new Note(Pitch.B, Accidental.Natural, Duration.Quarter, 4);
+            }
+            else if (e.KeyCode == Keys.D3 || e.KeyCode == Keys.C)
+            {
+                n = new Note(Pitch.C, Accidental.Natural, Duration.Quarter, 4);
+            }
+            else if (e.KeyCode == Keys.D4 || e.KeyCode == Keys.D)
+            {
+                n = new Note(Pitch.D, Accidental.Natural, Duration.Quarter, 4);
+            }
+            else if (e.KeyCode == Keys.D5 || e.KeyCode == Keys.F)
+            {
+                n = new Note(Pitch.F, Accidental.Natural, Duration.Quarter, 4);
+            }
+            else if (e.KeyCode == Keys.D6 || e.KeyCode == Keys.G)
+            {
+                n = new Note(Pitch.G, Accidental.Natural, Duration.Quarter, 4);
+            }
+
+            song.GetInstrument(0).GetStaff(0).GetMeasure(0).AddNote(n);
+
+            graphicsPanel.Invalidate();
+        }
+
+        private void MainForm_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
         }
     }
 }

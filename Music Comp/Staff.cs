@@ -32,6 +32,8 @@ namespace Music_Comp
             mYPosition = instrumentNumber * Song.INSTRUMENT_SPACING + staffNumber * (HEIGHT + Song.STAFF_SPACING);
 
             mClef = c;
+            measures = new List<Measure>();
+            AddMeasure();
 
             Song.TOTAL_STAVES++;
         }
@@ -153,6 +155,11 @@ namespace Music_Comp
             }
 
             mCursorX += 90 * Song._SCALE;
+
+            foreach (Measure measure in measures)
+            {
+                measure.Draw(e);
+            }
         }
     }
 }
