@@ -41,7 +41,7 @@ namespace Music_Comp
         }
         public void AddMeasure()
         {
-            measures.Add(new Measure(mCursorX));
+            measures.Add(new Measure(mClef, mCursorX));
         }
         public void DrawAccidental(float x, float y, Accidental a, PaintEventArgs e)
         {

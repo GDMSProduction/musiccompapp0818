@@ -142,7 +142,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1078, 652);
+            this.ClientSize = new System.Drawing.Size(1104, 678);
             this.Controls.Add(this.zoomOutButton);
             this.Controls.Add(this.zoomInButton);
             this.Controls.Add(this.graphicsPanel);
