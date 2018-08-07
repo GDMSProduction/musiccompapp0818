@@ -22,7 +22,7 @@ namespace Music_Comp
 
         public Staff(Clef c, int inst, int staff)
         {
-            LINE_SPACING = 30 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH;
+            LINE_SPACING = 30 * Song._SCALE;
             LENGTH = Song.PAGE_WIDTH - Song.LEFT_MARGIN - Song.RIGHT_MARGIN;
             HEIGHT = 4 * LINE_SPACING;
 
@@ -30,7 +30,6 @@ namespace Music_Comp
             staffNumber = staff;
 
             mYPosition = instrumentNumber * Song.INSTRUMENT_SPACING + staffNumber * (HEIGHT + Song.STAFF_SPACING);
-            mCursorX = Song.LEFT_MARGIN;
 
             mClef = c;
 
@@ -46,40 +45,28 @@ namespace Music_Comp
         }
         public void DrawAccidental(float x, float y, Accidental a, PaintEventArgs e)
         {
-            PointF location;
-            SizeF size;
-
             switch (a)
             {
                 case Accidental.DoubleFlat:
-                    location = new PointF(x, y - 50 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH);
-                    size = new SizeF(60 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH, 70 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH);
-                    e.Graphics.DrawImage(Properties.Resources.DoubleFlat, new RectangleF(location, size));
+                    e.Graphics.DrawImage(Properties.Resources.DoubleFlat, new RectangleF(x, y - 50 * Song._SCALE, 60 * Song._SCALE, 70 * Song._SCALE));
                     break;
                 case Accidental.Flat:
-                    location = new PointF(x, y - 50 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH);
-                    size = new SizeF(35 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH, 68 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH);
-                    e.Graphics.DrawImage(Properties.Resources.Flat, new RectangleF(location, size));
+                    e.Graphics.DrawImage(Properties.Resources.Flat, new RectangleF(x, y - 50 * Song._SCALE, 35 * Song._SCALE, 68 * Song._SCALE));
                     break;
                 case Accidental.Natural:
-                    location = new PointF(x, y - 38 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH);
-                    size = new SizeF(20 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH, 70 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH);
-                    e.Graphics.DrawImage(Properties.Resources.Natural, new RectangleF(location, size));
+                    e.Graphics.DrawImage(Properties.Resources.Natural, new RectangleF(x, y - 38 * Song._SCALE, 20 * Song._SCALE, 70 * Song._SCALE));
                     break;
                 case Accidental.Sharp:
-                    location = new PointF(x, y - 38 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH);
-                    size = new SizeF(35 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH, 70 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH);
-                    e.Graphics.DrawImage(Properties.Resources.Sharp, new RectangleF(location, size));
+                    e.Graphics.DrawImage(Properties.Resources.Sharp, new RectangleF(x, y - 38 * Song._SCALE, 35 * Song._SCALE, 70 * Song._SCALE));
                     break;
                 case Accidental.DoubleSharp:
-                    location = new PointF(x, y - 20 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH);
-                    size = new SizeF(35 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH, 35 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH);
-                    e.Graphics.DrawImage(Properties.Resources.DoubleSharp, new RectangleF(location, size));
+                    e.Graphics.DrawImage(Properties.Resources.DoubleSharp, new RectangleF(x, y - 20 * Song._SCALE, 35 * Song._SCALE, 35 * Song._SCALE));
                     break;
             }
         }
         public void Draw(PaintEventArgs e)
         {
+            mCursorX = Song.LEFT_MARGIN;
             mYPosition = instrumentNumber * Song.INSTRUMENT_SPACING + staffNumber * (HEIGHT + Song.STAFF_SPACING);
 
             PointF location = new PointF(Song.LEFT_MARGIN, Song.TOP_MARGIN + mYPosition);
@@ -90,198 +77,48 @@ namespace Music_Comp
             switch (mClef)
             {
                 case Clef.Treble:
-                    location.X = Song.LEFT_MARGIN - 49 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH;
-                    location.Y = Song.TOP_MARGIN - 70 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH + mYPosition;
+                    location.X = mCursorX - 49 * Song._SCALE;
+                    location.Y = Song.TOP_MARGIN - 70 * Song._SCALE + mYPosition;
                     size.Width = HEIGHT * 1.50f;
                     size.Height = HEIGHT * 2.28f;
 
                     e.Graphics.DrawImage(Properties.Resources.TrebleClef, new RectangleF(location, size));
-
-                    DrawAccidental(400 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH, 420 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH, Accidental.DoubleFlat, e);
-                    DrawAccidental(500 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH, 420 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH, Accidental.Flat, e);
-                    DrawAccidental(600 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH, 420 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH, Accidental.Natural, e);
-                    DrawAccidental(700 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH, 420 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH, Accidental.Sharp, e);
-                    DrawAccidental(800 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH, 420 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH, Accidental.DoubleSharp, e);
-
                     break;
                 case Clef.Alto:
-
                     break;
                 case Clef.Bass:
-                    location.X = Song.LEFT_MARGIN - 35 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH;
-                    location.Y = Song.TOP_MARGIN - 58 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH + mYPosition;
+                    location.X = mCursorX - 35 * Song._SCALE;
+                    location.Y = Song.TOP_MARGIN - 58 * Song._SCALE + mYPosition;
                     size.Width = HEIGHT * 1.48f;
                     size.Height = HEIGHT * 1.82f;
 
                     e.Graphics.DrawImage(Properties.Resources.BassClef, new RectangleF(location, size));
                     break;
                 case Clef.Tenor:
-
                     break;
             }
 
-            switch (Song.KEY)
-            {
-                case Key.Cflat:
+            mCursorX += 120 * Song._SCALE;
 
-                    break;
-                case Key.Gflat:
-
-                    break;
-                case Key.Dflat:
-
-                    break;
-                case Key.Aflat:
-
-                    break;
-                case Key.Eflat:
-
-                    break;
-                case Key.Bflat:
-
-                    break;
-                case Key.F:
-
-                    break;
-                case Key.C:
-
-                    break;
-                case Key.G:
-
-                    break;
-                case Key.D:
-
-                    break;
-                case Key.A:
-
-                    break;
-                case Key.E:
-
-                    break;
-                case Key.B:
-
-                    break;
-                case Key.Fsharp:
-
-                    break;
-                case Key.Csharp:
-
-                    break;
-            }
-
-            // Draw Key Signature Algorythm
-            {
-                /*
-                if (key < 0)
+            if (Song.KEY < 0)                                   // Flats
+                for (int i = 0, y = 7; i > (int)Song.KEY; i--)  // B E A D G C F
                 {
-                    drawAccidental(12, (staffNumber) * height * icount + height * inum + 7 + (int)clef, Accidental.Flat);                              //B
-                    cursor += 2;
-                    if (key < (Key)(-1))
-                    {
-                        drawAccidental(14, (staffNumber) * height * icount + height * inum + 4 + (int)clef, Accidental.Flat);                          //E
-                        cursor += 2;
-                        if (key < (Key)(-2))
-                        {
-                            drawAccidental(16, (staffNumber) * height * icount + height * inum + 8 + (int)clef, Accidental.Flat);                      //A
-                            cursor += 2;
-                            if (key < (Key)(-3))
-                            {
-                                drawAccidental(18, (staffNumber) * height * icount + height * inum + 5 + (int)clef, Accidental.Flat);                  //D
-                                cursor += 2;
-                                if (key < (Key)(-4))
-                                {
-                                    drawAccidental(20, (staffNumber) * height * icount + height * inum + 9 + (int)clef, Accidental.Flat);              //G
-                                    cursor += 2;
-                                    if (key < (Key)(-5))
-                                    {
-                                        drawAccidental(22, (staffNumber) * height * icount + height * inum + 6 + (int)clef, Accidental.Flat);          //C
-                                        cursor += 2;
-                                        if (key < (Key)(-6))
-                                        {
-                                            drawAccidental(24, (staffNumber) * height * icount + height * inum + 10 + (int)clef, Accidental.Flat);     //F
-                                            cursor += 2;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    DrawAccidental(mCursorX, mYPosition + (260 + (y + (int)mClef) * 14.5f) * Song._SCALE, Accidental.Flat, e);
+                    y += (i % 2 == 0 ? -3 : 4);
+                    mCursorX += 30 * Song._SCALE;
                 }
-                else if (key > 0)
+            else if (Song.KEY > 0)                                                         // Sharps
+                for (int i = 0, y = mClef != Clef.Tenor ? 3 : 10; i < (int)Song.KEY; i++)  // F C G D A E B
                 {
-                    if (clef != Clef.Tenor) //Tenor Clef (Sharps)
-                    {
-                        drawAccidental(12, (staffNumber) * height * icount + height * inum + 3 + (int)clef, Accidental.Sharp);                             //F
-                        cursor += 2;
-                        if (key > (Key)1)
-                        {
-                            drawAccidental(14, (staffNumber) * height * icount + height * inum + 6 + (int)clef, Accidental.Sharp);                         //C
-                            cursor += 2;
-                            if (key > (Key)2)
-                            {
-                                drawAccidental(16, (staffNumber) * height * icount + height * inum + 2 + (int)clef, Accidental.Sharp);                     //G
-                                cursor += 2;
-                                if (key > (Key)3)
-                                {
-                                    drawAccidental(18, (staffNumber) * height * icount + height * inum + 5 + (int)clef, Accidental.Sharp);                 //D
-                                    cursor += 2;
-                                    if (key > (Key)4)
-                                    {
-                                        drawAccidental(20, (staffNumber) * height * icount + height * inum + 8 + (int)clef, Accidental.Sharp);             //A
-                                        cursor += 2;
-                                        if (key > (Key)5)
-                                        {
-                                            drawAccidental(22, (staffNumber) * height * icount + height * inum + 4 + (int)clef, Accidental.Sharp);         //E
-                                            cursor += 2;
-                                            if (key > (Key)6)
-                                            {
-                                                drawAccidental(24, (staffNumber) * height * icount + height * inum + 7 + (int)clef, Accidental.Sharp);     //B
-                                                cursor += 2;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    else //Not Tenor Clef (Sharps)
-                    {
-                        drawAccidental(24, (staffNumber) * height * icount + height * inum + 7 + (int)clef, Accidental.Sharp);                             //F
-                        cursor += 2;
-                        if (key > (Key)1)
-                        {
-                            drawAccidental(12, (staffNumber) * height * icount + height * inum + 10 + (int)clef, Accidental.Sharp);                        //A
-                            cursor += 2;
-                            if (key > (Key)2)
-                            {
-                                drawAccidental(14, (staffNumber) * height * icount + height * inum + 6 + (int)clef, Accidental.Sharp);                     //C
-                                cursor += 2;
-                                if (key > (Key)3)
-                                {
-                                    drawAccidental(16, (staffNumber) * height * icount + height * inum + 9 + (int)clef, Accidental.Sharp);                 //E
-                                    cursor += 2;
-                                    if (key > (Key)4)
-                                    {
-                                        drawAccidental(18, (staffNumber) * height * icount + height * inum + 5 + (int)clef, Accidental.Sharp);             //G
-                                        cursor += 2;
-                                        if (key > (Key)5)
-                                        {
-                                            drawAccidental(20, (staffNumber) * height * icount + height * inum + 8 + (int)clef, Accidental.Sharp);         //C
-                                            cursor += 2;
-                                            if (key > (Key)6)
-                                            {
-                                                drawAccidental(22, (staffNumber) * height * icount + height * inum + 4 + (int)clef, Accidental.Sharp);     //F
-                                                cursor += 2;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    DrawAccidental(mCursorX, mYPosition + (260 + (y + (int)mClef) * 14.5f) * Song._SCALE, Accidental.Sharp, e);
+                    if (mClef == Clef.Tenor || i > 2)
+                        y += i % 2 == 0 ? -4 : 3;
+                    else
+                        y += i % 2 == 0 ? 3 : -4;
+                    mCursorX += 30 * Song._SCALE;
                 }
-            }*/
-            }
+
+            mCursorX += 30 * Song._SCALE;
 
             switch (Song.TIME)
             {
@@ -289,7 +126,7 @@ namespace Music_Comp
 
                     break;
                 case Time.SixEight:
-                    location.X = Song.LEFT_MARGIN + 120 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH;
+                    location.X = mCursorX;
                     location.Y = Song.TOP_MARGIN + mYPosition;
                     size.Width = HEIGHT * 0.5f;
                     size.Height = HEIGHT;
@@ -306,7 +143,7 @@ namespace Music_Comp
 
                     break;
                 case Time.FourFour:
-                    location.X = Song.LEFT_MARGIN + 120 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH;
+                    location.X = mCursorX;
                     location.Y = Song.TOP_MARGIN + mYPosition;
                     size.Width = HEIGHT * 0.5f;
                     size.Height = HEIGHT;
@@ -314,6 +151,8 @@ namespace Music_Comp
                     e.Graphics.DrawImage(Properties.Resources.FourFour, new RectangleF(location, size));
                     break;
             }
+
+            mCursorX += 90 * Song._SCALE;
         }
     }
 }

@@ -12,9 +12,10 @@ namespace Music_Comp
 {
     public partial class MainForm : Form
     {
-        public static int SCREEN_WIDTH;
-        public static int PAGE_WIDTH;
-        public static int PAGE_HEIGHT;
+        float SCREEN_WIDTH;
+        float PAGE_WIDTH;
+        float PAGE_HEIGHT;
+        float _SCALE;
 
         Song song;
 
@@ -26,18 +27,18 @@ namespace Music_Comp
             PAGE_WIDTH = graphicsPanel.Width;
             PAGE_HEIGHT = graphicsPanel.Height;
 
-            titleTextBox.Font = new Font("Microsoft Sans Serif", 70 * PAGE_WIDTH / SCREEN_WIDTH);
-            titleTextBox.Size = new Size(1470 * PAGE_WIDTH / SCREEN_WIDTH, 140 * PAGE_WIDTH / SCREEN_WIDTH);
-            titleTextBox.Location = new Point(PAGE_WIDTH / 2 - titleTextBox.Width / 2, 120 * PAGE_WIDTH / SCREEN_WIDTH);
+            _SCALE = PAGE_WIDTH / SCREEN_WIDTH;
 
-            composerTextBox.Font = new Font("Microsoft Sans Serif", 25 * PAGE_WIDTH / SCREEN_WIDTH);
-            composerTextBox.Size = new Size(615 * PAGE_WIDTH / SCREEN_WIDTH, 50 * PAGE_WIDTH / SCREEN_WIDTH);
-            composerTextBox.Location = new Point(PAGE_WIDTH - composerTextBox.Width - 100 * PAGE_WIDTH / SCREEN_WIDTH, 220 * PAGE_WIDTH / SCREEN_WIDTH);
+            titleTextBox.Font = new Font("Microsoft Sans Serif", 70 * _SCALE);
+            titleTextBox.Size = new Size((int)(1470 * _SCALE), (int)(140 * _SCALE));
+            titleTextBox.Location = new Point((int)(PAGE_WIDTH / 2 - titleTextBox.Width / 2), (int)(120 * _SCALE));
 
-            song = new Song(PAGE_WIDTH);
+            composerTextBox.Font = new Font("Microsoft Sans Serif", 25 * _SCALE);
+            composerTextBox.Size = new Size((int)(615 * _SCALE), (int)(50 * _SCALE));
+            composerTextBox.Location = new Point((int)(PAGE_WIDTH - composerTextBox.Width - 100 * _SCALE), (int)(220 * _SCALE));
+
+            song = new Song(PAGE_WIDTH, Key.C, Time.Common);
             song.AddInstrument(Clef.Treble, Clef.Bass);
-            song.AddInstrument(Clef.Treble);
-            song.EditTimeSignature(Time.CompoundDuple);
         }
 
         private void graphicsPanel_Paint(object sender, PaintEventArgs e)
@@ -55,7 +56,7 @@ namespace Music_Comp
         private void MainForm_Resize(object sender, EventArgs e)
         {
             if (Width > PAGE_WIDTH)
-                graphicsPanel.Location = new Point(Width / 2 - PAGE_WIDTH / 2, 0);
+                graphicsPanel.Location = new Point((int)(Width / 2 - PAGE_WIDTH / 2), 0);
             else
                 graphicsPanel.Location = new Point(0, 0);
         }
@@ -66,22 +67,25 @@ namespace Music_Comp
             PAGE_WIDTH = graphicsPanel.Width;
             PAGE_HEIGHT = graphicsPanel.Height;
 
-            titleTextBox.Font = new Font("Microsoft Sans Serif", 70 * PAGE_WIDTH / SCREEN_WIDTH);
-            titleTextBox.Size = new Size(1470 * PAGE_WIDTH / SCREEN_WIDTH, 140 * PAGE_WIDTH / SCREEN_WIDTH);
-            titleTextBox.Location = new Point(PAGE_WIDTH / 2 - titleTextBox.Width / 2, 120 * PAGE_WIDTH / SCREEN_WIDTH);
+            _SCALE = PAGE_WIDTH / SCREEN_WIDTH;
 
-            composerTextBox.Font = new Font("Microsoft Sans Serif", 25 * PAGE_WIDTH / SCREEN_WIDTH);
-            composerTextBox.Size = new Size(615 * PAGE_WIDTH / SCREEN_WIDTH, 50 * PAGE_WIDTH / SCREEN_WIDTH);
-            composerTextBox.Location = new Point(PAGE_WIDTH - composerTextBox.Width - 100 * PAGE_WIDTH / SCREEN_WIDTH, 220 * PAGE_WIDTH / SCREEN_WIDTH);
+            titleTextBox.Font = new Font("Microsoft Sans Serif", 70 * _SCALE);
+            titleTextBox.Size = new Size((int)(1470 * _SCALE), (int)(140 * _SCALE));
+            titleTextBox.Location = new Point((int)(PAGE_WIDTH / 2 - titleTextBox.Width / 2), (int)(120 * _SCALE));
+
+            composerTextBox.Font = new Font("Microsoft Sans Serif", 25 * _SCALE);
+            composerTextBox.Size = new Size((int)(615 * _SCALE), (int)(50 * _SCALE));
+            composerTextBox.Location = new Point((int)(PAGE_WIDTH - composerTextBox.Width - 100 * _SCALE), (int)(220 * _SCALE));
 
             Song.PAGE_WIDTH = graphicsPanel.Width;
-            Song.TOP_MARGIN = 300 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH;
-            Song.LEFT_MARGIN = 100 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH;
-            Song.RIGHT_MARGIN = 50 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH;
-            Song.STAFF_SPACING = 60 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH;
-            Song.INSTRUMENT_SPACING = 80 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH;
+            Song._SCALE = _SCALE;
+            Song.TOP_MARGIN = 300 * _SCALE;
+            Song.LEFT_MARGIN = 100 * _SCALE;
+            Song.RIGHT_MARGIN = 50 * _SCALE;
+            Song.STAFF_SPACING = 60 * _SCALE;
+            Song.INSTRUMENT_SPACING = 80 * _SCALE;
 
-            Staff.LINE_SPACING = 30 * Song.PAGE_WIDTH / Song.SCREEN_WIDTH;
+            Staff.LINE_SPACING = 30 * _SCALE;
             Staff.LENGTH = Song.PAGE_WIDTH - Song.LEFT_MARGIN - Song.RIGHT_MARGIN;
             Staff.HEIGHT = 4 * Staff.LINE_SPACING;
 
@@ -96,13 +100,13 @@ namespace Music_Comp
         private void zoomInButton_Click(object sender, EventArgs e)
         {
             if (Song.PAGE_WIDTH < 5000)
-                graphicsPanel.Size = new Size(PAGE_WIDTH + 100, PAGE_HEIGHT + 100 * PAGE_HEIGHT / PAGE_WIDTH);
+                graphicsPanel.Size = new Size((int)(PAGE_WIDTH + 100), (int)(PAGE_HEIGHT + 100 * PAGE_HEIGHT / PAGE_WIDTH));
         }
 
         private void zoomOutButton_Click(object sender, EventArgs e)
         {
             if (Song.PAGE_WIDTH > 500)
-                graphicsPanel.Size = new Size(PAGE_WIDTH - 100, PAGE_HEIGHT - 100 * PAGE_HEIGHT / PAGE_WIDTH);
+                graphicsPanel.Size = new Size((int)(PAGE_WIDTH - 100), (int)(PAGE_HEIGHT - 100 * PAGE_HEIGHT / PAGE_WIDTH));
         }
     }
 }

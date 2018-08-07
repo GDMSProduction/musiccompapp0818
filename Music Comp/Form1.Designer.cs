@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.graphicsPanel = new System.Windows.Forms.Panel();
-            this.zoomInButton = new System.Windows.Forms.Button();
             this.composerTextBox = new System.Windows.Forms.TextBox();
             this.titleTextBox = new System.Windows.Forms.TextBox();
+            this.zoomInButton = new System.Windows.Forms.Button();
             this.zoomOutButton = new System.Windows.Forms.Button();
             this.graphicsPanel.SuspendLayout();
             this.SuspendLayout();
@@ -43,23 +43,10 @@
             this.graphicsPanel.Controls.Add(this.titleTextBox);
             this.graphicsPanel.Location = new System.Drawing.Point(0, 0);
             this.graphicsPanel.Name = "graphicsPanel";
-            this.graphicsPanel.Size = new System.Drawing.Size(2500, 2500);
+            this.graphicsPanel.Size = new System.Drawing.Size(2550, 3300);
             this.graphicsPanel.TabIndex = 0;
             this.graphicsPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.graphicsPanel_Paint);
             this.graphicsPanel.Resize += new System.EventHandler(this.graphicsPanel_Resize);
-            // 
-            // zoomInButton
-            // 
-            this.zoomInButton.BackColor = System.Drawing.Color.White;
-            this.zoomInButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.zoomInButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.zoomInButton.Location = new System.Drawing.Point(900, 450);
-            this.zoomInButton.Name = "zoomInButton";
-            this.zoomInButton.Size = new System.Drawing.Size(75, 75);
-            this.zoomInButton.TabIndex = 1;
-            this.zoomInButton.Text = "+";
-            this.zoomInButton.UseVisualStyleBackColor = false;
-            this.zoomInButton.Click += new System.EventHandler(this.zoomInButton_Click);
             // 
             // composerTextBox
             // 
@@ -71,7 +58,7 @@
             this.composerTextBox.Size = new System.Drawing.Size(203, 46);
             this.composerTextBox.TabIndex = 1;
             this.composerTextBox.TabStop = false;
-            this.composerTextBox.Text = "Composer";
+            this.composerTextBox.Text = "John Doe";
             this.composerTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // titleTextBox
@@ -85,11 +72,24 @@
             this.titleTextBox.MaximumSize = new System.Drawing.Size(2000, 200);
             this.titleTextBox.MaxLength = 20;
             this.titleTextBox.Name = "titleTextBox";
-            this.titleTextBox.Size = new System.Drawing.Size(460, 136);
+            this.titleTextBox.Size = new System.Drawing.Size(510, 136);
             this.titleTextBox.TabIndex = 0;
             this.titleTextBox.TabStop = false;
-            this.titleTextBox.Text = "TITLE";
+            this.titleTextBox.Text = "My Song 1";
             this.titleTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // zoomInButton
+            // 
+            this.zoomInButton.BackColor = System.Drawing.Color.White;
+            this.zoomInButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.zoomInButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.zoomInButton.Location = new System.Drawing.Point(900, 450);
+            this.zoomInButton.Name = "zoomInButton";
+            this.zoomInButton.Size = new System.Drawing.Size(75, 75);
+            this.zoomInButton.TabIndex = 1;
+            this.zoomInButton.Text = "+";
+            this.zoomInButton.UseVisualStyleBackColor = false;
+            this.zoomInButton.Click += new System.EventHandler(this.zoomInButton_Click);
             // 
             // zoomOutButton
             // 

@@ -10,6 +10,7 @@ namespace Music_Comp
 
         public static float SCREEN_WIDTH;
         public static float PAGE_WIDTH;
+        public static float _SCALE;
         public static float TOP_MARGIN;
         public static float LEFT_MARGIN;
         public static float RIGHT_MARGIN;
@@ -24,28 +25,30 @@ namespace Music_Comp
         public static Key KEY = Key.C;
         public static Time TIME = Time.Common;
 
-        public Song(int panelWidth)
+        public Song(float panelWidth)
         {
             SCREEN_WIDTH = Screen.PrimaryScreen.Bounds.Width;
             PAGE_WIDTH = panelWidth;
-            TOP_MARGIN = 300 * PAGE_WIDTH / SCREEN_WIDTH;
-            LEFT_MARGIN = 100 * PAGE_WIDTH / SCREEN_WIDTH;
-            RIGHT_MARGIN = 50 * PAGE_WIDTH / SCREEN_WIDTH;
-            STAFF_SPACING = 60 * PAGE_WIDTH / SCREEN_WIDTH;
-            INSTRUMENT_SPACING = 80 * PAGE_WIDTH / SCREEN_WIDTH;
+            _SCALE = PAGE_WIDTH / SCREEN_WIDTH;
+            TOP_MARGIN = 300 * _SCALE;
+            LEFT_MARGIN = 100 * _SCALE;
+            RIGHT_MARGIN = 50 * _SCALE;
+            STAFF_SPACING = 60 * _SCALE;
+            INSTRUMENT_SPACING = 80 * _SCALE;
             TOTAL_STAVES = 0;
             cursorY = TOP_MARGIN;
             cursorX = LEFT_MARGIN;
         }
-        public Song(int panelWidth, Key k, Time t)
+        public Song(float panelWidth, Key k, Time t)
         {
             SCREEN_WIDTH = Screen.PrimaryScreen.Bounds.Width;
             PAGE_WIDTH = panelWidth;
-            TOP_MARGIN = 300 * PAGE_WIDTH / SCREEN_WIDTH;
-            LEFT_MARGIN = 100 * PAGE_WIDTH / SCREEN_WIDTH;
-            RIGHT_MARGIN = 50 * PAGE_WIDTH / SCREEN_WIDTH;
-            STAFF_SPACING = 60 * PAGE_WIDTH / SCREEN_WIDTH;
-            INSTRUMENT_SPACING = 100 * PAGE_WIDTH / SCREEN_WIDTH;
+            _SCALE = PAGE_WIDTH / SCREEN_WIDTH;
+            TOP_MARGIN = 300 * _SCALE;
+            LEFT_MARGIN = 100 * _SCALE;
+            RIGHT_MARGIN = 50 * _SCALE;
+            STAFF_SPACING = 60 * _SCALE;
+            INSTRUMENT_SPACING = 80 * _SCALE;
             TOTAL_STAVES = 0;
 
             KEY = k;
@@ -86,7 +89,7 @@ namespace Music_Comp
         public void Draw(PaintEventArgs e)
         {
             Pen barLinePen = new Pen(Color.Black, 3.0f);
-            float btm_song_line = TOP_MARGIN + (Staff.HEIGHT + STAFF_SPACING) * TOTAL_STAVES - STAFF_SPACING + (mInstruments.Count - 1) * INSTRUMENT_SPACING;
+            float btm_song_line = TOP_MARGIN + (Staff.HEIGHT + STAFF_SPACING) * TOTAL_STAVES - STAFF_SPACING + (TOTAL_INSTRUMENTS - 1) * INSTRUMENT_SPACING;
             float btm_inst_line;
             float drawing_right_margin;
 
