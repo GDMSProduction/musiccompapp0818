@@ -68,14 +68,14 @@ namespace Music_Comp
     }
     public enum Pitch
     {
+        Rest,
         C,
         D,
         E,
         F,
         G,
         A,
-        B,
-        Rest
+        B
     }
     public enum Duration
     {

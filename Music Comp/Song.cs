@@ -24,6 +24,7 @@ namespace Music_Comp
 
         public static Key KEY = Key.C;
         public static Time TIME = Time.Common;
+        public static List<float> mBarlines;
 
         public Song(float panelWidth)
         {
@@ -38,6 +39,7 @@ namespace Music_Comp
             TOTAL_STAVES = 0;
             cursorY = TOP_MARGIN;
             cursorX = LEFT_MARGIN;
+            mBarlines = new List<float>();
         }
         public Song(float panelWidth, Key k, Time t)
         {
@@ -50,6 +52,7 @@ namespace Music_Comp
             STAFF_SPACING = 60 * _SCALE;
             INSTRUMENT_SPACING = 80 * _SCALE;
             TOTAL_STAVES = 0;
+            mBarlines = new List<float>();
 
             KEY = k;
             TIME = t;
@@ -86,30 +89,43 @@ namespace Music_Comp
         {
             mInstruments.Add(new Instrument(clef1, clef2, clef3, clef4));
         }
-        public void Draw(PaintEventArgs e)
+        public void DrawBarLines(List<float> barlines, PaintEventArgs e)
         {
             Pen barLinePen = new Pen(Color.Black, 3.0f);
             float btm_song_line = TOP_MARGIN + (Staff.HEIGHT + STAFF_SPACING) * TOTAL_STAVES - STAFF_SPACING + (TOTAL_INSTRUMENTS - 1) * INSTRUMENT_SPACING;
             float btm_inst_line;
-            float drawing_right_margin;
+            float top_inst_line = TOP_MARGIN;
+            for (int i = 0; i < barlines.Count; i++)
+            {
+                for (int j = 0; j < mInstruments.Count; j++)
+                {
+
+                    btm_inst_line = top_inst_line + (Staff.HEIGHT + STAFF_SPACING) * mInstruments[j].GetNumberOfStaves() - STAFF_SPACING;
+
+                    e.Graphics.DrawLine(barLinePen, new PointF(barlines[i], top_inst_line), new PointF(barlines[i], btm_inst_line));
+
+                    top_inst_line = btm_inst_line + STAFF_SPACING + INSTRUMENT_SPACING;
+                }
+            }
+            barLinePen.Dispose();
+        }
+        public void Draw(PaintEventArgs e)
+        {
+            Pen barLinePen = new Pen(Color.Black, 3.0f);
+            float btm_song_line = TOP_MARGIN + (Staff.HEIGHT + STAFF_SPACING) * TOTAL_STAVES - STAFF_SPACING + (TOTAL_INSTRUMENTS - 1) * INSTRUMENT_SPACING;
 
             e.Graphics.DrawLine(barLinePen, new PointF(LEFT_MARGIN, TOP_MARGIN), new PointF(LEFT_MARGIN, btm_song_line));
 
+            barLinePen.Dispose();
+
             float top_inst_line = TOP_MARGIN;
 
-            for (int i = 0; i < mInstruments.Count; i++)
-            {
-                mInstruments[i].Draw(e);
+            foreach (Instrument instrument in mInstruments)
+                instrument.Draw(e);
 
-                btm_inst_line = top_inst_line + (Staff.HEIGHT + STAFF_SPACING) * mInstruments[i].GetNumberOfStaves() - STAFF_SPACING;
-                drawing_right_margin = PAGE_WIDTH - RIGHT_MARGIN;
+            mBarlines.Add(PAGE_WIDTH - RIGHT_MARGIN);
 
-                e.Graphics.DrawLine(barLinePen, new PointF(drawing_right_margin, top_inst_line), new PointF(drawing_right_margin, btm_inst_line));
-
-                top_inst_line = btm_inst_line + STAFF_SPACING + INSTRUMENT_SPACING;
-            }
-
-            barLinePen.Dispose();
+            DrawBarLines(mBarlines, e);
         }
     }
 }
