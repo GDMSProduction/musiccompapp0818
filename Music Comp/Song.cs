@@ -127,8 +127,8 @@ namespace Music_Comp
             foreach (Instrument instrument in mInstruments)
                 instrument.Draw(e);
 
+            mBarlines = new List<float>();
             mBarlines.Add(PAGE_WIDTH - RIGHT_MARGIN);
-
             DrawBarLines(mBarlines, e);
         }
     }

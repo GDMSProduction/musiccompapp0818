@@ -155,7 +155,6 @@
             this.Name = "MainForm";
             this.Text = "Music Composition App";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.MainForm_KeyPress);
             this.Resize += new System.EventHandler(this.MainForm_Resize);
             this.graphicsPanel.ResumeLayout(false);
             this.graphicsPanel.PerformLayout();

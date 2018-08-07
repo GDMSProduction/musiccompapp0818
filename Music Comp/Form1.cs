@@ -124,41 +124,64 @@ namespace Music_Comp
 
         private void graphicsPanel_KeyUp(object sender, KeyEventArgs e)
         {
-            Note n = new Note(Pitch.A, Accidental.Natural, Duration.Quarter, 4);
+            Note note = new Note(Pitch.C, Accidental.Natural, Duration.Quarter, 4);
 
-            if (e.KeyCode == Keys.D1 || e.KeyCode == Keys.A)
+            switch (e.KeyCode)
             {
-                n = new Note(Pitch.A, Accidental.Natural, Duration.Quarter, 4);
-            }
-            else if (e.KeyCode == Keys.D2 || e.KeyCode == Keys.B)
-            {
-                n = new Note(Pitch.B, Accidental.Natural, Duration.Quarter, 4);
-            }
-            else if (e.KeyCode == Keys.D3 || e.KeyCode == Keys.C)
-            {
-                n = new Note(Pitch.C, Accidental.Natural, Duration.Quarter, 4);
-            }
-            else if (e.KeyCode == Keys.D4 || e.KeyCode == Keys.D)
-            {
-                n = new Note(Pitch.D, Accidental.Natural, Duration.Quarter, 4);
-            }
-            else if (e.KeyCode == Keys.D5 || e.KeyCode == Keys.F)
-            {
-                n = new Note(Pitch.F, Accidental.Natural, Duration.Quarter, 4);
-            }
-            else if (e.KeyCode == Keys.D6 || e.KeyCode == Keys.G)
-            {
-                n = new Note(Pitch.G, Accidental.Natural, Duration.Quarter, 4);
+                case Keys.D0:
+                    break;
+                case Keys.D1:
+                    break;
+                case Keys.D2:
+                    break;
+                case Keys.D3:
+                    break;
+                case Keys.D4:
+                    break;
+                case Keys.D5:
+                    break;
+                case Keys.D6:
+                    break;
+                case Keys.D7:
+                    break;
+                case Keys.D8:
+                    break;
+                case Keys.D9:
+                    break;
+                case Keys.A:
+                    note.SetPitch(Pitch.A);
+                    break;
+                case Keys.B:
+                    note.SetPitch(Pitch.B);
+                    break;
+                case Keys.C:
+                    note.SetPitch(Pitch.C);
+                    break;
+                case Keys.D:
+                    note.SetPitch(Pitch.D);
+                    break;
+                case Keys.E:
+                    note.SetPitch(Pitch.E);
+                    break;
+                case Keys.F:
+                    note.SetPitch(Pitch.F);
+                    break;
+                case Keys.G:
+                    note.SetPitch(Pitch.G);
+                    break;
+                case Keys.Shift:
+                    break;
+                case Keys.Control:
+                    break;
+                case Keys.Alt:
+                    break;
+                default:
+                    break;
             }
 
-            song.GetInstrument(0).GetStaff(0).GetMeasure(0).AddNote(n);
+            song.GetInstrument(0).GetStaff(0).GetMeasure(0).AddNote(note);
 
             graphicsPanel.Invalidate();
-        }
-
-        private void MainForm_KeyPress(object sender, KeyPressEventArgs e)
-        {
-
         }
     }
 }
