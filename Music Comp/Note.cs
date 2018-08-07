@@ -23,17 +23,33 @@ namespace Music_Comp
         {
             return mPitch;
         }
+        public void SetPitch(Pitch p)
+        {
+            mPitch = p;
+        }
         public Accidental GetAccidental()
         {
             return mAccidental;
+        }
+        public void SetAccidental(Accidental a)
+        {
+            mAccidental = a;
         }
         public Duration GetDuration()
         {
             return mDuration;
         }
+        public void SetDuration(Duration d)
+        {
+            mDuration = d;
+        }
         public sbyte GetOctave()
         {
             return mOctave;
+        }
+        public void SetOctave(sbyte o)
+        {
+            mOctave = o;
         }
         public void Draw(float cursorX, float staffYPosition, Clef c, PaintEventArgs e)
         {

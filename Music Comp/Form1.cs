@@ -39,6 +39,9 @@ namespace Music_Comp
 
             song = new Song(PAGE_WIDTH, Key.Eflat, Time.Common);
             song.AddInstrument(Clef.Treble, Clef.Treble, Clef.Treble, Clef.Bass);
+            ActiveControl = graphicsPanel;
+
+            (graphicsPanel as Control).KeyUp += new KeyEventHandler(graphicsPanel_KeyUp);
         }
 
         private void graphicsPanel_Paint(object sender, PaintEventArgs e)
@@ -133,6 +136,68 @@ namespace Music_Comp
                 }
                 graphicsPanel.Invalidate();
             }
+        }
+
+        private void graphicsPanel_KeyUp(object sender, KeyEventArgs e)
+        {
+            Note note = new Note(Pitch.C, Accidental.Natural, Duration.Quarter, 4);
+
+            switch (e.KeyCode)
+            {
+                case Keys.D0:
+                    break;
+                case Keys.D1:
+                    break;
+                case Keys.D2:
+                    break;
+                case Keys.D3:
+                    break;
+                case Keys.D4:
+                    break;
+                case Keys.D5:
+                    break;
+                case Keys.D6:
+                    break;
+                case Keys.D7:
+                    break;
+                case Keys.D8:
+                    break;
+                case Keys.D9:
+                    break;
+                case Keys.A:
+                    note.SetPitch(Pitch.A);
+                    break;
+                case Keys.B:
+                    note.SetPitch(Pitch.B);
+                    break;
+                case Keys.C:
+                    note.SetPitch(Pitch.C);
+                    break;
+                case Keys.D:
+                    note.SetPitch(Pitch.D);
+                    break;
+                case Keys.E:
+                    note.SetPitch(Pitch.E);
+                    break;
+                case Keys.F:
+                    note.SetPitch(Pitch.F);
+                    break;
+                case Keys.G:
+                    note.SetPitch(Pitch.G);
+                    break;
+                case Keys.Shift:
+                    break;
+                case Keys.Control:
+                    break;
+                case Keys.Alt:
+                    break;
+                default:
+                    break;
+            }
+
+            song.GetInstrument(0).GetStaff(0).GetMeasure(0).AddNote(note);
+
+            graphicsPanel.Invalidate();
         }
     }
 }
