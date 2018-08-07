@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace Music_Comp
 {
-    class Note
+    public class Note
     {
         Pitch mPitch;
         Accidental mAccidental;

@@ -115,7 +115,23 @@ namespace Music_Comp
             options.ShowDialog();
             if (options.DialogResult == DialogResult.OK)
             {
-                
+                if (options.stavecount == 1)
+                {
+                    song.AddInstrument(options.clef1);
+                }
+                else if (options.stavecount == 2)
+                {
+                    song.AddInstrument(options.clef1, options.clef2);
+                }
+                else if (options.stavecount == 3)
+                {
+                    song.AddInstrument(options.clef1, options.clef2, options.clef3);
+                }
+                else if (options.stavecount == 4)
+                {
+                    song.AddInstrument(options.clef1, options.clef2, options.clef3, options.clef4);
+                }
+                graphicsPanel.Invalidate();
             }
         }
     }

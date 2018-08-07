@@ -4,7 +4,7 @@ using System.Drawing;
 
 namespace Music_Comp
 {
-    class Staff
+    public class Staff
     {
         List<Measure> measures;
 

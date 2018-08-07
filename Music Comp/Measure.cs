@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace Music_Comp
 {
-    class Measure
+    public class Measure
     {
         List<Note> mNotes;
 
