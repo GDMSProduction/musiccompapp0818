@@ -73,21 +73,21 @@ namespace Music_Comp
         {
             TIME = t;
         }
-        public void AddInstrument(Clef clef)
+        public void AddInstrument(Clef clef, Grouping g)
         {
-            mInstruments.Add(new Instrument(clef));
+            mInstruments.Add(new Instrument(clef, g));
         }
-        public void AddInstrument(Clef clef1, Clef clef2)
+        public void AddInstrument(Clef clef1, Clef clef2, Grouping g)
         {
-            mInstruments.Add(new Instrument(clef1, clef2));
+            mInstruments.Add(new Instrument(clef1, clef2, g));
         }
-        public void AddInstrument(Clef clef1, Clef clef2, Clef clef3)
+        public void AddInstrument(Clef clef1, Clef clef2, Clef clef3, Grouping g)
         {
-            mInstruments.Add(new Instrument(clef1, clef2, clef3));
+            mInstruments.Add(new Instrument(clef1, clef2, clef3, g));
         }
-        public void AddInstrument(Clef clef1, Clef clef2, Clef clef3, Clef clef4)
+        public void AddInstrument(Clef clef1, Clef clef2, Clef clef3, Clef clef4, Grouping g)
         {
-            mInstruments.Add(new Instrument(clef1, clef2, clef3, clef4));
+            mInstruments.Add(new Instrument(clef1, clef2, clef3, clef4, g));
         }
         public void RemoveInstrument()
         {

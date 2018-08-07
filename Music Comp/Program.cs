@@ -87,6 +87,13 @@ namespace Music_Comp
         Triplet,
         Drag
     }
+    public enum Grouping
+    {
+        None,
+        Bracket,
+        Brace
+    }
+
 
     static class Program
     {

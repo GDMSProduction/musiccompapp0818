@@ -38,7 +38,7 @@ namespace Music_Comp
             composerTextBox.Location = new Point((int)(PAGE_WIDTH - composerTextBox.Width - 100 * _SCALE), (int)(220 * _SCALE));
 
             song = new Song(PAGE_WIDTH, Key.Eflat, Time.Common);
-            song.AddInstrument(Clef.Treble, Clef.Treble, Clef.Treble, Clef.Bass);
+            song.AddInstrument(Clef.Treble, Clef.Bass, Grouping.Brace);
             ActiveControl = graphicsPanel;
 
             (graphicsPanel as Control).KeyUp += new KeyEventHandler(graphicsPanel_KeyUp);
@@ -120,19 +120,19 @@ namespace Music_Comp
             {
                 if (options.stavecount == 1)
                 {
-                    song.AddInstrument(options.clef1);
+                    song.AddInstrument(options.clef1, Grouping.None);
                 }
                 else if (options.stavecount == 2)
                 {
-                    song.AddInstrument(options.clef1, options.clef2);
+                    song.AddInstrument(options.clef1, options.clef2, Grouping.None);
                 }
                 else if (options.stavecount == 3)
                 {
-                    song.AddInstrument(options.clef1, options.clef2, options.clef3);
+                    song.AddInstrument(options.clef1, options.clef2, options.clef3, Grouping.None);
                 }
                 else if (options.stavecount == 4)
                 {
-                    song.AddInstrument(options.clef1, options.clef2, options.clef3, options.clef4);
+                    song.AddInstrument(options.clef1, options.clef2, options.clef3, options.clef4, Grouping.None);
                 }
                 graphicsPanel.Invalidate();
             }
