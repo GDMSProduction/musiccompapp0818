@@ -6,7 +6,7 @@ namespace Music_Comp
 {
     class Song
     {
-        List<Instrument> mInstruments = new List<Instrument>();
+        public List<Instrument> mInstruments = new List<Instrument>();
 
         public static float SCREEN_WIDTH;
         public static float PAGE_WIDTH;
@@ -85,6 +85,10 @@ namespace Music_Comp
         public void AddInstrument(Clef clef1, Clef clef2, Clef clef3, Clef clef4)
         {
             mInstruments.Add(new Instrument(clef1, clef2, clef3, clef4));
+        }
+        public void RemoveInstrument()
+        {
+            mInstruments.Remove(mInstruments[mInstruments.Count - 1]);
         }
         public void Draw(PaintEventArgs e)
         {

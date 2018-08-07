@@ -28,17 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.graphicsPanel = new System.Windows.Forms.Panel();
             this.composerTextBox = new System.Windows.Forms.TextBox();
             this.titleTextBox = new System.Windows.Forms.TextBox();
             this.zoomInButton = new System.Windows.Forms.Button();
             this.zoomOutButton = new System.Windows.Forms.Button();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.Add_Instrument = new System.Windows.Forms.ToolStripButton();
+            this.directorySearcher1 = new System.DirectoryServices.DirectorySearcher();
             this.graphicsPanel.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // graphicsPanel
             // 
             this.graphicsPanel.BackColor = System.Drawing.Color.White;
+            this.graphicsPanel.Controls.Add(this.toolStrip1);
             this.graphicsPanel.Controls.Add(this.composerTextBox);
             this.graphicsPanel.Controls.Add(this.titleTextBox);
             this.graphicsPanel.Location = new System.Drawing.Point(0, 0);
@@ -104,6 +110,33 @@
             this.zoomOutButton.UseVisualStyleBackColor = false;
             this.zoomOutButton.Click += new System.EventHandler(this.zoomOutButton_Click);
             // 
+            // toolStrip1
+            // 
+            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Add_Instrument});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(2550, 31);
+            this.toolStrip1.TabIndex = 2;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // Add_Instrument
+            // 
+            this.Add_Instrument.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.Add_Instrument.Image = ((System.Drawing.Image)(resources.GetObject("Add_Instrument.Image")));
+            this.Add_Instrument.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.Add_Instrument.Name = "Add_Instrument";
+            this.Add_Instrument.Size = new System.Drawing.Size(28, 28);
+            this.Add_Instrument.Text = "toolStripButton1";
+            this.Add_Instrument.Click += new System.EventHandler(this.Add_Instrument_Click);
+            // 
+            // directorySearcher1
+            // 
+            this.directorySearcher1.ClientTimeout = System.TimeSpan.Parse("-00:00:01");
+            this.directorySearcher1.ServerPageTimeLimit = System.TimeSpan.Parse("-00:00:01");
+            this.directorySearcher1.ServerTimeLimit = System.TimeSpan.Parse("-00:00:01");
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -119,6 +152,8 @@
             this.Resize += new System.EventHandler(this.MainForm_Resize);
             this.graphicsPanel.ResumeLayout(false);
             this.graphicsPanel.PerformLayout();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -130,6 +165,9 @@
         private System.Windows.Forms.TextBox composerTextBox;
         private System.Windows.Forms.Button zoomInButton;
         private System.Windows.Forms.Button zoomOutButton;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripButton Add_Instrument;
+        private System.DirectoryServices.DirectorySearcher directorySearcher1;
     }
 }
 

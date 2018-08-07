@@ -108,5 +108,15 @@ namespace Music_Comp
             if (Song.PAGE_WIDTH > 500)
                 graphicsPanel.Size = new Size((int)(PAGE_WIDTH - 100), (int)(PAGE_HEIGHT - 100 * PAGE_HEIGHT / PAGE_WIDTH));
         }
+
+        private void Add_Instrument_Click(object sender, EventArgs e)
+        {
+            AddInstrument options = new AddInstrument();
+            options.ShowDialog();
+            if (options.DialogResult == DialogResult.OK)
+            {
+                
+            }
+        }
     }
 }
