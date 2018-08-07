@@ -121,6 +121,12 @@
   <data name="BassClef" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bassClef.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Brace" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GullBraceLeft.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Bracket" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Music_Bracket.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="DoubleFlat" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\681px-Doubleflat.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
