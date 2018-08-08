@@ -20,6 +20,8 @@ namespace Music_Comp
 
         Song song;
 
+        bool ShiftCheck = false;
+
         public MainForm()
         {
             InitializeComponent();
@@ -39,10 +41,11 @@ namespace Music_Comp
             composerTextBox.Location = new Point((int)(PAGE_WIDTH - composerTextBox.Width - 100 * _SCALE), (int)(220 * _SCALE));
 
             song = new Song(PAGE_WIDTH, Key.Eflat, Time.Common);
-            song.AddInstrument(Clef.Treble, Clef.Treble, Clef.Treble, Clef.Bass);
+            song.AddInstrument(Clef.Treble, Clef.Treble, Clef.Treble, Clef.Bass, Grouping.Bracket);
             ActiveControl = graphicsPanel;
 
             (graphicsPanel as Control).KeyUp += new KeyEventHandler(graphicsPanel_KeyUp);
+            (graphicsPanel as Control).KeyDown += new KeyEventHandler(graphicsPanel_KeyDown);
         }
 
         private void graphicsPanel_Paint(object sender, PaintEventArgs e)
@@ -121,19 +124,19 @@ namespace Music_Comp
             {
                 if (options.stavecount == 1)
                 {
-                    song.AddInstrument(options.clef1);
+                    song.AddInstrument(options.clef1, Grouping.None);
                 }
                 else if (options.stavecount == 2)
                 {
-                    song.AddInstrument(options.clef1, options.clef2);
+                    song.AddInstrument(options.clef1, options.clef2, Grouping.None);
                 }
                 else if (options.stavecount == 3)
                 {
-                    song.AddInstrument(options.clef1, options.clef2, options.clef3);
+                    song.AddInstrument(options.clef1, options.clef2, options.clef3, Grouping.None);
                 }
                 else if (options.stavecount == 4)
                 {
-                    song.AddInstrument(options.clef1, options.clef2, options.clef3, options.clef4);
+                    song.AddInstrument(options.clef1, options.clef2, options.clef3, options.clef4, Grouping.None);
                 }
                 graphicsPanel.Invalidate();
             }
@@ -142,6 +145,7 @@ namespace Music_Comp
 
         private void graphicsPanel_KeyUp(object sender, KeyEventArgs e)
         {
+            bool valid = false;
             Note note = new Note(Pitch.C, Accidental.Natural, Duration.Quarter, 4);
 
             switch (e.KeyCode)
@@ -167,39 +171,120 @@ namespace Music_Comp
                 case Keys.D9:
                     break;
                 case Keys.A:
-                    note.SetPitch(Pitch.A);
+                    valid = true;
+                    if (GetShiftCheck() == true)
+                    {
+                        note.SetPitch(Pitch.A);
+                        note.SetDuration(Duration.Half);
+                    }
+                    else
+                    {
+                        note.SetPitch(Pitch.A);
+                    }
                     break;
                 case Keys.B:
-                    note.SetPitch(Pitch.B);
+                    valid = true;
+                    if (GetShiftCheck() == true)
+                    {
+                        note.SetPitch(Pitch.B);
+                        note.SetDuration(Duration.Half);
+                    }
+                    else
+                    {
+                        note.SetPitch(Pitch.B);
+                    }
                     break;
                 case Keys.C:
-                    note.SetPitch(Pitch.C);
+                    valid = true;
+                    if (GetShiftCheck() == true)
+                    {
+                        note.SetPitch(Pitch.C);
+                        note.SetDuration(Duration.Half);
+                    }
+                    else
+                    {
+                        note.SetPitch(Pitch.C);
+                    }
                     break;
                 case Keys.D:
-                    note.SetPitch(Pitch.D);
+                    valid = true;
+                    if (GetShiftCheck() == true)
+                    {
+                        note.SetPitch(Pitch.D);
+                        note.SetDuration(Duration.Half);
+                    }
+                    else
+                    {
+                        note.SetPitch(Pitch.D);
+                    }
                     break;
                 case Keys.E:
-                    note.SetPitch(Pitch.E);
+                    valid = true;
+                    if (GetShiftCheck() == true)
+                    {
+                        note.SetPitch(Pitch.E);
+                        note.SetDuration(Duration.Half);
+                    }
+                    else
+                    {
+                        note.SetPitch(Pitch.E);
+                    }
                     break;
                 case Keys.F:
-                    note.SetPitch(Pitch.F);
+                    valid = true;
+                    if (GetShiftCheck() == true)
+                    {
+                        note.SetPitch(Pitch.F);
+                        note.SetDuration(Duration.Half);
+                    }
+                    else
+                    {
+                        note.SetPitch(Pitch.F);
+                    }
                     break;
                 case Keys.G:
-                    note.SetPitch(Pitch.G);
-                    break;
-                case Keys.Shift:
-                    break;
-                case Keys.Control:
-                    break;
-                case Keys.Alt:
+                    valid = true;
+                    if (GetShiftCheck() == true)
+                    {
+                        note.SetPitch(Pitch.G);
+                        note.SetDuration(Duration.Half);
+                    }
+                    else
+                    {
+                        note.SetPitch(Pitch.G);
+                    }
                     break;
                 default:
                     break;
             }
 
-            song.GetInstrument(0).GetStaff(0).GetMeasure(0).AddNote(note);
+            if (valid)
+            {
+                song.GetInstrument(0).GetStaff(0).GetMeasure(0).AddNote(note);
+                graphicsPanel.Invalidate();
+            }
 
-            graphicsPanel.Invalidate();
+        }
+
+        private void graphicsPanel_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (ModifierKeys == Keys.Shift)
+            {
+                SetShiftCheck(true);
+            }
+            else
+            {
+                SetShiftCheck(false);
+            }
+        }
+
+        private void SetShiftCheck(bool a)
+        {
+            ShiftCheck = a;
+        }
+        private bool GetShiftCheck()
+        {
+            return ShiftCheck;
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)

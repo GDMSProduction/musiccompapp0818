@@ -160,5 +160,11 @@
   <ItemGroup>
     <None Include="Resources\2000px-WholeNote.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GullBraceLeft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Music_Bracket.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

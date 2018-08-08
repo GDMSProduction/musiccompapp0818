@@ -33,7 +33,7 @@ namespace Music_Comp
         {
             InitializeComponent();
             tempsong = new Song(panel1.Width, Key.C, Time.Common);
-            tempsong.AddInstrument(Clef.Treble);
+            tempsong.AddInstrument(Clef.Treble, Grouping.None);
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -80,7 +80,7 @@ namespace Music_Comp
                 St3Clef.Text = " ";
                 St4Clef.Text = " ";
                 tempsong = new Song(panel1.Width, Key.C, Time.Common);
-                tempsong.AddInstrument(Clef.Treble);
+                tempsong.AddInstrument(Clef.Treble, Grouping.None);
             }
             else if (StaveNumeric.Value == 2)
             {
@@ -91,7 +91,7 @@ namespace Music_Comp
                 St3Clef.Text = " ";
                 St4Clef.Text = " ";
                 tempsong = new Song(panel1.Width, Key.C, Time.Common);
-                tempsong.AddInstrument(Clef.Treble, Clef.Treble);
+                tempsong.AddInstrument(Clef.Treble, Clef.Treble, Grouping.None);
             }
             else if (StaveNumeric.Value == 3)
             {
@@ -101,7 +101,7 @@ namespace Music_Comp
                 St4Clef.Enabled = false;
                 St4Clef.Text = " ";
                 tempsong = new Song(panel1.Width, Key.C, Time.Common);
-                tempsong.AddInstrument(Clef.Treble, Clef.Treble, Clef.Treble);
+                tempsong.AddInstrument(Clef.Treble, Clef.Treble, Clef.Treble, Grouping.None);
             }
             else if (StaveNumeric.Value == 4)
             {
@@ -110,7 +110,7 @@ namespace Music_Comp
                 St3Clef.Enabled = true;
                 St4Clef.Enabled = true;
                 tempsong = new Song(panel1.Width, Key.C, Time.Common);
-                tempsong.AddInstrument(Clef.Treble, Clef.Treble, Clef.Treble, Clef.Treble);
+                tempsong.AddInstrument(Clef.Treble, Clef.Treble, Clef.Treble, Clef.Treble, Grouping.None);
             }
             panel1.Refresh();
         }
@@ -136,19 +136,19 @@ namespace Music_Comp
             tempsong = new Song(panel1.Width, Key.C, Time.Common);
             if (StaveNumeric.Value == 1)
             {
-                tempsong.AddInstrument(clef1);
+                tempsong.AddInstrument(clef1, Grouping.None);
             }
             else if (StaveNumeric.Value == 2)
             {
-                tempsong.AddInstrument(clef1, clef2);
+                tempsong.AddInstrument(clef1, clef2, Grouping.None);
             }
             else if (StaveNumeric.Value == 3)
             {
-                tempsong.AddInstrument(clef1, clef2, clef3);
+                tempsong.AddInstrument(clef1, clef2, clef3, Grouping.None);
             }
             else if (StaveNumeric.Value == 4)
             {
-                tempsong.AddInstrument(clef1, clef2, clef3, clef4);
+                tempsong.AddInstrument(clef1, clef2, clef3, clef4, Grouping.None);
             }
             panel1.Invalidate();
         }
@@ -174,15 +174,15 @@ namespace Music_Comp
             tempsong = new Song(panel1.Width, Key.C, Time.Common);
             if (StaveNumeric.Value == 2)
             {
-                tempsong.AddInstrument(clef1, clef2);
+                tempsong.AddInstrument(clef1, clef2, Grouping.None);
             }
             else if (StaveNumeric.Value == 3)
             {
-                tempsong.AddInstrument(clef1, clef2, clef3);
+                tempsong.AddInstrument(clef1, clef2, clef3, Grouping.None);
             }
             else if (StaveNumeric.Value == 4)
             {
-                tempsong.AddInstrument(clef1, clef2, clef3, clef4);
+                tempsong.AddInstrument(clef1, clef2, clef3, clef4, Grouping.None);
             }
             panel1.Invalidate();
         }
@@ -208,11 +208,11 @@ namespace Music_Comp
             tempsong = new Song(panel1.Width, Key.C, Time.Common);
             if (StaveNumeric.Value == 3)
             {
-                tempsong.AddInstrument(clef1, clef2, clef3);
+                tempsong.AddInstrument(clef1, clef2, clef3, Grouping.None);
             }
             else if (StaveNumeric.Value == 4)
             {
-                tempsong.AddInstrument(clef1, clef2, clef3, clef4);
+                tempsong.AddInstrument(clef1, clef2, clef3, clef4, Grouping.None);
             }
             panel1.Invalidate();
         }
@@ -236,7 +236,7 @@ namespace Music_Comp
                 clef4 = Clef.Bass;
             }
             tempsong = new Song(panel1.Width, Key.C, Time.Common);
-            tempsong.AddInstrument(clef1, clef2, clef3, clef4);
+            tempsong.AddInstrument(clef1, clef2, clef3, clef4, Grouping.None);
             panel1.Invalidate();
         }
     }
