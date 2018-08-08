@@ -16,6 +16,7 @@ namespace Music_Comp
         float PAGE_WIDTH;
         float PAGE_HEIGHT;
         float _SCALE;
+        int yloc = 36;
 
         Song song;
 
@@ -59,9 +60,9 @@ namespace Music_Comp
         private void MainForm_Resize(object sender, EventArgs e)
         {
             if (Width > PAGE_WIDTH)
-                graphicsPanel.Location = new Point((int)(Width / 2 - PAGE_WIDTH / 2), 0);
+                graphicsPanel.Location = new Point((int)(Width / 2 - PAGE_WIDTH / 2), yloc);
             else
-                graphicsPanel.Location = new Point(0, 0);
+                graphicsPanel.Location = new Point(0, yloc);
         }
 
         private void graphicsPanel_Resize(object sender, EventArgs e)
@@ -93,9 +94,9 @@ namespace Music_Comp
             Staff.HEIGHT = 4 * Staff.LINE_SPACING;
 
             if (Width > graphicsPanel.Width)
-                graphicsPanel.Location = new Point(Width / 2 - graphicsPanel.Width / 2, 0);
+                graphicsPanel.Location = new Point(Width / 2 - graphicsPanel.Width / 2, yloc);
             else
-                graphicsPanel.Location = new Point(0, 0);
+                graphicsPanel.Location = new Point(0, yloc);
 
             graphicsPanel.Invalidate();
         }
@@ -136,6 +137,7 @@ namespace Music_Comp
                 }
                 graphicsPanel.Invalidate();
             }
+            graphicsPanel.Invalidate();
         }
 
         private void graphicsPanel_KeyUp(object sender, KeyEventArgs e)
@@ -198,6 +200,11 @@ namespace Music_Comp
             song.GetInstrument(0).GetStaff(0).GetMeasure(0).AddNote(note);
 
             graphicsPanel.Invalidate();
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

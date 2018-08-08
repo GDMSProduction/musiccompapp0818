@@ -17,7 +17,7 @@ namespace Music_Comp
         public Clef clef2 = new Clef();
         public Clef clef3 = new Clef();
         public Clef clef4 = new Clef();
-        private int staveCount;
+        private int staveCount = 1;
         public int stavecount
         {
             get
@@ -43,24 +43,36 @@ namespace Music_Comp
 
         private void Brace_CheckedChanged(object sender, EventArgs e)
         {
+            if (Brace.Checked == true)
+            {
 
+            }
+            else return;
         }
 
         private void Bracket_CheckedChanged(object sender, EventArgs e)
         {
+            if (Bracket.Checked == true)
+            {
 
+            }
+            else return;
         }
 
         private void None_CheckedChanged(object sender, EventArgs e)
         {
+            if (None.Checked == true)
+            {
 
+            }
+            else return;
         }
 
         private void StaveNumeric_ValueChanged(object sender, EventArgs e)
         {
             if (StaveNumeric.Value == 1)
             {
-                stavecount = 1;
+                staveCount = 1;
                 St2Clef.Enabled = false;
                 St3Clef.Enabled = false;
                 St4Clef.Enabled = false;
@@ -72,7 +84,7 @@ namespace Music_Comp
             }
             else if (StaveNumeric.Value == 2)
             {
-                stavecount = 2;
+                staveCount = 2;
                 St2Clef.Enabled = true;
                 St3Clef.Enabled = false;
                 St4Clef.Enabled = false;
@@ -83,7 +95,7 @@ namespace Music_Comp
             }
             else if (StaveNumeric.Value == 3)
             {
-                stavecount = 3;
+                staveCount = 3;
                 St2Clef.Enabled = true;
                 St3Clef.Enabled = true;
                 St4Clef.Enabled = false;
@@ -93,7 +105,7 @@ namespace Music_Comp
             }
             else if (StaveNumeric.Value == 4)
             {
-                stavecount = 4;
+                staveCount = 4;
                 St2Clef.Enabled = true;
                 St3Clef.Enabled = true;
                 St4Clef.Enabled = true;
