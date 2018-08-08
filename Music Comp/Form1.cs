@@ -38,7 +38,7 @@ namespace Music_Comp
             composerTextBox.Location = new Point((int)(PAGE_WIDTH - composerTextBox.Width - 100 * _SCALE), (int)(220 * _SCALE));
 
             song = new Song(PAGE_WIDTH, Key.Eflat, Time.Common);
-            song.AddInstrument(Clef.Treble, Clef.Bass, Grouping.Brace);
+            song.AddInstrument(Clef.Treble, Clef.Treble, Clef.Treble, Clef.Bass, Grouping.Bracket);
             ActiveControl = graphicsPanel;
 
             (graphicsPanel as Control).KeyUp += new KeyEventHandler(graphicsPanel_KeyUp);

@@ -59,6 +59,10 @@ namespace Music_Comp
         {
             return mClefs[i];
         }
+        public Grouping GetGrouping()
+        {
+            return mGrouping;
+        }
         public void AddStaves(int numberOfStaves)
         {
             mStaves = new Staff[numberOfStaves];

@@ -103,8 +103,8 @@ namespace Music_Comp
             {
                 for (int j = 0; j < mInstruments.Count; j++)
                 {
-
                     btm_inst_line = top_inst_line + (Staff.HEIGHT + STAFF_SPACING) * mInstruments[j].GetNumberOfStaves() - STAFF_SPACING;
+                    DrawGrouping(mInstruments[j].GetGrouping(), top_inst_line, btm_inst_line, e);
 
                     e.Graphics.DrawLine(barLinePen, new PointF(barlines[i], top_inst_line), new PointF(barlines[i], btm_inst_line));
 
@@ -112,6 +112,31 @@ namespace Music_Comp
                 }
             }
             barLinePen.Dispose();
+        }
+        public void DrawGrouping(Grouping g, float instTop, float instBtm, PaintEventArgs e)
+        {
+            PointF location = new PointF();
+            SizeF size = new SizeF();
+
+            switch (g)
+            {
+                case Grouping.Bracket:
+                    location.X = LEFT_MARGIN - 35 * _SCALE;
+                    location.Y = instTop - 15 * _SCALE;
+                    size.Width = 40 * _SCALE;
+                    size.Height = instBtm - instTop + 30 * _SCALE;
+
+                    e.Graphics.DrawImage(Properties.Resources.Bracket, new RectangleF(location, size));
+                    break;
+                case Grouping.Brace:
+                    location.X = LEFT_MARGIN - 50 * _SCALE;
+                    location.Y = instTop;
+                    size.Width = 50 * _SCALE;
+                    size.Height = instBtm - instTop;
+
+                    e.Graphics.DrawImage(Properties.Resources.Brace, new RectangleF(location, size));
+                    break;
+            }
         }
         public void Draw(PaintEventArgs e)
         {
