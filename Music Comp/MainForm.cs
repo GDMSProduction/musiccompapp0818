@@ -13,6 +13,9 @@ namespace Music_Comp
 
         Song song;
 
+        //Staff number
+        int i = 0;
+
         public MainForm()
         {
             InitializeComponent();
@@ -173,6 +176,18 @@ namespace Music_Comp
 
             switch (e.KeyCode)
             {
+                case Keys.Up:
+                    if (i > 0)
+                    {
+                        --i;
+                    }
+                    break;
+                case Keys.Down:
+                    if (i < Song.TOTAL_STAVES - 1)
+                    {
+                        ++i;
+                    }
+                    break;
                 case Keys.A:
                     valid = true;
                     if (ShiftCheck())
@@ -261,7 +276,7 @@ namespace Music_Comp
 
             if (valid)
             {
-                song.GetInstrument(0).GetStaff(0).GetMeasure(0).AddNote(note);
+                song.GetInstrument(0).GetStaff(i).GetMeasure(0).AddNote(note);
                 graphicsPanel.Refresh();
             }
 
