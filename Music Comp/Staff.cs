@@ -13,6 +13,7 @@ namespace Music_Comp
         static Image sharpImage = Properties.Resources.Sharp;
         static Image doublesharpImage = Properties.Resources.DoubleSharp;
         static Image trebleClefImage = Properties.Resources.TrebleClef;
+        static Image cClefImage = Properties.Resources.C_Clef;
         static Image bassClefImage = Properties.Resources.BassClef;
         static Image fourFourImage = Properties.Resources.FourFour;
         static Image sixEightImage = Properties.Resources.SixEight;
@@ -96,6 +97,12 @@ namespace Music_Comp
                     e.Graphics.DrawImage(trebleClefImage, new RectangleF(location, size));
                     break;
                 case Clef.Alto:
+                    location.X = mCursorX + 10 * Song._SCALE;
+                    location.Y = Song.TOP_MARGIN - 0 * Song._SCALE + mYPosition;
+                    size.Width = HEIGHT * 0.80f;
+                    size.Height = HEIGHT;
+
+                    e.Graphics.DrawImage(cClefImage, new RectangleF(location, size));
                     break;
                 case Clef.Bass:
                     location.X = mCursorX - 35 * Song._SCALE;
@@ -106,6 +113,12 @@ namespace Music_Comp
                     e.Graphics.DrawImage(bassClefImage, new RectangleF(location, size));
                     break;
                 case Clef.Tenor:
+                    location.X = mCursorX + 10 * Song._SCALE;
+                    location.Y = Song.TOP_MARGIN - 29 * Song._SCALE + mYPosition;
+                    size.Width = HEIGHT * 0.8f;
+                    size.Height = HEIGHT;
+
+                    e.Graphics.DrawImage(cClefImage, new RectangleF(location, size));
                     break;
             }
 

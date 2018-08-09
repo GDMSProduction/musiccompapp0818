@@ -43,7 +43,7 @@ namespace Music_Comp
             song.AddInstrument(Clef.Treble, Grouping.None);
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
+        private void AddInstrumentForm_Paint(object sender, PaintEventArgs e)
         {
             song.Draw(e);
         }

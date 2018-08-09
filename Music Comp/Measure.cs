@@ -9,7 +9,7 @@ namespace Music_Comp
 
         float mXPosition;
         float mYPosition;
-        int mLength;
+        float mLength;
 
         Clef mClef;
         Key mKey;
@@ -26,6 +26,10 @@ namespace Music_Comp
         {
             return mNotes.Count;
         }
+        public float GetLength()
+        {
+            return mLength;
+        }
         public Note GetNote(int i)
         {
             return mNotes[i];
@@ -41,6 +45,7 @@ namespace Music_Comp
             {
                 note.Draw(mXPosition + cursor, mYPosition, mClef, e);
                 cursor += 60 * Song._SCALE;
+                mLength += (60 + note.GetWidth()) * Song._SCALE;
             }
         }
     }
