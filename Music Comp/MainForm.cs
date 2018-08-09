@@ -137,13 +137,13 @@ namespace Music_Comp
                         song.AddInstrument(options.clefs[0], options.grouping);
                         break;
                     case 2:
-                        song.AddInstrument(options.clefs[0], options.clefs[1], Grouping.None);
+                        song.AddInstrument(options.clefs[0], options.clefs[1], options.grouping);
                         break;
                     case 3:
-                        song.AddInstrument(options.clefs[0], options.clefs[1], options.clefs[2], Grouping.None);
+                        song.AddInstrument(options.clefs[0], options.clefs[1], options.clefs[2], options.grouping);
                         break;
                     case 4:
-                        song.AddInstrument(options.clefs[0], options.clefs[1], options.clefs[2], options.clefs[3], Grouping.None);
+                        song.AddInstrument(options.clefs[0], options.clefs[1], options.clefs[2], options.clefs[3], options.grouping);
                         break;
                 }
             }
