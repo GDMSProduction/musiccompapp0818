@@ -219,6 +219,7 @@
             this.graphicsPanel.Name = "graphicsPanel";
             this.graphicsPanel.Size = new System.Drawing.Size(2550, 3300);
             this.graphicsPanel.TabIndex = 0;
+            this.graphicsPanel.Click += new System.EventHandler(this.graphicsPanel_Click);
             this.graphicsPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.graphicsPanel_Paint);
             this.graphicsPanel.Resize += new System.EventHandler(this.graphicsPanel_Resize);
             // 

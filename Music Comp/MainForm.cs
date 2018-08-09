@@ -137,13 +137,13 @@ namespace Music_Comp
                         song.AddInstrument(options.clefs[0], options.grouping);
                         break;
                     case 2:
-                        song.AddInstrument(options.clefs[0], options.clefs[1], Grouping.None);
+                        song.AddInstrument(options.clefs[0], options.clefs[1], options.grouping);
                         break;
                     case 3:
-                        song.AddInstrument(options.clefs[0], options.clefs[1], options.clefs[2], Grouping.None);
+                        song.AddInstrument(options.clefs[0], options.clefs[1], options.clefs[2], options.grouping);
                         break;
                     case 4:
-                        song.AddInstrument(options.clefs[0], options.clefs[1], options.clefs[2], options.clefs[3], Grouping.None);
+                        song.AddInstrument(options.clefs[0], options.clefs[1], options.clefs[2], options.clefs[3], options.grouping);
                         break;
                 }
             }
@@ -180,7 +180,7 @@ namespace Music_Comp
             {
                 case Keys.A:
                     valid = true;
-                    if (ShiftCheck() == true)
+                    if (ShiftCheck())
                     {
                         note.SetPitch(Pitch.A);
                         note.SetDuration(Duration.Half);
@@ -192,7 +192,7 @@ namespace Music_Comp
                     break;
                 case Keys.B:
                     valid = true;
-                    if (ShiftCheck() == true)
+                    if (ShiftCheck())
                     {
                         note.SetPitch(Pitch.B);
                         note.SetDuration(Duration.Half);
@@ -204,7 +204,7 @@ namespace Music_Comp
                     break;
                 case Keys.C:
                     valid = true;
-                    if (ShiftCheck() == true)
+                    if (ShiftCheck())
                     {
                         note.SetPitch(Pitch.C);
                         note.SetDuration(Duration.Half);
@@ -216,7 +216,7 @@ namespace Music_Comp
                     break;
                 case Keys.D:
                     valid = true;
-                    if (ShiftCheck() == true)
+                    if (ShiftCheck())
                     {
                         note.SetPitch(Pitch.D);
                         note.SetDuration(Duration.Half);
@@ -228,7 +228,7 @@ namespace Music_Comp
                     break;
                 case Keys.E:
                     valid = true;
-                    if (ShiftCheck() == true)
+                    if (ShiftCheck())
                     {
                         note.SetPitch(Pitch.E);
                         note.SetDuration(Duration.Half);
@@ -240,7 +240,7 @@ namespace Music_Comp
                     break;
                 case Keys.F:
                     valid = true;
-                    if (ShiftCheck() == true)
+                    if (ShiftCheck())
                     {
                         note.SetPitch(Pitch.F);
                         note.SetDuration(Duration.Half);
@@ -252,7 +252,7 @@ namespace Music_Comp
                     break;
                 case Keys.G:
                     valid = true;
-                    if (ShiftCheck() == true)
+                    if (ShiftCheck())
                     {
                         note.SetPitch(Pitch.G);
                         note.SetDuration(Duration.Half);
@@ -274,6 +274,11 @@ namespace Music_Comp
         private bool ShiftCheck()
         {
             return ModifierKeys == Keys.Shift;
+        }
+
+        private void graphicsPanel_Click(object sender, EventArgs e)
+        {
+            ActiveControl = graphicsPanel;
         }
     }
 }

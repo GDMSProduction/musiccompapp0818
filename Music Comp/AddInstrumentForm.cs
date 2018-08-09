@@ -53,6 +53,19 @@ namespace Music_Comp
             if (Brace.Checked == true)
             {
                 grouping = Grouping.Brace;
+                song = new Song(graphicsPanel.Width * 2, Song.KEY, Song.TIME);
+                switch (StaveNumeric.Value)
+                {
+                    case 2:
+                        song.AddInstrument(clefs[0], clefs[1], grouping);
+                        break;
+                    case 3:
+                        song.AddInstrument(clefs[0], clefs[1], clefs[2], grouping);
+                        break;
+                    case 4:
+                        song.AddInstrument(clefs[0], clefs[1], clefs[2], clefs[3], grouping);
+                        break;
+                }
                 graphicsPanel.Invalidate();
             }
             else return;
@@ -63,6 +76,19 @@ namespace Music_Comp
             if (Bracket.Checked == true)
             {
                 grouping = Grouping.Bracket;
+                song = new Song(graphicsPanel.Width * 2, Song.KEY, Song.TIME);
+                switch (StaveNumeric.Value)
+                {
+                    case 2:
+                        song.AddInstrument(clefs[0], clefs[1], grouping);
+                        break;
+                    case 3:
+                        song.AddInstrument(clefs[0], clefs[1], clefs[2], grouping);
+                        break;
+                    case 4:
+                        song.AddInstrument(clefs[0], clefs[1], clefs[2], clefs[3], grouping);
+                        break;
+                }
                 graphicsPanel.Invalidate();
             }
             else return;
@@ -73,6 +99,19 @@ namespace Music_Comp
             if (None.Checked == true)
             {
                 grouping = Grouping.None;
+                song = new Song(graphicsPanel.Width * 2, Song.KEY, Song.TIME);
+                switch (StaveNumeric.Value)
+                {
+                    case 2:
+                        song.AddInstrument(clefs[0], clefs[1], grouping);
+                        break;
+                    case 3:
+                        song.AddInstrument(clefs[0], clefs[1], clefs[2], grouping);
+                        break;
+                    case 4:
+                        song.AddInstrument(clefs[0], clefs[1], clefs[2], clefs[3], grouping);
+                        break;
+                }
                 graphicsPanel.Invalidate();
             }
             else return;
@@ -91,7 +130,7 @@ namespace Music_Comp
                     St3Clef.Text = " ";
                     St4Clef.Text = " ";
                     song = new Song(graphicsPanel.Width * 2, Song.KEY, Song.TIME);
-                    song.AddInstrument(Clef.Treble, Grouping.None);
+                    song.AddInstrument(Clef.Treble, grouping);
                     break;
                 case 2:
                     staveCount = 2;
@@ -101,7 +140,7 @@ namespace Music_Comp
                     St3Clef.Text = " ";
                     St4Clef.Text = " ";
                     song = new Song(graphicsPanel.Width * 2, Song.KEY, Song.TIME);
-                    song.AddInstrument(Clef.Treble, Clef.Treble, Grouping.None);
+                    song.AddInstrument(Clef.Treble, Clef.Treble, grouping);
                     break;
                 case 3:
                     staveCount = 3;
@@ -110,7 +149,7 @@ namespace Music_Comp
                     St4Clef.Enabled = false;
                     St4Clef.Text = " ";
                     song = new Song(graphicsPanel.Width * 2, Song.KEY, Song.TIME);
-                    song.AddInstrument(Clef.Treble, Clef.Treble, Clef.Treble, Grouping.None);
+                    song.AddInstrument(Clef.Treble, Clef.Treble, Clef.Treble, grouping);
                     break;
                 case 4:
                     staveCount = 4;
@@ -118,7 +157,7 @@ namespace Music_Comp
                     St3Clef.Enabled = true;
                     St4Clef.Enabled = true;
                     song = new Song(graphicsPanel.Width * 2, Song.KEY, Song.TIME);
-                    song.AddInstrument(Clef.Treble, Clef.Treble, Clef.Treble, Clef.Treble, Grouping.None);
+                    song.AddInstrument(Clef.Treble, Clef.Treble, Clef.Treble, Clef.Treble, grouping);
                     break;
             }
             graphicsPanel.Invalidate();
