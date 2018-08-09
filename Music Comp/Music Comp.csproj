@@ -166,5 +166,8 @@
   <ItemGroup>
     <None Include="Resources\Music_Bracket.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2000px-Alto_clef.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

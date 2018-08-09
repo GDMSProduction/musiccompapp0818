@@ -180,7 +180,7 @@ namespace Music_Comp
             {
                 case Keys.A:
                     valid = true;
-                    if (ShiftCheck() == true)
+                    if (ShiftCheck())
                     {
                         note.SetPitch(Pitch.A);
                         note.SetDuration(Duration.Half);
@@ -192,7 +192,7 @@ namespace Music_Comp
                     break;
                 case Keys.B:
                     valid = true;
-                    if (ShiftCheck() == true)
+                    if (ShiftCheck())
                     {
                         note.SetPitch(Pitch.B);
                         note.SetDuration(Duration.Half);
@@ -204,7 +204,7 @@ namespace Music_Comp
                     break;
                 case Keys.C:
                     valid = true;
-                    if (ShiftCheck() == true)
+                    if (ShiftCheck())
                     {
                         note.SetPitch(Pitch.C);
                         note.SetDuration(Duration.Half);
@@ -216,7 +216,7 @@ namespace Music_Comp
                     break;
                 case Keys.D:
                     valid = true;
-                    if (ShiftCheck() == true)
+                    if (ShiftCheck())
                     {
                         note.SetPitch(Pitch.D);
                         note.SetDuration(Duration.Half);
@@ -228,7 +228,7 @@ namespace Music_Comp
                     break;
                 case Keys.E:
                     valid = true;
-                    if (ShiftCheck() == true)
+                    if (ShiftCheck())
                     {
                         note.SetPitch(Pitch.E);
                         note.SetDuration(Duration.Half);
@@ -240,7 +240,7 @@ namespace Music_Comp
                     break;
                 case Keys.F:
                     valid = true;
-                    if (ShiftCheck() == true)
+                    if (ShiftCheck())
                     {
                         note.SetPitch(Pitch.F);
                         note.SetDuration(Duration.Half);
@@ -252,7 +252,7 @@ namespace Music_Comp
                     break;
                 case Keys.G:
                     valid = true;
-                    if (ShiftCheck() == true)
+                    if (ShiftCheck())
                     {
                         note.SetPitch(Pitch.G);
                         note.SetDuration(Duration.Half);
