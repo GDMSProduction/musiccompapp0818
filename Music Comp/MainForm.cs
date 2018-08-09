@@ -42,11 +42,6 @@ namespace Music_Comp
         {
             zoomInButton.Location = new Point(Width - 110, Height - 200);
             zoomOutButton.Location = new Point(Width - 110, Height - 150);
-            drawSong(e);
-        }
-
-        private void drawSong(PaintEventArgs e)
-        {
             song.Draw(e);
         }
 
@@ -91,7 +86,7 @@ namespace Music_Comp
             else
                 graphicsPanel.Location = new Point(0, 0);
 
-            graphicsPanel.Invalidate();
+            graphicsPanel.Refresh();
         }
 
         private void zoomInButton_Click(object sender, EventArgs e)
@@ -168,7 +163,7 @@ namespace Music_Comp
                 Staff.LENGTH = options.mainLENGTH;
                 Staff.HEIGHT = options.mainHEIGHT;
             }
-            graphicsPanel.Invalidate();
+            graphicsPanel.Refresh();
         }
 
         private void graphicsPanel_KeyUp(object sender, KeyEventArgs e)
@@ -267,10 +262,11 @@ namespace Music_Comp
             if (valid)
             {
                 song.GetInstrument(0).GetStaff(0).GetMeasure(0).AddNote(note);
-                graphicsPanel.Invalidate();
+                graphicsPanel.Refresh();
             }
 
         }
+
         private bool ShiftCheck()
         {
             return ModifierKeys == Keys.Shift;
