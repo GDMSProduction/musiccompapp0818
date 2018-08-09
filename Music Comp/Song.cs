@@ -6,6 +6,8 @@ namespace Music_Comp
 {
     class Song
     {
+        Image bracketImage = Properties.Resources.Bracket;
+        Image braceImage = Properties.Resources.Brace;
         public List<Instrument> mInstruments = new List<Instrument>();
 
         public static float SCREEN_WIDTH;
@@ -126,7 +128,7 @@ namespace Music_Comp
                     size.Width = 40 * _SCALE;
                     size.Height = instBtm - instTop + 30 * _SCALE;
 
-                    e.Graphics.DrawImage(Properties.Resources.Bracket, new RectangleF(location, size));
+                    e.Graphics.DrawImage(bracketImage, new RectangleF(location, size));
                     break;
                 case Grouping.Brace:
                     location.X = LEFT_MARGIN - 50 * _SCALE;
@@ -134,7 +136,7 @@ namespace Music_Comp
                     size.Width = 50 * _SCALE;
                     size.Height = instBtm - instTop;
 
-                    e.Graphics.DrawImage(Properties.Resources.Brace, new RectangleF(location, size));
+                    e.Graphics.DrawImage(braceImage , new RectangleF(location, size));
                     break;
             }
         }

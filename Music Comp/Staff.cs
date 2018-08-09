@@ -6,6 +6,17 @@ namespace Music_Comp
 {
     public class Staff
     {
+        Image staffImage = Properties.Resources.Staff;
+        Image dflatImage = Properties.Resources.DoubleFlat;
+        Image flatImage = Properties.Resources.Flat;
+        Image naturalImage = Properties.Resources.Natural;
+        Image sharpImage = Properties.Resources.Sharp;
+        Image dsharpImage = Properties.Resources.DoubleSharp;
+        Image trebleImage = Properties.Resources.TrebleClef;
+        Image bassImage = Properties.Resources.BassClef;
+        Image ffourImage = Properties.Resources.FourFour;
+        Image seightImage = Properties.Resources.SixEight;
+
         List<Measure> measures;
 
         public static float LINE_SPACING;
@@ -50,19 +61,19 @@ namespace Music_Comp
             switch (a)
             {
                 case Accidental.DoubleFlat:
-                    e.Graphics.DrawImage(Properties.Resources.DoubleFlat, new RectangleF(x, y - 50 * Song._SCALE, 60 * Song._SCALE, 70 * Song._SCALE));
+                    e.Graphics.DrawImage(dflatImage, new RectangleF(x, y - 50 * Song._SCALE, 60 * Song._SCALE, 70 * Song._SCALE));
                     break;
                 case Accidental.Flat:
-                    e.Graphics.DrawImage(Properties.Resources.Flat, new RectangleF(x, y - 50 * Song._SCALE, 35 * Song._SCALE, 68 * Song._SCALE));
+                    e.Graphics.DrawImage(flatImage, new RectangleF(x, y - 50 * Song._SCALE, 35 * Song._SCALE, 68 * Song._SCALE));
                     break;
                 case Accidental.Natural:
-                    e.Graphics.DrawImage(Properties.Resources.Natural, new RectangleF(x, y - 38 * Song._SCALE, 20 * Song._SCALE, 70 * Song._SCALE));
+                    e.Graphics.DrawImage(naturalImage, new RectangleF(x, y - 38 * Song._SCALE, 20 * Song._SCALE, 70 * Song._SCALE));
                     break;
                 case Accidental.Sharp:
-                    e.Graphics.DrawImage(Properties.Resources.Sharp, new RectangleF(x, y - 38 * Song._SCALE, 35 * Song._SCALE, 70 * Song._SCALE));
+                    e.Graphics.DrawImage(sharpImage, new RectangleF(x, y - 38 * Song._SCALE, 35 * Song._SCALE, 70 * Song._SCALE));
                     break;
                 case Accidental.DoubleSharp:
-                    e.Graphics.DrawImage(Properties.Resources.DoubleSharp, new RectangleF(x, y - 20 * Song._SCALE, 35 * Song._SCALE, 35 * Song._SCALE));
+                    e.Graphics.DrawImage(dsharpImage, new RectangleF(x, y - 20 * Song._SCALE, 35 * Song._SCALE, 35 * Song._SCALE));
                     break;
             }
         }
@@ -74,7 +85,7 @@ namespace Music_Comp
             PointF location = new PointF(Song.LEFT_MARGIN, Song.TOP_MARGIN + mYPosition);
             SizeF size = new SizeF(LENGTH, HEIGHT);
 
-            e.Graphics.DrawImage(Properties.Resources.Staff, new RectangleF(location, size));
+            e.Graphics.DrawImage(staffImage, new RectangleF(location, size));
 
             switch (mClef)
             {
@@ -84,7 +95,7 @@ namespace Music_Comp
                     size.Width = HEIGHT * 1.50f;
                     size.Height = HEIGHT * 2.28f;
 
-                    e.Graphics.DrawImage(Properties.Resources.TrebleClef, new RectangleF(location, size));
+                    e.Graphics.DrawImage(trebleImage, new RectangleF(location, size));
                     break;
                 case Clef.Alto:
                     break;
@@ -94,7 +105,7 @@ namespace Music_Comp
                     size.Width = HEIGHT * 1.48f;
                     size.Height = HEIGHT * 1.82f;
 
-                    e.Graphics.DrawImage(Properties.Resources.BassClef, new RectangleF(location, size));
+                    e.Graphics.DrawImage(bassImage, new RectangleF(location, size));
                     break;
                 case Clef.Tenor:
                     break;
@@ -133,7 +144,7 @@ namespace Music_Comp
                     size.Width = HEIGHT * 0.5f;
                     size.Height = HEIGHT;
 
-                    e.Graphics.DrawImage(Properties.Resources.SixEight, new RectangleF(location, size));
+                    e.Graphics.DrawImage(seightImage, new RectangleF(location, size));
                     break;
                 case Time.ThreeEight:
 
@@ -150,7 +161,7 @@ namespace Music_Comp
                     size.Width = HEIGHT * 0.5f;
                     size.Height = HEIGHT;
 
-                    e.Graphics.DrawImage(Properties.Resources.FourFour, new RectangleF(location, size));
+                    e.Graphics.DrawImage(ffourImage, new RectangleF(location, size));
                     break;
             }
 

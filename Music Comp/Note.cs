@@ -8,8 +8,8 @@ namespace Music_Comp
         Pitch mPitch;
         Accidental mAccidental;
         Duration mDuration;
-
         sbyte mOctave = 4;
+        Image image;
 
         public Note(Pitch p, Accidental a, Duration d, sbyte o)
         {
@@ -55,7 +55,6 @@ namespace Music_Comp
         {
             float x = cursorX;
             float y = staffYPosition;
-            Image image = Properties.Resources.Note;
 
             switch (mPitch)
             {
