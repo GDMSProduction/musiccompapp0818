@@ -180,11 +180,15 @@ namespace Music_Comp
 
             if (staffNumber == 0 && mMeasures.Count == 0)
                 AddMeasure();
+            if (staffNumber == 1 && mMeasures.Count == 1)
+                AddMeasure();
+            if (staffNumber == 2 && mMeasures.Count == 2)
+                AddMeasure();
+            if (staffNumber == 3 && mMeasures.Count == 3)
+                AddMeasure();
 
             foreach (Measure measure in mMeasures)
-            {
                 measure.Draw(e);
-            }
         }
     }
 }
