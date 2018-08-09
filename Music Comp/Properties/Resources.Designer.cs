@@ -63,16 +63,6 @@ namespace Music_Comp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap AltoClef {
-            get {
-                object obj = ResourceManager.GetObject("AltoClef", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap BassClef {
             get {
                 object obj = ResourceManager.GetObject("BassClef", resourceCulture);
@@ -96,6 +86,16 @@ namespace Music_Comp.Properties {
         internal static System.Drawing.Bitmap Bracket {
             get {
                 object obj = ResourceManager.GetObject("Bracket", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap C_Clef {
+            get {
+                object obj = ResourceManager.GetObject("C_Clef", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
