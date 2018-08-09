@@ -8,18 +8,19 @@ namespace Music_Comp
         List<Note> mNotes;
 
         float mXPosition;
+        float mYPosition;
         int mLength;
 
         Clef mClef;
         Key mKey;
         Time mTime;
 
-        public Measure(Clef clef, float cursorX)
+        public Measure(Clef clef, float cursorX, float yPosition)
         {
             mClef = clef;
             mXPosition = cursorX;
+            mYPosition = yPosition;
             mNotes = new List<Note>();
-            // Add to cursor
         }
         public int GetNoteCount()
         {
@@ -35,8 +36,12 @@ namespace Music_Comp
         }
         public void Draw(PaintEventArgs e)
         {
+            float cursor = 0;
             foreach (Note note in mNotes)
-                note.Draw(Song.cursorX, Song.cursorY, mClef, e);
+            {
+                note.Draw(mXPosition + cursor, mYPosition, mClef, e);
+                cursor += 60 * Song._SCALE;
+            }
         }
     }
 }

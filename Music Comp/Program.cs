@@ -68,14 +68,14 @@ namespace Music_Comp
     }
     public enum Pitch
     {
-        Rest,
-        C,
-        D,
         E,
-        F,
-        G,
+        D,
+        C,
+        B,
         A,
-        B
+        G,
+        F,
+        Rest
     }
     public enum Duration
     {
@@ -93,7 +93,6 @@ namespace Music_Comp
         Bracket,
         Brace
     }
-
 
     static class Program
     {

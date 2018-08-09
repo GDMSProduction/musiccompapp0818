@@ -27,7 +27,7 @@ namespace Music_Comp
         float mYPosition;
         float mCursorX;
 
-        List<Measure> measures;
+        List<Measure> mMeasures;
         Clef mClef;
 
         public Staff(Clef c, int inst, int staff)
@@ -42,18 +42,17 @@ namespace Music_Comp
             mYPosition = instrumentNumber * Song.INSTRUMENT_SPACING + staffNumber * (HEIGHT + Song.STAFF_SPACING);
 
             mClef = c;
-            measures = new List<Measure>();
-            AddMeasure();
+            mMeasures = new List<Measure>();
 
             Song.TOTAL_STAVES++;
         }
         public Measure GetMeasure(int i)
         {
-            return measures[i];
+            return mMeasures[i];
         }
         public void AddMeasure()
         {
-            measures.Add(new Measure(mClef, mCursorX));
+            mMeasures.Add(new Measure(mClef, mCursorX, mYPosition));
         }
         public void DrawAccidental(float x, float y, Accidental a, PaintEventArgs e)
         {
@@ -166,7 +165,10 @@ namespace Music_Comp
 
             mCursorX += 90 * Song._SCALE;
 
-            foreach (Measure measure in measures)
+            if (staffNumber == 0 && mMeasures.Count == 0)
+                AddMeasure();
+
+            foreach (Measure measure in mMeasures)
             {
                 measure.Draw(e);
             }
