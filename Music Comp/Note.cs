@@ -11,6 +11,8 @@ namespace Music_Comp
         sbyte mOctave = 4;
         Image image;
 
+        float mWidth;
+
         public Note(Pitch p, Accidental a, Duration d, sbyte o)
         {
             mPitch = p;
@@ -50,6 +52,10 @@ namespace Music_Comp
         {
             mOctave = o;
         }
+        public float GetWidth()
+        {
+            return mWidth;
+        }
         public void Draw(float cursorX, float staffYPosition, Clef c, PaintEventArgs e)
         {
             float x = cursorX;
@@ -64,26 +70,31 @@ namespace Music_Comp
                 case Duration.Quarter:
                     image = Properties.Resources.Note;
                     size = new SizeF(90 * Song._SCALE, 135 * Song._SCALE);
+                    mWidth = size.Width;
                     y -= 50 * Song._SCALE;
                     break;
                 case Duration.Half:
                     image = Properties.Resources.HalfNote;
                     size = new SizeF(120 * Song._SCALE, 135 * Song._SCALE);
+                    mWidth = size.Width;
                     y -= 56.5f * Song._SCALE;
                     break;
                 case Duration.Whole:
                     image = Properties.Resources.WholeNote;
                     size = new SizeF(90 * Song._SCALE, 135 * Song._SCALE);
+                    mWidth = size.Width;
                     y -= 50 * Song._SCALE;
                     break;
                 case Duration.Eighth:
                     image = Properties.Resources.EighthNote;
                     size = new SizeF(90 * Song._SCALE, 135 * Song._SCALE);
+                    mWidth = size.Width;
                     y -= 50 * Song._SCALE;
                     break;
                 case Duration.Sixteenth:
                     image = Properties.Resources.SixteenthNote;
                     size = new SizeF(90 * Song._SCALE, 135 * Song._SCALE);
+                    mWidth = size.Width;
                     y -= 50 * Song._SCALE;
                     break;
             }

@@ -53,7 +53,7 @@
             this.graphicsPanel.Name = "graphicsPanel";
             this.graphicsPanel.Size = new System.Drawing.Size(313, 380);
             this.graphicsPanel.TabIndex = 0;
-            this.graphicsPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            this.graphicsPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.AddInstrumentForm_Paint);
             // 
             // Brace
             // 
