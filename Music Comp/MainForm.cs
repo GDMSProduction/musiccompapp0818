@@ -275,5 +275,10 @@ namespace Music_Comp
         {
             return ModifierKeys == Keys.Shift;
         }
+
+        private void graphicsPanel_Click(object sender, EventArgs e)
+        {
+            ActiveControl = graphicsPanel;
+        }
     }
 }
