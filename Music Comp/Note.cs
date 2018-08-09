@@ -16,7 +16,6 @@ namespace Music_Comp
             mPitch = p;
             mAccidental = a;
             mDuration = d;
-
             mOctave = o;
         }
         public Pitch GetPitch()

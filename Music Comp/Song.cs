@@ -6,9 +6,8 @@ namespace Music_Comp
 {
     class Song
     {
-        Image bracketImage = Properties.Resources.Bracket;
-        Image braceImage = Properties.Resources.Brace;
-        public List<Instrument> mInstruments = new List<Instrument>();
+        static Image bracketImage = Properties.Resources.Bracket;
+        static Image braceImage = Properties.Resources.Brace;
 
         public static float SCREEN_WIDTH;
         public static float PAGE_WIDTH;
@@ -23,10 +22,11 @@ namespace Music_Comp
         public static float cursorY;
         public static float cursorX;
 
-
         public static Key KEY = Key.C;
         public static Time TIME = Time.Common;
-        public static List<float> mBarlines;
+        static List<float> mBarlines;
+
+        List<Instrument> mInstruments = new List<Instrument>();
 
         public Song(float panelWidth)
         {
@@ -38,6 +38,7 @@ namespace Music_Comp
             RIGHT_MARGIN = 50 * _SCALE;
             STAFF_SPACING = 60 * _SCALE;
             INSTRUMENT_SPACING = 80 * _SCALE;
+            TOTAL_INSTRUMENTS = 0;
             TOTAL_STAVES = 0;
             cursorY = TOP_MARGIN;
             cursorX = LEFT_MARGIN;
@@ -53,6 +54,7 @@ namespace Music_Comp
             RIGHT_MARGIN = 50 * _SCALE;
             STAFF_SPACING = 60 * _SCALE;
             INSTRUMENT_SPACING = 80 * _SCALE;
+            TOTAL_INSTRUMENTS = 0;
             TOTAL_STAVES = 0;
             mBarlines = new List<float>();
 
@@ -142,7 +144,7 @@ namespace Music_Comp
         }
         public void Draw(PaintEventArgs e)
         {
-            Pen barLinePen = new Pen(Color.Black, 3.0f);
+            Pen barLinePen = new Pen(Color.Black, 3.0f * _SCALE);
             float btm_song_line = TOP_MARGIN + (Staff.HEIGHT + STAFF_SPACING) * TOTAL_STAVES - STAFF_SPACING + (TOTAL_INSTRUMENTS - 1) * INSTRUMENT_SPACING;
 
             e.Graphics.DrawLine(barLinePen, new PointF(LEFT_MARGIN, TOP_MARGIN), new PointF(LEFT_MARGIN, btm_song_line));

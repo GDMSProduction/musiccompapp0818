@@ -48,8 +48,8 @@
             this.controlsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.graphicsPanel = new System.Windows.Forms.Panel();
-            this.titleTextBox = new System.Windows.Forms.TextBox();
             this.composerTextBox = new System.Windows.Forms.TextBox();
+            this.titleTextBox = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.menuStrip1.SuspendLayout();
             this.graphicsPanel.SuspendLayout();
@@ -123,7 +123,7 @@
             // newInstrumentToolStripMenuItem
             // 
             this.newInstrumentToolStripMenuItem.Name = "newInstrumentToolStripMenuItem";
-            this.newInstrumentToolStripMenuItem.Size = new System.Drawing.Size(252, 30);
+            this.newInstrumentToolStripMenuItem.Size = new System.Drawing.Size(222, 30);
             this.newInstrumentToolStripMenuItem.Text = "New Instrument";
             this.newInstrumentToolStripMenuItem.Click += new System.EventHandler(this.Add_Instrument_Click);
             // 
@@ -215,12 +215,25 @@
             this.graphicsPanel.BackColor = System.Drawing.Color.White;
             this.graphicsPanel.Controls.Add(this.composerTextBox);
             this.graphicsPanel.Controls.Add(this.titleTextBox);
-            this.graphicsPanel.Location = new System.Drawing.Point(3, 3);
+            this.graphicsPanel.Location = new System.Drawing.Point(0, 3);
             this.graphicsPanel.Name = "graphicsPanel";
             this.graphicsPanel.Size = new System.Drawing.Size(2550, 3300);
             this.graphicsPanel.TabIndex = 0;
             this.graphicsPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.graphicsPanel_Paint);
             this.graphicsPanel.Resize += new System.EventHandler(this.graphicsPanel_Resize);
+            // 
+            // composerTextBox
+            // 
+            this.composerTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.composerTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.composerTextBox.Location = new System.Drawing.Point(478, 85);
+            this.composerTextBox.MaxLength = 20;
+            this.composerTextBox.Name = "composerTextBox";
+            this.composerTextBox.Size = new System.Drawing.Size(203, 46);
+            this.composerTextBox.TabIndex = 1;
+            this.composerTextBox.TabStop = false;
+            this.composerTextBox.Text = "John Doe";
+            this.composerTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // titleTextBox
             // 
@@ -239,19 +252,6 @@
             this.titleTextBox.Text = "My Song 1";
             this.titleTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // composerTextBox
-            // 
-            this.composerTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.composerTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.composerTextBox.Location = new System.Drawing.Point(478, 85);
-            this.composerTextBox.MaxLength = 20;
-            this.composerTextBox.Name = "composerTextBox";
-            this.composerTextBox.Size = new System.Drawing.Size(203, 46);
-            this.composerTextBox.TabIndex = 1;
-            this.composerTextBox.TabStop = false;
-            this.composerTextBox.Text = "John Doe";
-            this.composerTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
             // panel1
             // 
             this.panel1.AutoScroll = true;
@@ -261,7 +261,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1104, 645);
             this.panel1.TabIndex = 4;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // MainForm
             // 

@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Music_Comp
@@ -16,11 +10,8 @@ namespace Music_Comp
         float PAGE_WIDTH;
         float PAGE_HEIGHT;
         float _SCALE;
-        int yloc = 36;
 
         Song song;
-
-        bool ShiftCheck = false;
 
         public MainForm()
         {
@@ -41,11 +32,10 @@ namespace Music_Comp
             composerTextBox.Location = new Point((int)(PAGE_WIDTH - composerTextBox.Width - 100 * _SCALE), (int)(220 * _SCALE));
 
             song = new Song(PAGE_WIDTH, Key.Eflat, Time.Common);
-            song.AddInstrument(Clef.Treble, Clef.Treble, Clef.Treble, Clef.Bass, Grouping.Bracket);
+            song.AddInstrument(Clef.Treble, Clef.Treble, Clef.Treble, Clef.Bass, Grouping.None);
             ActiveControl = graphicsPanel;
 
             (graphicsPanel as Control).KeyUp += new KeyEventHandler(graphicsPanel_KeyUp);
-            (graphicsPanel as Control).KeyDown += new KeyEventHandler(graphicsPanel_KeyDown);
         }
 
         private void graphicsPanel_Paint(object sender, PaintEventArgs e)
@@ -63,9 +53,9 @@ namespace Music_Comp
         private void MainForm_Resize(object sender, EventArgs e)
         {
             if (Width > PAGE_WIDTH)
-                graphicsPanel.Location = new Point((int)(Width / 2 - PAGE_WIDTH / 2), yloc);
+                graphicsPanel.Location = new Point((int)(Width / 2 - PAGE_WIDTH / 2), 0);
             else
-                graphicsPanel.Location = new Point(0, yloc);
+                graphicsPanel.Location = new Point(0, 0);
         }
 
         private void graphicsPanel_Resize(object sender, EventArgs e)
@@ -97,9 +87,9 @@ namespace Music_Comp
             Staff.HEIGHT = 4 * Staff.LINE_SPACING;
 
             if (Width > graphicsPanel.Width)
-                graphicsPanel.Location = new Point(Width / 2 - graphicsPanel.Width / 2, yloc);
+                graphicsPanel.Location = new Point(Width / 2 - graphicsPanel.Width / 2, 0);
             else
-                graphicsPanel.Location = new Point(0, yloc);
+                graphicsPanel.Location = new Point(0, 0);
 
             graphicsPanel.Invalidate();
         }
@@ -118,27 +108,65 @@ namespace Music_Comp
 
         private void Add_Instrument_Click(object sender, EventArgs e)
         {
-            AddInstrument options = new AddInstrument();
+            AddInstrumentForm options = new AddInstrumentForm();
             options.ShowDialog();
             if (options.DialogResult == DialogResult.OK)
             {
-                if (options.stavecount == 1)
+                Song.SCREEN_WIDTH = options.mainSCREEN_WIDTH;
+                Song.PAGE_WIDTH = options.mainPAGE_WIDTH;
+                Song._SCALE = options.main_SCALE;
+                Song.TOP_MARGIN = options.mainTOP_MARGIN;
+                Song.LEFT_MARGIN = options.mainLEFT_MARGIN;
+                Song.RIGHT_MARGIN = options.mainRIGHT_MARGIN;
+                Song.STAFF_SPACING = options.mainSTAFF_SPACING;
+                Song.INSTRUMENT_SPACING = options.mainINSTRUMENT_SPACING;
+
+                Song.TOTAL_INSTRUMENTS = options.mainTOTAL_INSTRUMENTS;
+                Song.TOTAL_STAVES = options.mainTOTAL_STAVES;
+
+                Song.cursorY = options.maincursorY;
+                Song.cursorX = options.maincursorX;
+
+                Staff.LINE_SPACING = options.mainLINE_SPACING;
+                Staff.LENGTH = options.mainLENGTH;
+                Staff.HEIGHT = options.mainHEIGHT;
+
+                switch (options.StaveCount)
                 {
-                    song.AddInstrument(options.clef1, Grouping.None);
+                    case 1:
+                        song.AddInstrument(options.clefs[0], options.grouping);
+                        break;
+                    case 2:
+                        song.AddInstrument(options.clefs[0], options.clefs[1], Grouping.None);
+                        break;
+                    case 3:
+                        song.AddInstrument(options.clefs[0], options.clefs[1], options.clefs[2], Grouping.None);
+                        break;
+                    case 4:
+                        song.AddInstrument(options.clefs[0], options.clefs[1], options.clefs[2], options.clefs[3], Grouping.None);
+                        break;
                 }
-                else if (options.stavecount == 2)
-                {
-                    song.AddInstrument(options.clef1, options.clef2, Grouping.None);
-                }
-                else if (options.stavecount == 3)
-                {
-                    song.AddInstrument(options.clef1, options.clef2, options.clef3, Grouping.None);
-                }
-                else if (options.stavecount == 4)
-                {
-                    song.AddInstrument(options.clef1, options.clef2, options.clef3, options.clef4, Grouping.None);
-                }
-                graphicsPanel.Invalidate();
+            }
+            else
+            {
+                Song.SCREEN_WIDTH = options.mainSCREEN_WIDTH;
+                Song.PAGE_WIDTH = options.mainPAGE_WIDTH;
+                Song._SCALE = options.main_SCALE;
+                Song.TOP_MARGIN = options.mainTOP_MARGIN;
+                Song.LEFT_MARGIN = options.mainLEFT_MARGIN;
+                Song.RIGHT_MARGIN = options.mainRIGHT_MARGIN;
+                Song.STAFF_SPACING = options.mainSTAFF_SPACING;
+                Song.INSTRUMENT_SPACING = options.mainINSTRUMENT_SPACING;
+
+                Song.TOTAL_INSTRUMENTS = options.mainTOTAL_INSTRUMENTS;
+                Song.TOTAL_STAVES = options.mainTOTAL_STAVES;
+
+                Song.cursorY = options.maincursorY;
+                Song.cursorX = options.maincursorX;
+
+                Staff.LINE_SPACING = options.mainLINE_SPACING;
+                Staff.LENGTH = options.mainLENGTH;
+                Staff.HEIGHT = options.mainHEIGHT;
             }
             graphicsPanel.Invalidate();
         }
@@ -150,29 +178,9 @@ namespace Music_Comp
 
             switch (e.KeyCode)
             {
-                case Keys.D0:
-                    break;
-                case Keys.D1:
-                    break;
-                case Keys.D2:
-                    break;
-                case Keys.D3:
-                    break;
-                case Keys.D4:
-                    break;
-                case Keys.D5:
-                    break;
-                case Keys.D6:
-                    break;
-                case Keys.D7:
-                    break;
-                case Keys.D8:
-                    break;
-                case Keys.D9:
-                    break;
                 case Keys.A:
                     valid = true;
-                    if (GetShiftCheck() == true)
+                    if (ShiftCheck() == true)
                     {
                         note.SetPitch(Pitch.A);
                         note.SetDuration(Duration.Half);
@@ -184,7 +192,7 @@ namespace Music_Comp
                     break;
                 case Keys.B:
                     valid = true;
-                    if (GetShiftCheck() == true)
+                    if (ShiftCheck() == true)
                     {
                         note.SetPitch(Pitch.B);
                         note.SetDuration(Duration.Half);
@@ -196,7 +204,7 @@ namespace Music_Comp
                     break;
                 case Keys.C:
                     valid = true;
-                    if (GetShiftCheck() == true)
+                    if (ShiftCheck() == true)
                     {
                         note.SetPitch(Pitch.C);
                         note.SetDuration(Duration.Half);
@@ -208,7 +216,7 @@ namespace Music_Comp
                     break;
                 case Keys.D:
                     valid = true;
-                    if (GetShiftCheck() == true)
+                    if (ShiftCheck() == true)
                     {
                         note.SetPitch(Pitch.D);
                         note.SetDuration(Duration.Half);
@@ -220,7 +228,7 @@ namespace Music_Comp
                     break;
                 case Keys.E:
                     valid = true;
-                    if (GetShiftCheck() == true)
+                    if (ShiftCheck() == true)
                     {
                         note.SetPitch(Pitch.E);
                         note.SetDuration(Duration.Half);
@@ -232,7 +240,7 @@ namespace Music_Comp
                     break;
                 case Keys.F:
                     valid = true;
-                    if (GetShiftCheck() == true)
+                    if (ShiftCheck() == true)
                     {
                         note.SetPitch(Pitch.F);
                         note.SetDuration(Duration.Half);
@@ -244,7 +252,7 @@ namespace Music_Comp
                     break;
                 case Keys.G:
                     valid = true;
-                    if (GetShiftCheck() == true)
+                    if (ShiftCheck() == true)
                     {
                         note.SetPitch(Pitch.G);
                         note.SetDuration(Duration.Half);
@@ -253,8 +261,6 @@ namespace Music_Comp
                     {
                         note.SetPitch(Pitch.G);
                     }
-                    break;
-                default:
                     break;
             }
 
@@ -265,31 +271,9 @@ namespace Music_Comp
             }
 
         }
-
-        private void graphicsPanel_KeyDown(object sender, KeyEventArgs e)
+        private bool ShiftCheck()
         {
-            if (ModifierKeys == Keys.Shift)
-            {
-                SetShiftCheck(true);
-            }
-            else
-            {
-                SetShiftCheck(false);
-            }
-        }
-
-        private void SetShiftCheck(bool a)
-        {
-            ShiftCheck = a;
-        }
-        private bool GetShiftCheck()
-        {
-            return ShiftCheck;
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
+            return ModifierKeys == Keys.Shift;
         }
     }
 }

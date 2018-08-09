@@ -1,6 +1,6 @@
 ﻿namespace Music_Comp
 {
-    partial class AddInstrument
+    partial class AddInstrumentForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.graphicsPanel = new System.Windows.Forms.Panel();
             this.Brace = new System.Windows.Forms.RadioButton();
             this.Bracket = new System.Windows.Forms.RadioButton();
             this.None = new System.Windows.Forms.RadioButton();
@@ -47,13 +47,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.StaveNumeric)).BeginInit();
             this.SuspendLayout();
             // 
-            // panel1
+            // graphicsPanel
             // 
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(313, 380);
-            this.panel1.TabIndex = 0;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            this.graphicsPanel.Location = new System.Drawing.Point(0, 0);
+            this.graphicsPanel.Name = "graphicsPanel";
+            this.graphicsPanel.Size = new System.Drawing.Size(313, 380);
+            this.graphicsPanel.TabIndex = 0;
+            this.graphicsPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // Brace
             // 
@@ -238,7 +238,7 @@
             this.St4Clef.TabIndex = 16;
             this.St4Clef.SelectedIndexChanged += new System.EventHandler(this.St4Clef_SelectedIndexChanged);
             // 
-            // AddInstrument
+            // AddInstrumentForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -258,8 +258,8 @@
             this.Controls.Add(this.None);
             this.Controls.Add(this.Bracket);
             this.Controls.Add(this.Brace);
-            this.Controls.Add(this.panel1);
-            this.Name = "AddInstrument";
+            this.Controls.Add(this.graphicsPanel);
+            this.Name = "AddInstrumentForm";
             this.Text = "AddInstrument";
             ((System.ComponentModel.ISupportInitialize)(this.StaveNumeric)).EndInit();
             this.ResumeLayout(false);
@@ -269,7 +269,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel graphicsPanel;
         private System.Windows.Forms.RadioButton Brace;
         private System.Windows.Forms.RadioButton Bracket;
         private System.Windows.Forms.RadioButton None;

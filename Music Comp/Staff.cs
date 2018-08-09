@@ -6,18 +6,16 @@ namespace Music_Comp
 {
     public class Staff
     {
-        Image staffImage = Properties.Resources.Staff;
-        Image dflatImage = Properties.Resources.DoubleFlat;
-        Image flatImage = Properties.Resources.Flat;
-        Image naturalImage = Properties.Resources.Natural;
-        Image sharpImage = Properties.Resources.Sharp;
-        Image dsharpImage = Properties.Resources.DoubleSharp;
-        Image trebleImage = Properties.Resources.TrebleClef;
-        Image bassImage = Properties.Resources.BassClef;
-        Image ffourImage = Properties.Resources.FourFour;
-        Image seightImage = Properties.Resources.SixEight;
-
-        List<Measure> measures;
+        static Image staffImage = Properties.Resources.Staff;
+        static Image doubleflatImage = Properties.Resources.DoubleFlat;
+        static Image flatImage = Properties.Resources.Flat;
+        static Image naturalImage = Properties.Resources.Natural;
+        static Image sharpImage = Properties.Resources.Sharp;
+        static Image doublesharpImage = Properties.Resources.DoubleSharp;
+        static Image trebleClefImage = Properties.Resources.TrebleClef;
+        static Image bassClefImage = Properties.Resources.BassClef;
+        static Image fourFourImage = Properties.Resources.FourFour;
+        static Image sixEightImage = Properties.Resources.SixEight;
 
         public static float LINE_SPACING;
         public static float LENGTH;
@@ -29,6 +27,7 @@ namespace Music_Comp
         float mYPosition;
         float mCursorX;
 
+        List<Measure> measures;
         Clef mClef;
 
         public Staff(Clef c, int inst, int staff)
@@ -61,7 +60,7 @@ namespace Music_Comp
             switch (a)
             {
                 case Accidental.DoubleFlat:
-                    e.Graphics.DrawImage(dflatImage, new RectangleF(x, y - 50 * Song._SCALE, 60 * Song._SCALE, 70 * Song._SCALE));
+                    e.Graphics.DrawImage(doubleflatImage, new RectangleF(x, y - 50 * Song._SCALE, 60 * Song._SCALE, 70 * Song._SCALE));
                     break;
                 case Accidental.Flat:
                     e.Graphics.DrawImage(flatImage, new RectangleF(x, y - 50 * Song._SCALE, 35 * Song._SCALE, 68 * Song._SCALE));
@@ -73,7 +72,7 @@ namespace Music_Comp
                     e.Graphics.DrawImage(sharpImage, new RectangleF(x, y - 38 * Song._SCALE, 35 * Song._SCALE, 70 * Song._SCALE));
                     break;
                 case Accidental.DoubleSharp:
-                    e.Graphics.DrawImage(dsharpImage, new RectangleF(x, y - 20 * Song._SCALE, 35 * Song._SCALE, 35 * Song._SCALE));
+                    e.Graphics.DrawImage(doublesharpImage, new RectangleF(x, y - 20 * Song._SCALE, 35 * Song._SCALE, 35 * Song._SCALE));
                     break;
             }
         }
@@ -95,7 +94,7 @@ namespace Music_Comp
                     size.Width = HEIGHT * 1.50f;
                     size.Height = HEIGHT * 2.28f;
 
-                    e.Graphics.DrawImage(trebleImage, new RectangleF(location, size));
+                    e.Graphics.DrawImage(trebleClefImage, new RectangleF(location, size));
                     break;
                 case Clef.Alto:
                     break;
@@ -105,7 +104,7 @@ namespace Music_Comp
                     size.Width = HEIGHT * 1.48f;
                     size.Height = HEIGHT * 1.82f;
 
-                    e.Graphics.DrawImage(bassImage, new RectangleF(location, size));
+                    e.Graphics.DrawImage(bassClefImage, new RectangleF(location, size));
                     break;
                 case Clef.Tenor:
                     break;
@@ -144,7 +143,7 @@ namespace Music_Comp
                     size.Width = HEIGHT * 0.5f;
                     size.Height = HEIGHT;
 
-                    e.Graphics.DrawImage(seightImage, new RectangleF(location, size));
+                    e.Graphics.DrawImage(sixEightImage, new RectangleF(location, size));
                     break;
                 case Time.ThreeEight:
 
@@ -161,7 +160,7 @@ namespace Music_Comp
                     size.Width = HEIGHT * 0.5f;
                     size.Height = HEIGHT;
 
-                    e.Graphics.DrawImage(ffourImage, new RectangleF(location, size));
+                    e.Graphics.DrawImage(fourFourImage, new RectangleF(location, size));
                     break;
             }
 
