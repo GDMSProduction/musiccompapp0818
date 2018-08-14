@@ -17,13 +17,16 @@ namespace Music_Comp
         public static float RIGHT_MARGIN;
         public static float STAFF_SPACING;
         public static float INSTRUMENT_SPACING;
+
         public static int TOTAL_INSTRUMENTS;
         public static int TOTAL_STAVES;
+
         public static float cursorY;
         public static float cursorX;
 
         public static Key KEY = Key.C;
         public static Time TIME = Time.Common;
+
         static List<float> mBarlines;
 
         List<Instrument> mInstruments = new List<Instrument>();

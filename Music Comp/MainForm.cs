@@ -13,8 +13,7 @@ namespace Music_Comp
 
         Song song;
 
-        //Staff number
-        int i = 0;
+        int selectedStaff = 0;
 
         public MainForm()
         {
@@ -35,7 +34,7 @@ namespace Music_Comp
             composerTextBox.Location = new Point((int)(PAGE_WIDTH - composerTextBox.Width - 100 * _SCALE), (int)(220 * _SCALE));
 
             song = new Song(PAGE_WIDTH, Key.Eflat, Time.Common);
-            song.AddInstrument(Clef.Treble, Clef.Alto, Clef.Tenor, Clef.Bass, Grouping.None);
+            song.AddInstrument(Clef.Treble, Clef.Bass, Grouping.Brace);
             ActiveControl = graphicsPanel;
 
             (graphicsPanel as Control).KeyUp += new KeyEventHandler(graphicsPanel_KeyUp);
@@ -177,121 +176,66 @@ namespace Music_Comp
             switch (e.KeyCode)
             {
                 case Keys.Up:
-                    if (i > 0)
-                    {
-                        --i;
-                    }
+                    if (selectedStaff != 0) --selectedStaff;
                     break;
                 case Keys.Down:
-                    if (i < Song.TOTAL_STAVES - 1)
-                    {
-                        ++i;
-                    }
+                    if (selectedStaff < Song.TOTAL_STAVES - 1) ++selectedStaff;
                     break;
                 case Keys.A:
                     valid = true;
+                    note.SetPitch(Pitch.A);
                     if (ShiftCheck())
-                    {
-                        note.SetPitch(Pitch.A);
                         note.SetDuration(Duration.Half);
-                    }
-                    else
-                    {
-                        note.SetPitch(Pitch.A);
-                    }
                     break;
                 case Keys.B:
                     valid = true;
+                    note.SetPitch(Pitch.B);
                     if (ShiftCheck())
-                    {
-                        note.SetPitch(Pitch.B);
                         note.SetDuration(Duration.Half);
-                    }
-                    else
-                    {
-                        note.SetPitch(Pitch.B);
-                    }
                     break;
                 case Keys.C:
                     valid = true;
+                    note.SetPitch(Pitch.C);
                     if (ShiftCheck())
-                    {
-                        note.SetPitch(Pitch.C);
                         note.SetDuration(Duration.Half);
-                    }
-                    else
-                    {
-                        note.SetPitch(Pitch.C);
-                    }
                     break;
                 case Keys.D:
                     valid = true;
+                    note.SetPitch(Pitch.D);
                     if (ShiftCheck())
-                    {
-                        note.SetPitch(Pitch.D);
                         note.SetDuration(Duration.Half);
-                    }
-                    else
-                    {
-                        note.SetPitch(Pitch.D);
-                    }
                     break;
                 case Keys.E:
                     valid = true;
+                    note.SetPitch(Pitch.E);
                     if (ShiftCheck())
-                    {
-                        note.SetPitch(Pitch.E);
                         note.SetDuration(Duration.Half);
-                    }
-                    else
-                    {
-                        note.SetPitch(Pitch.E);
-                    }
                     break;
                 case Keys.F:
                     valid = true;
+                    note.SetPitch(Pitch.F);
                     if (ShiftCheck())
-                    {
-                        note.SetPitch(Pitch.F);
                         note.SetDuration(Duration.Half);
-                    }
-                    else
-                    {
-                        note.SetPitch(Pitch.F);
-                    }
                     break;
                 case Keys.G:
                     valid = true;
+                    note.SetPitch(Pitch.G);
                     if (ShiftCheck())
-                    {
-                        note.SetPitch(Pitch.G);
                         note.SetDuration(Duration.Half);
-                    }
-                    else
-                    {
-                        note.SetPitch(Pitch.G);
-                    }
                     break;
                 case Keys.R:
                     valid = true;
+                    note.SetPitch(Pitch.Rest);
                     if (ShiftCheck())
-                    {
-                        note.SetPitch(Pitch.Rest);
                         note.SetDuration(Duration.Half);
-                    }
-                    else
-                    {
-                        note.SetPitch(Pitch.Rest);
-                    }
                     break;
             }
 
             if (valid)
             {
-                song.GetInstrument(0).GetStaff(i).GetMeasure(0).AddNote(note);
+                song.GetInstrument(0).GetStaff(selectedStaff).GetMeasure(0).AddNote(note);
                 graphicsPanel.Refresh();
             }
-
         }
 
         private bool ShiftCheck()
