@@ -13,8 +13,7 @@ namespace Music_Comp
 
         Song song;
 
-        //Staff number
-        int i = 0;
+        int SelectedStaff = 0;
 
         public MainForm()
         {
@@ -46,6 +45,7 @@ namespace Music_Comp
             zoomInButton.Location = new Point(Width - 110, Height - 200);
             zoomOutButton.Location = new Point(Width - 110, Height - 150);
             song.Draw(e);
+            Draw(e);
         }
 
         private void MainForm_Resize(object sender, EventArgs e)
@@ -177,15 +177,17 @@ namespace Music_Comp
             switch (e.KeyCode)
             {
                 case Keys.Up:
-                    if (i > 0)
+                    if (SelectedStaff > 0)
                     {
-                        --i;
+                        song.GetInstrument(0).GetStaff(SelectedStaff--).SetActive(false);
+                        song.GetInstrument(0).GetStaff(SelectedStaff).SetActive(true);
                     }
                     break;
                 case Keys.Down:
-                    if (i < Song.TOTAL_STAVES - 1)
+                    if (SelectedStaff < Song.TOTAL_STAVES - 1)
                     {
-                        ++i;
+                        song.GetInstrument(0).GetStaff(SelectedStaff++).SetActive(false);
+                        song.GetInstrument(0).GetStaff(SelectedStaff).SetActive(true);
                     }
                     break;
                 case Keys.A:
@@ -288,7 +290,7 @@ namespace Music_Comp
 
             if (valid)
             {
-                song.GetInstrument(0).GetStaff(i).GetMeasure(0).AddNote(note);
+                song.GetInstrument(0).GetStaff(SelectedStaff).GetMeasure(0).AddNote(note);
                 graphicsPanel.Refresh();
             }
 
@@ -302,6 +304,16 @@ namespace Music_Comp
         private void graphicsPanel_Click(object sender, EventArgs e)
         {
             ActiveControl = graphicsPanel;
+        }
+
+        public void Draw(PaintEventArgs e)
+        {
+            if (song.GetInstrument(0).GetStaff(SelectedStaff).IsActive() == true)
+            {
+                Pen currentStaffPen = new Pen(Color.Blue, 3.0f);
+                e.Graphics.DrawLine(currentStaffPen, Song.LEFT_MARGIN , song.GetInstrument(0).GetStaff(SelectedStaff).GetStaffY(), Song.LEFT_MARGIN, song.GetInstrument(0).GetStaff(SelectedStaff).GetStaffY() + Staff.HEIGHT);
+                currentStaffPen.Dispose();
+            }
         }
     }
 }
