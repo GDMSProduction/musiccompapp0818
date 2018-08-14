@@ -83,15 +83,15 @@ namespace Music_Comp
         }
         public void Draw(PaintEventArgs e)
         {
+            mCursorX = Song.LEFT_MARGIN;
+            mYPosition = instrumentNumber * Song.INSTRUMENT_SPACING + staffNumber * (HEIGHT + Song.STAFF_SPACING);
+
             if (isActive)
             {
                 SolidBrush brush = new SolidBrush(Color.LightSkyBlue);
                 e.Graphics.FillRectangle(brush, Song.LEFT_MARGIN, Song.TOP_MARGIN + mYPosition, LENGTH, HEIGHT);
                 brush.Dispose();
             }
-
-            mCursorX = Song.LEFT_MARGIN;
-            mYPosition = instrumentNumber * Song.INSTRUMENT_SPACING + staffNumber * (HEIGHT + Song.STAFF_SPACING);
 
             PointF location = new PointF(Song.LEFT_MARGIN, Song.TOP_MARGIN + mYPosition);
             SizeF size = new SizeF(LENGTH, HEIGHT);
