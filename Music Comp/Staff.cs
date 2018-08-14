@@ -31,6 +31,8 @@ namespace Music_Comp
         List<Measure> mMeasures;
         Clef mClef;
 
+        bool isActive = false;
+
         public Staff(Clef c, int inst, int staff)
         {
             LINE_SPACING = 30 * Song._SCALE;
@@ -192,6 +194,21 @@ namespace Music_Comp
 
             foreach (Measure measure in mMeasures)
                 measure.Draw(e);
+        }
+
+        public bool IsActive()
+        {
+            return isActive;
+        }
+
+        public void SetActive(bool setA)
+        {
+            isActive = setA;
+        }
+
+        public float GetStaffY()
+        {
+            return mYPosition;
         }
     }
 }

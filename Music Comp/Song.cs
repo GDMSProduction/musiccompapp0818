@@ -28,6 +28,7 @@ namespace Music_Comp
         public static Time TIME = Time.Common;
 
         static List<float> mBarlines;
+
         List<Instrument> mInstruments = new List<Instrument>();
 
         public Song(float panelWidth)
@@ -92,26 +93,45 @@ namespace Music_Comp
         public void AddInstrument(Clef clef, Grouping g)
         {
             mInstruments.Add(new Instrument(clef, g));
+            if (TOTAL_INSTRUMENTS == 1)
+            {
+                GetInstrument(0).GetStaff(0).SetActive(true);
+            }
         }
 
         public void AddInstrument(Clef clef1, Clef clef2, Grouping g)
         {
             mInstruments.Add(new Instrument(clef1, clef2, g));
+            if (TOTAL_INSTRUMENTS == 1)
+            {
+                GetInstrument(0).GetStaff(0).SetActive(true);
+            }
         }
 
         public void AddInstrument(Clef clef1, Clef clef2, Clef clef3, Grouping g)
         {
             mInstruments.Add(new Instrument(clef1, clef2, clef3, g));
+            if (TOTAL_INSTRUMENTS == 1)
+            {
+                GetInstrument(0).GetStaff(0).SetActive(true);
+            }
         }
 
         public void AddInstrument(Clef clef1, Clef clef2, Clef clef3, Clef clef4, Grouping g)
         {
             mInstruments.Add(new Instrument(clef1, clef2, clef3, clef4, g));
+            if (TOTAL_INSTRUMENTS == 1)
+            {
+                GetInstrument(0).GetStaff(0).SetActive(true);
+            }
         }
 
         public void RemoveInstrument()
         {
             mInstruments.Remove(mInstruments[mInstruments.Count - 1]);
+            //
+            //SetActive on another staff
+            //
         }
 
         public void DrawBarLines(List<float> barlines, PaintEventArgs e)
