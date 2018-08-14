@@ -261,7 +261,7 @@ namespace Music_Comp
 
             if (valid)
             {
-                song.GetInstrument(0).GetStaff(selectedStaff).GetMeasure(0).AddNote(note);
+                song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).GetMeasure(0).AddNote(note);
                 graphicsPanel.Invalidate();
             }
         }
