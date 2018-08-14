@@ -45,7 +45,6 @@ namespace Music_Comp
             zoomInButton.Location = new Point(Width - 110, Height - 200);
             zoomOutButton.Location = new Point(Width - 110, Height - 150);
             song.Draw(e);
-            Draw(e);
         }
 
         private void MainForm_Resize(object sender, EventArgs e)
@@ -181,6 +180,7 @@ namespace Music_Comp
                     {
                         song.GetInstrument(0).GetStaff(selectedStaff--).SetActive(false);
                         song.GetInstrument(0).GetStaff(selectedStaff).SetActive(true);
+                        graphicsPanel.Refresh();
                     }
                     break;
                 case Keys.Down:
@@ -188,6 +188,7 @@ namespace Music_Comp
                     {
                         song.GetInstrument(0).GetStaff(selectedStaff++).SetActive(false);
                         song.GetInstrument(0).GetStaff(selectedStaff).SetActive(true);
+                        graphicsPanel.Refresh();
                     }
                     break;
                 case Keys.A:
@@ -255,16 +256,6 @@ namespace Music_Comp
         private void graphicsPanel_Click(object sender, EventArgs e)
         {
             ActiveControl = graphicsPanel;
-        }
-
-        public void Draw(PaintEventArgs e)
-        {
-            if (song.GetInstrument(0).GetStaff(selectedStaff).IsActive() == true)
-            {
-                Pen currentStaffPen = new Pen(Color.Blue, 3.0f);
-                e.Graphics.DrawLine(currentStaffPen, Song.LEFT_MARGIN , song.GetInstrument(0).GetStaff(selectedStaff).GetStaffY(), Song.LEFT_MARGIN, song.GetInstrument(0).GetStaff(selectedStaff).GetStaffY() + Staff.HEIGHT);
-                currentStaffPen.Dispose();
-            }
         }
     }
 }

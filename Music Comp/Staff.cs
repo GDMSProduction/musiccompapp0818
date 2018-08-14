@@ -83,6 +83,13 @@ namespace Music_Comp
         }
         public void Draw(PaintEventArgs e)
         {
+            if (isActive)
+            {
+                SolidBrush brush = new SolidBrush(Color.LightSkyBlue);
+                e.Graphics.FillRectangle(brush, Song.LEFT_MARGIN, Song.TOP_MARGIN + mYPosition, LENGTH, HEIGHT);
+                brush.Dispose();
+            }
+
             mCursorX = Song.LEFT_MARGIN;
             mYPosition = instrumentNumber * Song.INSTRUMENT_SPACING + staffNumber * (HEIGHT + Song.STAFF_SPACING);
 
@@ -206,7 +213,7 @@ namespace Music_Comp
             isActive = setA;
         }
 
-        public float GetStaffY()
+        public float GetYPosition()
         {
             return mYPosition;
         }
