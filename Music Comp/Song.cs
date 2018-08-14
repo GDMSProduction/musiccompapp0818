@@ -28,7 +28,6 @@ namespace Music_Comp
         public static Time TIME = Time.Common;
 
         static List<float> mBarlines;
-
         List<Instrument> mInstruments = new List<Instrument>();
 
         public Song(float panelWidth)
@@ -36,17 +35,22 @@ namespace Music_Comp
             SCREEN_WIDTH = Screen.PrimaryScreen.Bounds.Width;
             PAGE_WIDTH = panelWidth;
             _SCALE = PAGE_WIDTH / SCREEN_WIDTH;
+
             TOP_MARGIN = 300 * _SCALE;
             LEFT_MARGIN = 100 * _SCALE;
             RIGHT_MARGIN = 50 * _SCALE;
             STAFF_SPACING = 60 * _SCALE;
             INSTRUMENT_SPACING = 80 * _SCALE;
+
             TOTAL_INSTRUMENTS = 0;
             TOTAL_STAVES = 0;
+
             cursorY = TOP_MARGIN;
             cursorX = LEFT_MARGIN;
+
             mBarlines = new List<float>();
         }
+
         public Song(float panelWidth, Key k, Time t)
         {
             SCREEN_WIDTH = Screen.PrimaryScreen.Bounds.Width;
@@ -64,42 +68,52 @@ namespace Music_Comp
             KEY = k;
             TIME = t;
         }
+
         public int GetInstrumentCount()
         {
             return mInstruments.Count;
         }
+
         public Instrument GetInstrument(int i)
         {
             return mInstruments[i];
         }
+
         public void Transpose(Key k)
         {
             KEY = k;
         }
+
         public void EditTimeSignature(Time t)
         {
             TIME = t;
         }
+
         public void AddInstrument(Clef clef, Grouping g)
         {
             mInstruments.Add(new Instrument(clef, g));
         }
+
         public void AddInstrument(Clef clef1, Clef clef2, Grouping g)
         {
             mInstruments.Add(new Instrument(clef1, clef2, g));
         }
+
         public void AddInstrument(Clef clef1, Clef clef2, Clef clef3, Grouping g)
         {
             mInstruments.Add(new Instrument(clef1, clef2, clef3, g));
         }
+
         public void AddInstrument(Clef clef1, Clef clef2, Clef clef3, Clef clef4, Grouping g)
         {
             mInstruments.Add(new Instrument(clef1, clef2, clef3, clef4, g));
         }
+
         public void RemoveInstrument()
         {
             mInstruments.Remove(mInstruments[mInstruments.Count - 1]);
         }
+
         public void DrawBarLines(List<float> barlines, PaintEventArgs e)
         {
             Pen barLinePen = new Pen(Color.Black, 3.0f);
@@ -107,7 +121,6 @@ namespace Music_Comp
             float btm_inst_line;
             float top_inst_line = TOP_MARGIN;
             for (int i = 0; i < barlines.Count; i++)
-            {
                 for (int j = 0; j < mInstruments.Count; j++)
                 {
                     btm_inst_line = top_inst_line + (Staff.HEIGHT + STAFF_SPACING) * mInstruments[j].GetNumberOfStaves() - STAFF_SPACING;
@@ -117,9 +130,9 @@ namespace Music_Comp
 
                     top_inst_line = btm_inst_line + STAFF_SPACING + INSTRUMENT_SPACING;
                 }
-            }
             barLinePen.Dispose();
         }
+
         public void DrawGrouping(Grouping g, float instTop, float instBtm, PaintEventArgs e)
         {
             PointF location = new PointF();
@@ -145,6 +158,7 @@ namespace Music_Comp
                     break;
             }
         }
+
         public void Draw(PaintEventArgs e)
         {
             Pen barLinePen = new Pen(Color.Black, 3.0f * _SCALE);

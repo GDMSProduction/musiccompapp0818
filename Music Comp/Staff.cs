@@ -47,14 +47,17 @@ namespace Music_Comp
 
             Song.TOTAL_STAVES++;
         }
+
         public Measure GetMeasure(int i)
         {
             return mMeasures[i];
         }
+
         public void AddMeasure()
         {
             mMeasures.Add(new Measure(mClef, mCursorX, mYPosition));
         }
+
         public void DrawAccidental(float x, float y, Accidental a, PaintEventArgs e)
         {
             switch (a)

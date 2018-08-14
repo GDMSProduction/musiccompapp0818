@@ -22,22 +22,27 @@ namespace Music_Comp
             mYPosition = yPosition;
             mNotes = new List<Note>();
         }
+
         public int GetNoteCount()
         {
             return mNotes.Count;
         }
+
         public float GetLength()
         {
             return mLength;
         }
+
         public Note GetNote(int i)
         {
             return mNotes[i];
         }
+
         public void AddNote(Note n)
         {
             mNotes.Add(n);
         }
+
         public void Draw(PaintEventArgs e)
         {
             float cursor = 0;

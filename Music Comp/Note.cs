@@ -20,42 +20,52 @@ namespace Music_Comp
             mDuration = d;
             mOctave = o;
         }
+
         public Pitch GetPitch()
         {
             return mPitch;
         }
+
         public void SetPitch(Pitch p)
         {
             mPitch = p;
         }
+
         public Accidental GetAccidental()
         {
             return mAccidental;
         }
+
         public void SetAccidental(Accidental a)
         {
             mAccidental = a;
         }
+
         public Duration GetDuration()
         {
             return mDuration;
         }
+
         public void SetDuration(Duration d)
         {
             mDuration = d;
         }
+
         public sbyte GetOctave()
         {
             return mOctave;
         }
+
         public void SetOctave(sbyte o)
         {
             mOctave = o;
         }
+
         public float GetWidth()
         {
             return mWidth;
         }
+
         public void Draw(float cursorX, float staffYPosition, Clef clef, PaintEventArgs e)
         {
             float x = cursorX;

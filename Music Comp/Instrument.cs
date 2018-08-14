@@ -15,6 +15,7 @@ namespace Music_Comp
             AddStaves(1);
             mGrouping = g;
         }
+
         public Instrument(Clef c1, Clef c2, Grouping g)
         {
             mClefs = new Clef[2];
@@ -23,6 +24,7 @@ namespace Music_Comp
             AddStaves(2);
             mGrouping = g;
         }
+
         public Instrument(Clef c1, Clef c2, Clef c3, Grouping g)
         {
             mClefs = new Clef[3];
@@ -32,6 +34,7 @@ namespace Music_Comp
             AddStaves(3);
             mGrouping = g;
         }
+
         public Instrument(Clef c1, Clef c2, Clef c3, Clef c4, Grouping g)
         {
             mClefs = new Clef[4];
@@ -42,26 +45,32 @@ namespace Music_Comp
             AddStaves(4);
             mGrouping = g;
         }
+
         public int GetNumberOfStaves()
         {
             return mStaves.Length;
         }
+
         public Staff GetStaff(int i)
         {
             return mStaves[i];
         }
+
         public int GetNumberOfClefs()
         {
             return mClefs.Length;
         }
+
         public Clef GetClef(int i)
         {
             return mClefs[i];
         }
+
         public Grouping GetGrouping()
         {
             return mGrouping;
         }
+
         public void AddStaves(int numberOfStaves)
         {
             mStaves = new Staff[numberOfStaves];
@@ -73,6 +82,7 @@ namespace Music_Comp
                     Song.TOTAL_INSTRUMENTS++;
             }
         }
+
         public void Draw(PaintEventArgs e)
         {
             foreach (Staff staff in mStaves)
