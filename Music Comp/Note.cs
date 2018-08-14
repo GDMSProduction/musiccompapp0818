@@ -56,49 +56,85 @@ namespace Music_Comp
         {
             return mWidth;
         }
-        public void Draw(float cursorX, float staffYPosition, Clef c, PaintEventArgs e)
+        public void Draw(float cursorX, float staffYPosition, Clef clef, PaintEventArgs e)
         {
             float x = cursorX;
             float y = staffYPosition;
             PointF location;
             SizeF size = new SizeF();
 
-            y = staffYPosition + (260 + ((int)mPitch + (int)c + (mOctave - 4) * 8) * 14.5f) * Song._SCALE;
 
-            switch (mDuration)
+            if (mPitch == Pitch.Rest)
             {
-                case Duration.Quarter:
-                    image = Properties.Resources.Note;
-                    size = new SizeF(90 * Song._SCALE, 135 * Song._SCALE);
-                    mWidth = size.Width;
-                    y -= 50 * Song._SCALE;
-                    break;
-                case Duration.Half:
-                    image = Properties.Resources.HalfNote;
-                    size = new SizeF(120 * Song._SCALE, 135 * Song._SCALE);
-                    mWidth = size.Width;
-                    y -= 56.5f * Song._SCALE;
-                    break;
-                case Duration.Whole:
-                    image = Properties.Resources.WholeNote;
-                    size = new SizeF(90 * Song._SCALE, 135 * Song._SCALE);
-                    mWidth = size.Width;
-                    y -= 50 * Song._SCALE;
-                    break;
-                case Duration.Eighth:
-                    image = Properties.Resources.EighthNote;
-                    size = new SizeF(90 * Song._SCALE, 135 * Song._SCALE);
-                    mWidth = size.Width;
-                    y -= 50 * Song._SCALE;
-                    break;
-                case Duration.Sixteenth:
-                    image = Properties.Resources.SixteenthNote;
-                    size = new SizeF(90 * Song._SCALE, 135 * Song._SCALE);
-                    mWidth = size.Width;
-                    y -= 50 * Song._SCALE;
-                    break;
+                switch (mDuration)
+                {
+                    case Duration.Quarter:
+                        image = Properties.Resources.QuarterRest;
+                        size = new SizeF(35 * Song._SCALE, 90 * Song._SCALE);
+                        y += 312 * Song._SCALE;
+                        x += 33 * Song._SCALE;
+                        break;
+                    case Duration.Half:
+                        image = Properties.Resources.HalfRest;
+                        size = new SizeF(120 * Song._SCALE, 170 * Song._SCALE);
+                        y += 295 * Song._SCALE;
+                        x -= 15 * Song._SCALE;
+                        break;
+                    case Duration.Whole:
+                        image = Properties.Resources.WholeRest;
+                        size = new SizeF(120 * Song._SCALE, 170 * Song._SCALE);
+                        y += 295 * Song._SCALE;
+                        x -= 15 * Song._SCALE;
+                        break;
+                    case Duration.Eighth:
+                        image = Properties.Resources.EighthRest;
+                        size = new SizeF(35 * Song._SCALE, 90 * Song._SCALE);
+                        y += 312 * Song._SCALE;
+                        x += 33 * Song._SCALE;
+                        break;
+                    case Duration.Sixteenth:
+                        image = Properties.Resources.SixteenthRest;
+                        size = new SizeF(35 * Song._SCALE, 90 * Song._SCALE);
+                        y += 312 * Song._SCALE;
+                        x += 33 * Song._SCALE;
+                        break;
+                }
+            }
+            else
+            {
+                y += (260 + ((int)mPitch + (int)clef + (mOctave - 4) * 8) * 14.5f) * Song._SCALE;
+
+                switch (mDuration)
+                {
+                    case Duration.Quarter:
+                        image = Properties.Resources.Note;
+                        size = new SizeF(90 * Song._SCALE, 135 * Song._SCALE);
+                        y -= 50 * Song._SCALE;
+                        break;
+                    case Duration.Half:
+                        image = Properties.Resources.HalfNote;
+                        size = new SizeF(120 * Song._SCALE, 135 * Song._SCALE);
+                        y -= 56.5f * Song._SCALE;
+                        break;
+                    case Duration.Whole:
+                        image = Properties.Resources.WholeNote;
+                        size = new SizeF(90 * Song._SCALE, 135 * Song._SCALE);
+                        y -= 50 * Song._SCALE;
+                        break;
+                    case Duration.Eighth:
+                        image = Properties.Resources.EighthNote;
+                        size = new SizeF(90 * Song._SCALE, 135 * Song._SCALE);
+                        y -= 50 * Song._SCALE;
+                        break;
+                    case Duration.Sixteenth:
+                        image = Properties.Resources.SixteenthNote;
+                        size = new SizeF(90 * Song._SCALE, 135 * Song._SCALE);
+                        y -= 50 * Song._SCALE;
+                        break;
+                }
             }
 
+            mWidth = size.Width;
             location = new PointF(x, y);
 
             e.Graphics.DrawImage(image, new RectangleF(location, size));
