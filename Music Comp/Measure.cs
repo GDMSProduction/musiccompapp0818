@@ -43,8 +43,9 @@ namespace Music_Comp
             mNotes.Add(n);
         }
 
-        public void Draw(PaintEventArgs e)
+        public void Draw(float cursorX, PaintEventArgs e)
         {
+            mXPosition = cursorX;
             float cursor = 0;
             foreach (Note note in mNotes)
             {

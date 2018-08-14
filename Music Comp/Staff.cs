@@ -200,7 +200,7 @@ namespace Music_Comp
                 AddMeasure();
 
             foreach (Measure measure in mMeasures)
-                measure.Draw(e);
+                measure.Draw(mCursorX, e);
         }
 
         public bool IsActive()
