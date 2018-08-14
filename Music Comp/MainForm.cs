@@ -15,6 +15,8 @@ namespace Music_Comp
 
         int selectedStaff = 0;
 
+        int selectedInstrument = 0;
+
         public MainForm()
         {
             InitializeComponent();
@@ -178,16 +180,32 @@ namespace Music_Comp
                 case Keys.Up:
                     if (selectedStaff > 0)
                     {
-                        song.GetInstrument(0).GetStaff(selectedStaff--).SetActive(false);
-                        song.GetInstrument(0).GetStaff(selectedStaff).SetActive(true);
+                        song.GetInstrument(selectedInstrument).GetStaff(selectedStaff--).SetActive(false);
+                        song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).SetActive(true);
+                        graphicsPanel.Refresh();
+                    }
+                    else if (selectedStaff == 0 && selectedInstrument != 0)
+                    {
+                        song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).SetActive(false);
+                        selectedInstrument--;
+                        selectedStaff = song.GetInstrument(selectedInstrument).GetNumberOfStaves() - 1;
+                        song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).SetActive(true);
                         graphicsPanel.Refresh();
                     }
                     break;
                 case Keys.Down:
-                    if (selectedStaff < Song.TOTAL_STAVES - 1)
+                    if (selectedStaff < song.GetInstrument(selectedInstrument).GetNumberOfStaves() - 1)
                     {
-                        song.GetInstrument(0).GetStaff(selectedStaff++).SetActive(false);
-                        song.GetInstrument(0).GetStaff(selectedStaff).SetActive(true);
+                        song.GetInstrument(selectedInstrument).GetStaff(selectedStaff++).SetActive(false);
+                        song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).SetActive(true);
+                        graphicsPanel.Refresh();
+                    }
+                    else if (selectedStaff == song.GetInstrument(selectedInstrument).GetNumberOfStaves() - 1 && selectedInstrument != Song.TOTAL_INSTRUMENTS - 1)
+                    {
+                        song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).SetActive(false);
+                        selectedStaff = 0;
+                        selectedInstrument++;
+                        song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).SetActive(true);
                         graphicsPanel.Refresh();
                     }
                     break;
