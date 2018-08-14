@@ -272,6 +272,18 @@ namespace Music_Comp
                         note.SetPitch(Pitch.G);
                     }
                     break;
+                case Keys.R:
+                    valid = true;
+                    if (ShiftCheck())
+                    {
+                        note.SetPitch(Pitch.Rest);
+                        note.SetDuration(Duration.Half);
+                    }
+                    else
+                    {
+                        note.SetPitch(Pitch.Rest);
+                    }
+                    break;
             }
 
             if (valid)
