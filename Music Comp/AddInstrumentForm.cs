@@ -41,6 +41,7 @@ namespace Music_Comp
 
             song = new Song(graphicsPanel.Width * 2, Song.KEY, Song.TIME);
             song.AddInstrument(Clef.Treble, Grouping.None);
+            song.GetInstrument(0).GetStaff(0).SetActive(false);
         }
 
         private void AddInstrumentForm_Paint(object sender, PaintEventArgs e)
@@ -66,6 +67,7 @@ namespace Music_Comp
                         song.AddInstrument(clefs[0], clefs[1], clefs[2], clefs[3], grouping);
                         break;
                 }
+                song.GetInstrument(0).GetStaff(0).SetActive(false);
                 graphicsPanel.Invalidate();
             }
             else return;
@@ -89,6 +91,7 @@ namespace Music_Comp
                         song.AddInstrument(clefs[0], clefs[1], clefs[2], clefs[3], grouping);
                         break;
                 }
+                song.GetInstrument(0).GetStaff(0).SetActive(false);
                 graphicsPanel.Invalidate();
             }
             else return;
@@ -112,6 +115,7 @@ namespace Music_Comp
                         song.AddInstrument(clefs[0], clefs[1], clefs[2], clefs[3], grouping);
                         break;
                 }
+                song.GetInstrument(0).GetStaff(0).SetActive(false);
                 graphicsPanel.Invalidate();
             }
             else return;
@@ -160,6 +164,7 @@ namespace Music_Comp
                     song.AddInstrument(Clef.Treble, Clef.Treble, Clef.Treble, Clef.Treble, grouping);
                     break;
             }
+            song.GetInstrument(0).GetStaff(0).SetActive(false);
             graphicsPanel.Invalidate();
         }
 
@@ -196,6 +201,7 @@ namespace Music_Comp
                     song.AddInstrument(clefs[0], clefs[1], clefs[2], clefs[3], grouping);
                     break;
             }
+            song.GetInstrument(0).GetStaff(0).SetActive(false);
             graphicsPanel.Invalidate();
         }
 
@@ -229,6 +235,7 @@ namespace Music_Comp
                     song.AddInstrument(clefs[0], clefs[1], clefs[2], clefs[3], grouping);
                     break;
             }
+            song.GetInstrument(0).GetStaff(0).SetActive(false);
             graphicsPanel.Invalidate();
         }
 
@@ -259,6 +266,7 @@ namespace Music_Comp
                     song.AddInstrument(clefs[0], clefs[1], clefs[2], clefs[3], grouping);
                     break;
             }
+            song.GetInstrument(0).GetStaff(0).SetActive(false);
             graphicsPanel.Invalidate();
         }
 
@@ -281,6 +289,7 @@ namespace Music_Comp
             }
             song = new Song(graphicsPanel.Width * 2, Song.KEY, Song.TIME);
             song.AddInstrument(clefs[0], clefs[1], clefs[2], clefs[3], grouping);
+            song.GetInstrument(0).GetStaff(0).SetActive(false);
 
             graphicsPanel.Invalidate();
         }
