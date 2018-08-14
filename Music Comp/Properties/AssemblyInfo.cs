@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Music Comp")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("BitComposer")]
+[assembly: AssemblyDescription("A music application for fast 8-bit composition")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Music Comp")]
+[assembly: AssemblyCompany("Full Sail University")]
+[assembly: AssemblyProduct("BitComposer")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

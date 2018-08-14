@@ -90,7 +90,7 @@ namespace Music_Comp
             else
                 graphicsPanel.Location = new Point(0, 0);
 
-            graphicsPanel.Refresh();
+            graphicsPanel.Invalidate();
         }
 
         private void zoomInButton_Click(object sender, EventArgs e)
@@ -167,7 +167,7 @@ namespace Music_Comp
                 Staff.LENGTH = options.mainLENGTH;
                 Staff.HEIGHT = options.mainHEIGHT;
             }
-            graphicsPanel.Refresh();
+            graphicsPanel.Invalidate();
         }
 
         private void graphicsPanel_KeyUp(object sender, KeyEventArgs e)
@@ -182,7 +182,7 @@ namespace Music_Comp
                     {
                         song.GetInstrument(selectedInstrument).GetStaff(selectedStaff--).SetActive(false);
                         song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).SetActive(true);
-                        graphicsPanel.Refresh();
+                        graphicsPanel.Invalidate();
                     }
                     else if (selectedStaff == 0 && selectedInstrument != 0)
                     {
@@ -190,7 +190,7 @@ namespace Music_Comp
                         selectedInstrument--;
                         selectedStaff = song.GetInstrument(selectedInstrument).GetNumberOfStaves() - 1;
                         song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).SetActive(true);
-                        graphicsPanel.Refresh();
+                        graphicsPanel.Invalidate();
                     }
                     break;
                 case Keys.Down:
@@ -198,7 +198,7 @@ namespace Music_Comp
                     {
                         song.GetInstrument(selectedInstrument).GetStaff(selectedStaff++).SetActive(false);
                         song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).SetActive(true);
-                        graphicsPanel.Refresh();
+                        graphicsPanel.Invalidate();
                     }
                     else if (selectedStaff == song.GetInstrument(selectedInstrument).GetNumberOfStaves() - 1 && selectedInstrument != Song.TOTAL_INSTRUMENTS - 1)
                     {
@@ -206,7 +206,7 @@ namespace Music_Comp
                         selectedStaff = 0;
                         selectedInstrument++;
                         song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).SetActive(true);
-                        graphicsPanel.Refresh();
+                        graphicsPanel.Invalidate();
                     }
                     break;
                 case Keys.A:
@@ -262,7 +262,7 @@ namespace Music_Comp
             if (valid)
             {
                 song.GetInstrument(0).GetStaff(selectedStaff).GetMeasure(0).AddNote(note);
-                graphicsPanel.Refresh();
+                graphicsPanel.Invalidate();
             }
         }
 
@@ -274,6 +274,20 @@ namespace Music_Comp
         private void graphicsPanel_Click(object sender, EventArgs e)
         {
             ActiveControl = graphicsPanel;
+        }
+
+        private void fullscreenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (WindowState == FormWindowState.Maximized)
+                WindowState = FormWindowState.Normal;
+            else
+                WindowState = FormWindowState.Maximized;
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AboutForm options = new AboutForm();
+            options.ShowDialog();
         }
     }
 }

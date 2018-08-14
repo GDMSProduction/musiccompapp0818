@@ -173,20 +173,23 @@
             // fullscreenToolStripMenuItem
             // 
             this.fullscreenToolStripMenuItem.Name = "fullscreenToolStripMenuItem";
-            this.fullscreenToolStripMenuItem.Size = new System.Drawing.Size(176, 30);
+            this.fullscreenToolStripMenuItem.Size = new System.Drawing.Size(252, 30);
             this.fullscreenToolStripMenuItem.Text = "Fullscreen";
+            this.fullscreenToolStripMenuItem.Click += new System.EventHandler(this.fullscreenToolStripMenuItem_Click);
             // 
             // zoomInToolStripMenuItem
             // 
             this.zoomInToolStripMenuItem.Name = "zoomInToolStripMenuItem";
-            this.zoomInToolStripMenuItem.Size = new System.Drawing.Size(176, 30);
+            this.zoomInToolStripMenuItem.Size = new System.Drawing.Size(252, 30);
             this.zoomInToolStripMenuItem.Text = "Zoom In";
+            this.zoomInToolStripMenuItem.Click += new System.EventHandler(this.zoomInButton_Click);
             // 
             // zoomOutToolStripMenuItem
             // 
             this.zoomOutToolStripMenuItem.Name = "zoomOutToolStripMenuItem";
-            this.zoomOutToolStripMenuItem.Size = new System.Drawing.Size(176, 30);
+            this.zoomOutToolStripMenuItem.Size = new System.Drawing.Size(252, 30);
             this.zoomOutToolStripMenuItem.Text = "Zoom out";
+            this.zoomOutToolStripMenuItem.Click += new System.EventHandler(this.zoomOutButton_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -206,8 +209,9 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(163, 30);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(252, 30);
             this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // graphicsPanel
             // 
@@ -276,7 +280,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
-            this.Text = "Music Composition App";
+            this.Text = "BitComposer 1.0";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Resize += new System.EventHandler(this.MainForm_Resize);
             this.menuStrip1.ResumeLayout(false);
