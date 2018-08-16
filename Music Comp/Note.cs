@@ -5,6 +5,8 @@ namespace Music_Comp
 {
     public class Note
     {
+        Rectangle area;
+
         Pitch mPitch;
         Accidental mAccidental;
         Duration mDuration;
@@ -64,6 +66,11 @@ namespace Music_Comp
         public float GetWidth()
         {
             return mWidth;
+        }
+
+        public Rectangle GetArea()
+        {
+            return area;
         }
 
         public void Draw(float cursorX, float staffYPosition, Clef clef, PaintEventArgs e)

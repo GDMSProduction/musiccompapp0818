@@ -6,6 +6,8 @@ namespace Music_Comp
 {
     class Song
     {
+        Rectangle area;
+
         static Image bracketImage = Properties.Resources.Bracket;
         static Image braceImage = Properties.Resources.Brace;
 
@@ -49,6 +51,8 @@ namespace Music_Comp
             cursorY = TOP_MARGIN;
             cursorX = LEFT_MARGIN;
 
+            area = new Rectangle(0, (int)TOP_MARGIN - 5, (int)PAGE_WIDTH, (int)cursorY);
+
             mBarlines = new List<float>();
         }
 
@@ -66,6 +70,8 @@ namespace Music_Comp
             TOTAL_STAVES = 0;
             mBarlines = new List<float>();
 
+            area = new Rectangle(0, (int)TOP_MARGIN - 5, (int)PAGE_WIDTH, (int)cursorY);
+
             KEY = k;
             TIME = t;
         }
@@ -78,6 +84,11 @@ namespace Music_Comp
         public Instrument GetInstrument(int i)
         {
             return mInstruments[i];
+        }
+        
+        public Rectangle GetArea()
+        {
+            return area;
         }
 
         public void Transpose(Key k)
@@ -94,44 +105,45 @@ namespace Music_Comp
         {
             mInstruments.Add(new Instrument(clef, g));
             if (TOTAL_INSTRUMENTS == 1)
-            {
                 GetInstrument(0).GetStaff(0).SetActive(true);
-            }
         }
 
         public void AddInstrument(Clef clef1, Clef clef2, Grouping g)
         {
             mInstruments.Add(new Instrument(clef1, clef2, g));
             if (TOTAL_INSTRUMENTS == 1)
-            {
                 GetInstrument(0).GetStaff(0).SetActive(true);
-            }
         }
 
         public void AddInstrument(Clef clef1, Clef clef2, Clef clef3, Grouping g)
         {
             mInstruments.Add(new Instrument(clef1, clef2, clef3, g));
             if (TOTAL_INSTRUMENTS == 1)
-            {
                 GetInstrument(0).GetStaff(0).SetActive(true);
-            }
         }
 
         public void AddInstrument(Clef clef1, Clef clef2, Clef clef3, Clef clef4, Grouping g)
         {
             mInstruments.Add(new Instrument(clef1, clef2, clef3, clef4, g));
             if (TOTAL_INSTRUMENTS == 1)
-            {
                 GetInstrument(0).GetStaff(0).SetActive(true);
-            }
         }
 
-        public void RemoveInstrument()
+        public void RemoveInstrument(int i)
         {
-            mInstruments.Remove(mInstruments[mInstruments.Count - 1]);
-            //
-            // SetActive on another staff
-            //
+            if (i < mInstruments.Count && i >= 0)
+                mInstruments.Remove(mInstruments[i]);
+
+       //\  If the active staff was in the instrument
+
+       /*\  if (mInstruments.Count > 0)
+        *   {
+        *       if (i != mInstruments.Count)
+        *           mInstruments[i].GetStaff(0).SetActive(true);
+        *       else
+        *           mInstruments[i - 1].GetStaff(0).SetActive(true);
+        *   }
+       \*/ 
         }
 
         public void DrawBarLines(List<float> barlines, PaintEventArgs e)

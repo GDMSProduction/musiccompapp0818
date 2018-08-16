@@ -6,6 +6,8 @@ namespace Music_Comp
 {
     public class Staff
     {
+        Rectangle area;
+
         static Image staffImage = Properties.Resources.Staff;
         static Image doubleflatImage = Properties.Resources.DoubleFlat;
         static Image flatImage = Properties.Resources.Flat;
@@ -53,6 +55,11 @@ namespace Music_Comp
         public Measure GetMeasure(int i)
         {
             return mMeasures[i];
+        }
+
+        public Rectangle GetArea()
+        {
+            return area;
         }
 
         public void AddMeasure()
@@ -107,6 +114,10 @@ namespace Music_Comp
                     break;
             }
         }
+
+        ///
+        /// Private healper methods
+        ///
 
         private void DrawStaff(PaintEventArgs e)
         {
@@ -171,7 +182,7 @@ namespace Music_Comp
             mCursorX += 120 * Song._SCALE;
         }
 
-        private void DrawKeySignature()
+        private void DrawKeySignature(PaintEventArgs e)
         {
             if (Song.KEY < 0)                                   // Flats
                 for (int i = 0, y = 7; i > (int)Song.KEY; i--)  // B E A D G C F
@@ -262,7 +273,7 @@ namespace Music_Comp
 
             DrawClef(e);
 
-            DrawKeySignature();
+            DrawKeySignature(e);
 
             DrawTimeSignature(e);
 
@@ -272,7 +283,7 @@ namespace Music_Comp
             tempAddMeasureToStaves();
         }
 
-        public void tempAddMeasureToStaves()
+        private void tempAddMeasureToStaves()
         {
             if (staffNumber == 0 && mMeasures.Count == 0)
                 AddMeasure();
