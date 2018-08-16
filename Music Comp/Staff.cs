@@ -60,6 +60,21 @@ namespace Music_Comp
             mMeasures.Add(new Measure(mClef, mCursorX, mYPosition));
         }
 
+        public bool IsActive()
+        {
+            return isActive;
+        }
+
+        public void SetActive(bool setA)
+        {
+            isActive = setA;
+        }
+
+        public float GetYPosition()
+        {
+            return mYPosition;
+        }
+
         public void DrawAccidental(float x, float y, Accidental a, PaintEventArgs e)
         {
             RectangleF rect;
@@ -92,27 +107,22 @@ namespace Music_Comp
                     break;
             }
         }
-        public void Draw(PaintEventArgs e)
+
+        private void DrawStaff(PaintEventArgs e)
         {
-            mCursorX = Song.LEFT_MARGIN;
-            mYPosition = instrumentNumber * Song.INSTRUMENT_SPACING + staffNumber * (HEIGHT + Song.STAFF_SPACING);
-            RectangleF rect;
-
-            if (isActive)
-            {
-                SolidBrush brush = new SolidBrush(Color.LightSkyBlue);
-                rect = new RectangleF(Song.LEFT_MARGIN + 2.0f, Song.TOP_MARGIN + mYPosition, LENGTH, HEIGHT);
-                if (e.Graphics.IsVisible(rect))
-                    e.Graphics.FillRectangle(brush, rect);
-                brush.Dispose();
-            }
-
             PointF location = new PointF(Song.LEFT_MARGIN, Song.TOP_MARGIN + mYPosition);
             SizeF size = new SizeF(LENGTH, HEIGHT);
-            rect = new RectangleF(location, size);
+            RectangleF rect = new RectangleF(location, size);
 
             if (e.Graphics.IsVisible(rect))
                 e.Graphics.DrawImage(staffImage, new RectangleF(location, size));
+        }
+
+        private void DrawClef(PaintEventArgs e)
+        {
+            PointF location = new PointF();
+            SizeF size = new SizeF();
+            RectangleF rect;
 
             switch (mClef)
             {
@@ -134,7 +144,7 @@ namespace Music_Comp
                     rect = new RectangleF(location, size);
 
                     if (e.Graphics.IsVisible(rect))
-                    e.Graphics.DrawImage(cClefImage, rect);
+                        e.Graphics.DrawImage(cClefImage, rect);
                     break;
                 case Clef.Bass:
                     location.X = mCursorX - 35 * Song._SCALE;
@@ -144,7 +154,7 @@ namespace Music_Comp
                     rect = new RectangleF(location, size);
 
                     if (e.Graphics.IsVisible(rect))
-                    e.Graphics.DrawImage(bassClefImage, rect);
+                        e.Graphics.DrawImage(bassClefImage, rect);
                     break;
                 case Clef.Tenor:
                     location.X = mCursorX + 10 * Song._SCALE;
@@ -154,12 +164,15 @@ namespace Music_Comp
                     rect = new RectangleF(location, size);
 
                     if (e.Graphics.IsVisible(rect))
-                    e.Graphics.DrawImage(cClefImage, rect);
+                        e.Graphics.DrawImage(cClefImage, rect);
                     break;
             }
 
             mCursorX += 120 * Song._SCALE;
+        }
 
+        private void DrawKeySignature()
+        {
             if (Song.KEY < 0)                                   // Flats
                 for (int i = 0, y = 7; i > (int)Song.KEY; i--)  // B E A D G C F
                 {
@@ -179,6 +192,13 @@ namespace Music_Comp
                 }
 
             mCursorX += 30 * Song._SCALE;
+        }
+
+        private void DrawTimeSignature(PaintEventArgs e)
+        {
+            PointF location = new PointF();
+            SizeF size = new SizeF();
+            RectangleF rect;
 
             switch (Song.TIME)
             {
@@ -192,7 +212,7 @@ namespace Music_Comp
                     size.Height = HEIGHT;
                     rect = new RectangleF(location, size);
 
-                    if(e.Graphics.IsVisible(rect))
+                    if (e.Graphics.IsVisible(rect))
                         e.Graphics.DrawImage(sixEightImage, rect);
                     break;
                 case Time.ThreeEight:
@@ -211,13 +231,49 @@ namespace Music_Comp
                     size.Height = HEIGHT;
                     rect = new RectangleF(location, size);
 
-                    if(e.Graphics.IsVisible(rect))
+                    if (e.Graphics.IsVisible(rect))
                         e.Graphics.DrawImage(fourFourImage, rect);
                     break;
             }
 
             mCursorX += 90 * Song._SCALE;
+        }
 
+        private void DrawCursor(PaintEventArgs e)
+        {
+            if (isActive)
+            {
+                SolidBrush brush = new SolidBrush(Color.LightSkyBlue);
+                RectangleF rect = new RectangleF(Song.LEFT_MARGIN + 2.0f, Song.TOP_MARGIN + mYPosition, LENGTH, HEIGHT);
+                if (e.Graphics.IsVisible(rect))
+                    e.Graphics.FillRectangle(brush, rect);
+                brush.Dispose();
+            }
+        }
+
+        public void Draw(PaintEventArgs e)
+        {
+            mCursorX = Song.LEFT_MARGIN;
+            mYPosition = instrumentNumber * Song.INSTRUMENT_SPACING + staffNumber * (HEIGHT + Song.STAFF_SPACING);
+
+            DrawCursor(e);
+
+            DrawStaff(e);
+
+            DrawClef(e);
+
+            DrawKeySignature();
+
+            DrawTimeSignature(e);
+
+            foreach (Measure measure in mMeasures)
+                measure.Draw(mCursorX, e);
+
+            tempAddMeasureToStaves();
+        }
+
+        public void tempAddMeasureToStaves()
+        {
             if (staffNumber == 0 && mMeasures.Count == 0)
                 AddMeasure();
             if (staffNumber == 1 && mMeasures.Count == 0)
@@ -226,24 +282,6 @@ namespace Music_Comp
                 AddMeasure();
             if (staffNumber == 3 && mMeasures.Count == 0)
                 AddMeasure();
-
-            foreach (Measure measure in mMeasures)
-                measure.Draw(mCursorX, e);
-        }
-
-        public bool IsActive()
-        {
-            return isActive;
-        }
-
-        public void SetActive(bool setA)
-        {
-            isActive = setA;
-        }
-
-        public float GetYPosition()
-        {
-            return mYPosition;
         }
     }
 }
