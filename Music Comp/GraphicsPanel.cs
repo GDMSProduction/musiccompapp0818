@@ -14,10 +14,10 @@ namespace Music_Comp
         public GraphicsPanel()
         {
             // Turn on double buffering.
-            this.DoubleBuffered = true;
+            DoubleBuffered = true;
 
             // Allow repainting when the windows is resized.
-            this.SetStyle(ControlStyles.ResizeRedraw, true);
+            // SetStyle(ControlStyles.ResizeRedraw, true);
         }
     }
 }

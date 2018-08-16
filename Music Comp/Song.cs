@@ -130,13 +130,13 @@ namespace Music_Comp
         {
             mInstruments.Remove(mInstruments[mInstruments.Count - 1]);
             //
-            //SetActive on another staff
+            // SetActive on another staff
             //
         }
 
         public void DrawBarLines(List<float> barlines, PaintEventArgs e)
         {
-            Pen barLinePen = new Pen(Color.Black, 3.0f);
+            Pen barLinePen = new Pen(Color.Black, 3.5f * _SCALE);
             float btm_song_line = TOP_MARGIN + (Staff.HEIGHT + STAFF_SPACING) * TOTAL_STAVES - STAFF_SPACING + (TOTAL_INSTRUMENTS - 1) * INSTRUMENT_SPACING;
             float btm_inst_line;
             float top_inst_line = TOP_MARGIN;
@@ -146,7 +146,11 @@ namespace Music_Comp
                     btm_inst_line = top_inst_line + (Staff.HEIGHT + STAFF_SPACING) * mInstruments[j].GetNumberOfStaves() - STAFF_SPACING;
                     DrawGrouping(mInstruments[j].GetGrouping(), top_inst_line, btm_inst_line, e);
 
-                    e.Graphics.DrawLine(barLinePen, new PointF(barlines[i], top_inst_line), new PointF(barlines[i], btm_inst_line));
+                    PointF start = new PointF(barlines[i], top_inst_line);
+                    PointF end = new PointF(barlines[i], btm_inst_line);
+
+                    if (e.Graphics.IsVisible(new RectangleF(start.X, start.Y, 1, end.Y - start.Y)))
+                        e.Graphics.DrawLine(barLinePen, start, end);
 
                     top_inst_line = btm_inst_line + STAFF_SPACING + INSTRUMENT_SPACING;
                 }
@@ -157,6 +161,7 @@ namespace Music_Comp
         {
             PointF location = new PointF();
             SizeF size = new SizeF();
+            RectangleF rect;
 
             switch (g)
             {
@@ -166,7 +171,10 @@ namespace Music_Comp
                     size.Width = 40 * _SCALE;
                     size.Height = instBtm - instTop + 30 * _SCALE;
 
-                    e.Graphics.DrawImage(bracketImage, new RectangleF(location, size));
+                    rect = new RectangleF(location, size);
+
+                    if (e.Graphics.IsVisible(rect))
+                        e.Graphics.DrawImage(bracketImage, rect);
                     break;
                 case Grouping.Brace:
                     location.X = LEFT_MARGIN - 50 * _SCALE;
@@ -174,17 +182,24 @@ namespace Music_Comp
                     size.Width = 50 * _SCALE;
                     size.Height = instBtm - instTop;
 
-                    e.Graphics.DrawImage(braceImage , new RectangleF(location, size));
+                    rect = new RectangleF(location, size);
+
+                    if (e.Graphics.IsVisible(rect))
+                        e.Graphics.DrawImage(braceImage , rect);
                     break;
             }
         }
 
         public void Draw(PaintEventArgs e)
         {
-            Pen barLinePen = new Pen(Color.Black, 3.0f * _SCALE);
+            Pen barLinePen = new Pen(Color.Black, 3.4f * _SCALE);
             float btm_song_line = TOP_MARGIN + (Staff.HEIGHT + STAFF_SPACING) * TOTAL_STAVES - STAFF_SPACING + (TOTAL_INSTRUMENTS - 1) * INSTRUMENT_SPACING;
 
-            e.Graphics.DrawLine(barLinePen, new PointF(LEFT_MARGIN, TOP_MARGIN), new PointF(LEFT_MARGIN, btm_song_line));
+            PointF start = new PointF(LEFT_MARGIN, TOP_MARGIN);
+            PointF end = new PointF(LEFT_MARGIN, btm_song_line);
+
+            if (e.Graphics.IsVisible(new RectangleF(start.X,start.Y, 1, end.Y - start.Y)))
+                e.Graphics.DrawLine(barLinePen, start, end);
 
             barLinePen.Dispose();
 

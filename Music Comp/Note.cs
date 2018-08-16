@@ -72,6 +72,7 @@ namespace Music_Comp
             float y = staffYPosition;
             PointF location;
             SizeF size = new SizeF();
+            RectangleF rect;
 
 
             if (mPitch == Pitch.Rest)
@@ -146,8 +147,10 @@ namespace Music_Comp
 
             mWidth = size.Width;
             location = new PointF(x, y);
+            rect = new RectangleF(location, size);
 
-            e.Graphics.DrawImage(image, new RectangleF(location, size));
+            if (e.Graphics.IsVisible(rect))
+                e.Graphics.DrawImage(image, rect);
         }
     }
 }

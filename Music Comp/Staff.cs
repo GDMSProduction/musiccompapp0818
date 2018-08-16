@@ -62,22 +62,33 @@ namespace Music_Comp
 
         public void DrawAccidental(float x, float y, Accidental a, PaintEventArgs e)
         {
+            RectangleF rect;
             switch (a)
             {
                 case Accidental.DoubleFlat:
-                    e.Graphics.DrawImage(doubleflatImage, new RectangleF(x, y - 50 * Song._SCALE, 60 * Song._SCALE, 70 * Song._SCALE));
+                    rect = new RectangleF(x, y - 50 * Song._SCALE, 60 * Song._SCALE, 70 * Song._SCALE);
+                    if (e.Graphics.IsVisible(rect))
+                        e.Graphics.DrawImage(doubleflatImage, rect);
                     break;
                 case Accidental.Flat:
-                    e.Graphics.DrawImage(flatImage, new RectangleF(x, y - 50 * Song._SCALE, 35 * Song._SCALE, 68 * Song._SCALE));
+                    rect = new RectangleF(x, y - 50 * Song._SCALE, 35 * Song._SCALE, 68 * Song._SCALE);
+                    if (e.Graphics.IsVisible(rect))
+                        e.Graphics.DrawImage(flatImage, rect);
                     break;
                 case Accidental.Natural:
-                    e.Graphics.DrawImage(naturalImage, new RectangleF(x, y - 38 * Song._SCALE, 20 * Song._SCALE, 70 * Song._SCALE));
+                    rect = new RectangleF(x, y - 38 * Song._SCALE, 20 * Song._SCALE, 70 * Song._SCALE);
+                    if (e.Graphics.IsVisible(rect))
+                        e.Graphics.DrawImage(naturalImage, rect);
                     break;
                 case Accidental.Sharp:
-                    e.Graphics.DrawImage(sharpImage, new RectangleF(x, y - 38 * Song._SCALE, 35 * Song._SCALE, 70 * Song._SCALE));
+                    rect = new RectangleF(x, y - 38 * Song._SCALE, 35 * Song._SCALE, 70 * Song._SCALE);
+                    if (e.Graphics.IsVisible(rect))
+                        e.Graphics.DrawImage(sharpImage, rect);
                     break;
                 case Accidental.DoubleSharp:
-                    e.Graphics.DrawImage(doublesharpImage, new RectangleF(x, y - 20 * Song._SCALE, 35 * Song._SCALE, 35 * Song._SCALE));
+                    rect = new RectangleF(x, y - 20 * Song._SCALE, 35 * Song._SCALE, 35 * Song._SCALE);
+                    if (e.Graphics.IsVisible(rect))
+                        e.Graphics.DrawImage(doublesharpImage, rect);
                     break;
             }
         }
@@ -85,18 +96,23 @@ namespace Music_Comp
         {
             mCursorX = Song.LEFT_MARGIN;
             mYPosition = instrumentNumber * Song.INSTRUMENT_SPACING + staffNumber * (HEIGHT + Song.STAFF_SPACING);
+            RectangleF rect;
 
             if (isActive)
             {
                 SolidBrush brush = new SolidBrush(Color.LightSkyBlue);
-                e.Graphics.FillRectangle(brush, Song.LEFT_MARGIN, Song.TOP_MARGIN + mYPosition, LENGTH, HEIGHT);
+                rect = new RectangleF(Song.LEFT_MARGIN + 2.0f, Song.TOP_MARGIN + mYPosition, LENGTH, HEIGHT);
+                if (e.Graphics.IsVisible(rect))
+                    e.Graphics.FillRectangle(brush, rect);
                 brush.Dispose();
             }
 
             PointF location = new PointF(Song.LEFT_MARGIN, Song.TOP_MARGIN + mYPosition);
             SizeF size = new SizeF(LENGTH, HEIGHT);
+            rect = new RectangleF(location, size);
 
-            e.Graphics.DrawImage(staffImage, new RectangleF(location, size));
+            if (e.Graphics.IsVisible(rect))
+                e.Graphics.DrawImage(staffImage, new RectangleF(location, size));
 
             switch (mClef)
             {
@@ -105,32 +121,40 @@ namespace Music_Comp
                     location.Y = Song.TOP_MARGIN - 70 * Song._SCALE + mYPosition;
                     size.Width = HEIGHT * 1.50f;
                     size.Height = HEIGHT * 2.28f;
+                    rect = new RectangleF(location, size);
 
-                    e.Graphics.DrawImage(trebleClefImage, new RectangleF(location, size));
+                    if (e.Graphics.IsVisible(rect))
+                        e.Graphics.DrawImage(trebleClefImage, rect);
                     break;
                 case Clef.Alto:
                     location.X = mCursorX + 10 * Song._SCALE;
                     location.Y = Song.TOP_MARGIN - 0 * Song._SCALE + mYPosition;
                     size.Width = HEIGHT * 0.80f;
                     size.Height = HEIGHT;
+                    rect = new RectangleF(location, size);
 
-                    e.Graphics.DrawImage(cClefImage, new RectangleF(location, size));
+                    if (e.Graphics.IsVisible(rect))
+                    e.Graphics.DrawImage(cClefImage, rect);
                     break;
                 case Clef.Bass:
                     location.X = mCursorX - 35 * Song._SCALE;
                     location.Y = Song.TOP_MARGIN - 58 * Song._SCALE + mYPosition;
                     size.Width = HEIGHT * 1.48f;
                     size.Height = HEIGHT * 1.82f;
+                    rect = new RectangleF(location, size);
 
-                    e.Graphics.DrawImage(bassClefImage, new RectangleF(location, size));
+                    if (e.Graphics.IsVisible(rect))
+                    e.Graphics.DrawImage(bassClefImage, rect);
                     break;
                 case Clef.Tenor:
                     location.X = mCursorX + 10 * Song._SCALE;
                     location.Y = Song.TOP_MARGIN - 29 * Song._SCALE + mYPosition;
                     size.Width = HEIGHT * 0.8f;
                     size.Height = HEIGHT;
+                    rect = new RectangleF(location, size);
 
-                    e.Graphics.DrawImage(cClefImage, new RectangleF(location, size));
+                    if (e.Graphics.IsVisible(rect))
+                    e.Graphics.DrawImage(cClefImage, rect);
                     break;
             }
 
@@ -166,8 +190,10 @@ namespace Music_Comp
                     location.Y = Song.TOP_MARGIN + mYPosition;
                     size.Width = HEIGHT * 0.5f;
                     size.Height = HEIGHT;
+                    rect = new RectangleF(location, size);
 
-                    e.Graphics.DrawImage(sixEightImage, new RectangleF(location, size));
+                    if(e.Graphics.IsVisible(rect))
+                        e.Graphics.DrawImage(sixEightImage, rect);
                     break;
                 case Time.ThreeEight:
 
@@ -183,8 +209,10 @@ namespace Music_Comp
                     location.Y = Song.TOP_MARGIN + mYPosition;
                     size.Width = HEIGHT * 0.5f;
                     size.Height = HEIGHT;
+                    rect = new RectangleF(location, size);
 
-                    e.Graphics.DrawImage(fourFourImage, new RectangleF(location, size));
+                    if(e.Graphics.IsVisible(rect))
+                        e.Graphics.DrawImage(fourFourImage, rect);
                     break;
             }
 
