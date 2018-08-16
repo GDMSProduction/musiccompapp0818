@@ -77,6 +77,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Song Settings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Song Settings.Designer.cs">
+      <DependentUpon>Song Settings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Song.cs" />
     <Compile Include="Staff.cs" />
     <EmbeddedResource Include="AboutForm.resx">
@@ -92,6 +98,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Song Settings.resx">
+      <DependentUpon>Song Settings.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

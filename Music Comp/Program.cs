@@ -13,13 +13,13 @@ namespace Music_Comp
         Aflat,
         Eflat,
         Bflat,
-        F,
+        F, // Fat Cats Go Down Alleys Eating Birds
         C,
         G,
         D,
         A,
         E,
-        B,
+        B, // BEAD Greatest Common Factor
         Fsharp,
         Csharp
     }

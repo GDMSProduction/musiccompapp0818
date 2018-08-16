@@ -17,6 +17,8 @@ namespace Music_Comp
 
         int selectedInstrument = 0;
 
+        Song_Settings KeySignatureMenu = new Song_Settings();
+
         public MainForm()
         {
             InitializeComponent();
@@ -289,5 +291,16 @@ namespace Music_Comp
             AboutForm options = new AboutForm();
             options.ShowDialog();
         }
+
+        private void songToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            if (DialogResult.OK == KeySignatureMenu.ShowDialog())
+            {
+                song.Transpose((Key)KeySignatureMenu.GetKeySignature());
+                graphicsPanel.Invalidate();
+            }
+        }
+
     }
 }
