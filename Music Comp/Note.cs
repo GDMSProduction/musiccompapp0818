@@ -5,6 +5,8 @@ namespace Music_Comp
 {
     public class Note
     {
+        Rectangle area;
+
         Pitch mPitch;
         Accidental mAccidental;
         Duration mDuration;
@@ -66,12 +68,18 @@ namespace Music_Comp
             return mWidth;
         }
 
+        public Rectangle GetArea()
+        {
+            return area;
+        }
+
         public void Draw(float cursorX, float staffYPosition, Clef clef, PaintEventArgs e)
         {
             float x = cursorX;
             float y = staffYPosition;
             PointF location;
             SizeF size = new SizeF();
+            RectangleF rect;
 
 
             if (mPitch == Pitch.Rest)
@@ -146,8 +154,10 @@ namespace Music_Comp
 
             mWidth = size.Width;
             location = new PointF(x, y);
+            rect = new RectangleF(location, size);
 
-            e.Graphics.DrawImage(image, new RectangleF(location, size));
+            if (e.Graphics.IsVisible(rect))
+                e.Graphics.DrawImage(image, rect);
         }
     }
 }

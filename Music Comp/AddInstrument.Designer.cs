@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.graphicsPanel = new System.Windows.Forms.Panel();
+            this.graphicsPanel = new Music_Comp.GraphicsPanel();
             this.Brace = new System.Windows.Forms.RadioButton();
             this.Bracket = new System.Windows.Forms.RadioButton();
             this.None = new System.Windows.Forms.RadioButton();
@@ -269,7 +269,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Panel graphicsPanel;
+        private Music_Comp.GraphicsPanel graphicsPanel;
         private System.Windows.Forms.RadioButton Brace;
         private System.Windows.Forms.RadioButton Bracket;
         private System.Windows.Forms.RadioButton None;

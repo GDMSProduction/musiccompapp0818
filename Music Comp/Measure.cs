@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace Music_Comp
 {
     public class Measure
     {
+        Rectangle area;
+
         List<Note> mNotes;
 
         float mXPosition;
@@ -36,6 +39,11 @@ namespace Music_Comp
         public Note GetNote(int i)
         {
             return mNotes[i];
+        }
+
+        public Rectangle GetArea()
+        {
+            return area;
         }
 
         public void AddNote(Note n)

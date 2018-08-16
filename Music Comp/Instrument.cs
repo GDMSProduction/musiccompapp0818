@@ -1,9 +1,12 @@
 ﻿using System.Windows.Forms;
+using System.Drawing;
 
 namespace Music_Comp
 {
     class Instrument
     {
+        Rectangle area;
+
         Staff[] mStaves;
         Clef[] mClefs;
         Grouping mGrouping;
@@ -54,6 +57,11 @@ namespace Music_Comp
         public Staff GetStaff(int i)
         {
             return mStaves[i];
+        }
+
+        public Rectangle GetArea()
+        {
+            return area;
         }
 
         public int GetNumberOfClefs()

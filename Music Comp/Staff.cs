@@ -6,6 +6,8 @@ namespace Music_Comp
 {
     public class Staff
     {
+        Rectangle area;
+
         static Image staffImage = Properties.Resources.Staff;
         static Image doubleflatImage = Properties.Resources.DoubleFlat;
         static Image flatImage = Properties.Resources.Flat;
@@ -55,48 +57,83 @@ namespace Music_Comp
             return mMeasures[i];
         }
 
+        public Rectangle GetArea()
+        {
+            return area;
+        }
+
         public void AddMeasure()
         {
             mMeasures.Add(new Measure(mClef, mCursorX, mYPosition));
         }
 
+        public bool IsActive()
+        {
+            return isActive;
+        }
+
+        public void SetActive(bool setA)
+        {
+            isActive = setA;
+        }
+
+        public float GetYPosition()
+        {
+            return mYPosition;
+        }
+
         public void DrawAccidental(float x, float y, Accidental a, PaintEventArgs e)
         {
+            RectangleF rect;
             switch (a)
             {
                 case Accidental.DoubleFlat:
-                    e.Graphics.DrawImage(doubleflatImage, new RectangleF(x, y - 50 * Song._SCALE, 60 * Song._SCALE, 70 * Song._SCALE));
+                    rect = new RectangleF(x, y - 50 * Song._SCALE, 60 * Song._SCALE, 70 * Song._SCALE);
+                    if (e.Graphics.IsVisible(rect))
+                        e.Graphics.DrawImage(doubleflatImage, rect);
                     break;
                 case Accidental.Flat:
-                    e.Graphics.DrawImage(flatImage, new RectangleF(x, y - 50 * Song._SCALE, 35 * Song._SCALE, 68 * Song._SCALE));
+                    rect = new RectangleF(x, y - 50 * Song._SCALE, 35 * Song._SCALE, 68 * Song._SCALE);
+                    if (e.Graphics.IsVisible(rect))
+                        e.Graphics.DrawImage(flatImage, rect);
                     break;
                 case Accidental.Natural:
-                    e.Graphics.DrawImage(naturalImage, new RectangleF(x, y - 38 * Song._SCALE, 20 * Song._SCALE, 70 * Song._SCALE));
+                    rect = new RectangleF(x, y - 38 * Song._SCALE, 20 * Song._SCALE, 70 * Song._SCALE);
+                    if (e.Graphics.IsVisible(rect))
+                        e.Graphics.DrawImage(naturalImage, rect);
                     break;
                 case Accidental.Sharp:
-                    e.Graphics.DrawImage(sharpImage, new RectangleF(x, y - 38 * Song._SCALE, 35 * Song._SCALE, 70 * Song._SCALE));
+                    rect = new RectangleF(x, y - 38 * Song._SCALE, 35 * Song._SCALE, 70 * Song._SCALE);
+                    if (e.Graphics.IsVisible(rect))
+                        e.Graphics.DrawImage(sharpImage, rect);
                     break;
                 case Accidental.DoubleSharp:
-                    e.Graphics.DrawImage(doublesharpImage, new RectangleF(x, y - 20 * Song._SCALE, 35 * Song._SCALE, 35 * Song._SCALE));
+                    rect = new RectangleF(x, y - 20 * Song._SCALE, 35 * Song._SCALE, 35 * Song._SCALE);
+                    if (e.Graphics.IsVisible(rect))
+                        e.Graphics.DrawImage(doublesharpImage, rect);
                     break;
             }
         }
-        public void Draw(PaintEventArgs e)
+
+        ///
+        /// Private healper methods
+        ///
+
+        private void DrawStaff(PaintEventArgs e)
         {
-            mCursorX = Song.LEFT_MARGIN;
-            mYPosition = instrumentNumber * Song.INSTRUMENT_SPACING + staffNumber * (HEIGHT + Song.STAFF_SPACING);
-
-            if (isActive)
-            {
-                SolidBrush brush = new SolidBrush(Color.LightSkyBlue);
-                e.Graphics.FillRectangle(brush, Song.LEFT_MARGIN, Song.TOP_MARGIN + mYPosition, LENGTH, HEIGHT);
-                brush.Dispose();
-            }
-
             PointF location = new PointF(Song.LEFT_MARGIN, Song.TOP_MARGIN + mYPosition);
             SizeF size = new SizeF(LENGTH, HEIGHT);
+            RectangleF rect = new RectangleF(location, size);
 
-            e.Graphics.DrawImage(staffImage, new RectangleF(location, size));
+            if (e.Graphics.IsVisible(rect))
+                e.Graphics.DrawImage(staffImage, new RectangleF(location, size));
+        }
+
+        private void DrawClef(PaintEventArgs e)
+        {
+            PointF location = new PointF();
+            SizeF size = new SizeF();
+            RectangleF rect;
 
             switch (mClef)
             {
@@ -105,37 +142,48 @@ namespace Music_Comp
                     location.Y = Song.TOP_MARGIN - 70 * Song._SCALE + mYPosition;
                     size.Width = HEIGHT * 1.50f;
                     size.Height = HEIGHT * 2.28f;
+                    rect = new RectangleF(location, size);
 
-                    e.Graphics.DrawImage(trebleClefImage, new RectangleF(location, size));
+                    if (e.Graphics.IsVisible(rect))
+                        e.Graphics.DrawImage(trebleClefImage, rect);
                     break;
                 case Clef.Alto:
                     location.X = mCursorX + 10 * Song._SCALE;
                     location.Y = Song.TOP_MARGIN - 0 * Song._SCALE + mYPosition;
                     size.Width = HEIGHT * 0.80f;
                     size.Height = HEIGHT;
+                    rect = new RectangleF(location, size);
 
-                    e.Graphics.DrawImage(cClefImage, new RectangleF(location, size));
+                    if (e.Graphics.IsVisible(rect))
+                        e.Graphics.DrawImage(cClefImage, rect);
                     break;
                 case Clef.Bass:
                     location.X = mCursorX - 35 * Song._SCALE;
                     location.Y = Song.TOP_MARGIN - 58 * Song._SCALE + mYPosition;
                     size.Width = HEIGHT * 1.48f;
                     size.Height = HEIGHT * 1.82f;
+                    rect = new RectangleF(location, size);
 
-                    e.Graphics.DrawImage(bassClefImage, new RectangleF(location, size));
+                    if (e.Graphics.IsVisible(rect))
+                        e.Graphics.DrawImage(bassClefImage, rect);
                     break;
                 case Clef.Tenor:
                     location.X = mCursorX + 10 * Song._SCALE;
                     location.Y = Song.TOP_MARGIN - 29 * Song._SCALE + mYPosition;
                     size.Width = HEIGHT * 0.8f;
                     size.Height = HEIGHT;
+                    rect = new RectangleF(location, size);
 
-                    e.Graphics.DrawImage(cClefImage, new RectangleF(location, size));
+                    if (e.Graphics.IsVisible(rect))
+                        e.Graphics.DrawImage(cClefImage, rect);
                     break;
             }
 
             mCursorX += 120 * Song._SCALE;
+        }
 
+        private void DrawKeySignature(PaintEventArgs e)
+        {
             if (Song.KEY < 0)                                   // Flats
                 for (int i = 0, y = 7; i > (int)Song.KEY; i--)  // B E A D G C F
                 {
@@ -155,6 +203,13 @@ namespace Music_Comp
                 }
 
             mCursorX += 30 * Song._SCALE;
+        }
+
+        private void DrawTimeSignature(PaintEventArgs e)
+        {
+            PointF location = new PointF();
+            SizeF size = new SizeF();
+            RectangleF rect;
 
             switch (Song.TIME)
             {
@@ -166,8 +221,10 @@ namespace Music_Comp
                     location.Y = Song.TOP_MARGIN + mYPosition;
                     size.Width = HEIGHT * 0.5f;
                     size.Height = HEIGHT;
+                    rect = new RectangleF(location, size);
 
-                    e.Graphics.DrawImage(sixEightImage, new RectangleF(location, size));
+                    if (e.Graphics.IsVisible(rect))
+                        e.Graphics.DrawImage(sixEightImage, rect);
                     break;
                 case Time.ThreeEight:
 
@@ -183,13 +240,51 @@ namespace Music_Comp
                     location.Y = Song.TOP_MARGIN + mYPosition;
                     size.Width = HEIGHT * 0.5f;
                     size.Height = HEIGHT;
+                    rect = new RectangleF(location, size);
 
-                    e.Graphics.DrawImage(fourFourImage, new RectangleF(location, size));
+                    if (e.Graphics.IsVisible(rect))
+                        e.Graphics.DrawImage(fourFourImage, rect);
                     break;
             }
 
             mCursorX += 90 * Song._SCALE;
+        }
 
+        private void DrawCursor(PaintEventArgs e)
+        {
+            if (isActive)
+            {
+                SolidBrush brush = new SolidBrush(Color.LightSkyBlue);
+                RectangleF rect = new RectangleF(Song.LEFT_MARGIN + 2.0f, Song.TOP_MARGIN + mYPosition, LENGTH, HEIGHT);
+                if (e.Graphics.IsVisible(rect))
+                    e.Graphics.FillRectangle(brush, rect);
+                brush.Dispose();
+            }
+        }
+
+        public void Draw(PaintEventArgs e)
+        {
+            mCursorX = Song.LEFT_MARGIN;
+            mYPosition = instrumentNumber * Song.INSTRUMENT_SPACING + staffNumber * (HEIGHT + Song.STAFF_SPACING);
+
+            DrawCursor(e);
+
+            DrawStaff(e);
+
+            DrawClef(e);
+
+            DrawKeySignature(e);
+
+            DrawTimeSignature(e);
+
+            foreach (Measure measure in mMeasures)
+                measure.Draw(mCursorX, e);
+
+            tempAddMeasureToStaves();
+        }
+
+        private void tempAddMeasureToStaves()
+        {
             if (staffNumber == 0 && mMeasures.Count == 0)
                 AddMeasure();
             if (staffNumber == 1 && mMeasures.Count == 0)
@@ -198,24 +293,6 @@ namespace Music_Comp
                 AddMeasure();
             if (staffNumber == 3 && mMeasures.Count == 0)
                 AddMeasure();
-
-            foreach (Measure measure in mMeasures)
-                measure.Draw(mCursorX, e);
-        }
-
-        public bool IsActive()
-        {
-            return isActive;
-        }
-
-        public void SetActive(bool setA)
-        {
-            isActive = setA;
-        }
-
-        public float GetYPosition()
-        {
-            return mYPosition;
         }
     }
 }
