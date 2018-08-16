@@ -31,22 +31,26 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.SongKeySignature = new System.Windows.Forms.GroupBox();
+            this.cFlat_Button = new System.Windows.Forms.RadioButton();
+            this.cSharp_Button = new System.Windows.Forms.RadioButton();
+            this.fSharp_Button = new System.Windows.Forms.RadioButton();
+            this.B_Button = new System.Windows.Forms.RadioButton();
+            this.gFlat_Button = new System.Windows.Forms.RadioButton();
+            this.dFlat_Button = new System.Windows.Forms.RadioButton();
+            this.aFlat_Button = new System.Windows.Forms.RadioButton();
+            this.bFlat_Button = new System.Windows.Forms.RadioButton();
+            this.E_Button = new System.Windows.Forms.RadioButton();
+            this.A_Button = new System.Windows.Forms.RadioButton();
+            this.D_Button = new System.Windows.Forms.RadioButton();
             this.eFlat_Button = new System.Windows.Forms.RadioButton();
             this.G_Button = new System.Windows.Forms.RadioButton();
             this.C_Button = new System.Windows.Forms.RadioButton();
             this.F_Button = new System.Windows.Forms.RadioButton();
-            this.D_Button = new System.Windows.Forms.RadioButton();
-            this.A_Button = new System.Windows.Forms.RadioButton();
-            this.E_Button = new System.Windows.Forms.RadioButton();
-            this.bFlat_Button = new System.Windows.Forms.RadioButton();
-            this.aFlat_Button = new System.Windows.Forms.RadioButton();
-            this.dFlat_Button = new System.Windows.Forms.RadioButton();
-            this.gFlat_Button = new System.Windows.Forms.RadioButton();
-            this.B_Button = new System.Windows.Forms.RadioButton();
-            this.fSharp_Button = new System.Windows.Forms.RadioButton();
-            this.cSharp_Button = new System.Windows.Forms.RadioButton();
-            this.cFlat_Button = new System.Windows.Forms.RadioButton();
+            this.SongTimeSignature = new System.Windows.Forms.GroupBox();
+            this.SixEight_Button = new System.Windows.Forms.RadioButton();
+            this.FourFour_Button = new System.Windows.Forms.RadioButton();
             this.SongKeySignature.SuspendLayout();
+            this.SongTimeSignature.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -89,10 +93,120 @@
             this.SongKeySignature.Controls.Add(this.F_Button);
             this.SongKeySignature.Location = new System.Drawing.Point(12, 12);
             this.SongKeySignature.Name = "SongKeySignature";
-            this.SongKeySignature.Size = new System.Drawing.Size(576, 326);
+            this.SongKeySignature.Size = new System.Drawing.Size(478, 326);
             this.SongKeySignature.TabIndex = 5;
             this.SongKeySignature.TabStop = false;
             this.SongKeySignature.Text = "Song Key Signature";
+            // 
+            // cFlat_Button
+            // 
+            this.cFlat_Button.AutoSize = true;
+            this.cFlat_Button.Location = new System.Drawing.Point(164, 55);
+            this.cFlat_Button.Name = "cFlat_Button";
+            this.cFlat_Button.Size = new System.Drawing.Size(100, 29);
+            this.cFlat_Button.TabIndex = 14;
+            this.cFlat_Button.Text = "C Flat";
+            this.cFlat_Button.UseVisualStyleBackColor = true;
+            // 
+            // cSharp_Button
+            // 
+            this.cSharp_Button.AutoSize = true;
+            this.cSharp_Button.Location = new System.Drawing.Point(336, 90);
+            this.cSharp_Button.Name = "cSharp_Button";
+            this.cSharp_Button.Size = new System.Drawing.Size(121, 29);
+            this.cSharp_Button.TabIndex = 13;
+            this.cSharp_Button.Text = "C Sharp";
+            this.cSharp_Button.UseVisualStyleBackColor = true;
+            // 
+            // fSharp_Button
+            // 
+            this.fSharp_Button.AutoSize = true;
+            this.fSharp_Button.Location = new System.Drawing.Point(336, 55);
+            this.fSharp_Button.Name = "fSharp_Button";
+            this.fSharp_Button.Size = new System.Drawing.Size(119, 29);
+            this.fSharp_Button.TabIndex = 12;
+            this.fSharp_Button.Text = "F Sharp";
+            this.fSharp_Button.UseVisualStyleBackColor = true;
+            // 
+            // B_Button
+            // 
+            this.B_Button.AutoSize = true;
+            this.B_Button.Location = new System.Drawing.Point(29, 265);
+            this.B_Button.Name = "B_Button";
+            this.B_Button.Size = new System.Drawing.Size(57, 29);
+            this.B_Button.TabIndex = 11;
+            this.B_Button.Text = "B";
+            this.B_Button.UseVisualStyleBackColor = true;
+            // 
+            // gFlat_Button
+            // 
+            this.gFlat_Button.AutoSize = true;
+            this.gFlat_Button.Location = new System.Drawing.Point(165, 90);
+            this.gFlat_Button.Name = "gFlat_Button";
+            this.gFlat_Button.Size = new System.Drawing.Size(101, 29);
+            this.gFlat_Button.TabIndex = 10;
+            this.gFlat_Button.Text = "G Flat";
+            this.gFlat_Button.UseVisualStyleBackColor = true;
+            // 
+            // dFlat_Button
+            // 
+            this.dFlat_Button.AutoSize = true;
+            this.dFlat_Button.Location = new System.Drawing.Point(165, 125);
+            this.dFlat_Button.Name = "dFlat_Button";
+            this.dFlat_Button.Size = new System.Drawing.Size(100, 29);
+            this.dFlat_Button.TabIndex = 9;
+            this.dFlat_Button.Text = "D Flat";
+            this.dFlat_Button.UseVisualStyleBackColor = true;
+            // 
+            // aFlat_Button
+            // 
+            this.aFlat_Button.AutoSize = true;
+            this.aFlat_Button.Location = new System.Drawing.Point(167, 160);
+            this.aFlat_Button.Name = "aFlat_Button";
+            this.aFlat_Button.Size = new System.Drawing.Size(99, 29);
+            this.aFlat_Button.TabIndex = 8;
+            this.aFlat_Button.Text = "A Flat";
+            this.aFlat_Button.UseVisualStyleBackColor = true;
+            // 
+            // bFlat_Button
+            // 
+            this.bFlat_Button.AutoSize = true;
+            this.bFlat_Button.Location = new System.Drawing.Point(167, 230);
+            this.bFlat_Button.Name = "bFlat_Button";
+            this.bFlat_Button.Size = new System.Drawing.Size(99, 29);
+            this.bFlat_Button.TabIndex = 7;
+            this.bFlat_Button.Text = "B Flat";
+            this.bFlat_Button.UseVisualStyleBackColor = true;
+            // 
+            // E_Button
+            // 
+            this.E_Button.AutoSize = true;
+            this.E_Button.Location = new System.Drawing.Point(29, 230);
+            this.E_Button.Name = "E_Button";
+            this.E_Button.Size = new System.Drawing.Size(57, 29);
+            this.E_Button.TabIndex = 6;
+            this.E_Button.Text = "E";
+            this.E_Button.UseVisualStyleBackColor = true;
+            // 
+            // A_Button
+            // 
+            this.A_Button.AutoSize = true;
+            this.A_Button.Location = new System.Drawing.Point(29, 195);
+            this.A_Button.Name = "A_Button";
+            this.A_Button.Size = new System.Drawing.Size(57, 29);
+            this.A_Button.TabIndex = 5;
+            this.A_Button.Text = "A";
+            this.A_Button.UseVisualStyleBackColor = true;
+            // 
+            // D_Button
+            // 
+            this.D_Button.AutoSize = true;
+            this.D_Button.Location = new System.Drawing.Point(27, 160);
+            this.D_Button.Name = "D_Button";
+            this.D_Button.Size = new System.Drawing.Size(58, 29);
+            this.D_Button.TabIndex = 4;
+            this.D_Button.Text = "D";
+            this.D_Button.UseVisualStyleBackColor = true;
             // 
             // eFlat_Button
             // 
@@ -136,121 +250,47 @@
             this.F_Button.Text = "F";
             this.F_Button.UseVisualStyleBackColor = true;
             // 
-            // D_Button
+            // SongTimeSignature
             // 
-            this.D_Button.AutoSize = true;
-            this.D_Button.Location = new System.Drawing.Point(27, 160);
-            this.D_Button.Name = "D_Button";
-            this.D_Button.Size = new System.Drawing.Size(58, 29);
-            this.D_Button.TabIndex = 4;
-            this.D_Button.Text = "D";
-            this.D_Button.UseVisualStyleBackColor = true;
+            this.SongTimeSignature.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.SongTimeSignature.Controls.Add(this.FourFour_Button);
+            this.SongTimeSignature.Controls.Add(this.SixEight_Button);
+            this.SongTimeSignature.Location = new System.Drawing.Point(523, 12);
+            this.SongTimeSignature.Name = "SongTimeSignature";
+            this.SongTimeSignature.Size = new System.Drawing.Size(265, 326);
+            this.SongTimeSignature.TabIndex = 6;
+            this.SongTimeSignature.TabStop = false;
+            this.SongTimeSignature.Text = "Song Time SIgnature";
             // 
-            // A_Button
+            // SixEight_Button
             // 
-            this.A_Button.AutoSize = true;
-            this.A_Button.Location = new System.Drawing.Point(29, 195);
-            this.A_Button.Name = "A_Button";
-            this.A_Button.Size = new System.Drawing.Size(57, 29);
-            this.A_Button.TabIndex = 5;
-            this.A_Button.Text = "A";
-            this.A_Button.UseVisualStyleBackColor = true;
+            this.SixEight_Button.AutoSize = true;
+            this.SixEight_Button.Location = new System.Drawing.Point(24, 54);
+            this.SixEight_Button.Name = "SixEight_Button";
+            this.SixEight_Button.Size = new System.Drawing.Size(128, 29);
+            this.SixEight_Button.TabIndex = 0;
+            this.SixEight_Button.TabStop = true;
+            this.SixEight_Button.Text = "Six/Eight";
+            this.SixEight_Button.UseVisualStyleBackColor = true;
             // 
-            // E_Button
+            // FourFour_Button
             // 
-            this.E_Button.AutoSize = true;
-            this.E_Button.Location = new System.Drawing.Point(29, 230);
-            this.E_Button.Name = "E_Button";
-            this.E_Button.Size = new System.Drawing.Size(57, 29);
-            this.E_Button.TabIndex = 6;
-            this.E_Button.Text = "E";
-            this.E_Button.UseVisualStyleBackColor = true;
-            // 
-            // bFlat_Button
-            // 
-            this.bFlat_Button.AutoSize = true;
-            this.bFlat_Button.Location = new System.Drawing.Point(167, 230);
-            this.bFlat_Button.Name = "bFlat_Button";
-            this.bFlat_Button.Size = new System.Drawing.Size(99, 29);
-            this.bFlat_Button.TabIndex = 7;
-            this.bFlat_Button.Text = "B Flat";
-            this.bFlat_Button.UseVisualStyleBackColor = true;
-            // 
-            // aFlat_Button
-            // 
-            this.aFlat_Button.AutoSize = true;
-            this.aFlat_Button.Location = new System.Drawing.Point(167, 160);
-            this.aFlat_Button.Name = "aFlat_Button";
-            this.aFlat_Button.Size = new System.Drawing.Size(99, 29);
-            this.aFlat_Button.TabIndex = 8;
-            this.aFlat_Button.Text = "A Flat";
-            this.aFlat_Button.UseVisualStyleBackColor = true;
-            // 
-            // dFlat_Button
-            // 
-            this.dFlat_Button.AutoSize = true;
-            this.dFlat_Button.Location = new System.Drawing.Point(165, 125);
-            this.dFlat_Button.Name = "dFlat_Button";
-            this.dFlat_Button.Size = new System.Drawing.Size(100, 29);
-            this.dFlat_Button.TabIndex = 9;
-            this.dFlat_Button.Text = "D Flat";
-            this.dFlat_Button.UseVisualStyleBackColor = true;
-            // 
-            // gFlat_Button
-            // 
-            this.gFlat_Button.AutoSize = true;
-            this.gFlat_Button.Location = new System.Drawing.Point(165, 90);
-            this.gFlat_Button.Name = "gFlat_Button";
-            this.gFlat_Button.Size = new System.Drawing.Size(101, 29);
-            this.gFlat_Button.TabIndex = 10;
-            this.gFlat_Button.Text = "G Flat";
-            this.gFlat_Button.UseVisualStyleBackColor = true;
-            // 
-            // B_Button
-            // 
-            this.B_Button.AutoSize = true;
-            this.B_Button.Location = new System.Drawing.Point(29, 265);
-            this.B_Button.Name = "B_Button";
-            this.B_Button.Size = new System.Drawing.Size(57, 29);
-            this.B_Button.TabIndex = 11;
-            this.B_Button.Text = "B";
-            this.B_Button.UseVisualStyleBackColor = true;
-            // 
-            // fSharp_Button
-            // 
-            this.fSharp_Button.AutoSize = true;
-            this.fSharp_Button.Location = new System.Drawing.Point(336, 55);
-            this.fSharp_Button.Name = "fSharp_Button";
-            this.fSharp_Button.Size = new System.Drawing.Size(119, 29);
-            this.fSharp_Button.TabIndex = 12;
-            this.fSharp_Button.Text = "F Sharp";
-            this.fSharp_Button.UseVisualStyleBackColor = true;
-            // 
-            // cSharp_Button
-            // 
-            this.cSharp_Button.AutoSize = true;
-            this.cSharp_Button.Location = new System.Drawing.Point(336, 90);
-            this.cSharp_Button.Name = "cSharp_Button";
-            this.cSharp_Button.Size = new System.Drawing.Size(121, 29);
-            this.cSharp_Button.TabIndex = 13;
-            this.cSharp_Button.Text = "C Sharp";
-            this.cSharp_Button.UseVisualStyleBackColor = true;
-            // 
-            // cFlat_Button
-            // 
-            this.cFlat_Button.AutoSize = true;
-            this.cFlat_Button.Location = new System.Drawing.Point(164, 55);
-            this.cFlat_Button.Name = "cFlat_Button";
-            this.cFlat_Button.Size = new System.Drawing.Size(100, 29);
-            this.cFlat_Button.TabIndex = 14;
-            this.cFlat_Button.Text = "C Flat";
-            this.cFlat_Button.UseVisualStyleBackColor = true;
+            this.FourFour_Button.AutoSize = true;
+            this.FourFour_Button.Checked = true;
+            this.FourFour_Button.Location = new System.Drawing.Point(24, 90);
+            this.FourFour_Button.Name = "FourFour_Button";
+            this.FourFour_Button.Size = new System.Drawing.Size(137, 29);
+            this.FourFour_Button.TabIndex = 1;
+            this.FourFour_Button.TabStop = true;
+            this.FourFour_Button.Text = "Four/Four";
+            this.FourFour_Button.UseVisualStyleBackColor = true;
             // 
             // Song_Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.SongTimeSignature);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.SongKeySignature);
@@ -261,6 +301,8 @@
             this.Text = "Song";
             this.SongKeySignature.ResumeLayout(false);
             this.SongKeySignature.PerformLayout();
+            this.SongTimeSignature.ResumeLayout(false);
+            this.SongTimeSignature.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -285,5 +327,8 @@
         private System.Windows.Forms.RadioButton cSharp_Button;
         private System.Windows.Forms.RadioButton fSharp_Button;
         private System.Windows.Forms.RadioButton cFlat_Button;
+        private System.Windows.Forms.GroupBox SongTimeSignature;
+        private System.Windows.Forms.RadioButton FourFour_Button;
+        private System.Windows.Forms.RadioButton SixEight_Button;
     }
 }

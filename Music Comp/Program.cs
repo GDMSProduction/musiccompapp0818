@@ -36,7 +36,7 @@ namespace Music_Comp
     public enum Time
     {
         NineEight = -3,
-        SixEight,
+        SixEight, //
         ThreeEight,
         CompoundDuple = -2,
         CompoundTripple,
@@ -46,7 +46,7 @@ namespace Music_Comp
         Common = 0,
         TwoFour,
         ThreeFour,
-        FourFour = 0,
+        FourFour = 0, //
     }
     public enum Clef
     {

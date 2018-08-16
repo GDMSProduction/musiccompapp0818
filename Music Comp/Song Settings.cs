@@ -19,86 +19,102 @@ namespace Music_Comp
 
         public int GetKeySignature()
         {
-            int check;
+            int key;
 
             if (cFlat_Button.Checked)
             {
                 cFlat_Button.Checked = true;
-                check = -7;
+                key = -7;
             }
 
             else if (gFlat_Button.Checked)
             {
-                check = -6;
+                key = -6;
             }
 
             else if (dFlat_Button.Checked)
             {
-                check = -5;
+                key = -5;
             }
 
             else if (aFlat_Button.Checked)
             {
-                check = -4;
+                key = -4;
             }
 
             else if (eFlat_Button.Checked)
             {
-                check = -3;
+                key = -3;
             }
 
             else if (bFlat_Button.Checked)
             {
-                check = -2;
+                key = -2;
             }
 
             else if (F_Button.Checked)
             {
-                check = -1;
+                key = -1;
             }
 
             else if (C_Button.Checked)
             {
-                check = 0;
+                key = 0;
             }
 
             else if (G_Button.Checked)
             {
-                check = 1;
+                key = 1;
             }
 
             else if (D_Button.Checked)
             {
-                check = 2;
+                key = 2;
             }
 
             else if (A_Button.Checked)
             {
-                check = 3;
+                key = 3;
             }
 
             else if (E_Button.Checked)
             {
-                check = 4;
+                key = 4;
             }
 
             else if (B_Button.Checked)
             {
-                check = 5;
+                key = 5;
             }
             else if (fSharp_Button.Checked)
             {
-                check = 6;
+                key = 6;
             }
             else
             {
                 // cSharp_Button Checked
 
-                check = 7;   
+                key = 7;   
             }
 
-            return check;
+            return key;
         }
 
+        public int GetTimeSignature()
+        {
+            int time;
+
+            if (SixEight_Button.Checked)
+            {
+                time = -2;
+            }
+
+            else
+            {
+                time = 0;
+            }
+
+            return time;
+        }
     }
 }

@@ -298,6 +298,7 @@ namespace Music_Comp
             if (DialogResult.OK == KeySignatureMenu.ShowDialog())
             {
                 song.Transpose((Key)KeySignatureMenu.GetKeySignature());
+                song.EditTimeSignature((Time)KeySignatureMenu.GetTimeSignature());
                 graphicsPanel.Invalidate();
             }
         }
