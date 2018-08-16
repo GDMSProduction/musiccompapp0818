@@ -58,6 +58,9 @@
     <Compile Include="AddInstrument.Designer.cs">
       <DependentUpon>AddInstrumentForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="GraphicsPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

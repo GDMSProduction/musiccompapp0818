@@ -47,7 +47,7 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.controlsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.graphicsPanel = new System.Windows.Forms.Panel();
+            this.graphicsPanel = new Music_Comp.GraphicsPanel();
             this.composerTextBox = new System.Windows.Forms.TextBox();
             this.titleTextBox = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -312,7 +312,7 @@
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem controlsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
-        private System.Windows.Forms.Panel graphicsPanel;
+        private Music_Comp.GraphicsPanel graphicsPanel;
         private System.Windows.Forms.TextBox composerTextBox;
         private System.Windows.Forms.TextBox titleTextBox;
         private System.Windows.Forms.Panel panel1;
