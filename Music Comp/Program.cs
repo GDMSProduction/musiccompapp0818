@@ -35,18 +35,23 @@ namespace Music_Comp
     }
     public enum Time
     {
-        NineEight = -3,
-        SixEight, //
-        ThreeEight,
-        CompoundDuple = -2,
-        CompoundTripple,
-        SimpleQuadruple,
-        SimpleDuple,
-        SimpleTriple,
-        Common = 0,
+        NineEight = -54,
+
+        SixEight = -36, //
+        CompoundDuple = -36,
+
+        ThreeEight = -18,
+        CompoundTripple = -18,
+
+        FourFour = 48, //
+        SimpleQuadruple = 48,
+        Common = 48,
+
+        SimpleDuple = 24,
+
+        SimpleTriple = 36,
         TwoFour,
         ThreeFour,
-        FourFour = 0, //
     }
     public enum Clef
     {
@@ -79,13 +84,13 @@ namespace Music_Comp
     }
     public enum Duration
     {
-        Whole,
-        Half,
-        Quarter,
-        Eighth,
-        Sixteenth,
-        Triplet,
-        Drag
+        Sixteenth = 3,
+        Triplet = 4,
+        Eighth = 6,
+        Quarter = 12,
+        Drag = 16,
+        Half = 24,
+        Whole = 48
     }
     public enum Grouping
     {

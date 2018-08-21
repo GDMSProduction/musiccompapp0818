@@ -14,6 +14,9 @@ namespace Music_Comp
         float mYPosition;
         float mLength;
 
+        bool isFull;
+        int mTotalDuration;
+
         Clef mClef;
         Key mKey;
         Time mTime;
@@ -23,6 +26,7 @@ namespace Music_Comp
             mClef = clef;
             mXPosition = cursorX;
             mYPosition = yPosition;
+            isFull = false;
             mNotes = new List<Note[]>();
         }
 
@@ -46,9 +50,49 @@ namespace Music_Comp
             return area;
         }
 
-        public void AddNote(Note[] n)
+        public bool GetFull()
         {
-            mNotes.Add(n);
+            return isFull;
+        }
+
+        public Note[] AddNote(Note[] notes)
+        {
+            if (notes == null)
+                return null;
+            if (mNotes.Count == 0)
+            {
+                mNotes.Add(notes);
+                mTotalDuration += (int)notes[0].GetDuration();
+                return null;
+            }
+            else
+            {
+                mTotalDuration += (int)notes[0].GetDuration();
+                if (mTotalDuration > (int)Song.TIME)
+                {
+                    Note[] split = new Note[notes.Length];
+                    Note[] remainder = new Note[notes.Length];
+
+                    int remainderDuration = mTotalDuration - (int)Song.TIME;
+                    int splitDuration = (int)notes[0].GetDuration() - remainderDuration;
+
+                    for (int i = 0; i < notes.Length; i++)
+                    {
+                        split[i] = notes[i];
+                        split[i].SetDuration((Duration)splitDuration);
+
+                        remainder[i] = notes[i];
+                        remainder[i].SetDuration((Duration)remainderDuration);
+                    }
+                    mNotes.Add(split);
+                    return remainder;
+                }
+                else
+                {
+                    mNotes.Add(notes);
+                    return null;
+                }
+            }
         }
 
         public void Draw(float cursorX, PaintEventArgs e)

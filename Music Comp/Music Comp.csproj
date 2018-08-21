@@ -88,7 +88,7 @@
     <EmbeddedResource Include="AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddInstrument.resx">
+    <EmbeddedResource Include="AddInstrumentForm.resx">
       <DependentUpon>AddInstrumentForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
