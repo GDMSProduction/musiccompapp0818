@@ -29,7 +29,7 @@ namespace Music_Comp
         public static Key KEY = Key.C;
         public static Time TIME = Time.Common;
 
-        static List<float> mBarlines;
+        public static List<float> mBarlines;
 
         List<Instrument> mInstruments = new List<Instrument>();
 
@@ -134,7 +134,7 @@ namespace Music_Comp
             if (i < mInstruments.Count && i >= 0)
                 mInstruments.Remove(mInstruments[i]);
 
-       //\  If the active staff was in the instrument
+       //   If the active staff was in the instrument
 
        /*\  if (mInstruments.Count > 0)
         *   {
@@ -149,23 +149,30 @@ namespace Music_Comp
         public void DrawBarLines(List<float> barlines, PaintEventArgs e)
         {
             Pen barLinePen = new Pen(Color.Black, 3.5f * _SCALE);
-            float btm_song_line = TOP_MARGIN + (Staff.HEIGHT + STAFF_SPACING) * TOTAL_STAVES - STAFF_SPACING + (TOTAL_INSTRUMENTS - 1) * INSTRUMENT_SPACING;
+
+            float btm_song_line = TOP_MARGIN + (Staff.HEIGHT + STAFF_SPACING) * TOTAL_STAVES -
+                STAFF_SPACING + (TOTAL_INSTRUMENTS - 1) * INSTRUMENT_SPACING;
+
             float btm_inst_line;
             float top_inst_line = TOP_MARGIN;
-            for (int i = 0; i < barlines.Count; i++)
-                for (int j = 0; j < mInstruments.Count; j++)
-                {
-                    btm_inst_line = top_inst_line + (Staff.HEIGHT + STAFF_SPACING) * mInstruments[j].GetNumberOfStaves() - STAFF_SPACING;
-                    DrawGrouping(mInstruments[j].GetGrouping(), top_inst_line, btm_inst_line, e);
 
+            for (int j = 0; j < mInstruments.Count; j++)
+            {
+                btm_inst_line = top_inst_line + (Staff.HEIGHT + STAFF_SPACING) * mInstruments[j].GetNumberOfStaves() - STAFF_SPACING;
+                DrawGrouping(mInstruments[j].GetGrouping(), top_inst_line, btm_inst_line, e);
+
+                for (int i = 0; i < barlines.Count; i++)
+                {
                     PointF start = new PointF(barlines[i], top_inst_line);
                     PointF end = new PointF(barlines[i], btm_inst_line);
 
                     if (e.Graphics.IsVisible(new RectangleF(start.X, start.Y, 1, end.Y - start.Y)))
                         e.Graphics.DrawLine(barLinePen, start, end);
-
-                    top_inst_line = btm_inst_line + STAFF_SPACING + INSTRUMENT_SPACING;
                 }
+
+                top_inst_line = btm_inst_line + STAFF_SPACING + INSTRUMENT_SPACING;
+            }
+
             barLinePen.Dispose();
         }
 
@@ -205,6 +212,9 @@ namespace Music_Comp
         public void Draw(PaintEventArgs e)
         {
             Pen barLinePen = new Pen(Color.Black, 3.4f * _SCALE);
+
+            mBarlines = new List<float>();
+
             float btm_song_line = TOP_MARGIN + (Staff.HEIGHT + STAFF_SPACING) * TOTAL_STAVES - STAFF_SPACING + (TOTAL_INSTRUMENTS - 1) * INSTRUMENT_SPACING;
 
             PointF start = new PointF(LEFT_MARGIN, TOP_MARGIN);
@@ -220,7 +230,6 @@ namespace Music_Comp
             foreach (Instrument instrument in mInstruments)
                 instrument.Draw(e);
 
-            mBarlines = new List<float>();
             mBarlines.Add(PAGE_WIDTH - RIGHT_MARGIN);
             DrawBarLines(mBarlines, e);
         }

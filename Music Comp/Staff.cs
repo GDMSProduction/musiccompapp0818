@@ -286,7 +286,12 @@ namespace Music_Comp
             DrawTimeSignature(e);
 
             foreach (Measure measure in mMeasures)
+            {
+                mCursorX += 30 * Song._SCALE;
+                Song.mBarlines.Add(mCursorX);
                 measure.Draw(mCursorX, e);
+                mCursorX += measure.GetLength();
+            }
         }
     }
 }

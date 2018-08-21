@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace Music_Comp
 {
@@ -18,6 +19,10 @@ namespace Music_Comp
         int selectedInstrument = 0;
 
         Song_Settings KeySignatureMenu = new Song_Settings();
+
+        List<Note> notes = new List<Note>();
+
+        int noteIndex = 0;
 
         public MainForm()
         {
@@ -175,102 +180,192 @@ namespace Music_Comp
         private void graphicsPanel_KeyUp(object sender, KeyEventArgs e)
         {
             bool valid = false;
-            Note[] notes = new Note[1];
-            notes[0] = new Note(Pitch.C, Accidental.Natural, Duration.Quarter, 4);
 
-            switch (e.KeyCode)
+            if (!ControlCheck())
             {
-                case Keys.Up:
-                    if (selectedStaff > 0)
-                    {
-                        song.GetInstrument(selectedInstrument).GetStaff(selectedStaff--).SetActive(false);
-                        song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).SetActive(true);
-                        graphicsPanel.Invalidate();
-                    }
-                    else if (selectedStaff == 0 && selectedInstrument != 0)
-                    {
-                        song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).SetActive(false);
-                        selectedInstrument--;
-                        selectedStaff = song.GetInstrument(selectedInstrument).GetNumberOfStaves() - 1;
-                        song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).SetActive(true);
-                        graphicsPanel.Invalidate();
-                    }
-                    break;
-                case Keys.Down:
-                    if (selectedStaff < song.GetInstrument(selectedInstrument).GetNumberOfStaves() - 1)
-                    {
-                        song.GetInstrument(selectedInstrument).GetStaff(selectedStaff++).SetActive(false);
-                        song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).SetActive(true);
-                        graphicsPanel.Invalidate();
-                    }
-                    else if (selectedStaff == song.GetInstrument(selectedInstrument).GetNumberOfStaves() - 1 && selectedInstrument != Song.TOTAL_INSTRUMENTS - 1)
-                    {
-                        song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).SetActive(false);
-                        selectedStaff = 0;
-                        selectedInstrument++;
-                        song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).SetActive(true);
-                        graphicsPanel.Invalidate();
-                    }
-                    break;
-                case Keys.A:
-                    valid = true;
-                    notes[0].SetPitch(Pitch.A);
-                    if (ShiftCheck())
-                        notes[0].SetDuration(Duration.Half);
-                    break;
-                case Keys.B:
-                    valid = true;
-                    notes[0].SetPitch(Pitch.B);
-                    if (ShiftCheck())
-                        notes[0].SetDuration(Duration.Half);
-                    break;
-                case Keys.C:
-                    valid = true;
-                    notes[0].SetPitch(Pitch.C);
-                    if (ShiftCheck())
-                        notes[0].SetDuration(Duration.Half);
-                    break;
-                case Keys.D:
-                    valid = true;
-                    notes[0].SetPitch(Pitch.D);
-                    if (ShiftCheck())
-                        notes[0].SetDuration(Duration.Half);
-                    break;
-                case Keys.E:
-                    valid = true;
-                    notes[0].SetPitch(Pitch.E);
-                    if (ShiftCheck())
-                        notes[0].SetDuration(Duration.Half);
-                    break;
-                case Keys.F:
-                    valid = true;
-                    notes[0].SetPitch(Pitch.F);
-                    if (ShiftCheck())
-                        notes[0].SetDuration(Duration.Half);
-                    break;
-                case Keys.G:
-                    valid = true;
-                    notes[0].SetPitch(Pitch.G);
-                    if (ShiftCheck())
-                        notes[0].SetDuration(Duration.Half);
-                    break;
-                case Keys.R:
-                    valid = true;
-                    notes[0].SetPitch(Pitch.Rest);
-                    if (ShiftCheck())
-                        notes[0].SetDuration(Duration.Half);
-                    break;
+                Note[] notes = new Note[1];
+                notes[0] = new Note(Pitch.C, Accidental.Natural, Duration.Quarter, 4);
+                switch (e.KeyCode)
+                {
+                    case Keys.Up:
+                        if (selectedStaff > 0)
+                        {
+                            song.GetInstrument(selectedInstrument).GetStaff(selectedStaff--).SetActive(false);
+                            song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).SetActive(true);
+                            graphicsPanel.Invalidate();
+                        }
+                        else if (selectedStaff == 0 && selectedInstrument != 0)
+                        {
+                            song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).SetActive(false);
+                            selectedInstrument--;
+                            selectedStaff = song.GetInstrument(selectedInstrument).GetNumberOfStaves() - 1;
+                            song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).SetActive(true);
+                            graphicsPanel.Invalidate();
+                        }
+                        break;
+                    case Keys.Down:
+                        if (selectedStaff < song.GetInstrument(selectedInstrument).GetNumberOfStaves() - 1)
+                        {
+                            song.GetInstrument(selectedInstrument).GetStaff(selectedStaff++).SetActive(false);
+                            song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).SetActive(true);
+                            graphicsPanel.Invalidate();
+                        }
+                        else if (selectedStaff == song.GetInstrument(selectedInstrument).GetNumberOfStaves() - 1 && selectedInstrument != Song.TOTAL_INSTRUMENTS - 1)
+                        {
+                            song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).SetActive(false);
+                            selectedStaff = 0;
+                            selectedInstrument++;
+                            song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).SetActive(true);
+                            graphicsPanel.Invalidate();
+                        }
+                        break;
+                    case Keys.A:
+                        valid = true;
+                        notes[0].SetPitch(Pitch.A);
+                        if (ShiftCheck())
+                            notes[0].SetDuration(Duration.Half);
+                        break;
+                    case Keys.B:
+                        valid = true;
+                        notes[0].SetPitch(Pitch.B);
+                        if (ShiftCheck())
+                            notes[0].SetDuration(Duration.Half);
+                        break;
+                    case Keys.C:
+                        valid = true;
+                        notes[0].SetPitch(Pitch.C);
+                        if (ShiftCheck())
+                            notes[0].SetDuration(Duration.Half);
+                        break;
+                    case Keys.D:
+                        valid = true;
+                        notes[0].SetPitch(Pitch.D);
+                        if (ShiftCheck())
+                            notes[0].SetDuration(Duration.Half);
+                        break;
+                    case Keys.E:
+                        valid = true;
+                        notes[0].SetPitch(Pitch.E);
+                        if (ShiftCheck())
+                            notes[0].SetDuration(Duration.Half);
+                        break;
+                    case Keys.F:
+                        valid = true;
+                        notes[0].SetPitch(Pitch.F);
+                        if (ShiftCheck())
+                            notes[0].SetDuration(Duration.Half);
+                        break;
+                    case Keys.G:
+                        valid = true;
+                        notes[0].SetPitch(Pitch.G);
+                        if (ShiftCheck())
+                            notes[0].SetDuration(Duration.Half);
+                        break;
+                    case Keys.R:
+                        valid = true;
+                        notes[0].SetPitch(Pitch.Rest);
+                        if (ShiftCheck())
+                            notes[0].SetDuration(Duration.Half);
+                        break;
+                }
+
+                if (valid)
+                {
+                    Note[] remainder =
+                    song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).GetNextMeasure().AddNote(notes);
+                    song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).GetNextMeasure().AddNote(remainder);
+                    graphicsPanel.Invalidate();
+                }
+            }
+            else if (ControlCheck())
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.A:
+                        valid = true;
+                        notes.Add(new Note(Pitch.C, Accidental.Natural, Duration.Quarter, 4));
+                        notes[noteIndex].SetPitch(Pitch.A);
+                        if (ShiftCheck())
+                            notes[noteIndex].SetDuration(Duration.Half);
+                        noteIndex++;
+                        break;
+                    case Keys.B:
+                        valid = true;
+                        notes.Add(new Note(Pitch.C, Accidental.Natural, Duration.Quarter, 4));
+                        notes[noteIndex].SetPitch(Pitch.B);
+                        if (ShiftCheck())
+                            notes[noteIndex].SetDuration(Duration.Half);
+                        noteIndex++;
+                        break;
+                    case Keys.C:
+                        valid = true;
+                        notes.Add(new Note(Pitch.C, Accidental.Natural, Duration.Quarter, 4));
+                        notes[noteIndex].SetPitch(Pitch.C);
+                        if (ShiftCheck())
+                            notes[noteIndex].SetDuration(Duration.Half);
+                        noteIndex++;
+                        break;
+                    case Keys.D:
+                        valid = true;
+                        notes.Add(new Note(Pitch.C, Accidental.Natural, Duration.Quarter, 4));
+                        notes[noteIndex].SetPitch(Pitch.D);
+                        if (ShiftCheck())
+                            notes[noteIndex].SetDuration(Duration.Half);
+                        noteIndex++;
+                        break;
+                    case Keys.E:
+                        valid = true;
+                        notes.Add(new Note(Pitch.C, Accidental.Natural, Duration.Quarter, 4));
+                        notes[noteIndex].SetPitch(Pitch.E);
+                        if (ShiftCheck())
+                            notes[noteIndex].SetDuration(Duration.Half);
+                        noteIndex++;
+                        break;
+                    case Keys.F:
+                        valid = true;
+                        notes.Add(new Note(Pitch.C, Accidental.Natural, Duration.Quarter, 4));
+                        notes[noteIndex].SetPitch(Pitch.F);
+                        if (ShiftCheck())
+                            notes[noteIndex].SetDuration(Duration.Half);
+                        noteIndex++;
+                        break;
+                    case Keys.G:
+                        valid = true;
+                        notes.Add(new Note(Pitch.C, Accidental.Natural, Duration.Quarter, 4));
+                        notes[noteIndex].SetPitch(Pitch.G);
+                        if (ShiftCheck())
+                            notes[noteIndex].SetDuration(Duration.Half);
+                        noteIndex++;
+                        break;
+                    case Keys.R:
+                        valid = true;
+                        notes.Add(new Note(Pitch.C, Accidental.Natural, Duration.Quarter, 4));
+                        notes[noteIndex].SetPitch(Pitch.Rest);
+                        if (ShiftCheck())
+                            notes[noteIndex].SetDuration(Duration.Half);
+                        noteIndex++;
+                        break;
+                }
             }
 
-            if (valid)
+            if (!ControlCheck() && noteIndex != 0)
             {
+                Note[] notesArr = new Note[notes.Count];
+                for (int i = 0; i < notes.Count; i++)
+                    notesArr[i] = notes[i];
+                notes = new List<Note>();
+                noteIndex = 0;
                 Note[] remainder =
-                    song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).GetNextMeasure().AddNote(notes);
+                song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).GetNextMeasure().AddNote(notesArr);
                 song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).GetNextMeasure().AddNote(remainder);
                 graphicsPanel.Invalidate();
             }
         }
 
+        private bool ControlCheck()
+        {
+            return ModifierKeys == Keys.Control;
+        }
         private bool ShiftCheck()
         {
             return ModifierKeys == Keys.Shift;
@@ -297,7 +392,6 @@ namespace Music_Comp
 
         private void songToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
             if (DialogResult.OK == KeySignatureMenu.ShowDialog())
             {
                 song.Transpose((Key)KeySignatureMenu.GetKeySignature());

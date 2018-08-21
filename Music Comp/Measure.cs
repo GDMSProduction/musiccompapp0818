@@ -85,7 +85,14 @@ namespace Music_Comp
                         remainder[i].SetDuration((Duration)remainderDuration);
                     }
                     mNotes.Add(split);
+                    isFull = true;
                     return remainder;
+                }
+                else if (mTotalDuration == (int)Song.TIME)
+                {
+                    mNotes.Add(notes);
+                    isFull = true;
+                    return null;
                 }
                 else
                 {
@@ -104,7 +111,7 @@ namespace Music_Comp
                 foreach (Note note in notes)
                     note.Draw(mXPosition + cursor, mYPosition, mClef, e);
                 cursor += 60 * Song._SCALE;
-                mLength += (60 + notes[0].GetWidth()) * Song._SCALE;
+                mLength = cursor;
             }
         }
     }
