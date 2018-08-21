@@ -285,13 +285,7 @@ namespace Music_Comp
 
         private void tempAddMeasureToStaves()
         {
-            if (staffNumber == 0 && mMeasures.Count == 0)
-                AddMeasure();
-            if (staffNumber == 1 && mMeasures.Count == 0)
-                AddMeasure();
-            if (staffNumber == 2 && mMeasures.Count == 0)
-                AddMeasure();
-            if (staffNumber == 3 && mMeasures.Count == 0)
+            if (mMeasures.Count == 0)
                 AddMeasure();
         }
     }
