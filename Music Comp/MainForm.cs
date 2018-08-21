@@ -336,14 +336,6 @@ namespace Music_Comp
                                 notes[noteIndex].SetDuration(Duration.Half);
                             noteIndex++;
                         break;
-                        case Keys.R:
-                            valid = true;
-                        notes.Add(new Note(Pitch.C, Accidental.Natural, Duration.Quarter, 4));
-                        notes[noteIndex].SetPitch(Pitch.Rest);
-                            if (ShiftCheck())
-                                notes[noteIndex].SetDuration(Duration.Half);
-                            noteIndex++;
-                        break;
                     } 
             }
 
