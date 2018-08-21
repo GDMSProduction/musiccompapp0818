@@ -8,7 +8,7 @@ namespace Music_Comp
     {
         Rectangle area;
 
-        List<Note> mNotes;
+        List<Note[]> mNotes;
 
         float mXPosition;
         float mYPosition;
@@ -23,7 +23,7 @@ namespace Music_Comp
             mClef = clef;
             mXPosition = cursorX;
             mYPosition = yPosition;
-            mNotes = new List<Note>();
+            mNotes = new List<Note[]>();
         }
 
         public int GetNoteCount()
@@ -36,7 +36,7 @@ namespace Music_Comp
             return mLength;
         }
 
-        public Note GetNote(int i)
+        public Note[] GetNotes(int i)
         {
             return mNotes[i];
         }
@@ -46,7 +46,7 @@ namespace Music_Comp
             return area;
         }
 
-        public void AddNote(Note n)
+        public void AddNote(Note[] n)
         {
             mNotes.Add(n);
         }
@@ -55,11 +55,12 @@ namespace Music_Comp
         {
             mXPosition = cursorX;
             float cursor = 0;
-            foreach (Note note in mNotes)
+            foreach (Note[] notes in mNotes)
             {
-                note.Draw(mXPosition + cursor, mYPosition, mClef, e);
+                foreach (Note note in notes)
+                    note.Draw(mXPosition + cursor, mYPosition, mClef, e);
                 cursor += 60 * Song._SCALE;
-                mLength += (60 + note.GetWidth()) * Song._SCALE;
+                mLength += (60 + notes[0].GetWidth()) * Song._SCALE;
             }
         }
     }

@@ -175,7 +175,8 @@ namespace Music_Comp
         private void graphicsPanel_KeyUp(object sender, KeyEventArgs e)
         {
             bool valid = false;
-            Note note = new Note(Pitch.C, Accidental.Natural, Duration.Quarter, 4);
+            Note[] notes = new Note[1];
+            notes[0] = new Note(Pitch.C, Accidental.Natural, Duration.Quarter, 4);
 
             switch (e.KeyCode)
             {
@@ -213,57 +214,57 @@ namespace Music_Comp
                     break;
                 case Keys.A:
                     valid = true;
-                    note.SetPitch(Pitch.A);
+                    notes[0].SetPitch(Pitch.A);
                     if (ShiftCheck())
-                        note.SetDuration(Duration.Half);
+                        notes[0].SetDuration(Duration.Half);
                     break;
                 case Keys.B:
                     valid = true;
-                    note.SetPitch(Pitch.B);
+                    notes[0].SetPitch(Pitch.B);
                     if (ShiftCheck())
-                        note.SetDuration(Duration.Half);
+                        notes[0].SetDuration(Duration.Half);
                     break;
                 case Keys.C:
                     valid = true;
-                    note.SetPitch(Pitch.C);
+                    notes[0].SetPitch(Pitch.C);
                     if (ShiftCheck())
-                        note.SetDuration(Duration.Half);
+                        notes[0].SetDuration(Duration.Half);
                     break;
                 case Keys.D:
                     valid = true;
-                    note.SetPitch(Pitch.D);
+                    notes[0].SetPitch(Pitch.D);
                     if (ShiftCheck())
-                        note.SetDuration(Duration.Half);
+                        notes[0].SetDuration(Duration.Half);
                     break;
                 case Keys.E:
                     valid = true;
-                    note.SetPitch(Pitch.E);
+                    notes[0].SetPitch(Pitch.E);
                     if (ShiftCheck())
-                        note.SetDuration(Duration.Half);
+                        notes[0].SetDuration(Duration.Half);
                     break;
                 case Keys.F:
                     valid = true;
-                    note.SetPitch(Pitch.F);
+                    notes[0].SetPitch(Pitch.F);
                     if (ShiftCheck())
-                        note.SetDuration(Duration.Half);
+                        notes[0].SetDuration(Duration.Half);
                     break;
                 case Keys.G:
                     valid = true;
-                    note.SetPitch(Pitch.G);
+                    notes[0].SetPitch(Pitch.G);
                     if (ShiftCheck())
-                        note.SetDuration(Duration.Half);
+                        notes[0].SetDuration(Duration.Half);
                     break;
                 case Keys.R:
                     valid = true;
-                    note.SetPitch(Pitch.Rest);
+                    notes[0].SetPitch(Pitch.Rest);
                     if (ShiftCheck())
-                        note.SetDuration(Duration.Half);
+                        notes[0].SetDuration(Duration.Half);
                     break;
             }
 
             if (valid)
             {
-                song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).GetMeasure(0).AddNote(note);
+                song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).GetMeasure(0).AddNote(notes);
                 graphicsPanel.Invalidate();
             }
         }
