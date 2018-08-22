@@ -41,18 +41,68 @@ namespace Music_Comp
             composerTextBox.Size = new Size((int)(615 * _SCALE), (int)(50 * _SCALE));
             composerTextBox.Location = new Point((int)(PAGE_WIDTH - composerTextBox.Width - 100 * _SCALE), (int)(220 * _SCALE));
 
-            song = new Song(PAGE_WIDTH, Key.Eflat, Time.Common);
-            song.AddInstrument(Clef.Treble, Clef.Bass, Grouping.Brace);
             ActiveControl = graphicsPanel;
 
             (graphicsPanel as Control).KeyUp += new KeyEventHandler(graphicsPanel_KeyUp);
+            Startup startup = new Startup();
+            startup.ShowDialog();
+            if (startup.DialogResult == DialogResult.OK)
+            {
+                Song.SCREEN_WIDTH = startup.mainSCREEN_WIDTH;
+                Song.PAGE_WIDTH = startup.mainPAGE_WIDTH;
+                Song._SCALE = startup.main_SCALE;
+                Song.TOP_MARGIN = startup.mainTOP_MARGIN;
+                Song.LEFT_MARGIN = startup.mainLEFT_MARGIN;
+                Song.RIGHT_MARGIN = startup.mainRIGHT_MARGIN;
+                Song.STAFF_SPACING = startup.mainSTAFF_SPACING;
+                Song.INSTRUMENT_SPACING = startup.mainINSTRUMENT_SPACING;
+
+                Song.TOTAL_INSTRUMENTS = startup.mainTOTAL_INSTRUMENTS;
+                Song.TOTAL_STAVES = startup.mainTOTAL_STAVES;
+
+                Song.cursorY = startup.maincursorY;
+                Song.cursorX = startup.maincursorX;
+
+                Staff.LINE_SPACING = startup.mainLINE_SPACING;
+                Staff.LENGTH = startup.mainLENGTH;
+                Staff.HEIGHT = startup.mainHEIGHT;
+
+                song = new Song(PAGE_WIDTH, startup.key, startup.time);
+                for (int i = 0; i < startup.x; i++)
+                {
+                    switch (startup.instruments[i].StaveCount)
+                    {
+                        case 1:
+                            song.AddInstrument(startup.instruments[i].clefs[0], startup.instruments[i].grouping);
+                            break;
+                        case 2:
+                            song.AddInstrument(startup.instruments[i].clefs[0], startup.instruments[i].clefs[1], startup.instruments[i].grouping);
+                            break;
+                        case 3:
+                            song.AddInstrument(startup.instruments[i].clefs[0], startup.instruments[i].clefs[1], startup.instruments[i].clefs[2], startup.instruments[i].grouping);
+                            break;
+                        case 4:
+                            song.AddInstrument(startup.instruments[i].clefs[0], startup.instruments[i].clefs[1], startup.instruments[i].clefs[2], startup.instruments[i].clefs[3], startup.instruments[i].grouping);
+                            break;
+                    }
+                }
+                titleTextBox.Text = startup.title;
+                composerTextBox.Text = startup.composer;
+            }
+            else if (startup.DialogResult == DialogResult.Cancel)
+            {
+                
+            }
         }
 
         private void graphicsPanel_Paint(object sender, PaintEventArgs e)
         {
             zoomInButton.Location = new Point(Width - 110, Height - 200);
             zoomOutButton.Location = new Point(Width - 110, Height - 150);
-            song.Draw(e);
+            if (song != null)
+            {
+                song.Draw(e);
+            }
         }
 
         private void MainForm_Resize(object sender, EventArgs e)

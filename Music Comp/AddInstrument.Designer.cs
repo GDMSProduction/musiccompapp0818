@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.graphicsPanel = new Music_Comp.GraphicsPanel();
             this.Brace = new System.Windows.Forms.RadioButton();
             this.Bracket = new System.Windows.Forms.RadioButton();
             this.None = new System.Windows.Forms.RadioButton();
@@ -44,16 +43,9 @@
             this.St2Clef = new System.Windows.Forms.ComboBox();
             this.St3Clef = new System.Windows.Forms.ComboBox();
             this.St4Clef = new System.Windows.Forms.ComboBox();
+            this.graphicsPanel = new Music_Comp.GraphicsPanel();
             ((System.ComponentModel.ISupportInitialize)(this.StaveNumeric)).BeginInit();
             this.SuspendLayout();
-            // 
-            // graphicsPanel
-            // 
-            this.graphicsPanel.Location = new System.Drawing.Point(0, 0);
-            this.graphicsPanel.Name = "graphicsPanel";
-            this.graphicsPanel.Size = new System.Drawing.Size(313, 380);
-            this.graphicsPanel.TabIndex = 0;
-            this.graphicsPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.AddInstrumentForm_Paint);
             // 
             // Brace
             // 
@@ -237,6 +229,14 @@
             this.St4Clef.Size = new System.Drawing.Size(121, 28);
             this.St4Clef.TabIndex = 16;
             this.St4Clef.SelectedIndexChanged += new System.EventHandler(this.St4Clef_SelectedIndexChanged);
+            // 
+            // graphicsPanel
+            // 
+            this.graphicsPanel.Location = new System.Drawing.Point(0, 0);
+            this.graphicsPanel.Name = "graphicsPanel";
+            this.graphicsPanel.Size = new System.Drawing.Size(313, 380);
+            this.graphicsPanel.TabIndex = 0;
+            this.graphicsPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.AddInstrumentForm_Paint);
             // 
             // AddInstrumentForm
             // 
