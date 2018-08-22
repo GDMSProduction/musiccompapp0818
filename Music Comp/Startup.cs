@@ -32,8 +32,8 @@ namespace Music_Comp
         public float mainHEIGHT = Staff.HEIGHT;
 
         public List<instrumentTemplate> instruments = new List<instrumentTemplate>();
-        public Key key;
-        public Time time;
+        public Key key = Key.C;
+        public Time time = Time.FourFour;
         public string title;
         public string composer;
         public int x = 0;
@@ -70,11 +70,11 @@ namespace Music_Comp
 
         private void AddInstrumentButton_Click(object sender, EventArgs e)
         {
+            song = new Song(graphicsPanel1.Width * 2, key, time);
             AddInstrumentForm options = new AddInstrumentForm();
             options.ShowDialog();
             if (options.DialogResult == DialogResult.OK)
             {
-                song = new Song(graphicsPanel1.Width * 2, key, time);
                 Song.SCREEN_WIDTH = options.mainSCREEN_WIDTH;
                 Song.PAGE_WIDTH = options.mainPAGE_WIDTH;
                 Song._SCALE = options.main_SCALE;
@@ -133,6 +133,7 @@ namespace Music_Comp
                 Staff.LINE_SPACING = options.mainLINE_SPACING;
                 Staff.LENGTH = options.mainLENGTH;
                 Staff.HEIGHT = options.mainHEIGHT;
+                song = null;
             }
             graphicsPanel1.Invalidate();
             
@@ -207,7 +208,6 @@ namespace Music_Comp
                     key = Key.Csharp;
                     break;
             }
-            song = new Song(graphicsPanel1.Width * 2, key, time);
         }
 
         private void TimeBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -221,7 +221,6 @@ namespace Music_Comp
                     time = Time.SixEight;
                     break;
             }
-            song = new Song(graphicsPanel1.Width * 2, key, time);
         }
 
         private void button2_Click(object sender, EventArgs e)
