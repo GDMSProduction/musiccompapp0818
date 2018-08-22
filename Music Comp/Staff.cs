@@ -48,6 +48,7 @@ namespace Music_Comp
 
             mClef = c;
             mMeasures = new List<Measure>();
+            AddMeasure();
 
             Song.TOTAL_STAVES++;
         }
@@ -55,6 +56,13 @@ namespace Music_Comp
         public Measure GetMeasure(int i)
         {
             return mMeasures[i];
+        }
+
+        public Measure GetNextMeasure()
+        {
+            if (mMeasures[mMeasures.Count - 1].GetFull())
+                AddMeasure();
+            return mMeasures[mMeasures.Count - 1];
         }
 
         public Rectangle GetArea()
@@ -278,15 +286,12 @@ namespace Music_Comp
             DrawTimeSignature(e);
 
             foreach (Measure measure in mMeasures)
+            {
+                mCursorX += 30 * Song._SCALE;
+                Song.mBarlines.Add(mCursorX);
                 measure.Draw(mCursorX, e);
-
-            tempAddMeasureToStaves();
-        }
-
-        private void tempAddMeasureToStaves()
-        {
-            if (mMeasures.Count == 0)
-                AddMeasure();
+                mCursorX += measure.GetLength();
+            }
         }
     }
 }
