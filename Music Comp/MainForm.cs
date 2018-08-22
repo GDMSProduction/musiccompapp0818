@@ -15,7 +15,6 @@ namespace Music_Comp
         Song song;
 
         int selectedStaff = 0;
-
         int selectedInstrument = 0;
 
         Song_Settings KeySignatureMenu = new Song_Settings();
@@ -356,11 +355,11 @@ namespace Music_Comp
 
         private bool ControlCheck()
         {
-            return ModifierKeys == Keys.Control;
+            return (ModifierKeys & Keys.Control) != 0;
         }
         private bool ShiftCheck()
         {
-            return ModifierKeys == Keys.Shift;
+            return (ModifierKeys & Keys.Shift) != 0;
         }
 
         private void graphicsPanel_Click(object sender, EventArgs e)
