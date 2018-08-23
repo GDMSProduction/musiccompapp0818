@@ -28,36 +28,36 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
+            this.okButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.AddInstrumentButton = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.removeInstrumentButton = new System.Windows.Forms.Button();
+            this.titleTextBox = new System.Windows.Forms.TextBox();
+            this.composerTextBox = new System.Windows.Forms.TextBox();
             this.KeyBox = new System.Windows.Forms.ComboBox();
             this.TimeBox = new System.Windows.Forms.ComboBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.cancelButton = new System.Windows.Forms.Button();
             this.graphicsPanel1 = new Music_Comp.GraphicsPanel();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.composerLabel = new System.Windows.Forms.Label();
+            this.titleLabel = new System.Windows.Forms.Label();
             this.graphicsPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // button1
+            // okButton
             // 
-            this.button1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button1.Location = new System.Drawing.Point(1628, 939);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(94, 48);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "OK";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.okButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.okButton.Location = new System.Drawing.Point(1628, 939);
+            this.okButton.Name = "okButton";
+            this.okButton.Size = new System.Drawing.Size(94, 48);
+            this.okButton.TabIndex = 0;
+            this.okButton.Text = "OK";
+            this.okButton.UseVisualStyleBackColor = true;
+            this.okButton.Click += new System.EventHandler(this.okButton_Click);
             // 
             // label1
             // 
@@ -119,31 +119,31 @@
             this.AddInstrumentButton.UseVisualStyleBackColor = true;
             this.AddInstrumentButton.Click += new System.EventHandler(this.AddInstrumentButton_Click);
             // 
-            // button3
+            // removeInstrumentButton
             // 
-            this.button3.Location = new System.Drawing.Point(1614, 63);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(108, 38);
-            this.button3.TabIndex = 7;
-            this.button3.Text = "Remove";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.removeInstrumentButton.Location = new System.Drawing.Point(1614, 63);
+            this.removeInstrumentButton.Name = "removeInstrumentButton";
+            this.removeInstrumentButton.Size = new System.Drawing.Size(108, 38);
+            this.removeInstrumentButton.TabIndex = 7;
+            this.removeInstrumentButton.Text = "Remove";
+            this.removeInstrumentButton.UseVisualStyleBackColor = true;
+            this.removeInstrumentButton.Click += new System.EventHandler(this.button3_Click);
             // 
-            // textBox1
+            // titleTextBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(102, 36);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 26);
-            this.textBox1.TabIndex = 8;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.titleTextBox.Location = new System.Drawing.Point(102, 36);
+            this.titleTextBox.Name = "titleTextBox";
+            this.titleTextBox.Size = new System.Drawing.Size(100, 26);
+            this.titleTextBox.TabIndex = 8;
+            this.titleTextBox.TextChanged += new System.EventHandler(this.titleTextBox_TextChanged);
             // 
-            // textBox4
+            // composerTextBox
             // 
-            this.textBox4.Location = new System.Drawing.Point(383, 36);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(100, 26);
-            this.textBox4.TabIndex = 11;
-            this.textBox4.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
+            this.composerTextBox.Location = new System.Drawing.Point(383, 36);
+            this.composerTextBox.Name = "composerTextBox";
+            this.composerTextBox.Size = new System.Drawing.Size(100, 26);
+            this.composerTextBox.TabIndex = 11;
+            this.composerTextBox.TextChanged += new System.EventHandler(this.composerTextBox_TextChanged);
             // 
             // KeyBox
             // 
@@ -184,45 +184,44 @@
             this.TimeBox.Text = "FourFour";
             this.TimeBox.SelectedIndexChanged += new System.EventHandler(this.TimeBox_SelectedIndexChanged);
             // 
-            // button2
+            // cancelButton
             // 
-            this.button2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button2.Location = new System.Drawing.Point(1528, 939);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(94, 48);
-            this.button2.TabIndex = 14;
-            this.button2.Text = "Cancel";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.cancelButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.cancelButton.Location = new System.Drawing.Point(1528, 939);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(94, 48);
+            this.cancelButton.TabIndex = 14;
+            this.cancelButton.Text = "Cancel";
+            this.cancelButton.UseVisualStyleBackColor = true;
             // 
             // graphicsPanel1
             // 
             this.graphicsPanel1.AutoScroll = true;
-            this.graphicsPanel1.Controls.Add(this.label7);
-            this.graphicsPanel1.Controls.Add(this.label6);
+            this.graphicsPanel1.Controls.Add(this.composerLabel);
+            this.graphicsPanel1.Controls.Add(this.titleLabel);
             this.graphicsPanel1.Location = new System.Drawing.Point(208, 119);
             this.graphicsPanel1.Name = "graphicsPanel1";
             this.graphicsPanel1.Size = new System.Drawing.Size(1314, 868);
             this.graphicsPanel1.TabIndex = 12;
             this.graphicsPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.graphicsPanel1_Paint);
             // 
-            // label7
+            // composerLabel
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(1229, 70);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(0, 55);
-            this.label7.TabIndex = 3;
+            this.composerLabel.AutoSize = true;
+            this.composerLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.composerLabel.Location = new System.Drawing.Point(1229, 70);
+            this.composerLabel.Name = "composerLabel";
+            this.composerLabel.Size = new System.Drawing.Size(0, 55);
+            this.composerLabel.TabIndex = 3;
             // 
-            // label6
+            // titleLabel
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(606, 70);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(0, 82);
-            this.label6.TabIndex = 2;
+            this.titleLabel.AutoSize = true;
+            this.titleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.titleLabel.Location = new System.Drawing.Point(606, 70);
+            this.titleLabel.Name = "titleLabel";
+            this.titleLabel.Size = new System.Drawing.Size(0, 82);
+            this.titleLabel.TabIndex = 2;
             // 
             // Startup
             // 
@@ -230,20 +229,20 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(1734, 999);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.TimeBox);
             this.Controls.Add(this.KeyBox);
             this.Controls.Add(this.graphicsPanel1);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.composerTextBox);
+            this.Controls.Add(this.titleTextBox);
+            this.Controls.Add(this.removeInstrumentButton);
             this.Controls.Add(this.AddInstrumentButton);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.okButton);
             this.Name = "Startup";
             this.Text = "Template";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Startup_FormClosing);
@@ -256,21 +255,21 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button okButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button AddInstrumentButton;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.Button removeInstrumentButton;
+        private System.Windows.Forms.TextBox titleTextBox;
+        private System.Windows.Forms.TextBox composerTextBox;
         private GraphicsPanel graphicsPanel1;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label titleLabel;
+        private System.Windows.Forms.Label composerLabel;
         private System.Windows.Forms.ComboBox KeyBox;
         private System.Windows.Forms.ComboBox TimeBox;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button cancelButton;
     }
 }

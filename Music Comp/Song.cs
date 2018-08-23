@@ -101,30 +101,9 @@ namespace Music_Comp
             TIME = t;
         }
 
-        public void AddInstrument(Clef clef, Grouping g)
+        public void AddInstrument(List<Clef> clefs, Grouping g)
         {
-            mInstruments.Add(new Instrument(clef, g));
-            if (TOTAL_INSTRUMENTS == 1)
-                GetInstrument(0).GetStaff(0).SetActive(true);
-        }
-
-        public void AddInstrument(Clef clef1, Clef clef2, Grouping g)
-        {
-            mInstruments.Add(new Instrument(clef1, clef2, g));
-            if (TOTAL_INSTRUMENTS == 1)
-                GetInstrument(0).GetStaff(0).SetActive(true);
-        }
-
-        public void AddInstrument(Clef clef1, Clef clef2, Clef clef3, Grouping g)
-        {
-            mInstruments.Add(new Instrument(clef1, clef2, clef3, g));
-            if (TOTAL_INSTRUMENTS == 1)
-                GetInstrument(0).GetStaff(0).SetActive(true);
-        }
-
-        public void AddInstrument(Clef clef1, Clef clef2, Clef clef3, Clef clef4, Grouping g)
-        {
-            mInstruments.Add(new Instrument(clef1, clef2, clef3, clef4, g));
+            mInstruments.Add(new Instrument(clefs, g));
             if (TOTAL_INSTRUMENTS == 1)
                 GetInstrument(0).GetStaff(0).SetActive(true);
         }

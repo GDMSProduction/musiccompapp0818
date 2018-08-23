@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace Music_Comp
@@ -24,7 +25,7 @@ namespace Music_Comp
         public float mainLENGTH = Staff.LENGTH;
         public float mainHEIGHT = Staff.HEIGHT;
         
-        public Clef[] clefs = new Clef[4];
+        public List<Clef> clefs = new List<Clef>();
         public Grouping grouping = Grouping.None;
 
         Song song;
@@ -39,9 +40,16 @@ namespace Music_Comp
         {
             InitializeComponent();
 
+            clefs.Add(Clef.Treble);
+            RefreshSong();
+        }
+
+        private void RefreshSong()
+        {
             song = new Song(graphicsPanel.Width * 2, Song.KEY, Song.TIME);
-            song.AddInstrument(Clef.Treble, Grouping.None);
+            song.AddInstrument(clefs, grouping);
             song.GetInstrument(0).GetStaff(0).SetActive(false);
+            graphicsPanel.Invalidate();
         }
 
         private void AddInstrumentForm_Paint(object sender, PaintEventArgs e)
@@ -54,21 +62,7 @@ namespace Music_Comp
             if (Brace.Checked == true)
             {
                 grouping = Grouping.Brace;
-                song = new Song(graphicsPanel.Width * 2, Song.KEY, Song.TIME);
-                switch (StaveNumeric.Value)
-                {
-                    case 2:
-                        song.AddInstrument(clefs[0], clefs[1], grouping);
-                        break;
-                    case 3:
-                        song.AddInstrument(clefs[0], clefs[1], clefs[2], grouping);
-                        break;
-                    case 4:
-                        song.AddInstrument(clefs[0], clefs[1], clefs[2], clefs[3], grouping);
-                        break;
-                }
-                song.GetInstrument(0).GetStaff(0).SetActive(false);
-                graphicsPanel.Invalidate();
+                RefreshSong();
             }
             else return;
         }
@@ -78,21 +72,7 @@ namespace Music_Comp
             if (Bracket.Checked == true)
             {
                 grouping = Grouping.Bracket;
-                song = new Song(graphicsPanel.Width * 2, Song.KEY, Song.TIME);
-                switch (StaveNumeric.Value)
-                {
-                    case 2:
-                        song.AddInstrument(clefs[0], clefs[1], grouping);
-                        break;
-                    case 3:
-                        song.AddInstrument(clefs[0], clefs[1], clefs[2], grouping);
-                        break;
-                    case 4:
-                        song.AddInstrument(clefs[0], clefs[1], clefs[2], clefs[3], grouping);
-                        break;
-                }
-                song.GetInstrument(0).GetStaff(0).SetActive(false);
-                graphicsPanel.Invalidate();
+                RefreshSong();
             }
             else return;
         }
@@ -102,196 +82,86 @@ namespace Music_Comp
             if (None.Checked == true)
             {
                 grouping = Grouping.None;
-                song = new Song(graphicsPanel.Width * 2, Song.KEY, Song.TIME);
-                switch (StaveNumeric.Value)
-                {
-                    case 2:
-                        song.AddInstrument(clefs[0], clefs[1], grouping);
-                        break;
-                    case 3:
-                        song.AddInstrument(clefs[0], clefs[1], clefs[2], grouping);
-                        break;
-                    case 4:
-                        song.AddInstrument(clefs[0], clefs[1], clefs[2], clefs[3], grouping);
-                        break;
-                }
-                song.GetInstrument(0).GetStaff(0).SetActive(false);
-                graphicsPanel.Invalidate();
+                RefreshSong();
             }
             else return;
         }
 
         private void StaveNumeric_ValueChanged(object sender, EventArgs e)
         {
+            clefs = new List<Clef>();
+            for (int i = 0; i < StaveNumeric.Value; i++)
+                clefs.Add(Clef.Treble);
+            staveCount = (int)StaveNumeric.Value;
             switch (StaveNumeric.Value)
             {
                 case 1:
-                    staveCount = 1;
                     St2Clef.Enabled = false;
+                    St2Clef.Text = "";
                     St3Clef.Enabled = false;
+                    St3Clef.Text = "";
                     St4Clef.Enabled = false;
-                    St2Clef.Text = " ";
-                    St3Clef.Text = " ";
-                    St4Clef.Text = " ";
-                    song = new Song(graphicsPanel.Width * 2, Song.KEY, Song.TIME);
-                    song.AddInstrument(Clef.Treble, grouping);
+                    St4Clef.Text = "";
                     break;
                 case 2:
-                    staveCount = 2;
                     St2Clef.Enabled = true;
+                    if (St2Clef.Text == "")
+                        St2Clef.Text = "Treble";
                     St3Clef.Enabled = false;
+                    St3Clef.Text = "";
                     St4Clef.Enabled = false;
-                    St3Clef.Text = " ";
-                    St4Clef.Text = " ";
-                    song = new Song(graphicsPanel.Width * 2, Song.KEY, Song.TIME);
-                    song.AddInstrument(Clef.Treble, Clef.Treble, grouping);
+                    St4Clef.Text = "";
                     break;
                 case 3:
-                    staveCount = 3;
                     St2Clef.Enabled = true;
+                    if (St2Clef.Text == "")
+                        St2Clef.Text = "Treble";
                     St3Clef.Enabled = true;
+                    if (St3Clef.Text == "")
+                        St3Clef.Text = "Treble";
                     St4Clef.Enabled = false;
-                    St4Clef.Text = " ";
-                    song = new Song(graphicsPanel.Width * 2, Song.KEY, Song.TIME);
-                    song.AddInstrument(Clef.Treble, Clef.Treble, Clef.Treble, grouping);
+                    St4Clef.Text = "";
                     break;
                 case 4:
-                    staveCount = 4;
                     St2Clef.Enabled = true;
+                    if (St2Clef.Text == "")
+                        St2Clef.Text = "Treble";
                     St3Clef.Enabled = true;
+                    if (St3Clef.Text == "")
+                        St3Clef.Text = "Treble";
                     St4Clef.Enabled = true;
-                    song = new Song(graphicsPanel.Width * 2, Song.KEY, Song.TIME);
-                    song.AddInstrument(Clef.Treble, Clef.Treble, Clef.Treble, Clef.Treble, grouping);
+                    St4Clef.Text = "Treble";
                     break;
             }
-            song.GetInstrument(0).GetStaff(0).SetActive(false);
-            graphicsPanel.Invalidate();
+            RefreshSong();
         }
 
         private void St1Clef_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch (St1Clef.Text)
-            {
-                case "Treble":
-                    clefs[0] = Clef.Treble;
-                    break;
-                case "Alto":
-                    clefs[0] = Clef.Alto;
-                    break;
-                case "Tenor":
-                    clefs[0] = Clef.Tenor;
-                    break;
-                case "Bass":
-                    clefs[0] = Clef.Bass;
-                    break;
-            }
-            song = new Song(graphicsPanel.Width * 2, Song.KEY, Song.TIME);
-            switch (StaveNumeric.Value)
-            {
-                case 1:
-                    song.AddInstrument(clefs[0], grouping);
-                    break;
-                case 2:
-                    song.AddInstrument(clefs[0], clefs[1], grouping);
-                    break;
-                case 3:
-                    song.AddInstrument(clefs[0], clefs[1], clefs[2], grouping);
-                    break;
-                case 4:
-                    song.AddInstrument(clefs[0], clefs[1], clefs[2], clefs[3], grouping);
-                    break;
-            }
-            song.GetInstrument(0).GetStaff(0).SetActive(false);
-            graphicsPanel.Invalidate();
+            Enum.TryParse(St1Clef.Text, out Clef c);
+            clefs[0] = c;
+            RefreshSong();
         }
 
         private void St2Clef_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch (St2Clef.Text)
-            {
-                case "Treble":
-                    clefs[1] = Clef.Treble;
-                    break;
-                case "Alto":
-                    clefs[1] = Clef.Alto;
-                    break;
-                case "Tenor":
-                    clefs[1] = Clef.Tenor;
-                    break;
-                case "Bass":
-                    clefs[1] = Clef.Bass;
-                    break;
-            }
-            song = new Song(graphicsPanel.Width * 2, Song.KEY, Song.TIME);
-            switch (StaveNumeric.Value)
-            {
-                case 2:
-                    song.AddInstrument(clefs[0], clefs[1], grouping);
-                    break;
-                case 3:
-                    song.AddInstrument(clefs[0], clefs[1], clefs[2], grouping);
-                    break;
-                case 4:
-                    song.AddInstrument(clefs[0], clefs[1], clefs[2], clefs[3], grouping);
-                    break;
-            }
-            song.GetInstrument(0).GetStaff(0).SetActive(false);
-            graphicsPanel.Invalidate();
+            Enum.TryParse(St2Clef.Text, out Clef c);
+            clefs[1] = c;
+            RefreshSong();
         }
 
         private void St3Clef_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch (St3Clef.Text)
-            {
-                case "Treble":
-                    clefs[2] = Clef.Treble;
-                    break;
-                case "Alto":
-                    clefs[2] = Clef.Alto;
-                    break;
-                case "Tenor":
-                    clefs[2] = Clef.Tenor;
-                    break;
-                case "Bass":
-                    clefs[2] = Clef.Bass;
-                    break;
-            }
-            song = new Song(graphicsPanel.Width * 2, Song.KEY, Song.TIME);
-            switch (StaveNumeric.Value)
-            {
-                case 3:
-                    song.AddInstrument(clefs[0], clefs[1], clefs[2], grouping);
-                    break;
-                case 4:
-                    song.AddInstrument(clefs[0], clefs[1], clefs[2], clefs[3], grouping);
-                    break;
-            }
-            song.GetInstrument(0).GetStaff(0).SetActive(false);
-            graphicsPanel.Invalidate();
+            Enum.TryParse(St3Clef.Text, out Clef c);
+            clefs[2] = c;
+            RefreshSong();
         }
 
         private void St4Clef_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch (St4Clef.Text)
-            {
-                case "Treble":
-                    clefs[3] = Clef.Treble;
-                    break;
-                case "Alto":
-                    clefs[3] = Clef.Alto;
-                    break;
-                case "Tenor":
-                    clefs[3] = Clef.Tenor;
-                    break;
-                case "Bass":
-                    clefs[3] = Clef.Bass;
-                    break;
-            }
-            song = new Song(graphicsPanel.Width * 2, Song.KEY, Song.TIME);
-            song.AddInstrument(clefs[0], clefs[1], clefs[2], clefs[3], grouping);
-            song.GetInstrument(0).GetStaff(0).SetActive(false);
-
-            graphicsPanel.Invalidate();
+            Enum.TryParse(St4Clef.Text, out Clef c);
+            clefs[3] = c;
+            RefreshSong();
         }
     }
 }

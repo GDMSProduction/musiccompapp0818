@@ -68,23 +68,9 @@ namespace Music_Comp
                 Staff.HEIGHT = startup.mainHEIGHT;
 
                 song = new Song(PAGE_WIDTH, startup.key, startup.time);
-                for (int i = 0; i < startup.x; i++)
+                for (int i = 0; i < startup.instruments.Count; i++)
                 {
-                    switch (startup.instruments[i].StaveCount)
-                    {
-                        case 1:
-                            song.AddInstrument(startup.instruments[i].clefs[0], startup.instruments[i].grouping);
-                            break;
-                        case 2:
-                            song.AddInstrument(startup.instruments[i].clefs[0], startup.instruments[i].clefs[1], startup.instruments[i].grouping);
-                            break;
-                        case 3:
-                            song.AddInstrument(startup.instruments[i].clefs[0], startup.instruments[i].clefs[1], startup.instruments[i].clefs[2], startup.instruments[i].grouping);
-                            break;
-                        case 4:
-                            song.AddInstrument(startup.instruments[i].clefs[0], startup.instruments[i].clefs[1], startup.instruments[i].clefs[2], startup.instruments[i].clefs[3], startup.instruments[i].grouping);
-                            break;
-                    }
+                    song.AddInstrument(startup.instruments[i].clefs, startup.instruments[i].grouping);
                 }
                 titleTextBox.Text = startup.title;
                 composerTextBox.Text = startup.composer;
@@ -165,64 +151,29 @@ namespace Music_Comp
         {
             AddInstrumentForm options = new AddInstrumentForm();
             options.ShowDialog();
-            if (options.DialogResult == DialogResult.OK)
-            {
-                Song.SCREEN_WIDTH = options.mainSCREEN_WIDTH;
-                Song.PAGE_WIDTH = options.mainPAGE_WIDTH;
-                Song._SCALE = options.main_SCALE;
-                Song.TOP_MARGIN = options.mainTOP_MARGIN;
-                Song.LEFT_MARGIN = options.mainLEFT_MARGIN;
-                Song.RIGHT_MARGIN = options.mainRIGHT_MARGIN;
-                Song.STAFF_SPACING = options.mainSTAFF_SPACING;
-                Song.INSTRUMENT_SPACING = options.mainINSTRUMENT_SPACING;
+            bool OK = (options.DialogResult == DialogResult.OK);
 
-                Song.TOTAL_INSTRUMENTS = options.mainTOTAL_INSTRUMENTS;
-                Song.TOTAL_STAVES = options.mainTOTAL_STAVES;
+            Song.SCREEN_WIDTH = options.mainSCREEN_WIDTH;
+            Song.PAGE_WIDTH = options.mainPAGE_WIDTH;
+            Song._SCALE = options.main_SCALE;
+            Song.TOP_MARGIN = options.mainTOP_MARGIN;
+            Song.LEFT_MARGIN = options.mainLEFT_MARGIN;
+            Song.RIGHT_MARGIN = options.mainRIGHT_MARGIN;
+            Song.STAFF_SPACING = options.mainSTAFF_SPACING;
+            Song.INSTRUMENT_SPACING = options.mainINSTRUMENT_SPACING;
 
-                Song.cursorY = options.maincursorY;
-                Song.cursorX = options.maincursorX;
+            Song.TOTAL_INSTRUMENTS = options.mainTOTAL_INSTRUMENTS;
+            Song.TOTAL_STAVES = options.mainTOTAL_STAVES;
 
-                Staff.LINE_SPACING = options.mainLINE_SPACING;
-                Staff.LENGTH = options.mainLENGTH;
-                Staff.HEIGHT = options.mainHEIGHT;
+            Song.cursorY = options.maincursorY;
+            Song.cursorX = options.maincursorX;
 
-                switch (options.StaveCount)
-                {
-                    case 1:
-                        song.AddInstrument(options.clefs[0], options.grouping);
-                        break;
-                    case 2:
-                        song.AddInstrument(options.clefs[0], options.clefs[1], options.grouping);
-                        break;
-                    case 3:
-                        song.AddInstrument(options.clefs[0], options.clefs[1], options.clefs[2], options.grouping);
-                        break;
-                    case 4:
-                        song.AddInstrument(options.clefs[0], options.clefs[1], options.clefs[2], options.clefs[3], options.grouping);
-                        break;
-                }
-            }
-            else
-            {
-                Song.SCREEN_WIDTH = options.mainSCREEN_WIDTH;
-                Song.PAGE_WIDTH = options.mainPAGE_WIDTH;
-                Song._SCALE = options.main_SCALE;
-                Song.TOP_MARGIN = options.mainTOP_MARGIN;
-                Song.LEFT_MARGIN = options.mainLEFT_MARGIN;
-                Song.RIGHT_MARGIN = options.mainRIGHT_MARGIN;
-                Song.STAFF_SPACING = options.mainSTAFF_SPACING;
-                Song.INSTRUMENT_SPACING = options.mainINSTRUMENT_SPACING;
+            Staff.LINE_SPACING = options.mainLINE_SPACING;
+            Staff.LENGTH = options.mainLENGTH;
+            Staff.HEIGHT = options.mainHEIGHT;
 
-                Song.TOTAL_INSTRUMENTS = options.mainTOTAL_INSTRUMENTS;
-                Song.TOTAL_STAVES = options.mainTOTAL_STAVES;
+            if (OK) song.AddInstrument(options.clefs, options.grouping);
 
-                Song.cursorY = options.maincursorY;
-                Song.cursorX = options.maincursorX;
-
-                Staff.LINE_SPACING = options.mainLINE_SPACING;
-                Staff.LENGTH = options.mainLENGTH;
-                Staff.HEIGHT = options.mainHEIGHT;
-            }
             graphicsPanel.Invalidate();
         }
 
@@ -245,8 +196,7 @@ namespace Music_Comp
                         }
                         else if (selectedStaff == 0 && selectedInstrument != 0)
                         {
-                            song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).SetActive(false);
-                            selectedInstrument--;
+                            song.GetInstrument(selectedInstrument--).GetStaff(selectedStaff).SetActive(false);
                             selectedStaff = song.GetInstrument(selectedInstrument).GetNumberOfStaves() - 1;
                             song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).SetActive(true);
                             graphicsPanel.Invalidate();
@@ -317,7 +267,6 @@ namespace Music_Comp
                             notes[0].SetDuration(Duration.Half);
                         break;
                 }
-
                 if (valid)
                 {
                     Note[] remainder =
@@ -433,7 +382,7 @@ namespace Music_Comp
 
         private void songToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (DialogResult.OK == KeySignatureMenu.ShowDialog())
+            if (KeySignatureMenu.ShowDialog() == DialogResult.OK)
             {
                 song.Transpose((Key)KeySignatureMenu.GetKeySignature());
                 song.EditTimeSignature((Time)KeySignatureMenu.GetTimeSignature());

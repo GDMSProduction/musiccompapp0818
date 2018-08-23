@@ -1,4 +1,5 @@
 ﻿using System.Windows.Forms;
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace Music_Comp
@@ -11,41 +12,17 @@ namespace Music_Comp
         Clef[] mClefs;
         Grouping mGrouping;
 
-        public Instrument(Clef c, Grouping g)
+        public Instrument(List<Clef> clefs, Grouping g)
         {
-            mClefs = new Clef[1];
-            mClefs[0] = c;
-            AddStaves(1);
-            mGrouping = g;
-        }
-
-        public Instrument(Clef c1, Clef c2, Grouping g)
-        {
-            mClefs = new Clef[2];
-            mClefs[0] = c1;
-            mClefs[1] = c2;
-            AddStaves(2);
-            mGrouping = g;
-        }
-
-        public Instrument(Clef c1, Clef c2, Clef c3, Grouping g)
-        {
-            mClefs = new Clef[3];
-            mClefs[0] = c1;
-            mClefs[1] = c2;
-            mClefs[2] = c3;
-            AddStaves(3);
-            mGrouping = g;
-        }
-
-        public Instrument(Clef c1, Clef c2, Clef c3, Clef c4, Grouping g)
-        {
-            mClefs = new Clef[4];
-            mClefs[0] = c1;
-            mClefs[1] = c2;
-            mClefs[2] = c3;
-            mClefs[3] = c4;
-            AddStaves(4);
+            if (clefs.Count > 4)
+                mClefs = new Clef[4];
+            else
+                mClefs = new Clef[clefs.Count];
+            for (int i = 0; i < mClefs.Length; i++)
+            {
+                mClefs[i] = clefs[i];
+            }
+            AddStaves(mClefs.Length);
             mGrouping = g;
         }
 
