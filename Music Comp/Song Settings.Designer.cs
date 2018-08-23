@@ -47,8 +47,8 @@
             this.C_Button = new System.Windows.Forms.RadioButton();
             this.F_Button = new System.Windows.Forms.RadioButton();
             this.SongTimeSignature = new System.Windows.Forms.GroupBox();
-            this.SixEight_Button = new System.Windows.Forms.RadioButton();
             this.FourFour_Button = new System.Windows.Forms.RadioButton();
+            this.SixEight_Button = new System.Windows.Forms.RadioButton();
             this.SongKeySignature.SuspendLayout();
             this.SongTimeSignature.SuspendLayout();
             this.SuspendLayout();
@@ -211,12 +211,10 @@
             // eFlat_Button
             // 
             this.eFlat_Button.AutoSize = true;
-            this.eFlat_Button.Checked = true;
             this.eFlat_Button.Location = new System.Drawing.Point(167, 195);
             this.eFlat_Button.Name = "eFlat_Button";
             this.eFlat_Button.Size = new System.Drawing.Size(99, 29);
             this.eFlat_Button.TabIndex = 3;
-            this.eFlat_Button.TabStop = true;
             this.eFlat_Button.Text = "E Flat";
             this.eFlat_Button.UseVisualStyleBackColor = true;
             // 
@@ -262,6 +260,16 @@
             this.SongTimeSignature.TabStop = false;
             this.SongTimeSignature.Text = "Song Time SIgnature";
             // 
+            // FourFour_Button
+            // 
+            this.FourFour_Button.AutoSize = true;
+            this.FourFour_Button.Location = new System.Drawing.Point(24, 90);
+            this.FourFour_Button.Name = "FourFour_Button";
+            this.FourFour_Button.Size = new System.Drawing.Size(137, 29);
+            this.FourFour_Button.TabIndex = 1;
+            this.FourFour_Button.Text = "Four/Four";
+            this.FourFour_Button.UseVisualStyleBackColor = true;
+            // 
             // SixEight_Button
             // 
             this.SixEight_Button.AutoSize = true;
@@ -269,21 +277,8 @@
             this.SixEight_Button.Name = "SixEight_Button";
             this.SixEight_Button.Size = new System.Drawing.Size(128, 29);
             this.SixEight_Button.TabIndex = 0;
-            this.SixEight_Button.TabStop = true;
             this.SixEight_Button.Text = "Six/Eight";
             this.SixEight_Button.UseVisualStyleBackColor = true;
-            // 
-            // FourFour_Button
-            // 
-            this.FourFour_Button.AutoSize = true;
-            this.FourFour_Button.Checked = true;
-            this.FourFour_Button.Location = new System.Drawing.Point(24, 90);
-            this.FourFour_Button.Name = "FourFour_Button";
-            this.FourFour_Button.Size = new System.Drawing.Size(137, 29);
-            this.FourFour_Button.TabIndex = 1;
-            this.FourFour_Button.TabStop = true;
-            this.FourFour_Button.Text = "Four/Four";
-            this.FourFour_Button.UseVisualStyleBackColor = true;
             // 
             // Song_Settings
             // 
