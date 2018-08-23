@@ -8,7 +8,7 @@ namespace Music_Comp
     {
         Rectangle area;
 
-        List<Note[]> mNotes;
+        List<Chord> mChords;
 
         float mXPosition;
         float mYPosition;
@@ -27,12 +27,12 @@ namespace Music_Comp
             mXPosition = cursorX;
             mYPosition = yPosition;
             isFull = false;
-            mNotes = new List<Note[]>();
+            mChords = new List<Chord>();
         }
 
-        public int GetNoteCount()
+        public int GetChordCount()
         {
-            return mNotes.Count;
+            return mChords.Count;
         }
 
         public float GetLength()
@@ -40,9 +40,9 @@ namespace Music_Comp
             return mLength;
         }
 
-        public Note[] GetNotes(int i)
+        public Chord GetChord(int i)
         {
-            return mNotes[i];
+            return mChords[i];
         }
 
         public Rectangle GetArea()
@@ -55,48 +55,46 @@ namespace Music_Comp
             return isFull;
         }
 
-        public Note[] AddNote(Note[] notes)
+        public Chord AddChord(Chord chord)
         {
-            if (notes == null)
+            if (chord == null)
                 return null;
-            if (mNotes.Count == 0)
+            if (mChords.Count == 0)
             {
-                mNotes.Add(notes);
-                mTotalDuration += (int)notes[0].GetDuration();
+                mChords.Add(chord);
+                mTotalDuration += (int)chord.GetDuration();
                 return null;
             }
             else
             {
-                mTotalDuration += (int)notes[0].GetDuration();
+                mTotalDuration += (int)chord.GetDuration();
                 if (mTotalDuration > (int)Song.TIME)
                 {
-                    Note[] split = new Note[notes.Length];
-                    Note[] remainder = new Note[notes.Length];
+                    Chord split = new Chord();
+                    Chord remainder = new Chord();
 
                     int remainderDuration = mTotalDuration - (int)Song.TIME;
-                    int splitDuration = (int)notes[0].GetDuration() - remainderDuration;
+                    int splitDuration = (int)chord.GetDuration() - remainderDuration;
 
-                    for (int i = 0; i < notes.Length; i++)
-                    {
-                        split[i] = notes[i];
-                        split[i].SetDuration((Duration)splitDuration);
+                    split = chord;
+                    remainder = chord;
 
-                        remainder[i] = notes[i];
-                        remainder[i].SetDuration((Duration)remainderDuration);
-                    }
-                    mNotes.Add(split);
+                    split.SetDuration((Duration)splitDuration);
+                    remainder.SetDuration((Duration)remainderDuration);
+
+                    mChords.Add(split);
                     isFull = true;
                     return remainder;
                 }
                 else if (mTotalDuration == (int)Song.TIME)
                 {
-                    mNotes.Add(notes);
+                    mChords.Add(chord);
                     isFull = true;
                     return null;
                 }
                 else
                 {
-                    mNotes.Add(notes);
+                    mChords.Add(chord);
                     return null;
                 }
             }
@@ -106,10 +104,9 @@ namespace Music_Comp
         {
             mXPosition = cursorX;
             float cursor = 0;
-            foreach (Note[] notes in mNotes)
+            foreach (Chord chord in mChords)
             {
-                foreach (Note note in notes)
-                    note.Draw(mXPosition + cursor, mYPosition, mClef, e);
+                chord.Draw(mXPosition + cursor, mYPosition, mClef, e);
                 cursor += 60 * Song._SCALE;
                 mLength = cursor;
             }

@@ -19,8 +19,7 @@ namespace Music_Comp
 
         Song_Settings KeySignatureMenu = new Song_Settings();
 
-        List<Note> notes = new List<Note>();
-
+        Chord mChord = new Chord();
         int noteIndex = 0;
 
         public MainForm()
@@ -44,8 +43,10 @@ namespace Music_Comp
             ActiveControl = graphicsPanel;
 
             (graphicsPanel as Control).KeyUp += new KeyEventHandler(graphicsPanel_KeyUp);
+
             Startup startup = new Startup();
             startup.ShowDialog();
+
             if (startup.DialogResult == DialogResult.OK)
             {
                 Song.SCREEN_WIDTH = startup.mainSCREEN_WIDTH;
@@ -69,15 +70,9 @@ namespace Music_Comp
 
                 song = new Song(PAGE_WIDTH, startup.key, startup.time);
                 for (int i = 0; i < startup.instruments.Count; i++)
-                {
                     song.AddInstrument(startup.instruments[i].clefs, startup.instruments[i].grouping);
-                }
                 titleTextBox.Text = startup.title;
                 composerTextBox.Text = startup.composer;
-            }
-            else if (startup.DialogResult == DialogResult.Cancel)
-            {
-                
             }
         }
 
@@ -86,9 +81,7 @@ namespace Music_Comp
             zoomInButton.Location = new Point(Width - 110, Height - 200);
             zoomOutButton.Location = new Point(Width - 110, Height - 150);
             if (song != null)
-            {
                 song.Draw(e);
-            }
         }
 
         private void MainForm_Resize(object sender, EventArgs e)
@@ -151,7 +144,6 @@ namespace Music_Comp
         {
             AddInstrumentForm options = new AddInstrumentForm();
             options.ShowDialog();
-            bool OK = (options.DialogResult == DialogResult.OK);
 
             Song.SCREEN_WIDTH = options.mainSCREEN_WIDTH;
             Song.PAGE_WIDTH = options.mainPAGE_WIDTH;
@@ -172,7 +164,8 @@ namespace Music_Comp
             Staff.LENGTH = options.mainLENGTH;
             Staff.HEIGHT = options.mainHEIGHT;
 
-            if (OK) song.AddInstrument(options.clefs, options.grouping);
+            if (options.DialogResult == DialogResult.OK)
+                song.AddInstrument(options.clefs, options.grouping);
 
             graphicsPanel.Invalidate();
         }
@@ -183,8 +176,9 @@ namespace Music_Comp
 
             if (!ControlCheck())
             {
-                Note[] notes = new Note[1];
-                notes[0] = new Note(Pitch.C, Accidental.Natural, Duration.Quarter, 4);
+                Chord chord = new Chord();
+                chord.Add(new Note(Pitch.C, Accidental.Natural, Duration.Quarter, 4));
+
                 switch (e.KeyCode)
                 {
                     case Keys.Up:
@@ -209,7 +203,8 @@ namespace Music_Comp
                             song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).SetActive(true);
                             graphicsPanel.Invalidate();
                         }
-                        else if (selectedStaff == song.GetInstrument(selectedInstrument).GetNumberOfStaves() - 1 && selectedInstrument != Song.TOTAL_INSTRUMENTS - 1)
+                        else if (selectedStaff == song.GetInstrument(selectedInstrument).GetNumberOfStaves() - 1 &&
+                                 selectedInstrument != Song.TOTAL_INSTRUMENTS - 1)
                         {
                             song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).SetActive(false);
                             selectedStaff = 0;
@@ -220,135 +215,132 @@ namespace Music_Comp
                         break;
                     case Keys.A:
                         valid = true;
-                        notes[0].SetPitch(Pitch.A);
+                        chord.GetNote(0).SetPitch(Pitch.A);
                         if (ShiftCheck())
-                            notes[0].SetDuration(Duration.Half);
+                            chord.GetNote(0).SetDuration(Duration.Half);
                         break;
                     case Keys.B:
                         valid = true;
-                        notes[0].SetPitch(Pitch.B);
+                        chord.GetNote(0).SetPitch(Pitch.B);
                         if (ShiftCheck())
-                            notes[0].SetDuration(Duration.Half);
+                            chord.GetNote(0).SetDuration(Duration.Half);
                         break;
                     case Keys.C:
                         valid = true;
-                        notes[0].SetPitch(Pitch.C);
+                        chord.GetNote(0).SetPitch(Pitch.C);
                         if (ShiftCheck())
-                            notes[0].SetDuration(Duration.Half);
+                            chord.GetNote(0).SetDuration(Duration.Half);
                         break;
                     case Keys.D:
                         valid = true;
-                        notes[0].SetPitch(Pitch.D);
+                        chord.GetNote(0).SetPitch(Pitch.D);
                         if (ShiftCheck())
-                            notes[0].SetDuration(Duration.Half);
+                            chord.GetNote(0).SetDuration(Duration.Half);
                         break;
                     case Keys.E:
                         valid = true;
-                        notes[0].SetPitch(Pitch.E);
+                        chord.GetNote(0).SetPitch(Pitch.E);
                         if (ShiftCheck())
-                            notes[0].SetDuration(Duration.Half);
+                            chord.GetNote(0).SetDuration(Duration.Half);
                         break;
                     case Keys.F:
                         valid = true;
-                        notes[0].SetPitch(Pitch.F);
+                        chord.GetNote(0).SetPitch(Pitch.F);
                         if (ShiftCheck())
-                            notes[0].SetDuration(Duration.Half);
+                            chord.GetNote(0).SetDuration(Duration.Half);
                         break;
                     case Keys.G:
                         valid = true;
-                        notes[0].SetPitch(Pitch.G);
+                        chord.GetNote(0).SetPitch(Pitch.G);
                         if (ShiftCheck())
-                            notes[0].SetDuration(Duration.Half);
+                            chord.GetNote(0).SetDuration(Duration.Half);
                         break;
                     case Keys.R:
                         valid = true;
-                        notes[0].SetPitch(Pitch.Rest);
+                        chord.GetNote(0).SetPitch(Pitch.Rest);
                         if (ShiftCheck())
-                            notes[0].SetDuration(Duration.Half);
+                            chord.GetNote(0).SetDuration(Duration.Half);
                         break;
                 }
                 if (valid)
                 {
-                    Note[] remainder =
-                    song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).GetNextMeasure().AddNote(notes);
-                    song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).GetNextMeasure().AddNote(remainder);
+                    Chord remainder =
+                    song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).GetNextMeasure().AddChord(chord);
+                    song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).GetNextMeasure().AddChord(remainder);
                     graphicsPanel.Invalidate();
                 }
             }
-            else if (ControlCheck())
+            else
             {
                 switch (e.KeyCode)
                 {
                     case Keys.A:
                         valid = true;
-                        notes.Add(new Note(Pitch.C, Accidental.Natural, Duration.Quarter, 4));
-                        notes[noteIndex].SetPitch(Pitch.A);
+                        mChord.Add(new Note(Pitch.C, Accidental.Natural, Duration.Quarter, 4));
+                        mChord.GetNote(noteIndex).SetPitch(Pitch.A);
                         if (ShiftCheck())
-                            notes[noteIndex].SetDuration(Duration.Half);
+                            mChord.GetNote(noteIndex).SetDuration(Duration.Half);
                         noteIndex++;
                         break;
                     case Keys.B:
                         valid = true;
-                        notes.Add(new Note(Pitch.C, Accidental.Natural, Duration.Quarter, 4));
-                        notes[noteIndex].SetPitch(Pitch.B);
+                        mChord.Add(new Note(Pitch.C, Accidental.Natural, Duration.Quarter, 4));
+                        mChord.GetNote(noteIndex).SetPitch(Pitch.B);
                         if (ShiftCheck())
-                            notes[noteIndex].SetDuration(Duration.Half);
+                            mChord.GetNote(noteIndex).SetDuration(Duration.Half);
                         noteIndex++;
                         break;
                     case Keys.C:
                         valid = true;
-                        notes.Add(new Note(Pitch.C, Accidental.Natural, Duration.Quarter, 4));
-                        notes[noteIndex].SetPitch(Pitch.C);
+                        mChord.Add(new Note(Pitch.C, Accidental.Natural, Duration.Quarter, 4));
+                        mChord.GetNote(noteIndex).SetPitch(Pitch.C);
                         if (ShiftCheck())
-                            notes[noteIndex].SetDuration(Duration.Half);
+                            mChord.GetNote(noteIndex).SetDuration(Duration.Half);
                         noteIndex++;
                         break;
                     case Keys.D:
                         valid = true;
-                        notes.Add(new Note(Pitch.C, Accidental.Natural, Duration.Quarter, 4));
-                        notes[noteIndex].SetPitch(Pitch.D);
+                        mChord.Add(new Note(Pitch.C, Accidental.Natural, Duration.Quarter, 4));
+                        mChord.GetNote(noteIndex).SetPitch(Pitch.D);
                         if (ShiftCheck())
-                            notes[noteIndex].SetDuration(Duration.Half);
+                            mChord.GetNote(noteIndex).SetDuration(Duration.Half);
                         noteIndex++;
                         break;
                     case Keys.E:
                         valid = true;
-                        notes.Add(new Note(Pitch.C, Accidental.Natural, Duration.Quarter, 4));
-                        notes[noteIndex].SetPitch(Pitch.E);
+                        mChord.Add(new Note(Pitch.C, Accidental.Natural, Duration.Quarter, 4));
+                        mChord.GetNote(noteIndex).SetPitch(Pitch.E);
                         if (ShiftCheck())
-                            notes[noteIndex].SetDuration(Duration.Half);
+                            mChord.GetNote(noteIndex).SetDuration(Duration.Half);
                         noteIndex++;
                         break;
                     case Keys.F:
                         valid = true;
-                        notes.Add(new Note(Pitch.C, Accidental.Natural, Duration.Quarter, 4));
-                        notes[noteIndex].SetPitch(Pitch.F);
+                        mChord.Add(new Note(Pitch.C, Accidental.Natural, Duration.Quarter, 4));
+                        mChord.GetNote(noteIndex).SetPitch(Pitch.F);
                         if (ShiftCheck())
-                            notes[noteIndex].SetDuration(Duration.Half);
+                            mChord.GetNote(noteIndex).SetDuration(Duration.Half);
                         noteIndex++;
                         break;
                     case Keys.G:
                         valid = true;
-                        notes.Add(new Note(Pitch.C, Accidental.Natural, Duration.Quarter, 4));
-                        notes[noteIndex].SetPitch(Pitch.G);
+                        mChord.Add(new Note(Pitch.C, Accidental.Natural, Duration.Quarter, 4));
+                        mChord.GetNote(noteIndex).SetPitch(Pitch.G);
                         if (ShiftCheck())
-                            notes[noteIndex].SetDuration(Duration.Half);
+                            mChord.GetNote(noteIndex).SetDuration(Duration.Half);
                         noteIndex++;
                         break;
                 }
             }
-
             if (!ControlCheck() && noteIndex != 0)
             {
-                Note[] notesArr = new Note[notes.Count];
-                for (int i = 0; i < notes.Count; i++)
-                    notesArr[i] = notes[i];
-                notes = new List<Note>();
-                noteIndex = 0;
-                Note[] remainder =
-                song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).GetNextMeasure().AddNote(notesArr);
-                song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).GetNextMeasure().AddNote(remainder);
+                Chord remainder =
+                song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).GetNextMeasure().AddChord(mChord);
+                song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).GetNextMeasure().AddChord(remainder);
                 graphicsPanel.Invalidate();
+
+                mChord = new Chord();
+                noteIndex = 0;
             }
         }
 
@@ -389,6 +381,5 @@ namespace Music_Comp
                 graphicsPanel.Invalidate();
             }
         }
-
     }
 }

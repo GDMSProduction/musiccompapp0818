@@ -58,6 +58,7 @@
     <Compile Include="AddInstrument.Designer.cs">
       <DependentUpon>AddInstrumentForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Chord.cs" />
     <Compile Include="GraphicsPanel.cs">
       <SubType>Component</SubType>
     </Compile>
