@@ -118,6 +118,11 @@ namespace Music_Comp
             Staff.LENGTH = Song.PAGE_WIDTH - Song.LEFT_MARGIN - Song.RIGHT_MARGIN;
             Staff.HEIGHT = 4 * Staff.LINE_SPACING;
 
+            if (Song.mBarlines != null)
+                for (int i = 0; i < Song.mBarlines.Count; i++)
+                    if (_SCALE < 1)
+                        Song.mBarlines[i] *= _SCALE;
+
             if (Width > graphicsPanel.Width)
                 graphicsPanel.Location = new Point(Width / 2 - graphicsPanel.Width / 2, 0);
             else
