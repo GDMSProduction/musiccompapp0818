@@ -285,12 +285,13 @@ namespace Music_Comp
 
             DrawTimeSignature(e);
 
-            foreach (Measure measure in mMeasures)
+            for (int i = 0; i < mMeasures.Count; i++)
             {
                 mCursorX += 30 * Song._SCALE;
                 Song.mBarlines.Add(mCursorX);
-                measure.Draw(mCursorX, e);
-                mCursorX += measure.GetLength();
+
+                mMeasures[i].Draw(mCursorX, e);
+                mCursorX += mMeasures[i].GetLength();
             }
         }
     }

@@ -149,6 +149,12 @@ namespace Music_Comp
                         e.Graphics.DrawLine(barLinePen, start, end);
                 }
 
+                PointF startLast = new PointF(PAGE_WIDTH - RIGHT_MARGIN, top_inst_line);
+                PointF endLast = new PointF(PAGE_WIDTH - RIGHT_MARGIN, btm_inst_line);
+
+                if (e.Graphics.IsVisible(new RectangleF(startLast.X, startLast.Y, 1, endLast.Y - startLast.Y)))
+                    e.Graphics.DrawLine(barLinePen, startLast, endLast);
+
                 top_inst_line = btm_inst_line + STAFF_SPACING + INSTRUMENT_SPACING;
             }
 
@@ -209,7 +215,6 @@ namespace Music_Comp
             foreach (Instrument instrument in mInstruments)
                 instrument.Draw(e);
 
-            mBarlines.Add(PAGE_WIDTH - RIGHT_MARGIN);
             DrawBarLines(mBarlines, e);
         }
     }
