@@ -17,8 +17,6 @@ namespace Music_Comp
         int selectedStaff = 0;
         int selectedInstrument = 0;
 
-        Song_Settings KeySignatureMenu = new Song_Settings();
-
         Chord mChord = new Chord();
         int noteIndex = 0;
 
@@ -80,7 +78,7 @@ namespace Music_Comp
         {
             zoomInButton.Location = new Point(Width - 110, Height - 200);
             zoomOutButton.Location = new Point(Width - 110, Height - 150);
-            if (song != null)
+            if (song != null && Song.TOTAL_INSTRUMENTS != 0)
                 song.Draw(e);
         }
 
@@ -374,10 +372,15 @@ namespace Music_Comp
 
         private void songToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (KeySignatureMenu.ShowDialog() == DialogResult.OK)
+            Song_Settings SongSettingsMenu = new Song_Settings();
+
+            SongSettingsMenu.SetKeySignatureButton(Song.KEY);
+            SongSettingsMenu.SetTimeSignatureButton(Song.TIME);
+
+            if (SongSettingsMenu.ShowDialog() == DialogResult.OK)
             {
-                song.Transpose((Key)KeySignatureMenu.GetKeySignature());
-                song.EditTimeSignature((Time)KeySignatureMenu.GetTimeSignature());
+                song.Transpose(SongSettingsMenu.GetKeySignature());
+                song.EditTimeSignature(SongSettingsMenu.GetTimeSignature());
                 graphicsPanel.Invalidate();
             }
         }
