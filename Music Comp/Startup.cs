@@ -32,6 +32,7 @@ namespace Music_Comp
         public string composer;
 
         Song song;
+        Song tempSong;
 
         public List<instrumentTemplate> instruments;
 
@@ -74,15 +75,15 @@ namespace Music_Comp
             AddInstrumentButton.Location = new System.Drawing.Point(Width - (AddInstrumentButton.Width + 40) - AddInstrumentButton.Width, 45);
             removeInstrumentButton.Location = new System.Drawing.Point(Width - removeInstrumentButton.Width - 34, 45);
             label5.Location = new System.Drawing.Point(Width - label5.Width - 70, 25);
+            
         }
 
         private void AddInstrumentButton_Click(object sender, EventArgs e)
         {
-            song = new Song(graphicsPanel1.Width, key, time);
+            if (song == null)
+                song = new Song(graphicsPanel1.Width, key, time);
             AddInstrumentForm options = new AddInstrumentForm();
             options.ShowDialog();
-
-            bool OK = options.DialogResult == DialogResult.OK;
 
             Song.SCREEN_WIDTH = options.mainSCREEN_WIDTH;
             Song.PAGE_WIDTH = options.mainPAGE_WIDTH;
@@ -103,17 +104,18 @@ namespace Music_Comp
             Staff.LENGTH = options.mainLENGTH;
             Staff.HEIGHT = options.mainHEIGHT;
 
-            if (OK)
+            if (options.DialogResult == DialogResult.OK)
             {
+                if (song == null)
+                {
+                    song = new Song(graphicsPanel1.Width, key, time);
+                }
                 song.AddInstrument(options.clefs, options.grouping);
                 instruments.Add(new instrumentTemplate(options.clefs, options.grouping, options.StaveCount));
                 song.GetInstrument(0).GetStaff(0).SetActive(false);
             }
-            else
-                song = null;
 
             graphicsPanel1.Invalidate();
-
         }
 
         private void titleTextBox_TextChanged(object sender, EventArgs e)
@@ -137,13 +139,19 @@ namespace Music_Comp
         private void KeyBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             Enum.TryParse(KeyBox.Text, out Key k);
+            Song.KEY = k;
             key = k;
+
+            graphicsPanel1.Invalidate();
         }
 
         private void TimeBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             Enum.TryParse(TimeBox.Text, out Time t);
+            Song.TIME = t;
             time = t;
+
+            graphicsPanel1.Invalidate();
         }
 
         private void Startup_FormClosing(object sender, FormClosingEventArgs e)
