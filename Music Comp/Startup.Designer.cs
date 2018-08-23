@@ -197,7 +197,7 @@
             // 
             // graphicsPanel1
             // 
-            this.graphicsPanel1.AutoScroll = true;
+            this.graphicsPanel1.BackColor = System.Drawing.SystemColors.Window;
             this.graphicsPanel1.Controls.Add(this.composerLabel);
             this.graphicsPanel1.Controls.Add(this.titleLabel);
             this.graphicsPanel1.Location = new System.Drawing.Point(208, 119);
@@ -208,12 +208,14 @@
             // 
             // composerLabel
             // 
+            this.composerLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.composerLabel.AutoSize = true;
             this.composerLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.composerLabel.Location = new System.Drawing.Point(1229, 70);
             this.composerLabel.Name = "composerLabel";
             this.composerLabel.Size = new System.Drawing.Size(0, 55);
             this.composerLabel.TabIndex = 3;
+            this.composerLabel.SizeChanged += new System.EventHandler(this.composerLabel_SizeChanged);
             // 
             // titleLabel
             // 
@@ -223,6 +225,7 @@
             this.titleLabel.Name = "titleLabel";
             this.titleLabel.Size = new System.Drawing.Size(0, 82);
             this.titleLabel.TabIndex = 2;
+            this.titleLabel.SizeChanged += new System.EventHandler(this.titleLabel_SizeChanged);
             // 
             // Startup
             // 
@@ -231,6 +234,7 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.CancelButton = this.cancelButton;
             this.ClientSize = new System.Drawing.Size(1734, 999);
+            this.Controls.Add(this.okButton);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.TimeBox);
             this.Controls.Add(this.KeyBox);
@@ -244,10 +248,11 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.okButton);
+            this.MinimumSize = new System.Drawing.Size(970, 580);
             this.Name = "Startup";
             this.Text = "Template";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Startup_FormClosing);
+            this.SizeChanged += new System.EventHandler(this.Startup_SizeChanged);
             this.graphicsPanel1.ResumeLayout(false);
             this.graphicsPanel1.PerformLayout();
             this.ResumeLayout(false);
@@ -269,9 +274,9 @@
         private System.Windows.Forms.TextBox composerTextBox;
         private GraphicsPanel graphicsPanel1;
         private System.Windows.Forms.Label titleLabel;
-        private System.Windows.Forms.Label composerLabel;
         private System.Windows.Forms.ComboBox KeyBox;
         private System.Windows.Forms.ComboBox TimeBox;
         private System.Windows.Forms.Button cancelButton;
+        private System.Windows.Forms.Label composerLabel;
     }
 }

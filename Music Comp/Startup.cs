@@ -67,34 +67,41 @@ namespace Music_Comp
         {
             if (song != null)
                 song.Draw(e);
+            graphicsPanel1.Height = Height - graphicsPanel1.Location.Y - 48;
+            graphicsPanel1.Width = Width - graphicsPanel1.Location.X - (cancelButton.Width + okButton.Width) - 30;
+            okButton.Location = new System.Drawing.Point((Width - 22) - okButton.Width, Height - 75);
+            cancelButton.Location = new System.Drawing.Point((Width - (cancelButton.Width + 25)) - cancelButton.Width, Height - 75);
+            AddInstrumentButton.Location = new System.Drawing.Point(Width - (AddInstrumentButton.Width + 40) - AddInstrumentButton.Width, 45);
+            removeInstrumentButton.Location = new System.Drawing.Point(Width - removeInstrumentButton.Width - 34, 45);
+            label5.Location = new System.Drawing.Point(Width - label5.Width - 70, 25);
         }
 
         private void AddInstrumentButton_Click(object sender, EventArgs e)
         {
-            song = new Song(graphicsPanel1.Width * 2, key, time);
+            song = new Song(graphicsPanel1.Width, key, time);
             AddInstrumentForm options = new AddInstrumentForm();
             options.ShowDialog();
 
             bool OK = options.DialogResult == DialogResult.OK;
 
-                Song.SCREEN_WIDTH = options.mainSCREEN_WIDTH;
-                Song.PAGE_WIDTH = options.mainPAGE_WIDTH;
-                Song._SCALE = options.main_SCALE;
-                Song.TOP_MARGIN = options.mainTOP_MARGIN;
-                Song.LEFT_MARGIN = options.mainLEFT_MARGIN;
-                Song.RIGHT_MARGIN = options.mainRIGHT_MARGIN;
-                Song.STAFF_SPACING = options.mainSTAFF_SPACING;
-                Song.INSTRUMENT_SPACING = options.mainINSTRUMENT_SPACING;
+            Song.SCREEN_WIDTH = options.mainSCREEN_WIDTH;
+            Song.PAGE_WIDTH = options.mainPAGE_WIDTH;
+            Song._SCALE = options.main_SCALE;
+            Song.TOP_MARGIN = options.mainTOP_MARGIN;
+            Song.LEFT_MARGIN = options.mainLEFT_MARGIN;
+            Song.RIGHT_MARGIN = options.mainRIGHT_MARGIN;
+            Song.STAFF_SPACING = options.mainSTAFF_SPACING;
+            Song.INSTRUMENT_SPACING = options.mainINSTRUMENT_SPACING;
 
-                Song.TOTAL_INSTRUMENTS = options.mainTOTAL_INSTRUMENTS;
-                Song.TOTAL_STAVES = options.mainTOTAL_STAVES;
+            Song.TOTAL_INSTRUMENTS = options.mainTOTAL_INSTRUMENTS;
+            Song.TOTAL_STAVES = options.mainTOTAL_STAVES;
 
-                Song.cursorY = options.maincursorY;
-                Song.cursorX = options.maincursorX;
+            Song.cursorY = options.maincursorY;
+            Song.cursorX = options.maincursorX;
 
-                Staff.LINE_SPACING = options.mainLINE_SPACING;
-                Staff.LENGTH = options.mainLENGTH;
-                Staff.HEIGHT = options.mainHEIGHT;
+            Staff.LINE_SPACING = options.mainLINE_SPACING;
+            Staff.LENGTH = options.mainLENGTH;
+            Staff.HEIGHT = options.mainHEIGHT;
 
             if (OK)
             {
@@ -106,7 +113,7 @@ namespace Music_Comp
                 song = null;
 
             graphicsPanel1.Invalidate();
-            
+
         }
 
         private void titleTextBox_TextChanged(object sender, EventArgs e)
@@ -150,6 +157,21 @@ namespace Music_Comp
         private void okButton_Click(object sender, EventArgs e)
         {
             checkexit = false;
+        }
+
+        private void composerLabel_SizeChanged(object sender, EventArgs e)
+        {
+            composerLabel.Location = new System.Drawing.Point(graphicsPanel1.Width - 45 - composerLabel.Width, 20);
+        }
+
+        private void titleLabel_SizeChanged(object sender, EventArgs e)
+        {
+            titleLabel.Location = new System.Drawing.Point((graphicsPanel1.Width / 2) - (titleLabel.Width / 2), 25);
+        }
+
+        private void Startup_SizeChanged(object sender, EventArgs e)
+        {
+            graphicsPanel1.Invalidate();
         }
     }
 }

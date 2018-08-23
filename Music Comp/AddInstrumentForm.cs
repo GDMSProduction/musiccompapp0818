@@ -24,7 +24,7 @@ namespace Music_Comp
         public float mainLINE_SPACING = Staff.LINE_SPACING;
         public float mainLENGTH = Staff.LENGTH;
         public float mainHEIGHT = Staff.HEIGHT;
-        
+
         public List<Clef> clefs = new List<Clef>();
         public Grouping grouping = Grouping.None;
 
