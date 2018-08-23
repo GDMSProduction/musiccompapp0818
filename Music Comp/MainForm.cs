@@ -128,12 +128,14 @@ namespace Music_Comp
 
         private void zoomInButton_Click(object sender, EventArgs e)
         {
+            ActiveControl = graphicsPanel;
             if (Song.PAGE_WIDTH < 5000)
                 graphicsPanel.Size = new Size((int)(PAGE_WIDTH + 100), (int)(PAGE_HEIGHT + 100 * PAGE_HEIGHT / PAGE_WIDTH));
         }
 
         private void zoomOutButton_Click(object sender, EventArgs e)
         {
+            ActiveControl = graphicsPanel;
             if (Song.PAGE_WIDTH > 500)
                 graphicsPanel.Size = new Size((int)(PAGE_WIDTH - 100), (int)(PAGE_HEIGHT - 100 * PAGE_HEIGHT / PAGE_WIDTH));
         }
