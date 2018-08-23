@@ -137,23 +137,26 @@ namespace Music_Comp
 
             for (int j = 0; j < mInstruments.Count; j++)
             {
+                PointF start;
+                PointF end;
+
                 btm_inst_line = top_inst_line + (Staff.HEIGHT + STAFF_SPACING) * mInstruments[j].GetNumberOfStaves() - STAFF_SPACING;
                 DrawGrouping(mInstruments[j].GetGrouping(), top_inst_line, btm_inst_line, e);
 
                 for (int i = 0; i < barlines.Count; i++)
                 {
-                    PointF start = new PointF(barlines[i], top_inst_line);
-                    PointF end = new PointF(barlines[i], btm_inst_line);
+                    start = new PointF(barlines[i], top_inst_line);
+                    end = new PointF(barlines[i], btm_inst_line);
 
                     if (e.Graphics.IsVisible(new RectangleF(start.X, start.Y, 1, end.Y - start.Y)))
                         e.Graphics.DrawLine(barLinePen, start, end);
                 }
 
-                PointF startLast = new PointF(PAGE_WIDTH - RIGHT_MARGIN, top_inst_line);
-                PointF endLast = new PointF(PAGE_WIDTH - RIGHT_MARGIN, btm_inst_line);
+                start = new PointF(PAGE_WIDTH - RIGHT_MARGIN, top_inst_line);
+                end = new PointF(PAGE_WIDTH - RIGHT_MARGIN, btm_inst_line);
 
-                if (e.Graphics.IsVisible(new RectangleF(startLast.X, startLast.Y, 1, endLast.Y - startLast.Y)))
-                    e.Graphics.DrawLine(barLinePen, startLast, endLast);
+                if (e.Graphics.IsVisible(new RectangleF(start.X, start.Y, 1, end.Y - start.Y)))
+                    e.Graphics.DrawLine(barLinePen, start, end);
 
                 top_inst_line = btm_inst_line + STAFF_SPACING + INSTRUMENT_SPACING;
             }
@@ -197,8 +200,6 @@ namespace Music_Comp
         public void Draw(PaintEventArgs e)
         {
             Pen barLinePen = new Pen(Color.Black, 3.4f * _SCALE);
-
-            mBarlines = new List<float>();
 
             float btm_song_line = TOP_MARGIN + (Staff.HEIGHT + STAFF_SPACING) * TOTAL_STAVES - STAFF_SPACING + (TOTAL_INSTRUMENTS - 1) * INSTRUMENT_SPACING;
 

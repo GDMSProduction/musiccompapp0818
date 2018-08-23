@@ -10,7 +10,6 @@ namespace Music_Comp
 
         List<Chord> mChords;
 
-        float mXPosition;
         float mYPosition;
         float mLength;
 
@@ -21,10 +20,9 @@ namespace Music_Comp
         Key mKey;
         Time mTime;
 
-        public Measure(Clef clef, float cursorX, float yPosition)
+        public Measure(Clef clef, float yPosition)
         {
             mClef = clef;
-            mXPosition = cursorX;
             mYPosition = yPosition;
             isFull = false;
             mChords = new List<Chord>();
@@ -100,15 +98,18 @@ namespace Music_Comp
             }
         }
 
+        public void UpdateLength()
+        {
+            mLength = 60 * Song._SCALE * mChords.Count;
+        }
+
         public void Draw(float cursorX, PaintEventArgs e)
         {
-            mXPosition = cursorX;
             float cursor = 0;
             foreach (Chord chord in mChords)
             {
-                chord.Draw(mXPosition + cursor, mYPosition, mClef, e);
+                chord.Draw(cursorX + cursor, mYPosition, mClef, e);
                 cursor += 60 * Song._SCALE;
-                mLength = cursor;
             }
         }
     }

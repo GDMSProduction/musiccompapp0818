@@ -72,7 +72,7 @@ namespace Music_Comp
 
         public void AddMeasure()
         {
-            mMeasures.Add(new Measure(mClef, mCursorX, mYPosition));
+            mMeasures.Add(new Measure(mClef, mYPosition));
         }
 
         public bool IsActive()
@@ -288,10 +288,28 @@ namespace Music_Comp
             for (int i = 0; i < mMeasures.Count; i++)
             {
                 mCursorX += 30 * Song._SCALE;
-                Song.mBarlines.Add(mCursorX);
+                if (i >= Song.mBarlines.Count)
+                {
+                    Song.mBarlines.Add(mCursorX);
+                }
+                else
+                {
+                    if (mCursorX > Song.mBarlines[i])
+                    {
+                        Song.mBarlines[i] = mCursorX;
+                    }
+                    else
+                    {
+                        mCursorX = Song.mBarlines[i];
+                    }
+                }
 
-                mMeasures[i].Draw(mCursorX, e);
+                mMeasures[i].UpdateLength();
                 mCursorX += mMeasures[i].GetLength();
+            }
+            for (int i = 0; i < mMeasures.Count; i++)
+            {
+                mMeasures[i].Draw(Song.mBarlines[i], e);
             }
         }
     }
