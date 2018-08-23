@@ -17,104 +17,203 @@ namespace Music_Comp
             InitializeComponent();
         }
 
-        public int GetKeySignature()
+        public Key GetKeySignature()
         {
-            int key;
+            Key key;
 
             if (cFlat_Button.Checked)
             {
-                cFlat_Button.Checked = true;
-                key = -7;
+                key = Key.Cflat;
             }
 
             else if (gFlat_Button.Checked)
             {
-                key = -6;
+                key = Key.Gflat;
             }
 
             else if (dFlat_Button.Checked)
             {
-                key = -5;
+                key = Key.Dflat;
             }
 
             else if (aFlat_Button.Checked)
             {
-                key = -4;
+                key = Key.Aflat;
             }
 
             else if (eFlat_Button.Checked)
             {
-                key = -3;
+                key = Key.Eflat;
             }
 
             else if (bFlat_Button.Checked)
             {
-                key = -2;
+                key = Key.Bflat;
             }
 
             else if (F_Button.Checked)
             {
-                key = -1;
+                key = Key.F;
             }
 
             else if (C_Button.Checked)
             {
-                key = 0;
+                key = Key.C;
             }
 
             else if (G_Button.Checked)
             {
-                key = 1;
+                key = Key.G;
             }
 
             else if (D_Button.Checked)
             {
-                key = 2;
+                key = Key.D;
             }
 
             else if (A_Button.Checked)
             {
-                key = 3;
+                key = Key.A;
             }
 
             else if (E_Button.Checked)
             {
-                key = 4;
+                key = Key.E;
             }
 
             else if (B_Button.Checked)
             {
-                key = 5;
+                key = Key.B;
             }
             else if (fSharp_Button.Checked)
             {
-                key = 6;
+                key = Key.Fsharp;
             }
+
+            else if (cSharp_Button.Checked)
+            {
+                key = Key.Csharp;   
+            }
+
             else
             {
-                // cSharp_Button Checked
-
-                key = 7;   
+                key = Key.C;
             }
 
             return key;
         }
 
-        public int GetTimeSignature()
+        public Time GetTimeSignature()
         {
-            int time;
+            Time time;
 
             if (SixEight_Button.Checked)
             {
-                time = -2;
+                time = Time.SixEight;
             }
 
+            else if (FourFour_Button.Checked)
+            {
+                time = Time.FourFour;
+            }
             else
             {
-                time = 0;
+                time = Time.FourFour;
             }
 
             return time;
+        }
+
+        public void SetKeySignatureButton(Key key)
+        {
+            
+            if (key == Key.Cflat)
+            {
+                cFlat_Button.Checked = true;
+            }
+
+            else if (key == Key.Gflat)
+            {
+                gFlat_Button.Checked = true;
+            }
+
+            else if (key == Key.Dflat)
+            {
+                dFlat_Button.Checked = true;
+            }
+
+            else if (key == Key.Aflat)
+            {
+                aFlat_Button.Checked = true;
+            }
+
+            else if (key == Key.Eflat)
+            {
+                eFlat_Button.Checked = true;
+            }
+
+            else if (key == Key.Bflat)
+            {
+                bFlat_Button.Checked = true;
+            }
+
+            else if (key == Key.F)
+            {
+                F_Button.Checked = true;
+            }
+
+            else if (key == Key.C)
+            {
+                C_Button.Checked = true;
+            }
+
+            else if (key == Key.G)
+            {
+                G_Button.Checked = true;
+            }
+
+            else if (key == Key.D)
+            {
+                D_Button.Checked = true;
+            }
+
+            else if (key == Key.A)
+            {
+                A_Button.Checked = true;
+            }
+
+            else if (key == Key.E)
+            {
+                E_Button.Checked = true;
+            }
+
+            else if (key == Key.B)
+            {
+                B_Button.Checked = true;
+            }
+            else if (key == Key.Fsharp)
+            {
+                fSharp_Button.Checked = true;
+            }
+            else if (key == Key.Csharp)
+            {
+                cSharp_Button.Checked = true;
+            }
+        }
+
+        public void SetTimeSignatureButton(Time time)
+        {
+
+            if (time == Time.SixEight)
+            {
+                SixEight_Button.Checked = true;
+            }
+
+            else if (time == Time.FourFour)
+            {
+                FourFour_Button.Checked = true;
+            }
+
         }
     }
 }
