@@ -32,7 +32,6 @@ namespace Music_Comp
         public string composer;
 
         Song song;
-        Song tempSong;
 
         public List<instrumentTemplate> instruments;
 
@@ -66,7 +65,7 @@ namespace Music_Comp
 
         private void graphicsPanel1_Paint(object sender, PaintEventArgs e)
         {
-            if (song != null)
+            if (song != null && Song.TOTAL_INSTRUMENTS != 0)
                 song.Draw(e);
             graphicsPanel1.Height = Height - graphicsPanel1.Location.Y - 48;
             graphicsPanel1.Width = Width - graphicsPanel1.Location.X - (cancelButton.Width + okButton.Width) - 30;
