@@ -54,6 +54,7 @@ namespace Music_Comp
 
         private void AddInstrumentForm_Paint(object sender, PaintEventArgs e)
         {
+            song.Update();
             song.Draw(e);
         }
 

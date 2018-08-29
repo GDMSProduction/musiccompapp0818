@@ -6,7 +6,7 @@ namespace Music_Comp
 {
     class Instrument
     {
-        Rectangle area;
+        RectangleF area;
 
         Staff[] mStaves;
         Clef[] mClefs;
@@ -36,7 +36,7 @@ namespace Music_Comp
             return mStaves[i];
         }
 
-        public Rectangle GetArea()
+        public RectangleF GetArea()
         {
             return area;
         }
@@ -66,6 +66,12 @@ namespace Music_Comp
                 if (i == mStaves.Length - 1)
                     Song.TOTAL_INSTRUMENTS++;
             }
+        }
+
+        public void Update()
+        {
+            foreach (Staff staff in mStaves)
+                staff.Update();
         }
 
         public void Draw(PaintEventArgs e)

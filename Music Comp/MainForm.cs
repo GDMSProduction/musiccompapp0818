@@ -79,7 +79,10 @@ namespace Music_Comp
             zoomInButton.Location = new Point(Width - 110, Height - 200);
             zoomOutButton.Location = new Point(Width - 110, Height - 150);
             if (song != null && Song.TOTAL_INSTRUMENTS != 0)
+            {
+                song.Update();
                 song.Draw(e);
+            }
         }
 
         private void MainForm_Resize(object sender, EventArgs e)

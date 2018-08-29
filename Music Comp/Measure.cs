@@ -6,7 +6,7 @@ namespace Music_Comp
 {
     public class Measure
     {
-        Rectangle area;
+        RectangleF area;
 
         List<Chord> mChords;
 
@@ -41,7 +41,7 @@ namespace Music_Comp
             return mChords[i];
         }
 
-        public Rectangle GetArea()
+        public RectangleF GetArea()
         {
             return area;
         }
@@ -101,14 +101,19 @@ namespace Music_Comp
             mLength = 60 * Song._SCALE * mChords.Count;
         }
 
-        public void Draw(float cursorX, float yPosition, PaintEventArgs e)
+        public void Update(float cursorX, float yPosition)
         {
             float cursor = 0;
             foreach (Chord chord in mChords)
             {
-                chord.Draw(cursorX + cursor, yPosition, mClef, e);
+                chord.Update(cursorX + cursor, yPosition, mClef);
                 cursor += 60 * Song._SCALE;
             }
+        }
+        public void Draw(PaintEventArgs e)
+        {
+            foreach (Chord chord in mChords)
+                chord.Draw(e);
         }
     }
 }

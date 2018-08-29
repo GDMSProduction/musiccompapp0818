@@ -48,10 +48,16 @@ namespace Music_Comp
                 note.SetDuration(d);
         }
 
-        public void Draw(float cursorX, float staffYPosition, Clef clef, PaintEventArgs e)
+        public void Update(float cursorX, float staffYPosition, Clef clef)
         {
             foreach (Note note in mNotes)
-                note.Draw(cursorX, staffYPosition, clef, e);
+                note.Update(cursorX, staffYPosition, clef);
+        }
+
+        public void Draw(PaintEventArgs e)
+        {
+            foreach (Note note in mNotes)
+                note.Draw(e);
         }
     }
 }
