@@ -360,7 +360,7 @@ namespace Music_Comp
                 if (i >= Song.mBarlines.Count) Song.mBarlines.Add(mCursorX);
                 else if (mCursorX > Song.mBarlines[i]) Song.mBarlines[i] = mCursorX;
                 else mCursorX = Song.mBarlines[i];
-
+                mMeasures[i].UpdateLength();
                 mCursorX += mMeasures[i].GetLength();
             }
         }

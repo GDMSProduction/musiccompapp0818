@@ -107,7 +107,7 @@ namespace Music_Comp
                     case Duration.Half:
                         image = Properties.Resources.HalfRest;
                         size = new SizeF(120 * Song._SCALE, 170 * Song._SCALE);
-                        y += 295 * Song._SCALE;
+                        y += 296 * Song._SCALE;
                         x -= 15 * Song._SCALE;
                         break;
                     case Duration.Whole:
@@ -148,13 +148,15 @@ namespace Music_Comp
                         break;
                     case Duration.Whole:
                         image = Properties.Resources.WholeNote;
-                        size = new SizeF(90 * Song._SCALE, 135 * Song._SCALE);
-                        y -= 50 * Song._SCALE;
+                        size = new SizeF(65 * Song._SCALE, 29 * Song._SCALE);
+                        y += 42 * Song._SCALE;
+                        x += 10 * Song._SCALE;
                         break;
                     case Duration.Eighth:
                         image = Properties.Resources.EighthNote;
                         size = new SizeF(72 * Song._SCALE, 117.5f * Song._SCALE);
                         y -= 47 * Song._SCALE;
+                        x += 10 * Song._SCALE;
                         break;
                     case Duration.Sixteenth:
                         image = Properties.Resources.SixteenthNote;
