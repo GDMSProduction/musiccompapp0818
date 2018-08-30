@@ -24,6 +24,8 @@ namespace Music_Comp
         static Image fourFourImage = Properties.Resources.FourFour;
         static Image sixEightImage = Properties.Resources.SixEight;
 
+        Color cursorColor = Properties.Settings.Default.CursorColor;
+
         public static float LINE_SPACING;
         public static float LENGTH;
         public static float HEIGHT;
@@ -159,7 +161,7 @@ namespace Music_Comp
         {
             if (isActive)
             {
-                SolidBrush brush = new SolidBrush(Color.LightSkyBlue);
+                SolidBrush brush = new SolidBrush(cursorColor);
                 if (e.Graphics.IsVisible(cursorArea))
                     e.Graphics.FillRectangle(brush, cursorArea);
                 brush.Dispose();

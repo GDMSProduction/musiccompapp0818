@@ -7,7 +7,7 @@
     <ProjectGuid>{D3D2E210-B89F-4A7A-AADA-BF07CA157D2F}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>Music_Comp</RootNamespace>
-    <AssemblyName>Music Comp</AssemblyName>
+    <AssemblyName>BitComposer</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
