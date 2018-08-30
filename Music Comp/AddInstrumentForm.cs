@@ -56,6 +56,9 @@ namespace Music_Comp
         {
             song.Update();
             song.Draw(e);
+            Brace.Location = new System.Drawing.Point(Width - Brace.Size.Width - 73, 30);
+            Bracket.Location = new System.Drawing.Point(Width - Brace.Size.Width - 73, 70);
+            None.Location = new System.Drawing.Point(Width - Brace.Size.Width - 73, 110);
         }
 
         private void Brace_CheckedChanged(object sender, EventArgs e)
@@ -163,6 +166,11 @@ namespace Music_Comp
             Enum.TryParse(St4Clef.Text, out Clef c);
             clefs[3] = c;
             RefreshSong();
+        }
+
+        private void AddInstrumentForm_SizeChanged(object sender, EventArgs e)
+        {
+            graphicsPanel.Invalidate();
         }
     }
 }
