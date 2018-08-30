@@ -147,6 +147,8 @@
             // 
             // KeyBox
             // 
+            this.KeyBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.KeyBox.FormattingEnabled = true;
             this.KeyBox.Items.AddRange(new object[] {
             "Cflat",
@@ -173,6 +175,8 @@
             // 
             // TimeBox
             // 
+            this.TimeBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.TimeBox.FormattingEnabled = true;
             this.TimeBox.Items.AddRange(new object[] {
             "FourFour",

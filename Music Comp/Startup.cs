@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace Music_Comp
 {
@@ -72,19 +73,19 @@ namespace Music_Comp
             }
             graphicsPanel1.Height = Height - graphicsPanel1.Location.Y - 48;
             graphicsPanel1.Width = Width - graphicsPanel1.Location.X - (cancelButton.Width + okButton.Width) - 90;
-            okButton.Location = new System.Drawing.Point((Width - 22) - okButton.Width, Height - 75);
-            cancelButton.Location = new System.Drawing.Point((Width - (cancelButton.Width + 25)) - cancelButton.Width, Height - 75);
-            AddInstrumentButton.Location = new System.Drawing.Point(Width - (AddInstrumentButton.Width + 40) - AddInstrumentButton.Width, 45);
-            removeInstrumentButton.Location = new System.Drawing.Point(Width - removeInstrumentButton.Width - 34, 45);
-            label5.Location = new System.Drawing.Point(Width - label5.Width - 70, 25);
-            label2.Location = new System.Drawing.Point(Width - 176, 95);
-            KeyBox.Location = new System.Drawing.Point(Width - 96, 93);
-            label3.Location = new System.Drawing.Point(Width - 176, 125);
-            TimeBox.Location = new System.Drawing.Point(Width - 96, 123);
-            label1.Location = new System.Drawing.Point(Width - 176, 155);
-            titleTextBox.Location = new System.Drawing.Point(Width - 96, 153);
-            label4.Location = new System.Drawing.Point(Width - 176, 185);
-            composerTextBox.Location = new System.Drawing.Point(Width - 96, 183);
+            okButton.Location = new Point((Width - 22) - okButton.Width, Height - 75);
+            cancelButton.Location = new Point((Width - (cancelButton.Width + 25)) - cancelButton.Width, Height - 75);
+            AddInstrumentButton.Location = new Point(Width - (AddInstrumentButton.Width + 40) - AddInstrumentButton.Width, 45);
+            removeInstrumentButton.Location = new Point(Width - removeInstrumentButton.Width - 34, 45);
+            label5.Location = new Point(Width - label5.Width - 70, 25);
+            label2.Location = new Point(Width - 176, 95);
+            KeyBox.Location = new  Point(Width - 96, 93);
+            label3.Location = new  Point(Width - 176, 125);
+            TimeBox.Location = new Point(Width - 96, 123);
+            label1.Location = new Point(Width - 176, 155);
+            titleTextBox.Location = new Point(Width - 96, 153);
+            label4.Location = new Point(Width - 176, 185);
+            composerTextBox.Location = new Point(Width - 96, 183);
         }
 
         private void AddInstrumentButton_Click(object sender, EventArgs e)
