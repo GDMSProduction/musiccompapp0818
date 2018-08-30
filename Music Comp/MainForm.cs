@@ -22,6 +22,12 @@ namespace Music_Comp
 
         Duration currentDuration = Duration.Quarter;
 
+        Bitmap quarter = new Bitmap(Properties.Resources.Note, new Size(65, 100));
+        Bitmap half = new Bitmap(Properties.Resources.HalfNote, new Size(80, 80));
+        Bitmap eighth = new Bitmap(Properties.Resources.EighthNote, new Size(55, 80));
+        Bitmap sixteenth = new Bitmap(Properties.Resources.HalfNote, new Size(80, 80));
+        Bitmap whole = new Bitmap(Properties.Resources.WholeNote, new Size(70, 40));
+
         public MainForm()
         {
             InitializeComponent();
@@ -192,6 +198,11 @@ namespace Music_Comp
         {
             bool valid = false;
 
+            if (song == null || Song.TOTAL_INSTRUMENTS == 0)
+            {
+                return;
+            }
+
             if (!ControlCheck())
             {
                 Chord chord = new Chord();
@@ -206,23 +217,23 @@ namespace Music_Comp
                             {
                                 case Duration.Sixteenth:
                                     currentDuration = Duration.Eighth;
-                                    SongDuration.Image = new Bitmap(Properties.Resources.EighthNote, new Size(55, 80));
+                                    SongDuration.Image = eighth;
                                     break;
                                 case Duration.Eighth:
                                     currentDuration = Duration.Quarter;
-                                    SongDuration.Image = new Bitmap(Properties.Resources.Note, new Size(65, 100));
+                                    SongDuration.Image = quarter;
                                     break;
                                 case Duration.Quarter:
                                     currentDuration = Duration.Half;
-                                    SongDuration.Image = new Bitmap(Properties.Resources.HalfNote, new Size(80, 80));
+                                    SongDuration.Image = half;
                                     break;
                                 case Duration.Half:
                                     currentDuration = Duration.Whole;
-                                    SongDuration.Image = new Bitmap(Properties.Resources.WholeNote, new Size(70, 40));
+                                    SongDuration.Image = whole;
                                     break;
                                 case Duration.Whole:
                                     currentDuration = Duration.Sixteenth;
-                                    SongDuration.Image = new Bitmap(Properties.Resources.SixteenthNote, new Size(80, 80));
+                                    SongDuration.Image = sixteenth;
                                     break;
                             }
                         }
@@ -232,23 +243,23 @@ namespace Music_Comp
                             {
                                 case Duration.Sixteenth:
                                     currentDuration = Duration.Whole;
-                                    SongDuration.Image = new Bitmap(Properties.Resources.WholeNote, new Size(70, 40));
+                                    SongDuration.Image = whole;
                                     break;
                                 case Duration.Eighth:
                                     currentDuration = Duration.Sixteenth;
-                                    SongDuration.Image = new Bitmap(Properties.Resources.SixteenthNote, new Size(80, 80));
+                                    SongDuration.Image = sixteenth;
                                     break;
                                 case Duration.Quarter:
                                     currentDuration = Duration.Eighth;
-                                    SongDuration.Image = new Bitmap(Properties.Resources.EighthNote, new Size(55, 80));
+                                    SongDuration.Image = eighth;
                                     break;
                                 case Duration.Half:
                                     currentDuration = Duration.Quarter;
-                                    SongDuration.Image = new Bitmap(Properties.Resources.Note, new Size(65, 100));
+                                    SongDuration.Image = quarter;
                                     break;
                                 case Duration.Whole:
                                     currentDuration = Duration.Half;
-                                    SongDuration.Image = new Bitmap(Properties.Resources.HalfNote, new Size(80, 80));
+                                    SongDuration.Image = half;
                                     break;
                             }
                         }
@@ -665,23 +676,23 @@ namespace Music_Comp
                 {
                     case Duration.Sixteenth:
                         currentDuration = Duration.Eighth;
-                        SongDuration.Image = new Bitmap(Properties.Resources.EighthNote, new Size(55, 80));
+                        SongDuration.Image = eighth;
                         break;
                     case Duration.Eighth:
                         currentDuration = Duration.Quarter;
-                        SongDuration.Image = new Bitmap(Properties.Resources.Note, new Size(65, 100));
+                        SongDuration.Image = quarter;
                         break;
                     case Duration.Quarter:
                         currentDuration = Duration.Half;
-                        SongDuration.Image = new Bitmap(Properties.Resources.HalfNote, new Size(80, 80));
+                        SongDuration.Image = half;
                         break;
                     case Duration.Half:
                         currentDuration = Duration.Whole;
-                        SongDuration.Image = new Bitmap(Properties.Resources.WholeNote, new Size(70, 40));
+                        SongDuration.Image = whole;
                         break;
                     case Duration.Whole:
                         currentDuration = Duration.Sixteenth;
-                        SongDuration.Image = new Bitmap(Properties.Resources.SixteenthNote, new Size(80, 80));
+                        SongDuration.Image = sixteenth;
                         break;
                 }
             }
@@ -691,23 +702,23 @@ namespace Music_Comp
                 {
                     case Duration.Sixteenth:
                         currentDuration = Duration.Whole;
-                        SongDuration.Image = new Bitmap(Properties.Resources.WholeNote, new Size(70, 40));
+                        SongDuration.Image = whole;
                         break;
                     case Duration.Eighth:
                         currentDuration = Duration.Sixteenth;
-                        SongDuration.Image = new Bitmap(Properties.Resources.SixteenthNote, new Size(80, 80));
+                        SongDuration.Image = sixteenth;
                         break;
                     case Duration.Quarter:
                         currentDuration = Duration.Eighth;
-                        SongDuration.Image = new Bitmap(Properties.Resources.EighthNote, new Size(55, 80));
+                        SongDuration.Image = eighth;
                         break;
                     case Duration.Half:
                         currentDuration = Duration.Quarter;
-                        SongDuration.Image = new Bitmap(Properties.Resources.Note, new Size(65, 100));
+                        SongDuration.Image = quarter;
                         break;
                     case Duration.Whole:
                         currentDuration = Duration.Half;
-                        SongDuration.Image = new Bitmap(Properties.Resources.HalfNote, new Size(80, 80));
+                        SongDuration.Image = half;
                         break;
                 }
             }
