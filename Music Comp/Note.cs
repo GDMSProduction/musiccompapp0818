@@ -113,19 +113,19 @@ namespace Music_Comp
                     case Duration.Whole:
                         image = Properties.Resources.WholeRest;
                         size = new SizeF(120 * Song._SCALE, 170 * Song._SCALE);
-                        y += 295 * Song._SCALE;
+                        y += 277 * Song._SCALE;
                         x -= 15 * Song._SCALE;
                         break;
                     case Duration.Eighth:
                         image = Properties.Resources.EighthRest;
-                        size = new SizeF(35 * Song._SCALE, 90 * Song._SCALE);
-                        y += 312 * Song._SCALE;
+                        size = new SizeF(35 * Song._SCALE, 62 * Song._SCALE);
+                        y += 333 * Song._SCALE;
                         x += 33 * Song._SCALE;
                         break;
                     case Duration.Sixteenth:
                         image = Properties.Resources.SixteenthRest;
-                        size = new SizeF(35 * Song._SCALE, 90 * Song._SCALE);
-                        y += 312 * Song._SCALE;
+                        size = new SizeF(45 * Song._SCALE, 90 * Song._SCALE);
+                        y += 333 * Song._SCALE;
                         x += 33 * Song._SCALE;
                         break;
                 }
