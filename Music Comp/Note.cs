@@ -6,14 +6,12 @@ namespace Music_Comp
     public class Note
     {
         RectangleF area;
+        Image image;
 
         Pitch mPitch;
         Accidental mAccidental;
         Duration mDuration;
         sbyte mOctave = 4;
-        Image image;
-
-        float mWidth;
 
         public Note(Pitch p, Accidental a, Duration d, sbyte o)
         {
@@ -23,20 +21,19 @@ namespace Music_Comp
             mOctave = o;
         }
 
-        public Note(Pitch p, Accidental a, Duration d, sbyte o, float width, Image i, RectangleF ar)
+        public Note(Pitch p, Accidental a, Duration d, sbyte o, Image i, RectangleF ar)
         {
             mPitch = p;
             mAccidental = a;
             mDuration = d;
             mOctave = o;
-            mWidth = width;
             image = i;
             area = ar;
         }
 
         public Note Clone()
         {
-            return new Note(mPitch, mAccidental, mDuration, mOctave, mWidth, image, area);
+            return new Note(mPitch, mAccidental, mDuration, mOctave, image, area);
         }
 
         public Pitch GetPitch()
@@ -81,7 +78,7 @@ namespace Music_Comp
 
         public float GetWidth()
         {
-            return mWidth;
+            return area.Width;
         }
 
         public RectangleF GetArea()
@@ -167,7 +164,6 @@ namespace Music_Comp
                 }
             }
 
-            mWidth = size.Width;
             location = new PointF(x, y);
             area = new RectangleF(location, size);
         }

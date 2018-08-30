@@ -87,9 +87,12 @@ namespace Music_Comp
         Sixteenth = 3,
         Triplet = 4,
         Eighth = 6,
+        DottedEighth = 9,
         Quarter = 12,
+        DottedQuarter = 18,
         Drag = 16,
         Half = 24,
+        DottedHalf = 36,
         Whole = 48
     }
     public enum Grouping

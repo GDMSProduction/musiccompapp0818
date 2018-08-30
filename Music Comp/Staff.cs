@@ -11,6 +11,7 @@ namespace Music_Comp
         RectangleF keyArea;
         RectangleF timeArea;
         RectangleF cursorArea;
+        List<RectangleF> keySignature;
 
         static Image doubleflatImage = Properties.Resources.DoubleFlat;
         static Image flatImage = Properties.Resources.Flat;
@@ -53,6 +54,8 @@ namespace Music_Comp
             mMeasures = new List<Measure>();
             AddMeasure();
 
+            keySignature = new List<RectangleF>();
+
             Song.TOTAL_STAVES++;
         }
 
@@ -93,33 +96,49 @@ namespace Music_Comp
             return mYPosition;
         }
 
-        public void DrawAccidental(float x, float y, Accidental a, PaintEventArgs e)
+        public void AddAccidental(float x, float y, Accidental a)
         {
-            RectangleF rect;
             switch (a)
             {
                 case Accidental.DoubleFlat:
-                    rect = new RectangleF(x, y - 50 * Song._SCALE, 60 * Song._SCALE, 70 * Song._SCALE);
+                    keySignature.Add(new RectangleF(x, y - 50 * Song._SCALE, 60 * Song._SCALE, 70 * Song._SCALE));
+                    break;
+                case Accidental.Flat:
+                    keySignature.Add(new RectangleF(x, y - 50 * Song._SCALE, 35 * Song._SCALE, 68 * Song._SCALE));
+                    break;
+                case Accidental.Natural:
+                    keySignature.Add(new RectangleF(x, y - 38 * Song._SCALE, 20 * Song._SCALE, 70 * Song._SCALE));
+                    break;
+                case Accidental.Sharp:
+                    keySignature.Add(new RectangleF(x, y - 38 * Song._SCALE, 35 * Song._SCALE, 70 * Song._SCALE));
+                    break;
+                case Accidental.DoubleSharp:
+                    keySignature.Add(new RectangleF(x, y - 20 * Song._SCALE, 35 * Song._SCALE, 35 * Song._SCALE));
+                    break;
+            }
+        }
+
+        public void DrawAccidental(RectangleF rect, Accidental a, PaintEventArgs e)
+        {
+            switch (a)
+            {
+                case Accidental.DoubleFlat:
                     if (e.Graphics.IsVisible(rect))
                         e.Graphics.DrawImage(doubleflatImage, rect);
                     break;
                 case Accidental.Flat:
-                    rect = new RectangleF(x, y - 50 * Song._SCALE, 35 * Song._SCALE, 68 * Song._SCALE);
                     if (e.Graphics.IsVisible(rect))
                         e.Graphics.DrawImage(flatImage, rect);
                     break;
                 case Accidental.Natural:
-                    rect = new RectangleF(x, y - 38 * Song._SCALE, 20 * Song._SCALE, 70 * Song._SCALE);
                     if (e.Graphics.IsVisible(rect))
                         e.Graphics.DrawImage(naturalImage, rect);
                     break;
                 case Accidental.Sharp:
-                    rect = new RectangleF(x, y - 38 * Song._SCALE, 35 * Song._SCALE, 70 * Song._SCALE);
                     if (e.Graphics.IsVisible(rect))
                         e.Graphics.DrawImage(sharpImage, rect);
                     break;
                 case Accidental.DoubleSharp:
-                    rect = new RectangleF(x, y - 20 * Song._SCALE, 35 * Song._SCALE, 35 * Song._SCALE);
                     if (e.Graphics.IsVisible(rect))
                         e.Graphics.DrawImage(doublesharpImage, rect);
                     break;
@@ -231,7 +250,7 @@ namespace Music_Comp
             }
         }
 
-        private void DrawKeySignature(PaintEventArgs e)
+        private void UpdateKeySignature()
         {
             PointF location = new PointF(mCursorX, mYPosition);
             SizeF size = new SizeF();
@@ -239,14 +258,14 @@ namespace Music_Comp
             if (Song.KEY < 0)                                   // Flats
                 for (int i = 0, y = 7; i > (int)Song.KEY; i--)  // B E A D G C F
                 {
-                    DrawAccidental(mCursorX, mYPosition + (260 + (y + (int)mClef) * 14.5f) * Song._SCALE, Accidental.Flat, e);
+                    AddAccidental(mCursorX, mYPosition + (260 + (y + (int)mClef) * 14.5f) * Song._SCALE, Accidental.Flat);
                     y += (i % 2 == 0 ? -3 : 4);
                     mCursorX += 30 * Song._SCALE;
                 }
             else if (Song.KEY > 0)                                                         // Sharps
                 for (int i = 0, y = mClef != Clef.Tenor ? 3 : 10; i < (int)Song.KEY; i++)  // F C G D A E B
                 {
-                    DrawAccidental(mCursorX, mYPosition + (260 + (y + (int)mClef) * 14.5f) * Song._SCALE, Accidental.Sharp, e);
+                    AddAccidental(mCursorX, mYPosition + (260 + (y + (int)mClef) * 14.5f) * Song._SCALE, Accidental.Sharp);
                     if (mClef == Clef.Tenor || i > 2)
                         y += i % 2 == 0 ? -4 : 3;
                     else
@@ -260,6 +279,12 @@ namespace Music_Comp
             keyArea = new RectangleF(location, size);
 
             mCursorX += 30 * Song._SCALE;
+        }
+
+        private void DrawKeySignature(PaintEventArgs e)
+        {
+            foreach (RectangleF rectangleF in keySignature)
+                DrawAccidental(rectangleF, Song.KEY > 0 ? Accidental.Sharp : Accidental.Flat, e);
         }
 
         private void UpdateTimeSignature()
@@ -351,6 +376,8 @@ namespace Music_Comp
             UpdateStaff();
 
             UpdateClef();
+
+            UpdateKeySignature();
 
             UpdateTimeSignature();
 
