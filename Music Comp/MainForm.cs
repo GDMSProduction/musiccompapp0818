@@ -25,7 +25,7 @@ namespace Music_Comp
         Bitmap quarter = new Bitmap(Properties.Resources.Note, new Size(65, 100));
         Bitmap half = new Bitmap(Properties.Resources.HalfNote, new Size(80, 80));
         Bitmap eighth = new Bitmap(Properties.Resources.EighthNote, new Size(55, 80));
-        Bitmap sixteenth = new Bitmap(Properties.Resources.HalfNote, new Size(80, 80));
+        Bitmap sixteenth = new Bitmap(Properties.Resources.SixteenthNote, new Size(80, 80));
         Bitmap whole = new Bitmap(Properties.Resources.WholeNote, new Size(70, 40));
 
         public MainForm()
@@ -50,7 +50,7 @@ namespace Music_Comp
 
             (graphicsPanel as Control).KeyUp += new KeyEventHandler(graphicsPanel_KeyUp);
 
-            SongDuration.Image = new Bitmap(Properties.Resources.Note, new Size(65, 100));
+            SongDuration.Image = quarter;
 
             Startup startup = new Startup();
             startup.ShowDialog();
@@ -198,7 +198,7 @@ namespace Music_Comp
         {
             bool valid = false;
 
-            if (song == null || Song.TOTAL_INSTRUMENTS == 0)
+            if ((song == null || Song.TOTAL_INSTRUMENTS == 0) && e.KeyCode != Keys.Tab)
             {
                 return;
             }
