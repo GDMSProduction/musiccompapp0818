@@ -44,6 +44,8 @@ namespace Music_Comp
 
             (graphicsPanel as Control).KeyUp += new KeyEventHandler(graphicsPanel_KeyUp);
 
+            SongDuration.Image = new Bitmap(Properties.Resources.Note, new Size(65, 100));
+
             Startup startup = new Startup();
             startup.ShowDialog();
 
@@ -80,6 +82,7 @@ namespace Music_Comp
         {
             zoomInButton.Location = new Point(Width - 110, Height - 200);
             zoomOutButton.Location = new Point(Width - 110, Height - 150);
+            SongDuration.Location = new Point(20, Height - 220);
             if (song != null && Song.TOTAL_INSTRUMENTS != 0)
             {
                 song.Update();
@@ -199,18 +202,23 @@ namespace Music_Comp
                             {
                                 case Duration.Sixteenth:
                                     currentDuration = Duration.Eighth;
+                                    SongDuration.Image = new Bitmap(Properties.Resources.EighthNote, new Size(80, 100));
                                     break;
                                 case Duration.Eighth:
                                     currentDuration = Duration.Quarter;
+                                    SongDuration.Image = new Bitmap(Properties.Resources.Note, new Size(50, 100));
                                     break;
                                 case Duration.Quarter:
                                     currentDuration = Duration.Half;
+                                    SongDuration.Image = new Bitmap(Properties.Resources.HalfNote, new Size(80, 100));
                                     break;
                                 case Duration.Half:
                                     currentDuration = Duration.Whole;
+                                    SongDuration.Image = new Bitmap(Properties.Resources.WholeNote, new Size(80, 100));
                                     break;
                                 case Duration.Whole:
                                     currentDuration = Duration.Sixteenth;
+                                    SongDuration.Image = new Bitmap(Properties.Resources.SixteenthNote, new Size(80, 100));
                                     break;
                             }
                         }
@@ -220,18 +228,23 @@ namespace Music_Comp
                             {
                                 case Duration.Sixteenth:
                                     currentDuration = Duration.Whole;
+                                    SongDuration.Image = new Bitmap(Properties.Resources.WholeNote, new Size(80, 100));
                                     break;
                                 case Duration.Eighth:
                                     currentDuration = Duration.Sixteenth;
+                                    SongDuration.Image = new Bitmap(Properties.Resources.SixteenthNote, new Size(80, 100));
                                     break;
                                 case Duration.Quarter:
                                     currentDuration = Duration.Eighth;
+                                    SongDuration.Image = new Bitmap(Properties.Resources.EighthNote, new Size(80, 100));
                                     break;
                                 case Duration.Half:
                                     currentDuration = Duration.Quarter;
+                                    SongDuration.Image = new Bitmap(Properties.Resources.Note, new Size(80, 100));
                                     break;
                                 case Duration.Whole:
                                     currentDuration = Duration.Half;
+                                    SongDuration.Image = new Bitmap(Properties.Resources.HalfNote, new Size(80, 100));
                                     break;
                             }
                         }
@@ -637,6 +650,11 @@ namespace Music_Comp
                 song.EditTimeSignature(SongSettingsMenu.GetTimeSignature());
                 graphicsPanel.Invalidate();
             }
+        }
+
+        private void SongDuration_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
