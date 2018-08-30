@@ -77,6 +77,10 @@ namespace Music_Comp
                 composerTextBox.Text = startup.composer;
             }
         }
+        protected override bool ProcessDialogKey(Keys keyData)
+        {
+            return false;
+        }
 
         private void graphicsPanel_Paint(object sender, PaintEventArgs e)
         {
