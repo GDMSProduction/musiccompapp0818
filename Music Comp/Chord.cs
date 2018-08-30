@@ -27,6 +27,14 @@ namespace Music_Comp
             mNotes.Remove(n);
         }
 
+        public Chord Clone()
+        {
+            List<Note> notes = new List<Note>();
+            foreach (Note note in mNotes)
+                notes.Add(note.Clone());
+            return new Chord(notes);
+        }
+
         public Note GetNote(int i)
         {
             return mNotes[i];
@@ -48,10 +56,10 @@ namespace Music_Comp
                 note.SetDuration(d);
         }
 
-        public void Update(float cursorX, float staffYPosition, Clef clef)
+        public void Update(float cursorX, float yPosition, Clef clef)
         {
             foreach (Note note in mNotes)
-                note.Update(cursorX, staffYPosition, clef);
+                note.Update(cursorX, yPosition, clef);
         }
 
         public void Draw(PaintEventArgs e)

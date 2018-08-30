@@ -23,6 +23,22 @@ namespace Music_Comp
             mOctave = o;
         }
 
+        public Note(Pitch p, Accidental a, Duration d, sbyte o, float width, Image i, RectangleF ar)
+        {
+            mPitch = p;
+            mAccidental = a;
+            mDuration = d;
+            mOctave = o;
+            mWidth = width;
+            image = i;
+            area = ar;
+        }
+
+        public Note Clone()
+        {
+            return new Note(mPitch, mAccidental, mDuration, mOctave, mWidth, image, area);
+        }
+
         public Pitch GetPitch()
         {
             return mPitch;

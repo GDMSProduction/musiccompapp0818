@@ -121,11 +121,6 @@ namespace Music_Comp
             Staff.LENGTH = Song.PAGE_WIDTH - Song.LEFT_MARGIN - Song.RIGHT_MARGIN;
             Staff.HEIGHT = 4 * Staff.LINE_SPACING;
 
-            if (Song.mBarlines != null)
-                for (int i = 0; i < Song.mBarlines.Count; i++)
-                    if (_SCALE < 1)
-                        Song.mBarlines[i] *= _SCALE;
-
             if (Width > graphicsPanel.Width)
                 graphicsPanel.Location = new Point(Width / 2 - graphicsPanel.Width / 2, 0);
             else
@@ -146,6 +141,12 @@ namespace Music_Comp
             ActiveControl = graphicsPanel;
             if (Song.PAGE_WIDTH > 500)
                 graphicsPanel.Size = new Size((int)(PAGE_WIDTH - 100), (int)(PAGE_HEIGHT - 100 * PAGE_HEIGHT / PAGE_WIDTH));
+            if (Song.mBarlines != null)
+                for (int i = 0; i < Song.mBarlines.Count; i++)
+                    if (_SCALE < 1)
+                        Song.mBarlines[i] *= _SCALE;
+                    else
+                        Song.mBarlines[i] /= _SCALE;
         }
 
         private void Add_Instrument_Click(object sender, EventArgs e)
@@ -221,6 +222,7 @@ namespace Music_Comp
                             graphicsPanel.Invalidate();
                         }
                         break;
+
                     case Keys.A:
                         valid = true;
                         chord.GetNote(0).SetPitch(Pitch.A);

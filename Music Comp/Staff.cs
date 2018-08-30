@@ -233,6 +233,9 @@ namespace Music_Comp
 
         private void DrawKeySignature(PaintEventArgs e)
         {
+            PointF location = new PointF(mCursorX, mYPosition);
+            SizeF size = new SizeF();
+
             if (Song.KEY < 0)                                   // Flats
                 for (int i = 0, y = 7; i > (int)Song.KEY; i--)  // B E A D G C F
                 {
@@ -250,6 +253,11 @@ namespace Music_Comp
                         y += i % 2 == 0 ? 3 : -4;
                     mCursorX += 30 * Song._SCALE;
                 }
+
+            size.Width = mCursorX;
+            size.Height = HEIGHT;
+
+            keyArea = new RectangleF(location, size);
 
             mCursorX += 30 * Song._SCALE;
         }

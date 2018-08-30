@@ -72,8 +72,8 @@ namespace Music_Comp
                     int remainderDuration = mTotalDuration - (int)Song.TIME;
                     int splitDuration = (int)chord.GetDuration() - remainderDuration;
 
-                    split = chord;
-                    remainder = chord;
+                    split = chord.Clone();
+                    remainder = chord.Clone();
 
                     split.SetDuration((Duration)splitDuration);
                     remainder.SetDuration((Duration)remainderDuration);
@@ -101,12 +101,12 @@ namespace Music_Comp
             mLength = 60 * Song._SCALE * mChords.Count;
         }
 
-        public void Update(float cursorX, float yPosition)
+        public void Update(float barline, float yPosition)
         {
             float cursor = 0;
             foreach (Chord chord in mChords)
             {
-                chord.Update(cursorX + cursor, yPosition, mClef);
+                chord.Update(barline + cursor, yPosition, mClef);
                 cursor += 60 * Song._SCALE;
             }
         }
