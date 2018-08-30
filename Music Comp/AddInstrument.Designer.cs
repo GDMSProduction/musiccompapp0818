@@ -232,6 +232,7 @@
             // 
             // graphicsPanel
             // 
+            this.graphicsPanel.BackColor = System.Drawing.SystemColors.Control;
             this.graphicsPanel.Location = new System.Drawing.Point(0, 0);
             this.graphicsPanel.Name = "graphicsPanel";
             this.graphicsPanel.Size = new System.Drawing.Size(313, 380);
@@ -261,6 +262,7 @@
             this.Controls.Add(this.graphicsPanel);
             this.Name = "AddInstrumentForm";
             this.Text = "AddInstrument";
+            this.SizeChanged += new System.EventHandler(this.AddInstrumentForm_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.StaveNumeric)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

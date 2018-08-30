@@ -63,7 +63,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 35);
+            this.label1.Location = new System.Drawing.Point(1495, 240);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(49, 25);
             this.label1.TabIndex = 1;
@@ -73,7 +73,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(12, 76);
+            this.label2.Location = new System.Drawing.Point(1495, 144);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(47, 25);
             this.label2.TabIndex = 2;
@@ -83,7 +83,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(12, 119);
+            this.label3.Location = new System.Drawing.Point(1495, 190);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(56, 25);
             this.label3.TabIndex = 3;
@@ -93,7 +93,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(255, 35);
+            this.label4.Location = new System.Drawing.Point(1495, 293);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(103, 25);
             this.label4.TabIndex = 4;
@@ -131,7 +131,7 @@
             // 
             // titleTextBox
             // 
-            this.titleTextBox.Location = new System.Drawing.Point(102, 36);
+            this.titleTextBox.Location = new System.Drawing.Point(1614, 241);
             this.titleTextBox.Name = "titleTextBox";
             this.titleTextBox.Size = new System.Drawing.Size(100, 26);
             this.titleTextBox.TabIndex = 8;
@@ -139,7 +139,7 @@
             // 
             // composerTextBox
             // 
-            this.composerTextBox.Location = new System.Drawing.Point(383, 36);
+            this.composerTextBox.Location = new System.Drawing.Point(1614, 294);
             this.composerTextBox.Name = "composerTextBox";
             this.composerTextBox.Size = new System.Drawing.Size(100, 26);
             this.composerTextBox.TabIndex = 11;
@@ -164,7 +164,7 @@
             "B",
             "Fsharp",
             "Csharp"});
-            this.KeyBox.Location = new System.Drawing.Point(102, 77);
+            this.KeyBox.Location = new System.Drawing.Point(1614, 145);
             this.KeyBox.Name = "KeyBox";
             this.KeyBox.Size = new System.Drawing.Size(100, 28);
             this.KeyBox.TabIndex = 4;
@@ -177,7 +177,7 @@
             this.TimeBox.Items.AddRange(new object[] {
             "FourFour",
             "SixEight"});
-            this.TimeBox.Location = new System.Drawing.Point(102, 120);
+            this.TimeBox.Location = new System.Drawing.Point(1614, 191);
             this.TimeBox.Name = "TimeBox";
             this.TimeBox.Size = new System.Drawing.Size(100, 28);
             this.TimeBox.TabIndex = 13;
@@ -200,9 +200,9 @@
             this.graphicsPanel1.BackColor = System.Drawing.SystemColors.Window;
             this.graphicsPanel1.Controls.Add(this.composerLabel);
             this.graphicsPanel1.Controls.Add(this.titleLabel);
-            this.graphicsPanel1.Location = new System.Drawing.Point(208, 119);
+            this.graphicsPanel1.Location = new System.Drawing.Point(12, 12);
             this.graphicsPanel1.Name = "graphicsPanel1";
-            this.graphicsPanel1.Size = new System.Drawing.Size(1314, 868);
+            this.graphicsPanel1.Size = new System.Drawing.Size(1431, 975);
             this.graphicsPanel1.TabIndex = 12;
             this.graphicsPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.graphicsPanel1_Paint);
             // 
@@ -211,7 +211,7 @@
             this.composerLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.composerLabel.AutoSize = true;
             this.composerLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.composerLabel.Location = new System.Drawing.Point(1229, 70);
+            this.composerLabel.Location = new System.Drawing.Point(1346, 70);
             this.composerLabel.Name = "composerLabel";
             this.composerLabel.Size = new System.Drawing.Size(0, 55);
             this.composerLabel.TabIndex = 3;
