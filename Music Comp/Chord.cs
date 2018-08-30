@@ -56,6 +56,11 @@ namespace Music_Comp
                 note.SetDuration(d);
         }
 
+        public float GetWidth()
+        {
+            return mNotes[0].GetWidth();
+        }
+
         public void Update(float cursorX, float yPosition, Clef clef)
         {
             foreach (Note note in mNotes)

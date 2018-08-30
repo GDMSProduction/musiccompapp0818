@@ -153,13 +153,13 @@ namespace Music_Comp
                         break;
                     case Duration.Eighth:
                         image = Properties.Resources.EighthNote;
-                        size = new SizeF(90 * Song._SCALE, 135 * Song._SCALE);
-                        y -= 50 * Song._SCALE;
+                        size = new SizeF(72 * Song._SCALE, 117.5f * Song._SCALE);
+                        y -= 47 * Song._SCALE;
                         break;
                     case Duration.Sixteenth:
                         image = Properties.Resources.SixteenthNote;
-                        size = new SizeF(90 * Song._SCALE, 135 * Song._SCALE);
-                        y -= 50 * Song._SCALE;
+                        size = new SizeF(120 * Song._SCALE, 120 * Song._SCALE);
+                        y -= 45 * Song._SCALE;
                         break;
                 }
             }
