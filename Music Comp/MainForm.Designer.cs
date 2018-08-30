@@ -208,13 +208,13 @@
             // controlsToolStripMenuItem
             // 
             this.controlsToolStripMenuItem.Name = "controlsToolStripMenuItem";
-            this.controlsToolStripMenuItem.Size = new System.Drawing.Size(252, 30);
+            this.controlsToolStripMenuItem.Size = new System.Drawing.Size(163, 30);
             this.controlsToolStripMenuItem.Text = "Controls";
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(252, 30);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(163, 30);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -242,7 +242,7 @@
             this.SongDuration.BackColor = System.Drawing.Color.White;
             this.SongDuration.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.SongDuration.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SongDuration.Location = new System.Drawing.Point(40, 3104);
+            this.SongDuration.Location = new System.Drawing.Point(40, 16374);
             this.SongDuration.Name = "SongDuration";
             this.SongDuration.Size = new System.Drawing.Size(150, 150);
             this.SongDuration.TabIndex = 5;
@@ -269,7 +269,8 @@
             this.composerTextBox.AcceptsReturn = true;
             this.composerTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.composerTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.composerTextBox.Location = new System.Drawing.Point(478, 85);
+            this.composerTextBox.Location = new System.Drawing.Point(772, 85);
+            this.composerTextBox.Margin = new System.Windows.Forms.Padding(3, 5, 3, 0);
             this.composerTextBox.MaxLength = 20;
             this.composerTextBox.Name = "composerTextBox";
             this.composerTextBox.Size = new System.Drawing.Size(203, 46);

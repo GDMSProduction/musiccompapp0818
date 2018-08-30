@@ -214,10 +214,10 @@
             // 
             this.composerLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.composerLabel.AutoSize = true;
-            this.composerLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.composerLabel.Location = new System.Drawing.Point(1346, 70);
+            this.composerLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.composerLabel.Location = new System.Drawing.Point(1299, 148);
             this.composerLabel.Name = "composerLabel";
-            this.composerLabel.Size = new System.Drawing.Size(0, 55);
+            this.composerLabel.Size = new System.Drawing.Size(0, 37);
             this.composerLabel.TabIndex = 3;
             this.composerLabel.SizeChanged += new System.EventHandler(this.composerLabel_SizeChanged);
             // 
