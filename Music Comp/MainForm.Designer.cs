@@ -104,7 +104,7 @@
             this.songToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1104, 33);
+            this.menuStrip1.Size = new System.Drawing.Size(1026, 33);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -233,7 +233,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 33);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1104, 645);
+            this.panel1.Size = new System.Drawing.Size(1026, 646);
             this.panel1.TabIndex = 4;
             // 
             // SongDuration
@@ -242,7 +242,7 @@
             this.SongDuration.BackColor = System.Drawing.Color.White;
             this.SongDuration.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.SongDuration.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SongDuration.Location = new System.Drawing.Point(29, 431);
+            this.SongDuration.Location = new System.Drawing.Point(40, 450);
             this.SongDuration.Name = "SongDuration";
             this.SongDuration.Size = new System.Drawing.Size(150, 150);
             this.SongDuration.TabIndex = 5;
@@ -256,7 +256,7 @@
             this.graphicsPanel.BackColor = System.Drawing.Color.White;
             this.graphicsPanel.Controls.Add(this.composerTextBox);
             this.graphicsPanel.Controls.Add(this.titleTextBox);
-            this.graphicsPanel.Location = new System.Drawing.Point(3, 3);
+            this.graphicsPanel.Location = new System.Drawing.Point(0, 0);
             this.graphicsPanel.Name = "graphicsPanel";
             this.graphicsPanel.Size = new System.Drawing.Size(2550, 3300);
             this.graphicsPanel.TabIndex = 0;
@@ -300,7 +300,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1104, 678);
+            this.ClientSize = new System.Drawing.Size(1026, 679);
             this.Controls.Add(this.zoomInButton);
             this.Controls.Add(this.zoomOutButton);
             this.Controls.Add(this.panel1);

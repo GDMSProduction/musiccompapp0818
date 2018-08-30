@@ -77,7 +77,14 @@ namespace Music_Comp
             AddInstrumentButton.Location = new System.Drawing.Point(Width - (AddInstrumentButton.Width + 40) - AddInstrumentButton.Width, 45);
             removeInstrumentButton.Location = new System.Drawing.Point(Width - removeInstrumentButton.Width - 34, 45);
             label5.Location = new System.Drawing.Point(Width - label5.Width - 70, 25);
-            
+            label2.Location = new System.Drawing.Point(Width - 176, 95);
+            KeyBox.Location = new System.Drawing.Point(Width - 96, 93);
+            label3.Location = new System.Drawing.Point(Width - 176, 125);
+            TimeBox.Location = new System.Drawing.Point(Width - 96, 123);
+            label1.Location = new System.Drawing.Point(Width - 176, 155);
+            titleTextBox.Location = new System.Drawing.Point(Width - 96, 153);
+            label4.Location = new System.Drawing.Point(Width - 176, 185);
+            composerTextBox.Location = new System.Drawing.Point(Width - 96, 183);
         }
 
         private void AddInstrumentButton_Click(object sender, EventArgs e)
