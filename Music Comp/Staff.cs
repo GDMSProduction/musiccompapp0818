@@ -6,9 +6,12 @@ namespace Music_Comp
 {
     public class Staff
     {
-        Rectangle area;
+        RectangleF area;
+        RectangleF clefArea;
+        RectangleF keyArea;
+        RectangleF timeArea;
+        RectangleF cursorArea;
 
-        static Image staffImage = Properties.Resources.Staff;
         static Image doubleflatImage = Properties.Resources.DoubleFlat;
         static Image flatImage = Properties.Resources.Flat;
         static Image naturalImage = Properties.Resources.Natural;
@@ -65,7 +68,7 @@ namespace Music_Comp
             return mMeasures[mMeasures.Count - 1];
         }
 
-        public Rectangle GetArea()
+        public RectangleF GetArea()
         {
             return area;
         }
@@ -127,21 +130,48 @@ namespace Music_Comp
         /// Private healper methods
         ///
 
-        private void DrawStaff(PaintEventArgs e)
+        private void UpdateCursor()
+        {
+            if (isActive)
+                cursorArea = new RectangleF(Song.LEFT_MARGIN + 2.0f, Song.TOP_MARGIN + mYPosition, LENGTH, HEIGHT);
+        }
+
+        private void DrawCursor(PaintEventArgs e)
+        {
+            if (isActive)
+            {
+                SolidBrush brush = new SolidBrush(Color.LightSkyBlue);
+                if (e.Graphics.IsVisible(cursorArea))
+                    e.Graphics.FillRectangle(brush, cursorArea);
+                brush.Dispose();
+            }
+        }
+
+        private void UpdateStaff()
         {
             PointF location = new PointF(Song.LEFT_MARGIN, Song.TOP_MARGIN + mYPosition);
             SizeF size = new SizeF(LENGTH, HEIGHT);
-            RectangleF rect = new RectangleF(location, size);
-
-            if (e.Graphics.IsVisible(rect))
-                e.Graphics.DrawImage(staffImage, new RectangleF(location, size));
+            area = new RectangleF(location, size);
         }
 
-        private void DrawClef(PaintEventArgs e)
+        private void DrawStaff(PaintEventArgs e)
+        {
+            Pen staffLinePen = new Pen(Color.Black, (int)(4.0f * Song._SCALE));
+            for (int i = 0; i < 5; i++)
+            {
+                PointF start = new PointF(area.X, area.Y + i * area.Height / 4);
+                PointF end = new PointF(area.X + area.Width, area.Y + i * area.Height / 4);
+
+                if (e.Graphics.IsVisible(new RectangleF(start.X, start.Y, end.X - start.X, 1)))
+                    e.Graphics.DrawLine(staffLinePen, start, end);
+            }
+            staffLinePen.Dispose();
+        }
+
+        private void UpdateClef()
         {
             PointF location = new PointF();
             SizeF size = new SizeF();
-            RectangleF rect;
 
             switch (mClef)
             {
@@ -150,48 +180,62 @@ namespace Music_Comp
                     location.Y = Song.TOP_MARGIN - 70 * Song._SCALE + mYPosition;
                     size.Width = HEIGHT * 1.50f;
                     size.Height = HEIGHT * 2.28f;
-                    rect = new RectangleF(location, size);
-
-                    if (e.Graphics.IsVisible(rect))
-                        e.Graphics.DrawImage(trebleClefImage, rect);
+                    clefArea = new RectangleF(location, size);
                     break;
                 case Clef.Alto:
                     location.X = mCursorX + 10 * Song._SCALE;
                     location.Y = Song.TOP_MARGIN - 0 * Song._SCALE + mYPosition;
                     size.Width = HEIGHT * 0.80f;
                     size.Height = HEIGHT;
-                    rect = new RectangleF(location, size);
-
-                    if (e.Graphics.IsVisible(rect))
-                        e.Graphics.DrawImage(cClefImage, rect);
+                    clefArea = new RectangleF(location, size);
                     break;
                 case Clef.Bass:
                     location.X = mCursorX - 35 * Song._SCALE;
                     location.Y = Song.TOP_MARGIN - 58 * Song._SCALE + mYPosition;
                     size.Width = HEIGHT * 1.48f;
                     size.Height = HEIGHT * 1.82f;
-                    rect = new RectangleF(location, size);
-
-                    if (e.Graphics.IsVisible(rect))
-                        e.Graphics.DrawImage(bassClefImage, rect);
+                    clefArea = new RectangleF(location, size);
                     break;
                 case Clef.Tenor:
                     location.X = mCursorX + 10 * Song._SCALE;
                     location.Y = Song.TOP_MARGIN - 29 * Song._SCALE + mYPosition;
                     size.Width = HEIGHT * 0.8f;
                     size.Height = HEIGHT;
-                    rect = new RectangleF(location, size);
-
-                    if (e.Graphics.IsVisible(rect))
-                        e.Graphics.DrawImage(cClefImage, rect);
+                    clefArea = new RectangleF(location, size);
                     break;
             }
 
             mCursorX += 120 * Song._SCALE;
         }
 
+        private void DrawClef(PaintEventArgs e)
+        {
+            switch (mClef)
+            {
+                case Clef.Treble:
+                    if (e.Graphics.IsVisible(clefArea))
+                        e.Graphics.DrawImage(trebleClefImage, clefArea);
+                    break;
+                case Clef.Alto:
+                    if (e.Graphics.IsVisible(clefArea))
+                        e.Graphics.DrawImage(cClefImage, clefArea);
+                    break;
+                case Clef.Bass:
+                    if (e.Graphics.IsVisible(clefArea))
+                        e.Graphics.DrawImage(bassClefImage, clefArea);
+                    break;
+                case Clef.Tenor:
+                    if (e.Graphics.IsVisible(clefArea))
+                        e.Graphics.DrawImage(cClefImage, clefArea);
+                    break;
+            }
+        }
+
         private void DrawKeySignature(PaintEventArgs e)
         {
+            PointF location = new PointF(mCursorX, mYPosition);
+            SizeF size = new SizeF();
+
             if (Song.KEY < 0)                                   // Flats
                 for (int i = 0, y = 7; i > (int)Song.KEY; i--)  // B E A D G C F
                 {
@@ -210,14 +254,18 @@ namespace Music_Comp
                     mCursorX += 30 * Song._SCALE;
                 }
 
+            size.Width = mCursorX;
+            size.Height = HEIGHT;
+
+            keyArea = new RectangleF(location, size);
+
             mCursorX += 30 * Song._SCALE;
         }
 
-        private void DrawTimeSignature(PaintEventArgs e)
+        private void UpdateTimeSignature()
         {
             PointF location = new PointF();
             SizeF size = new SizeF();
-            RectangleF rect;
 
             switch (Song.TIME)
             {
@@ -229,10 +277,7 @@ namespace Music_Comp
                     location.Y = Song.TOP_MARGIN + mYPosition;
                     size.Width = HEIGHT * 0.5f;
                     size.Height = HEIGHT;
-                    rect = new RectangleF(location, size);
-
-                    if (e.Graphics.IsVisible(rect))
-                        e.Graphics.DrawImage(sixEightImage, rect);
+                    timeArea = new RectangleF(location, size);
                     break;
                 case Time.ThreeEight:
 
@@ -248,33 +293,75 @@ namespace Music_Comp
                     location.Y = Song.TOP_MARGIN + mYPosition;
                     size.Width = HEIGHT * 0.5f;
                     size.Height = HEIGHT;
-                    rect = new RectangleF(location, size);
-
-                    if (e.Graphics.IsVisible(rect))
-                        e.Graphics.DrawImage(fourFourImage, rect);
+                    timeArea = new RectangleF(location, size);
                     break;
             }
 
             mCursorX += 90 * Song._SCALE;
         }
 
-        private void DrawCursor(PaintEventArgs e)
+        private void DrawTimeSignature(PaintEventArgs e)
         {
-            if (isActive)
+            switch (Song.TIME)
             {
-                SolidBrush brush = new SolidBrush(Color.LightSkyBlue);
-                RectangleF rect = new RectangleF(Song.LEFT_MARGIN + 2.0f, Song.TOP_MARGIN + mYPosition, LENGTH, HEIGHT);
-                if (e.Graphics.IsVisible(rect))
-                    e.Graphics.FillRectangle(brush, rect);
-                brush.Dispose();
+                case Time.NineEight:
+
+                    break;
+                case Time.SixEight:
+                    if (e.Graphics.IsVisible(timeArea))
+                        e.Graphics.DrawImage(sixEightImage, timeArea);
+                    break;
+                case Time.ThreeEight:
+
+                    break;
+                case Time.TwoFour:
+
+                    break;
+                case Time.ThreeFour:
+
+                    break;
+                case Time.FourFour:
+                    if (e.Graphics.IsVisible(timeArea))
+                        e.Graphics.DrawImage(fourFourImage, timeArea);
+                    break;
             }
         }
 
-        public void Draw(PaintEventArgs e)
+        private void UpdateBarLines()
+        {
+            for (int i = 0; i < mMeasures.Count; i++)
+            {
+                mCursorX += 30 * Song._SCALE;
+                if (i >= Song.mBarlines.Count) Song.mBarlines.Add(mCursorX);
+                else if (mCursorX > Song.mBarlines[i]) Song.mBarlines[i] = mCursorX;
+                else mCursorX = Song.mBarlines[i];
+
+                mMeasures[i].UpdateLength();
+                mCursorX += mMeasures[i].GetLength();
+            }
+        }
+
+        public void Update()
         {
             mCursorX = Song.LEFT_MARGIN;
             mYPosition = instrumentNumber * Song.INSTRUMENT_SPACING + staffNumber * (HEIGHT + Song.STAFF_SPACING);
 
+            UpdateCursor();
+
+            UpdateStaff();
+
+            UpdateClef();
+
+            UpdateTimeSignature();
+
+            UpdateBarLines();
+
+            for (int i = 0; i < mMeasures.Count; i++)
+                mMeasures[i].Update(Song.mBarlines[i], mYPosition);
+        }
+
+        public void Draw(PaintEventArgs e)
+        {
             DrawCursor(e);
 
             DrawStaff(e);
@@ -285,22 +372,8 @@ namespace Music_Comp
 
             DrawTimeSignature(e);
 
-            for (int i = 0; i < mMeasures.Count; i++)
-            {
-                mCursorX += 30 * Song._SCALE;
-                if (i >= Song.mBarlines.Count)
-                    Song.mBarlines.Add(mCursorX);
-                else
-                    if (mCursorX > Song.mBarlines[i])
-                        Song.mBarlines[i] = mCursorX;
-                    else
-                        mCursorX = Song.mBarlines[i];
-
-                mMeasures[i].UpdateLength();
-                mCursorX += mMeasures[i].GetLength();
-            }
-            for (int i = 0; i < mMeasures.Count; i++)
-                mMeasures[i].Draw(Song.mBarlines[i], mYPosition, e);
+            foreach (Measure measure in mMeasures)
+                measure.Draw(e);
         }
     }
 }

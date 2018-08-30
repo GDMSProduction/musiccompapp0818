@@ -54,6 +54,7 @@ namespace Music_Comp
 
         private void AddInstrumentForm_Paint(object sender, PaintEventArgs e)
         {
+            song.Update();
             song.Draw(e);
             Brace.Location = new System.Drawing.Point(Width - Brace.Size.Width - 73, 30);
             Bracket.Location = new System.Drawing.Point(Width - Brace.Size.Width - 73, 70);

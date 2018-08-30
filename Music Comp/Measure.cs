@@ -6,7 +6,7 @@ namespace Music_Comp
 {
     public class Measure
     {
-        Rectangle area;
+        RectangleF area;
 
         List<Chord> mChords;
 
@@ -41,7 +41,7 @@ namespace Music_Comp
             return mChords[i];
         }
 
-        public Rectangle GetArea()
+        public RectangleF GetArea()
         {
             return area;
         }
@@ -72,8 +72,8 @@ namespace Music_Comp
                     int remainderDuration = mTotalDuration - (int)Song.TIME;
                     int splitDuration = (int)chord.GetDuration() - remainderDuration;
 
-                    split = chord;
-                    remainder = chord;
+                    split = chord.Clone();
+                    remainder = chord.Clone();
 
                     split.SetDuration((Duration)splitDuration);
                     remainder.SetDuration((Duration)remainderDuration);
@@ -101,14 +101,19 @@ namespace Music_Comp
             mLength = 60 * Song._SCALE * mChords.Count;
         }
 
-        public void Draw(float cursorX, float yPosition, PaintEventArgs e)
+        public void Update(float barline, float yPosition)
         {
             float cursor = 0;
             foreach (Chord chord in mChords)
             {
-                chord.Draw(cursorX + cursor, yPosition, mClef, e);
+                chord.Update(barline + cursor, yPosition, mClef);
                 cursor += 60 * Song._SCALE;
             }
+        }
+        public void Draw(PaintEventArgs e)
+        {
+            foreach (Chord chord in mChords)
+                chord.Draw(e);
         }
     }
 }

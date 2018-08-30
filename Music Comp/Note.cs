@@ -5,7 +5,7 @@ namespace Music_Comp
 {
     public class Note
     {
-        Rectangle area;
+        RectangleF area;
 
         Pitch mPitch;
         Accidental mAccidental;
@@ -21,6 +21,22 @@ namespace Music_Comp
             mAccidental = a;
             mDuration = d;
             mOctave = o;
+        }
+
+        public Note(Pitch p, Accidental a, Duration d, sbyte o, float width, Image i, RectangleF ar)
+        {
+            mPitch = p;
+            mAccidental = a;
+            mDuration = d;
+            mOctave = o;
+            mWidth = width;
+            image = i;
+            area = ar;
+        }
+
+        public Note Clone()
+        {
+            return new Note(mPitch, mAccidental, mDuration, mOctave, mWidth, image, area);
         }
 
         public Pitch GetPitch()
@@ -68,18 +84,17 @@ namespace Music_Comp
             return mWidth;
         }
 
-        public Rectangle GetArea()
+        public RectangleF GetArea()
         {
             return area;
         }
 
-        public void Draw(float cursorX, float staffYPosition, Clef clef, PaintEventArgs e)
+        public void Update(float cursorX, float staffYPosition, Clef clef)
         {
             float x = cursorX;
             float y = staffYPosition;
             PointF location;
             SizeF size = new SizeF();
-            RectangleF rect;
 
 
             if (mPitch == Pitch.Rest)
@@ -154,10 +169,13 @@ namespace Music_Comp
 
             mWidth = size.Width;
             location = new PointF(x, y);
-            rect = new RectangleF(location, size);
+            area = new RectangleF(location, size);
+        }
 
-            if (e.Graphics.IsVisible(rect))
-                e.Graphics.DrawImage(image, rect);
+        public void Draw(PaintEventArgs e)
+        {
+            if (e.Graphics.IsVisible(area))
+                e.Graphics.DrawImage(image, area);
         }
     }
 }

@@ -6,7 +6,8 @@ namespace Music_Comp
 {
     class Song
     {
-        Rectangle area;
+        RectangleF area;
+        RectangleF groupingArea;
 
         static Image bracketImage = Properties.Resources.Bracket;
         static Image braceImage = Properties.Resources.Brace;
@@ -86,7 +87,7 @@ namespace Music_Comp
             return mInstruments[i];
         }
         
-        public Rectangle GetArea()
+        public RectangleF GetArea()
         {
             return area;
         }
@@ -141,7 +142,8 @@ namespace Music_Comp
                 PointF end;
 
                 btm_inst_line = top_inst_line + (Staff.HEIGHT + STAFF_SPACING) * mInstruments[j].GetNumberOfStaves() - STAFF_SPACING;
-                DrawGrouping(mInstruments[j].GetGrouping(), top_inst_line, btm_inst_line, e);
+                UpdateGrouping(mInstruments[j].GetGrouping(), top_inst_line, btm_inst_line);
+                DrawGrouping(mInstruments[j].GetGrouping(), e);
 
                 for (int i = 0; i < barlines.Count; i++)
                 {
@@ -164,11 +166,10 @@ namespace Music_Comp
             barLinePen.Dispose();
         }
 
-        public void DrawGrouping(Grouping g, float instTop, float instBtm, PaintEventArgs e)
+        public void UpdateGrouping(Grouping g, float instTop, float instBtm)
         {
             PointF location = new PointF();
             SizeF size = new SizeF();
-            RectangleF rect;
 
             switch (g)
             {
@@ -178,10 +179,7 @@ namespace Music_Comp
                     size.Width = 40 * _SCALE;
                     size.Height = instBtm - instTop + 30 * _SCALE;
 
-                    rect = new RectangleF(location, size);
-
-                    if (e.Graphics.IsVisible(rect))
-                        e.Graphics.DrawImage(bracketImage, rect);
+                    groupingArea = new RectangleF(location, size);
                     break;
                 case Grouping.Brace:
                     location.X = LEFT_MARGIN - 50 * _SCALE;
@@ -189,29 +187,45 @@ namespace Music_Comp
                     size.Width = 50 * _SCALE;
                     size.Height = instBtm - instTop;
 
-                    rect = new RectangleF(location, size);
-
-                    if (e.Graphics.IsVisible(rect))
-                        e.Graphics.DrawImage(braceImage , rect);
+                    groupingArea = new RectangleF(location, size);
                     break;
             }
         }
 
+        public void DrawGrouping(Grouping g, PaintEventArgs e)
+        {
+            switch (g)
+            {
+                case Grouping.Bracket:
+                    if (e.Graphics.IsVisible(groupingArea))
+                        e.Graphics.DrawImage(bracketImage, groupingArea);
+                    break;
+                case Grouping.Brace:
+                    if (e.Graphics.IsVisible(groupingArea))
+                        e.Graphics.DrawImage(braceImage, groupingArea);
+                    break;
+            }
+        }
+
+        public void Update()
+        {
+            foreach (Instrument instrument in mInstruments)
+                instrument.Update();
+        }
+
         public void Draw(PaintEventArgs e)
         {
-            Pen barLinePen = new Pen(Color.Black, 3.4f * _SCALE);
-
             float btm_song_line = TOP_MARGIN + (Staff.HEIGHT + STAFF_SPACING) * TOTAL_STAVES - STAFF_SPACING + (TOTAL_INSTRUMENTS - 1) * INSTRUMENT_SPACING;
 
             PointF start = new PointF(LEFT_MARGIN, TOP_MARGIN);
             PointF end = new PointF(LEFT_MARGIN, btm_song_line);
 
-            if (e.Graphics.IsVisible(new RectangleF(start.X,start.Y, 1, end.Y - start.Y)))
+            if (e.Graphics.IsVisible(new RectangleF(start.X, start.Y, 1, end.Y - start.Y)))
+            {
+                Pen barLinePen = new Pen(Color.Black, 3.4f * _SCALE);
                 e.Graphics.DrawLine(barLinePen, start, end);
-
-            barLinePen.Dispose();
-
-            float top_inst_line = TOP_MARGIN;
+                barLinePen.Dispose();
+            }
 
             foreach (Instrument instrument in mInstruments)
                 instrument.Draw(e);
