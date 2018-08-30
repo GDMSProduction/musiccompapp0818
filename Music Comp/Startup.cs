@@ -65,17 +65,13 @@ namespace Music_Comp
 
         private void graphicsPanel1_Paint(object sender, PaintEventArgs e)
         {
-<<<<<<< HEAD
             if (song != null && Song.TOTAL_INSTRUMENTS != 0)
-=======
-            if (song != null)
             {
                 song.Update();
->>>>>>> 3c23b8d50a23f5fe2eba2392a8e90a3bf061b21f
                 song.Draw(e);
             }
             graphicsPanel1.Height = Height - graphicsPanel1.Location.Y - 48;
-            graphicsPanel1.Width = Width - graphicsPanel1.Location.X - (cancelButton.Width + okButton.Width) - 30;
+            graphicsPanel1.Width = Width - graphicsPanel1.Location.X - (cancelButton.Width + okButton.Width) - 90;
             okButton.Location = new System.Drawing.Point((Width - 22) - okButton.Width, Height - 75);
             cancelButton.Location = new System.Drawing.Point((Width - (cancelButton.Width + 25)) - cancelButton.Width, Height - 75);
             AddInstrumentButton.Location = new System.Drawing.Point(Width - (AddInstrumentButton.Width + 40) - AddInstrumentButton.Width, 45);
