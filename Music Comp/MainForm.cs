@@ -20,6 +20,8 @@ namespace Music_Comp
         Chord mChord = new Chord();
         int noteIndex = 0;
 
+        Duration currentDuration = Duration.Quarter;
+
         public MainForm()
         {
             InitializeComponent();
@@ -186,10 +188,37 @@ namespace Music_Comp
             if (!ControlCheck())
             {
                 Chord chord = new Chord();
-                chord.Add(new Note(Pitch.C, Accidental.Natural, Duration.Quarter, 4));
+                chord.Add(new Note(Pitch.C, Accidental.Natural, currentDuration, 4));
 
                 switch (e.KeyCode)
                 {
+                    case Keys.Tab:
+                        switch (currentDuration)
+                        {
+                            case Duration.Sixteenth:
+                                currentDuration = Duration.Triplet;
+                                break;
+                            case Duration.Triplet:
+                                currentDuration = Duration.Eighth;
+                                break;
+                            case Duration.Eighth:
+                                currentDuration = Duration.Quarter;
+                                break;
+                            case Duration.Quarter:
+                                currentDuration = Duration.Drag;
+                                break;
+                            case Duration.Drag:
+                                currentDuration = Duration.Half;
+                                break;
+                            case Duration.Half:
+                                currentDuration = Duration.Whole;
+                                break;
+                            case Duration.Whole:
+                                currentDuration = Duration.Sixteenth;
+                                break;
+                        }
+                        break;
+
                     case Keys.Up:
                         if (selectedStaff > 0)
                         {
@@ -286,7 +315,7 @@ namespace Music_Comp
                 {
                     case Keys.A:
                         valid = true;
-                        mChord.Add(new Note(Pitch.C, Accidental.Natural, Duration.Quarter, 4));
+                        mChord.Add(new Note(Pitch.C, Accidental.Natural, currentDuration, 4));
                         mChord.GetNote(noteIndex).SetPitch(Pitch.A);
                         if (ShiftCheck())
                             mChord.GetNote(noteIndex).SetDuration(Duration.Half);
@@ -294,7 +323,7 @@ namespace Music_Comp
                         break;
                     case Keys.B:
                         valid = true;
-                        mChord.Add(new Note(Pitch.C, Accidental.Natural, Duration.Quarter, 4));
+                        mChord.Add(new Note(Pitch.C, Accidental.Natural, currentDuration, 4));
                         mChord.GetNote(noteIndex).SetPitch(Pitch.B);
                         if (ShiftCheck())
                             mChord.GetNote(noteIndex).SetDuration(Duration.Half);
@@ -302,7 +331,7 @@ namespace Music_Comp
                         break;
                     case Keys.C:
                         valid = true;
-                        mChord.Add(new Note(Pitch.C, Accidental.Natural, Duration.Quarter, 4));
+                        mChord.Add(new Note(Pitch.C, Accidental.Natural, currentDuration, 4));
                         mChord.GetNote(noteIndex).SetPitch(Pitch.C);
                         if (ShiftCheck())
                             mChord.GetNote(noteIndex).SetDuration(Duration.Half);
@@ -310,7 +339,7 @@ namespace Music_Comp
                         break;
                     case Keys.D:
                         valid = true;
-                        mChord.Add(new Note(Pitch.C, Accidental.Natural, Duration.Quarter, 4));
+                        mChord.Add(new Note(Pitch.C, Accidental.Natural, currentDuration, 4));
                         mChord.GetNote(noteIndex).SetPitch(Pitch.D);
                         if (ShiftCheck())
                             mChord.GetNote(noteIndex).SetDuration(Duration.Half);
@@ -318,7 +347,7 @@ namespace Music_Comp
                         break;
                     case Keys.E:
                         valid = true;
-                        mChord.Add(new Note(Pitch.C, Accidental.Natural, Duration.Quarter, 4));
+                        mChord.Add(new Note(Pitch.C, Accidental.Natural, currentDuration, 4));
                         mChord.GetNote(noteIndex).SetPitch(Pitch.E);
                         if (ShiftCheck())
                             mChord.GetNote(noteIndex).SetDuration(Duration.Half);
@@ -326,7 +355,7 @@ namespace Music_Comp
                         break;
                     case Keys.F:
                         valid = true;
-                        mChord.Add(new Note(Pitch.C, Accidental.Natural, Duration.Quarter, 4));
+                        mChord.Add(new Note(Pitch.C, Accidental.Natural, currentDuration, 4));
                         mChord.GetNote(noteIndex).SetPitch(Pitch.F);
                         if (ShiftCheck())
                             mChord.GetNote(noteIndex).SetDuration(Duration.Half);
@@ -334,7 +363,7 @@ namespace Music_Comp
                         break;
                     case Keys.G:
                         valid = true;
-                        mChord.Add(new Note(Pitch.C, Accidental.Natural, Duration.Quarter, 4));
+                        mChord.Add(new Note(Pitch.C, Accidental.Natural, currentDuration, 4));
                         mChord.GetNote(noteIndex).SetPitch(Pitch.G);
                         if (ShiftCheck())
                             mChord.GetNote(noteIndex).SetDuration(Duration.Half);
