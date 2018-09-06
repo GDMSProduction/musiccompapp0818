@@ -260,6 +260,8 @@
             this.Controls.Add(this.Bracket);
             this.Controls.Add(this.Brace);
             this.Controls.Add(this.graphicsPanel);
+            this.MaximumSize = new System.Drawing.Size(822, 506);
+            this.MinimumSize = new System.Drawing.Size(822, 506);
             this.Name = "AddInstrumentForm";
             this.Text = "AddInstrument";
             this.SizeChanged += new System.EventHandler(this.AddInstrumentForm_SizeChanged);

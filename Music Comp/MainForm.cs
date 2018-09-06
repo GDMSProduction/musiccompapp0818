@@ -43,6 +43,8 @@ namespace Music_Comp
             songdur4.Size = SongDuration.Size;
             songdur4.Image = sixteenth;
 
+            songdur1.Location = songdur2.Location = songdur3.Location = songdur4.Location = new Point(-200, 0);
+
             SCREEN_WIDTH = Screen.PrimaryScreen.Bounds.Width;
             PAGE_WIDTH = graphicsPanel.Width;
             PAGE_HEIGHT = graphicsPanel.Height;
@@ -104,6 +106,13 @@ namespace Music_Comp
             zoomInButton.Location = new Point(Width - 110, Height - 200);
             zoomOutButton.Location = new Point(Width - 110, Height - 150);
             SongDuration.Location = new Point(20, Height - 220);
+            if (lcheck == true)
+            {
+                songdur1.Location = new Point(SongDuration.Width + 20, Height - 220);
+                songdur2.Location = new Point(SongDuration.Width * 2 + 20, Height - 220);
+                songdur3.Location = new Point(SongDuration.Width * 3 + 20, Height - 220);
+                songdur4.Location = new Point(SongDuration.Width * 4 + 20, Height - 220);
+            }
             if (song != null && Song.TOTAL_INSTRUMENTS != 0)
             {
                 song.Update();
@@ -225,7 +234,39 @@ namespace Music_Comp
                         {
                             if (lcheck == false)
                             {
-                                SongDuration.Image = quarter;
+                                switch (currentDuration)
+                                {
+                                    case Duration.Sixteenth:
+                                        songdur1.Image = eighth;
+                                        songdur2.Image = quarter;
+                                        songdur3.Image = half;
+                                        songdur4.Image = whole;
+                                        break;
+                                    case Duration.Eighth:
+                                        songdur1.Image = quarter;
+                                        songdur2.Image = half;
+                                        songdur3.Image = whole;
+                                        songdur4.Image = sixteenth;
+                                        break;
+                                    case Duration.Quarter:
+                                        songdur1.Image = half;
+                                        songdur2.Image = whole;
+                                        songdur3.Image = sixteenth;
+                                        songdur4.Image = eighth;
+                                        break;
+                                    case Duration.Half:
+                                        songdur1.Image = whole;
+                                        songdur2.Image = sixteenth;
+                                        songdur3.Image = eighth;
+                                        songdur4.Image = quarter;
+                                        break;
+                                    case Duration.Whole:
+                                        songdur1.Image = sixteenth;
+                                        songdur2.Image = eighth;
+                                        songdur3.Image = quarter;
+                                        songdur4.Image = half;
+                                        break;
+                                }
                                 songdur1.Location = new Point(SongDuration.Width + 20, Height - 220);
                                 songdur2.Location = new Point(songdur1.Width * 2 + 20, Height - 220);
                                 songdur3.Location = new Point(songdur1.Width * 3 + 20, Height - 220);
@@ -234,6 +275,24 @@ namespace Music_Comp
                             }
                             else if (lcheck == true)
                             {
+                                switch (currentDuration)
+                                {
+                                    case Duration.Sixteenth:
+                                        SongDuration.Image = sixteenth;
+                                        break;
+                                    case Duration.Eighth:
+                                        SongDuration.Image = eighth;
+                                        break;
+                                    case Duration.Quarter:
+                                        SongDuration.Image = quarter;
+                                        break;
+                                    case Duration.Half:
+                                        SongDuration.Image = half;
+                                        break;
+                                    case Duration.Whole:
+                                        SongDuration.Image = whole;
+                                        break;
+                                }
                                 songdur1.Location = songdur2.Location = songdur3.Location = songdur4.Location = new Point(-200, 0);
                                 lcheck = false;
                             }
