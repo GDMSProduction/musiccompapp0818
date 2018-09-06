@@ -241,6 +241,7 @@
             // 
             // AddInstrumentForm
             // 
+            this.AcceptButton = this.OK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
@@ -260,6 +261,7 @@
             this.Controls.Add(this.Bracket);
             this.Controls.Add(this.Brace);
             this.Controls.Add(this.graphicsPanel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximumSize = new System.Drawing.Size(822, 506);
             this.MinimumSize = new System.Drawing.Size(822, 506);
             this.Name = "AddInstrumentForm";
