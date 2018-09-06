@@ -830,37 +830,131 @@ namespace Music_Comp
 
         private void songdur1_Click(object sender, EventArgs e)
         {
+            //eighth
+            //quarter
+            //half
+            //whole
+            //sixteenth
             ActiveControl = graphicsPanel;
-            currentDuration = Duration.Half;
+            switch (currentDuration)
+            {
+                case Duration.Sixteenth:
+                    currentDuration = Duration.Eighth;
+                    SongDuration.Image = eighth;
+                    break;
+                case Duration.Eighth:
+                    currentDuration = Duration.Quarter;
+                    SongDuration.Image = quarter;
+                    break;
+                case Duration.Quarter:
+                    currentDuration = Duration.Half;
+                    SongDuration.Image = half;
+                    break;
+                case Duration.Half:
+                    currentDuration = Duration.Whole;
+                    SongDuration.Image = whole;
+                    break;
+                case Duration.Whole:
+                    currentDuration = Duration.Sixteenth;
+                    SongDuration.Image = sixteenth;
+                    break;
+            }
             songdur1.Location = songdur2.Location = songdur3.Location = songdur4.Location = new Point(-200, 0);
-            SongDuration.Image = half;
             lcheck = false;
         }
 
         private void songdur2_Click(object sender, EventArgs e)
         {
             ActiveControl = graphicsPanel;
-            currentDuration = Duration.Whole;
+            switch (currentDuration)
+            {
+                //eighth
+                //quarter
+                //half
+                //whole
+                //sixteenth
+                case Duration.Sixteenth:
+                    currentDuration = Duration.Quarter;
+                    SongDuration.Image = quarter;
+                    break;
+                case Duration.Eighth:
+                    currentDuration = Duration.Half;
+                    SongDuration.Image = half;
+                    break;
+                case Duration.Quarter:
+                    currentDuration = Duration.Whole;
+                    SongDuration.Image = whole;
+                    break;
+                case Duration.Half:
+                    currentDuration = Duration.Sixteenth;
+                    SongDuration.Image = sixteenth;
+                    break;
+                case Duration.Whole:
+                    currentDuration = Duration.Eighth;
+                    SongDuration.Image = eighth;
+                    break;
+            }
             songdur1.Location = songdur2.Location = songdur3.Location = songdur4.Location = new Point(-200, 0);
-            SongDuration.Image = whole;
             lcheck = false;
         }
 
         private void songdur3_Click(object sender, EventArgs e)
         {
             ActiveControl = graphicsPanel;
-            currentDuration = Duration.Eighth;
+            switch (currentDuration)
+            {
+                case Duration.Sixteenth:
+                    currentDuration = Duration.Half;
+                    SongDuration.Image = half;
+                    break;
+                case Duration.Eighth:
+                    currentDuration = Duration.Whole;
+                    SongDuration.Image = whole;
+                    break;
+                case Duration.Quarter:
+                    currentDuration = Duration.Sixteenth;
+                    SongDuration.Image = sixteenth;
+                    break;
+                case Duration.Half:
+                    currentDuration = Duration.Eighth;
+                    SongDuration.Image = eighth;
+                    break;
+                case Duration.Whole:
+                    currentDuration = Duration.Quarter;
+                    SongDuration.Image = quarter;
+                    break;
+            }
             songdur1.Location = songdur2.Location = songdur3.Location = songdur4.Location = new Point(-200, 0);
-            SongDuration.Image = eighth;
             lcheck = false;
         }
 
         private void songdur4_Click(object sender, EventArgs e)
         {
             ActiveControl = graphicsPanel;
-            currentDuration = Duration.Sixteenth;
+            switch (currentDuration)
+            {
+                case Duration.Sixteenth:
+                    currentDuration = Duration.Whole;
+                    SongDuration.Image = whole;
+                    break;
+                case Duration.Eighth:
+                    currentDuration = Duration.Sixteenth;
+                    SongDuration.Image = sixteenth;
+                    break;
+                case Duration.Quarter:
+                    currentDuration = Duration.Eighth;
+                    SongDuration.Image = eighth;
+                    break;
+                case Duration.Half:
+                    currentDuration = Duration.Quarter;
+                    SongDuration.Image = quarter;
+                    break;
+                case Duration.Whole:
+                    currentDuration = Duration.Half;
+                    SongDuration.Image = half;
+                    break;
+            }
             songdur1.Location = songdur2.Location = songdur3.Location = songdur4.Location = new Point(-200, 0);
-            SongDuration.Image = sixteenth;
             lcheck = false;
         }
     }
