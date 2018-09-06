@@ -179,12 +179,12 @@ namespace Music_Comp
 
         private void composerLabel_SizeChanged(object sender, EventArgs e)
         {
-            composerLabel.Location = new System.Drawing.Point(graphicsPanel1.Width - 45 - composerLabel.Width, 20);
+            composerLabel.Location = new Point(graphicsPanel1.Width - 45 - composerLabel.Width, 100);
         }
 
         private void titleLabel_SizeChanged(object sender, EventArgs e)
         {
-            titleLabel.Location = new System.Drawing.Point((graphicsPanel1.Width / 2) - (titleLabel.Width / 2), 25);
+            titleLabel.Location = new Point((graphicsPanel1.Width / 2) - (titleLabel.Width / 2), 25);
         }
 
         private void Startup_SizeChanged(object sender, EventArgs e)

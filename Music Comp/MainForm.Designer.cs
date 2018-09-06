@@ -49,6 +49,10 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.songToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.songdur4 = new System.Windows.Forms.Button();
+            this.songdur3 = new System.Windows.Forms.Button();
+            this.songdur1 = new System.Windows.Forms.Button();
+            this.songdur2 = new System.Windows.Forms.Button();
             this.SongDuration = new System.Windows.Forms.Button();
             this.graphicsPanel = new Music_Comp.GraphicsPanel();
             this.composerTextBox = new System.Windows.Forms.TextBox();
@@ -60,10 +64,11 @@
             // 
             // zoomInButton
             // 
+            this.zoomInButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.zoomInButton.BackColor = System.Drawing.Color.White;
             this.zoomInButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.zoomInButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.zoomInButton.Location = new System.Drawing.Point(900, 450);
+            this.zoomInButton.Location = new System.Drawing.Point(4035, 5803);
             this.zoomInButton.Name = "zoomInButton";
             this.zoomInButton.Size = new System.Drawing.Size(75, 75);
             this.zoomInButton.TabIndex = 1;
@@ -74,10 +79,11 @@
             // 
             // zoomOutButton
             // 
+            this.zoomOutButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.zoomOutButton.BackColor = System.Drawing.Color.White;
             this.zoomOutButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.zoomOutButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.zoomOutButton.Location = new System.Drawing.Point(900, 550);
+            this.zoomOutButton.Location = new System.Drawing.Point(4035, 5878);
             this.zoomOutButton.Name = "zoomOutButton";
             this.zoomOutButton.Size = new System.Drawing.Size(75, 75);
             this.zoomOutButton.TabIndex = 2;
@@ -208,13 +214,13 @@
             // controlsToolStripMenuItem
             // 
             this.controlsToolStripMenuItem.Name = "controlsToolStripMenuItem";
-            this.controlsToolStripMenuItem.Size = new System.Drawing.Size(252, 30);
+            this.controlsToolStripMenuItem.Size = new System.Drawing.Size(163, 30);
             this.controlsToolStripMenuItem.Text = "Controls";
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(252, 30);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(163, 30);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -228,6 +234,12 @@
             // panel1
             // 
             this.panel1.AutoScroll = true;
+            this.panel1.Controls.Add(this.songdur4);
+            this.panel1.Controls.Add(this.songdur3);
+            this.panel1.Controls.Add(this.songdur1);
+            this.panel1.Controls.Add(this.zoomOutButton);
+            this.panel1.Controls.Add(this.songdur2);
+            this.panel1.Controls.Add(this.zoomInButton);
             this.panel1.Controls.Add(this.SongDuration);
             this.panel1.Controls.Add(this.graphicsPanel);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -236,19 +248,75 @@
             this.panel1.Size = new System.Drawing.Size(1026, 646);
             this.panel1.TabIndex = 4;
             // 
+            // songdur4
+            // 
+            this.songdur4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.songdur4.BackColor = System.Drawing.Color.White;
+            this.songdur4.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.songdur4.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.songdur4.Location = new System.Drawing.Point(168, 2543);
+            this.songdur4.Name = "songdur4";
+            this.songdur4.Size = new System.Drawing.Size(150, 150);
+            this.songdur4.TabIndex = 8;
+            this.songdur4.TabStop = false;
+            this.songdur4.UseVisualStyleBackColor = false;
+            this.songdur4.Click += new System.EventHandler(this.songdur4_Click);
+            // 
+            // songdur3
+            // 
+            this.songdur3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.songdur3.BackColor = System.Drawing.Color.White;
+            this.songdur3.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.songdur3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.songdur3.Location = new System.Drawing.Point(12, 2543);
+            this.songdur3.Name = "songdur3";
+            this.songdur3.Size = new System.Drawing.Size(150, 150);
+            this.songdur3.TabIndex = 7;
+            this.songdur3.TabStop = false;
+            this.songdur3.UseVisualStyleBackColor = false;
+            this.songdur3.Click += new System.EventHandler(this.songdur3_Click);
+            // 
+            // songdur1
+            // 
+            this.songdur1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.songdur1.BackColor = System.Drawing.Color.White;
+            this.songdur1.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.songdur1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.songdur1.Location = new System.Drawing.Point(12, 2387);
+            this.songdur1.Name = "songdur1";
+            this.songdur1.Size = new System.Drawing.Size(150, 150);
+            this.songdur1.TabIndex = 6;
+            this.songdur1.TabStop = false;
+            this.songdur1.UseVisualStyleBackColor = false;
+            this.songdur1.Click += new System.EventHandler(this.songdur1_Click);
+            // 
+            // songdur2
+            // 
+            this.songdur2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.songdur2.BackColor = System.Drawing.Color.White;
+            this.songdur2.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.songdur2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.songdur2.Location = new System.Drawing.Point(168, 2387);
+            this.songdur2.Name = "songdur2";
+            this.songdur2.Size = new System.Drawing.Size(150, 150);
+            this.songdur2.TabIndex = 9;
+            this.songdur2.TabStop = false;
+            this.songdur2.UseVisualStyleBackColor = false;
+            this.songdur2.Click += new System.EventHandler(this.songdur2_Click);
+            // 
             // SongDuration
             // 
             this.SongDuration.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.SongDuration.BackColor = System.Drawing.Color.White;
             this.SongDuration.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.SongDuration.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SongDuration.Location = new System.Drawing.Point(40, 3104);
+            this.SongDuration.Location = new System.Drawing.Point(12, 2837);
             this.SongDuration.Name = "SongDuration";
             this.SongDuration.Size = new System.Drawing.Size(150, 150);
             this.SongDuration.TabIndex = 5;
             this.SongDuration.TabStop = false;
             this.SongDuration.UseVisualStyleBackColor = false;
-            this.SongDuration.Click += new System.EventHandler(this.SongDuration_Click);
+            this.SongDuration.MouseClick += new System.Windows.Forms.MouseEventHandler(this.SongDuration_MouseClick);
             // 
             // graphicsPanel
             // 
@@ -269,7 +337,8 @@
             this.composerTextBox.AcceptsReturn = true;
             this.composerTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.composerTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.composerTextBox.Location = new System.Drawing.Point(478, 85);
+            this.composerTextBox.Location = new System.Drawing.Point(772, 85);
+            this.composerTextBox.Margin = new System.Windows.Forms.Padding(3, 5, 3, 0);
             this.composerTextBox.MaxLength = 20;
             this.composerTextBox.Name = "composerTextBox";
             this.composerTextBox.Size = new System.Drawing.Size(203, 46);
@@ -301,8 +370,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1026, 679);
-            this.Controls.Add(this.zoomInButton);
-            this.Controls.Add(this.zoomOutButton);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -345,6 +412,10 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ToolStripMenuItem songToolStripMenuItem;
         private System.Windows.Forms.Button SongDuration;
+        private System.Windows.Forms.Button songdur1;
+        private System.Windows.Forms.Button songdur3;
+        private System.Windows.Forms.Button songdur4;
+        private System.Windows.Forms.Button songdur2;
     }
 }
 
