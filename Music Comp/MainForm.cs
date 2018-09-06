@@ -12,6 +12,8 @@ namespace Music_Comp
         float PAGE_HEIGHT;
         float _SCALE;
 
+        bool lcheck = false;
+
         Song song;
 
         int selectedStaff = 0;
@@ -32,6 +34,15 @@ namespace Music_Comp
         {
             InitializeComponent();
 
+            songdur1.Size = SongDuration.Size;
+            songdur1.Image = half;
+            songdur2.Size = SongDuration.Size;
+            songdur2.Image = whole;
+            songdur3.Size = SongDuration.Size;
+            songdur3.Image = eighth;
+            songdur4.Size = SongDuration.Size;
+            songdur4.Image = sixteenth;
+
             SCREEN_WIDTH = Screen.PrimaryScreen.Bounds.Width;
             PAGE_WIDTH = graphicsPanel.Width;
             PAGE_HEIGHT = graphicsPanel.Height;
@@ -44,7 +55,7 @@ namespace Music_Comp
 
             composerTextBox.Font = new Font("Microsoft Sans Serif", 25 * _SCALE);
             composerTextBox.Size = new Size((int)(615 * _SCALE), (int)(50 * _SCALE));
-            composerTextBox.Location = new Point((int)(PAGE_WIDTH - composerTextBox.Width - 100 * _SCALE), (int)(220 * _SCALE));
+            composerTextBox.Location = new Point((int)(PAGE_WIDTH - composerTextBox.Width - 100 * _SCALE), (int)(220 * _SCALE)          );
 
             ActiveControl = graphicsPanel;
 
@@ -198,7 +209,7 @@ namespace Music_Comp
         {
             bool valid = false;
 
-            if ((song == null || Song.TOTAL_INSTRUMENTS == 0) && e.KeyCode != Keys.Tab)
+            if ((song == null || Song.TOTAL_INSTRUMENTS == 0) && e.KeyCode != Keys.Tab && e.KeyCode != Keys.L)
             {
                 return;
             }
@@ -210,6 +221,24 @@ namespace Music_Comp
 
                 switch (e.KeyCode)
                 {
+                    case Keys.L:
+                        {
+                            if (lcheck == false)
+                            {
+                                SongDuration.Image = quarter;
+                                songdur1.Location = new Point(SongDuration.Width + 20, Height - 220);
+                                songdur2.Location = new Point(songdur1.Width * 2 + 20, Height - 220);
+                                songdur3.Location = new Point(songdur1.Width * 3 + 20, Height - 220);
+                                songdur4.Location = new Point(songdur1.Width * 4 + 20, Height - 220);
+                                lcheck = true;
+                            }
+                            else if (lcheck == true)
+                            {
+                                songdur1.Location = songdur2.Location = songdur3.Location = songdur4.Location = new Point(-200, 0);
+                                lcheck = false;
+                            }
+                            break;
+                        }
                     case Keys.Tab:
                         if (!ShiftCheck())
                         {
@@ -263,7 +292,7 @@ namespace Music_Comp
                                     break;
                             }
                         }
-                            break;
+                        break;
 
                     case Keys.Up:
                         if (selectedStaff > 0)
@@ -450,6 +479,7 @@ namespace Music_Comp
                                     break;
                             }
                         break;
+                    
                 }
                 if (valid)
                 {
@@ -628,6 +658,7 @@ namespace Music_Comp
         {
             return (ModifierKeys & Keys.Control) != 0;
         }
+
         private bool ShiftCheck()
         {
             return (ModifierKeys & Keys.Shift) != 0;
@@ -667,9 +698,23 @@ namespace Music_Comp
             }
         }
 
-        private void SongDuration_Click(object sender, EventArgs e)
+        private void SongDuration_DoubleClick(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void SongDuration_MouseClick(object sender, MouseEventArgs e)
         {
             ActiveControl = graphicsPanel;
+            if (lcheck == true)
+            {
+                currentDuration = Duration.Quarter;
+                songdur1.Location = songdur2.Location = songdur3.Location = songdur4.Location = new Point(-200, 0);
+                SongDuration.Image = quarter;
+                lcheck = false;
+                return;
+            }
+
             if (!ShiftCheck())
             {
                 switch (currentDuration)
@@ -722,6 +767,42 @@ namespace Music_Comp
                         break;
                 }
             }
+        }
+
+        private void songdur1_Click(object sender, EventArgs e)
+        {
+            ActiveControl = graphicsPanel;
+            currentDuration = Duration.Half;
+            songdur1.Location = songdur2.Location = songdur3.Location = songdur4.Location = new Point(-200, 0);
+            SongDuration.Image = half;
+            lcheck = false;
+        }
+
+        private void songdur2_Click(object sender, EventArgs e)
+        {
+            ActiveControl = graphicsPanel;
+            currentDuration = Duration.Whole;
+            songdur1.Location = songdur2.Location = songdur3.Location = songdur4.Location = new Point(-200, 0);
+            SongDuration.Image = whole;
+            lcheck = false;
+        }
+
+        private void songdur3_Click(object sender, EventArgs e)
+        {
+            ActiveControl = graphicsPanel;
+            currentDuration = Duration.Eighth;
+            songdur1.Location = songdur2.Location = songdur3.Location = songdur4.Location = new Point(-200, 0);
+            SongDuration.Image = eighth;
+            lcheck = false;
+        }
+
+        private void songdur4_Click(object sender, EventArgs e)
+        {
+            ActiveControl = graphicsPanel;
+            currentDuration = Duration.Sixteenth;
+            songdur1.Location = songdur2.Location = songdur3.Location = songdur4.Location = new Point(-200, 0);
+            SongDuration.Image = sixteenth;
+            lcheck = false;
         }
     }
 }
