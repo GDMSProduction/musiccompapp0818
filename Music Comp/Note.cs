@@ -12,6 +12,7 @@ namespace Music_Comp
         Accidental mAccidental;
         Duration mDuration;
         sbyte mOctave = 4;
+        WaveForm mWaveForm = WaveForm.Sine;
 
         public Note(Pitch p, Accidental a, Duration d, sbyte o)
         {
@@ -61,9 +62,19 @@ namespace Music_Comp
             return mDuration;
         }
 
-        public void SetDuration(Duration d)
+        public void SetDuration(Duration w)
         {
-            mDuration = d;
+            mDuration = w;
+        }
+
+        public WaveForm GetWaveForm()
+        {
+            return mWaveForm;
+        }
+
+        public void SetWaveForm(WaveForm w)
+        {
+            mWaveForm = w;
         }
 
         public sbyte GetOctave()
@@ -177,3 +188,4 @@ namespace Music_Comp
         }
     }
 }
+

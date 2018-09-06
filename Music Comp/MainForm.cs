@@ -455,6 +455,7 @@ namespace Music_Comp
                 {
                     Chord remainder =
                     song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).GetNextMeasure().AddChord(chord);
+                    chord.Play();
                     song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).GetNextMeasure().AddChord(remainder);
                     graphicsPanel.Invalidate();
                 }
@@ -616,6 +617,7 @@ namespace Music_Comp
             {
                 Chord remainder =
                 song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).GetNextMeasure().AddChord(mChord);
+                mChord.Play();
                 song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).GetNextMeasure().AddChord(remainder);
                 graphicsPanel.Invalidate();
 

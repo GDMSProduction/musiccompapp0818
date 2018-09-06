@@ -63,6 +63,7 @@ namespace Music_Comp
         C,
         F
     }
+
     public enum Accidental
     {
         DoubleFlat = -2,
@@ -71,6 +72,7 @@ namespace Music_Comp
         Sharp,
         DoubleSharp
     }
+
     public enum Pitch
     {
         E,
@@ -82,6 +84,7 @@ namespace Music_Comp
         F,
         Rest
     }
+
     public enum Duration
     {
         Sixteenth = 3,
@@ -95,6 +98,16 @@ namespace Music_Comp
         DottedHalf = 36,
         Whole = 48
     }
+
+    public enum WaveForm
+    {
+        Sine,
+        Square,
+        Sawtooth,
+        Triangle,
+        Noise
+    }
+
     public enum Grouping
     {
         None,
