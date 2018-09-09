@@ -96,24 +96,25 @@ namespace Music_Comp
             }
         }
 
-        public void UpdateLength()
-        {
-            mLength = 60 * Song._SCALE * mChords.Count;
-        }
-
         public void Update(float barline, float yPosition)
         {
             float cursor = 0;
             foreach (Chord chord in mChords)
             {
                 chord.Update(barline + cursor, yPosition, mClef);
-                cursor += 60 * Song._SCALE;
+                cursor += chord.GetWidth();
             }
+            mLength = cursor;
         }
         public void Draw(PaintEventArgs e)
         {
             foreach (Chord chord in mChords)
                 chord.Draw(e);
+        }
+
+        public void Play()
+        {
+
         }
     }
 }

@@ -30,7 +30,7 @@ namespace Music_Comp
         public static Key KEY = Key.C;
         public static Time TIME = Time.Common;
 
-        public static List<float> mBarlines;
+        public static List<float> BARLINES;
 
         List<Instrument> mInstruments = new List<Instrument>();
 
@@ -54,7 +54,7 @@ namespace Music_Comp
 
             area = new Rectangle(0, (int)TOP_MARGIN - 5, (int)PAGE_WIDTH, (int)cursorY);
 
-            mBarlines = new List<float>();
+            BARLINES = new List<float>();
         }
 
         public Song(float panelWidth, Key k, Time t)
@@ -69,7 +69,7 @@ namespace Music_Comp
             INSTRUMENT_SPACING = 80 * _SCALE;
             TOTAL_INSTRUMENTS = 0;
             TOTAL_STAVES = 0;
-            mBarlines = new List<float>();
+            BARLINES = new List<float>();
 
             area = new Rectangle(0, (int)TOP_MARGIN - 5, (int)PAGE_WIDTH, (int)cursorY);
 
@@ -221,16 +221,17 @@ namespace Music_Comp
             PointF end = new PointF(LEFT_MARGIN, btm_song_line);
 
             if (e.Graphics.IsVisible(new RectangleF(start.X, start.Y, 1, end.Y - start.Y)))
-            {
-                Pen barLinePen = new Pen(Color.Black, 3.4f * _SCALE);
-                e.Graphics.DrawLine(barLinePen, start, end);
-                barLinePen.Dispose();
-            }
+                e.Graphics.DrawLine(new Pen(Color.Black, 3.4f * _SCALE), start, end);
 
             foreach (Instrument instrument in mInstruments)
                 instrument.Draw(e);
 
-            DrawBarLines(mBarlines, e);
+            DrawBarLines(BARLINES, e);
+        }
+
+        public void Play()
+        {
+
         }
     }
 }

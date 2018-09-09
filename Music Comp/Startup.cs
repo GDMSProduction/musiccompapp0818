@@ -166,7 +166,7 @@ namespace Music_Comp
 
         private void Startup_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (checkexit == true)
+            if (checkexit)
             {
                 Application.Exit();
             }

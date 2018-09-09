@@ -5,14 +5,16 @@ namespace Music_Comp
 {
     public class Note
     {
+        RectangleF noteArea;
         RectangleF area;
+        RectangleF dotArea;
         Image image;
 
         Pitch mPitch;
         Accidental mAccidental;
         Duration mDuration;
         sbyte mOctave = 4;
-        WaveForm mWaveForm = WaveForm.Sine;
+        WaveForm mWaveForm = WaveForm.Square;
 
         public Note(Pitch p, Accidental a, Duration d, sbyte o)
         {
@@ -29,12 +31,12 @@ namespace Music_Comp
             mDuration = d;
             mOctave = o;
             image = i;
-            area = ar;
+            noteArea = ar;
         }
 
         public Note Clone()
         {
-            return new Note(mPitch, mAccidental, mDuration, mOctave, image, area);
+            return new Note(mPitch, mAccidental, mDuration, mOctave, image, noteArea);
         }
 
         public Pitch GetPitch()
@@ -87,6 +89,11 @@ namespace Music_Comp
             mOctave = o;
         }
 
+        private bool isDotted()
+        {
+            return (int)mDuration % 9 == 0;
+        }
+
         public float GetWidth()
         {
             return area.Width;
@@ -110,16 +117,22 @@ namespace Music_Comp
                 switch (mDuration)
                 {
                     case Duration.Quarter:
+                    case Duration.DottedQuarter:
                         image = Properties.Resources.QuarterRest;
                         size = new SizeF(35 * Song._SCALE, 90 * Song._SCALE);
                         y += 312 * Song._SCALE;
                         x += 33 * Song._SCALE;
+                        if (isDotted())
+                            dotArea = new RectangleF(x + 50 * Song._SCALE, y + size.Height - 40 * Song._SCALE, 10, 10);
                         break;
                     case Duration.Half:
+                    case Duration.DottedHalf:
                         image = Properties.Resources.HalfRest;
                         size = new SizeF(120 * Song._SCALE, 170 * Song._SCALE);
                         y += 296 * Song._SCALE;
                         x -= 15 * Song._SCALE;
+                        if (isDotted())
+                            dotArea = new RectangleF(x + 90 * Song._SCALE, y + size.Height - 120 * Song._SCALE, 10, 10);
                         break;
                     case Duration.Whole:
                         image = Properties.Resources.WholeRest;
@@ -128,10 +141,13 @@ namespace Music_Comp
                         x -= 15 * Song._SCALE;
                         break;
                     case Duration.Eighth:
+                    case Duration.DottedEighth:
                         image = Properties.Resources.EighthRest;
                         size = new SizeF(35 * Song._SCALE, 62 * Song._SCALE);
                         y += 333 * Song._SCALE;
                         x += 33 * Song._SCALE;
+                        if (isDotted())
+                            dotArea = new RectangleF(x + 45 * Song._SCALE, y + size.Height - 30 * Song._SCALE, 10, 10);
                         break;
                     case Duration.Sixteenth:
                         image = Properties.Resources.SixteenthRest;
@@ -143,19 +159,25 @@ namespace Music_Comp
             }
             else
             {
-                y += (260 + ((int)mPitch + (int)clef + (mOctave - 4) * 8) * 14.5f) * Song._SCALE;
+                y += (260 + ((int)mPitch + (int)clef + (mOctave - 4) * 8) * 14.7f) * Song._SCALE;
 
                 switch (mDuration)
                 {
                     case Duration.Quarter:
+                    case Duration.DottedQuarter:
                         image = Properties.Resources.Note;
                         size = new SizeF(90 * Song._SCALE, 135 * Song._SCALE);
                         y -= 50 * Song._SCALE;
+                        if ( isDotted())
+                            dotArea = new RectangleF(x + 80 * Song._SCALE, y + size.Height - 40 * Song._SCALE, 10, 10);
                         break;
                     case Duration.Half:
+                    case Duration.DottedHalf:
                         image = Properties.Resources.HalfNote;
                         size = new SizeF(120 * Song._SCALE, 135 * Song._SCALE);
                         y -= 56.5f * Song._SCALE;
+                        if (isDotted())
+                            dotArea = new RectangleF(x + 90 * Song._SCALE, y + size.Height - 35 * Song._SCALE, 10, 10);
                         break;
                     case Duration.Whole:
                         image = Properties.Resources.WholeNote;
@@ -164,10 +186,13 @@ namespace Music_Comp
                         x += 10 * Song._SCALE;
                         break;
                     case Duration.Eighth:
+                    case Duration.DottedEighth:
                         image = Properties.Resources.EighthNote;
                         size = new SizeF(72 * Song._SCALE, 117.5f * Song._SCALE);
                         y -= 47 * Song._SCALE;
                         x += 10 * Song._SCALE;
+                        if (isDotted())
+                            dotArea = new RectangleF(x + 60 * Song._SCALE, y + size.Height - 30 * Song._SCALE, 10, 10);
                         break;
                     case Duration.Sixteenth:
                         image = Properties.Resources.SixteenthNote;
@@ -178,13 +203,24 @@ namespace Music_Comp
             }
 
             location = new PointF(x, y);
-            area = new RectangleF(location, size);
+            noteArea = new RectangleF(location, size);
+            if (isDotted())
+                area = new RectangleF(noteArea.X, noteArea.Y, dotArea.X - noteArea.X, dotArea.Y - noteArea.Y);
+            else
+                area = noteArea;
         }
 
         public void Draw(PaintEventArgs e)
         {
-            if (e.Graphics.IsVisible(area))
-                e.Graphics.DrawImage(image, area);
+            if (e.Graphics.IsVisible(noteArea))
+                e.Graphics.DrawImage(image, noteArea);
+            if (isDotted())
+                e.Graphics.FillEllipse(new SolidBrush(Color.Black), dotArea);
+        }
+
+        public void Play()
+        {
+
         }
     }
 }

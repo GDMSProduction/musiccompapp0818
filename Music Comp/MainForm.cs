@@ -106,7 +106,7 @@ namespace Music_Comp
             zoomInButton.Location = new Point(Width - 110, Height - 200);
             zoomOutButton.Location = new Point(Width - 110, Height - 150);
             SongDuration.Location = new Point(20, Height - 220);
-            if (lcheck == true)
+            if (lcheck)
             {
                 songdur1.Location = new Point(SongDuration.Width + 20, Height - 220);
                 songdur2.Location = new Point(SongDuration.Width * 2 + 20, Height - 220);
@@ -176,12 +176,12 @@ namespace Music_Comp
             ActiveControl = graphicsPanel;
             if (Song.PAGE_WIDTH > 500)
                 graphicsPanel.Size = new Size((int)(PAGE_WIDTH - 100), (int)(PAGE_HEIGHT - 100 * PAGE_HEIGHT / PAGE_WIDTH));
-            if (Song.mBarlines != null)
-                for (int i = 0; i < Song.mBarlines.Count; i++)
+            if (Song.BARLINES != null)
+                for (int i = 0; i < Song.BARLINES.Count; i++)
                     if (_SCALE < 1)
-                        Song.mBarlines[i] *= _SCALE;
+                        Song.BARLINES[i] *= _SCALE;
                     else
-                        Song.mBarlines[i] /= _SCALE;
+                        Song.BARLINES[i] /= _SCALE;
         }
 
         private void Add_Instrument_Click(object sender, EventArgs e)
@@ -273,7 +273,7 @@ namespace Music_Comp
                                 songdur4.Location = new Point(songdur1.Width * 4 + 20, Height - 220);
                                 lcheck = true;
                             }
-                            else if (lcheck == true)
+                            else if (lcheck)
                             {
                                 switch (currentDuration)
                                 {
@@ -767,7 +767,7 @@ namespace Music_Comp
         private void SongDuration_MouseClick(object sender, MouseEventArgs e)
         {
             ActiveControl = graphicsPanel;
-            if (lcheck == true)
+            if (lcheck)
             {
                 currentDuration = Duration.Quarter;
                 songdur1.Location = songdur2.Location = songdur3.Location = songdur4.Location = new Point(-200, 0);

@@ -79,5 +79,10 @@ namespace Music_Comp
             foreach (Staff staff in mStaves)
                 staff.Draw(e);
         }
+
+        public void Play()
+        {
+
+        }
     }
 }

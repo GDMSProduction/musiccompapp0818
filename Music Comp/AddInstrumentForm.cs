@@ -63,7 +63,7 @@ namespace Music_Comp
 
         private void Brace_CheckedChanged(object sender, EventArgs e)
         {
-            if (Brace.Checked == true)
+            if (Brace.Checked)
             {
                 grouping = Grouping.Brace;
                 RefreshSong();
@@ -73,7 +73,7 @@ namespace Music_Comp
 
         private void Bracket_CheckedChanged(object sender, EventArgs e)
         {
-            if (Bracket.Checked == true)
+            if (Bracket.Checked)
             {
                 grouping = Grouping.Bracket;
                 RefreshSong();
@@ -83,7 +83,7 @@ namespace Music_Comp
 
         private void None_CheckedChanged(object sender, EventArgs e)
         {
-            if (None.Checked == true)
+            if (None.Checked)
             {
                 grouping = Grouping.None;
                 RefreshSong();

@@ -160,12 +160,8 @@ namespace Music_Comp
         private void DrawCursor(PaintEventArgs e)
         {
             if (isActive)
-            {
-                SolidBrush brush = new SolidBrush(cursorColor);
                 if (e.Graphics.IsVisible(cursorArea))
-                    e.Graphics.FillRectangle(brush, cursorArea);
-                brush.Dispose();
-            }
+                    e.Graphics.FillRectangle(new SolidBrush(cursorColor), cursorArea);
         }
 
         private void UpdateStaff()
@@ -177,16 +173,14 @@ namespace Music_Comp
 
         private void DrawStaff(PaintEventArgs e)
         {
-            Pen staffLinePen = new Pen(Color.Black, (int)(4.0f * Song._SCALE));
             for (int i = 0; i < 5; i++)
             {
                 PointF start = new PointF(area.X, area.Y + i * area.Height / 4);
                 PointF end = new PointF(area.X + area.Width, area.Y + i * area.Height / 4);
 
                 if (e.Graphics.IsVisible(new RectangleF(start.X, start.Y, end.X - start.X, 1)))
-                    e.Graphics.DrawLine(staffLinePen, start, end);
+                    e.Graphics.DrawLine(new Pen(Color.Black, (int)(4.0f * Song._SCALE)), start, end);
             }
-            staffLinePen.Dispose();
         }
 
         private void UpdateClef()
@@ -359,10 +353,16 @@ namespace Music_Comp
             for (int i = 0; i < mMeasures.Count; i++)
             {
                 mCursorX += 30 * Song._SCALE;
-                if (i >= Song.mBarlines.Count) Song.mBarlines.Add(mCursorX);
-                else if (mCursorX > Song.mBarlines[i]) Song.mBarlines[i] = mCursorX;
-                else mCursorX = Song.mBarlines[i];
-                mMeasures[i].UpdateLength();
+
+                if (i >= Song.BARLINES.Count)          // if the barline does not exist yet
+                    Song.BARLINES.Add(mCursorX);       // create it at the cursor
+
+                else if (mCursorX > Song.BARLINES[i])  // if the cursor exceedes the current barline placement
+                    Song.BARLINES[i] = mCursorX;       // move the barline
+
+                else                                    // if the barline exists beyond the cursor
+                    mCursorX = Song.BARLINES[i];       // move the cursor to the barline
+
                 mCursorX += mMeasures[i].GetLength();
             }
         }
@@ -385,7 +385,7 @@ namespace Music_Comp
             UpdateBarLines();
 
             for (int i = 0; i < mMeasures.Count; i++)
-                mMeasures[i].Update(Song.mBarlines[i], mYPosition);
+                mMeasures[i].Update(Song.BARLINES[i], mYPosition);
         }
 
         public void Draw(PaintEventArgs e)
@@ -402,6 +402,11 @@ namespace Music_Comp
 
             foreach (Measure measure in mMeasures)
                 measure.Draw(e);
+        }
+
+        public void Play()
+        {
+
         }
     }
 }
