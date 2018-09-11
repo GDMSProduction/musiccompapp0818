@@ -92,6 +92,21 @@
     <Compile Include="Startup.Designer.cs">
       <DependentUpon>Startup.cs</DependentUpon>
     </Compile>
+    <Compile Include="TransparentTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TutorialForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TutorialForm.Designer.cs">
+      <DependentUpon>TutorialForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewTutorial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ViewTutorial.Designer.cs">
+      <DependentUpon>ViewTutorial.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -111,6 +126,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Startup.resx">
       <DependentUpon>Startup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TutorialForm.resx">
+      <DependentUpon>TutorialForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ViewTutorial.resx">
+      <DependentUpon>ViewTutorial.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -202,6 +223,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\clef4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\play.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\pause.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

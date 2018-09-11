@@ -265,6 +265,7 @@
             this.MaximumSize = new System.Drawing.Size(822, 506);
             this.MinimumSize = new System.Drawing.Size(822, 506);
             this.Name = "AddInstrumentForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AddInstrument";
             this.SizeChanged += new System.EventHandler(this.AddInstrumentForm_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.StaveNumeric)).EndInit();
