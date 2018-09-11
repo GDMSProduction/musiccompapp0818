@@ -103,6 +103,36 @@ namespace Music_Comp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap dottedeighth {
+            get {
+                object obj = ResourceManager.GetObject("dottedeighth", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap dottedhalf {
+            get {
+                object obj = ResourceManager.GetObject("dottedhalf", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap dottedquarter {
+            get {
+                object obj = ResourceManager.GetObject("dottedquarter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap DoubleFlat {
             get {
                 object obj = ResourceManager.GetObject("DoubleFlat", resourceCulture);
