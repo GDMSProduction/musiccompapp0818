@@ -12,7 +12,6 @@ namespace Music_Comp
 
         float mLength;
 
-        bool isFull;
         int mTotalDuration;
 
         Clef mClef;
@@ -22,7 +21,6 @@ namespace Music_Comp
         public Measure(Clef clef, float yPosition)
         {
             mClef = clef;
-            isFull = false;
             mChords = new List<Chord>();
         }
 
@@ -48,7 +46,9 @@ namespace Music_Comp
 
         public bool IsFull()
         {
-            return isFull;
+            if (mTotalDuration >= (int)Song.TIME)
+                return true;
+            return false;
         }
 
         public Chord AddChord(Chord chord)
@@ -79,13 +79,11 @@ namespace Music_Comp
                     remainder.SetDuration((Duration)remainderDuration);
 
                     mChords.Add(split);
-                    isFull = true;
                     return remainder;
                 }
                 else if (mTotalDuration == (int)Song.TIME)
                 {
                     mChords.Add(chord);
-                    isFull = true;
                     return null;
                 }
                 else
@@ -120,6 +118,19 @@ namespace Music_Comp
         public void Play()
         {
 
+        }
+
+        public void Remove(Chord c)
+        {
+            mTotalDuration -= (int)mChords[mChords.Count - 1].GetDuration();
+            mChords.Remove(c);
+        }
+
+        public bool IsEmpty()
+        {
+            if (mChords.Count == 0 || mTotalDuration == 0)
+                return true;
+            return false;
         }
     }
 }

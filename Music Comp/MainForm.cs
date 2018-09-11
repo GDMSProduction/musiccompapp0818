@@ -392,7 +392,23 @@ namespace Music_Comp
                             graphicsPanel.Invalidate(new Region(song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).GetArea()));
                         }
                         break;
-
+                    case Keys.Back:
+                        Staff staff = song.GetInstrument(selectedInstrument).GetStaff(selectedStaff);
+                        if (!staff.GetCurrentMeasure().IsEmpty())
+                        {
+                            staff.GetCurrentMeasure().Remove(staff.GetCurrentMeasure().GetChord(staff.GetCurrentMeasure().GetChordCount() - 1));
+                            staff.Update();
+                            graphicsPanel.Invalidate(new Region(staff.GetArea()));
+                        }
+                        else if (staff.GetCurrentMeasure().IsEmpty() && staff.GetMeasuresCount() != 1)
+                        {
+                            staff.RemoveMeasure(staff.GetCurrentMeasure());
+                            staff.GetCurrentMeasure().Remove(staff.GetCurrentMeasure().GetChord(staff.GetCurrentMeasure().GetChordCount() - 1));
+                            //Song.BARLINES.Remove(Song.BARLINES.Count - 1);
+                            staff.Update();
+                            graphicsPanel.Invalidate(new Region(staff.GetArea()));
+                        }
+                        break;
                     case Keys.A:
                         valid = true;
                         chord.GetNote(0).SetPitch(Pitch.A);

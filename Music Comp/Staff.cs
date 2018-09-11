@@ -85,6 +85,10 @@ namespace Music_Comp
         {
             mMeasures.Add(new Measure(mClef, mYPosition));
         }
+        public void RemoveMeasure(Measure m)
+        {
+            mMeasures.Remove(m);
+        }
 
         public bool IsActive()
         {
@@ -423,5 +427,16 @@ namespace Music_Comp
         {
 
         }
+
+        public Measure GetCurrentMeasure()
+        {
+            return mMeasures[mMeasures.Count - 1];
+        }
+
+        public int GetMeasuresCount()
+        {
+            return mMeasures.Count;
+        }
+
     }
 }
