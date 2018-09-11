@@ -199,13 +199,13 @@
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
             // 
-            // graphicsPanel1
+            // graphicsPanel
             // 
             this.graphicsPanel.BackColor = System.Drawing.SystemColors.Window;
             this.graphicsPanel.Controls.Add(this.composerLabel);
             this.graphicsPanel.Controls.Add(this.titleLabel);
             this.graphicsPanel.Location = new System.Drawing.Point(12, 12);
-            this.graphicsPanel.Name = "graphicsPanel1";
+            this.graphicsPanel.Name = "graphicsPanel";
             this.graphicsPanel.Size = new System.Drawing.Size(1431, 975);
             this.graphicsPanel.TabIndex = 12;
             this.graphicsPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.graphicsPanel1_Paint);
@@ -254,6 +254,7 @@
             this.Controls.Add(this.label1);
             this.MinimumSize = new System.Drawing.Size(970, 580);
             this.Name = "Startup";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Template";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Startup_FormClosing);
             this.SizeChanged += new System.EventHandler(this.Startup_SizeChanged);

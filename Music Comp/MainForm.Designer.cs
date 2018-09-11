@@ -47,6 +47,7 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.controlsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tutorialToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.songToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.songdur4 = new System.Windows.Forms.Button();
@@ -54,9 +55,10 @@
             this.songdur1 = new System.Windows.Forms.Button();
             this.songdur2 = new System.Windows.Forms.Button();
             this.SongDuration = new System.Windows.Forms.Button();
+            this.PlayButton = new System.Windows.Forms.Button();
             this.graphicsPanel = new Music_Comp.GraphicsPanel();
-            this.composerTextBox = new System.Windows.Forms.TextBox();
-            this.titleTextBox = new System.Windows.Forms.TextBox();
+            this.titleTextBox = new Music_Comp.TransparentTextBox();
+            this.composerTextBox = new Music_Comp.TransparentTextBox();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.graphicsPanel.SuspendLayout();
@@ -68,7 +70,7 @@
             this.zoomInButton.BackColor = System.Drawing.Color.White;
             this.zoomInButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.zoomInButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.zoomInButton.Location = new System.Drawing.Point(4035, 5803);
+            this.zoomInButton.Location = new System.Drawing.Point(6321, 9784);
             this.zoomInButton.Name = "zoomInButton";
             this.zoomInButton.Size = new System.Drawing.Size(75, 75);
             this.zoomInButton.TabIndex = 1;
@@ -83,7 +85,7 @@
             this.zoomOutButton.BackColor = System.Drawing.Color.White;
             this.zoomOutButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.zoomOutButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.zoomOutButton.Location = new System.Drawing.Point(4035, 5878);
+            this.zoomOutButton.Location = new System.Drawing.Point(6321, 9859);
             this.zoomOutButton.Name = "zoomOutButton";
             this.zoomOutButton.Size = new System.Drawing.Size(75, 75);
             this.zoomOutButton.TabIndex = 2;
@@ -130,6 +132,7 @@
             this.newSongToolStripMenuItem.Name = "newSongToolStripMenuItem";
             this.newSongToolStripMenuItem.Size = new System.Drawing.Size(222, 30);
             this.newSongToolStripMenuItem.Text = "New Song";
+            this.newSongToolStripMenuItem.Click += new System.EventHandler(this.newSongToolStripMenuItem_Click);
             // 
             // newInstrumentToolStripMenuItem
             // 
@@ -206,7 +209,8 @@
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.controlsToolStripMenuItem,
-            this.aboutToolStripMenuItem});
+            this.aboutToolStripMenuItem,
+            this.tutorialToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(61, 29);
             this.helpToolStripMenuItem.Text = "Help";
@@ -223,6 +227,13 @@
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(163, 30);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
+            // tutorialToolStripMenuItem
+            // 
+            this.tutorialToolStripMenuItem.Name = "tutorialToolStripMenuItem";
+            this.tutorialToolStripMenuItem.Size = new System.Drawing.Size(163, 30);
+            this.tutorialToolStripMenuItem.Text = "Tutorial";
+            this.tutorialToolStripMenuItem.Click += new System.EventHandler(this.tutorialToolStripMenuItem_Click);
             // 
             // songToolStripMenuItem
             // 
@@ -254,7 +265,7 @@
             this.songdur4.BackColor = System.Drawing.Color.White;
             this.songdur4.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.songdur4.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.songdur4.Location = new System.Drawing.Point(168, 2543);
+            this.songdur4.Location = new System.Drawing.Point(168, 10505);
             this.songdur4.Name = "songdur4";
             this.songdur4.Size = new System.Drawing.Size(150, 150);
             this.songdur4.TabIndex = 8;
@@ -268,7 +279,7 @@
             this.songdur3.BackColor = System.Drawing.Color.White;
             this.songdur3.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.songdur3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.songdur3.Location = new System.Drawing.Point(12, 2543);
+            this.songdur3.Location = new System.Drawing.Point(12, 10505);
             this.songdur3.Name = "songdur3";
             this.songdur3.Size = new System.Drawing.Size(150, 150);
             this.songdur3.TabIndex = 7;
@@ -282,7 +293,7 @@
             this.songdur1.BackColor = System.Drawing.Color.White;
             this.songdur1.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.songdur1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.songdur1.Location = new System.Drawing.Point(12, 2387);
+            this.songdur1.Location = new System.Drawing.Point(12, 10349);
             this.songdur1.Name = "songdur1";
             this.songdur1.Size = new System.Drawing.Size(150, 150);
             this.songdur1.TabIndex = 6;
@@ -296,7 +307,7 @@
             this.songdur2.BackColor = System.Drawing.Color.White;
             this.songdur2.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.songdur2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.songdur2.Location = new System.Drawing.Point(168, 2387);
+            this.songdur2.Location = new System.Drawing.Point(168, 10349);
             this.songdur2.Name = "songdur2";
             this.songdur2.Size = new System.Drawing.Size(150, 150);
             this.songdur2.TabIndex = 9;
@@ -310,7 +321,7 @@
             this.SongDuration.BackColor = System.Drawing.Color.White;
             this.SongDuration.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.SongDuration.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SongDuration.Location = new System.Drawing.Point(12, 2837);
+            this.SongDuration.Location = new System.Drawing.Point(12, 10799);
             this.SongDuration.Name = "SongDuration";
             this.SongDuration.Size = new System.Drawing.Size(150, 150);
             this.SongDuration.TabIndex = 5;
@@ -318,12 +329,26 @@
             this.SongDuration.UseVisualStyleBackColor = false;
             this.SongDuration.MouseClick += new System.Windows.Forms.MouseEventHandler(this.SongDuration_MouseClick);
             // 
+            // PlayButton
+            // 
+            this.PlayButton.BackColor = System.Drawing.Color.Transparent;
+            this.PlayButton.FlatAppearance.BorderSize = 0;
+            this.PlayButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.PlayButton.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.PlayButton.Location = new System.Drawing.Point(478, 0);
+            this.PlayButton.Name = "PlayButton";
+            this.PlayButton.Size = new System.Drawing.Size(33, 33);
+            this.PlayButton.TabIndex = 5;
+            this.PlayButton.TabStop = false;
+            this.PlayButton.UseVisualStyleBackColor = false;
+            this.PlayButton.Click += new System.EventHandler(this.PlayButton_Click);
+            // 
             // graphicsPanel
             // 
             this.graphicsPanel.AutoScroll = true;
             this.graphicsPanel.BackColor = System.Drawing.Color.White;
-            this.graphicsPanel.Controls.Add(this.composerTextBox);
             this.graphicsPanel.Controls.Add(this.titleTextBox);
+            this.graphicsPanel.Controls.Add(this.composerTextBox);
             this.graphicsPanel.Location = new System.Drawing.Point(0, 0);
             this.graphicsPanel.Name = "graphicsPanel";
             this.graphicsPanel.Size = new System.Drawing.Size(2550, 3300);
@@ -332,26 +357,11 @@
             this.graphicsPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.graphicsPanel_Paint);
             this.graphicsPanel.Resize += new System.EventHandler(this.graphicsPanel_Resize);
             // 
-            // composerTextBox
-            // 
-            this.composerTextBox.AcceptsReturn = true;
-            this.composerTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.composerTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.composerTextBox.Location = new System.Drawing.Point(772, 85);
-            this.composerTextBox.Margin = new System.Windows.Forms.Padding(3, 5, 3, 0);
-            this.composerTextBox.MaxLength = 20;
-            this.composerTextBox.Name = "composerTextBox";
-            this.composerTextBox.Size = new System.Drawing.Size(203, 46);
-            this.composerTextBox.TabIndex = 1;
-            this.composerTextBox.TabStop = false;
-            this.composerTextBox.Text = "John Doe";
-            this.composerTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
             // titleTextBox
             // 
-            this.titleTextBox.AcceptsReturn = true;
             this.titleTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.titleTextBox.BackColor = System.Drawing.Color.Transparent;
             this.titleTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.titleTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 60F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.titleTextBox.Location = new System.Drawing.Point(12, 12);
@@ -363,6 +373,23 @@
             this.titleTextBox.TabStop = false;
             this.titleTextBox.Text = "My Song 1";
             this.titleTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.titleTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.titleTextBox_KeyDown);
+            // 
+            // composerTextBox
+            // 
+            this.composerTextBox.BackColor = System.Drawing.Color.Transparent;
+            this.composerTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.composerTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.composerTextBox.Location = new System.Drawing.Point(772, 85);
+            this.composerTextBox.Margin = new System.Windows.Forms.Padding(3, 5, 3, 0);
+            this.composerTextBox.MaxLength = 20;
+            this.composerTextBox.Name = "composerTextBox";
+            this.composerTextBox.Size = new System.Drawing.Size(203, 46);
+            this.composerTextBox.TabIndex = 1;
+            this.composerTextBox.TabStop = false;
+            this.composerTextBox.Text = "John Doe";
+            this.composerTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.composerTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.composerTextBox_KeyDown);
             // 
             // MainForm
             // 
@@ -370,6 +397,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1026, 679);
+            this.Controls.Add(this.PlayButton);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -407,8 +435,8 @@
         private System.Windows.Forms.ToolStripMenuItem controlsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private Music_Comp.GraphicsPanel graphicsPanel;
-        private System.Windows.Forms.TextBox composerTextBox;
-        private System.Windows.Forms.TextBox titleTextBox;
+        private Music_Comp.TransparentTextBox composerTextBox;
+        private Music_Comp.TransparentTextBox titleTextBox;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ToolStripMenuItem songToolStripMenuItem;
         private System.Windows.Forms.Button SongDuration;
@@ -416,6 +444,8 @@
         private System.Windows.Forms.Button songdur3;
         private System.Windows.Forms.Button songdur4;
         private System.Windows.Forms.Button songdur2;
+        private System.Windows.Forms.ToolStripMenuItem tutorialToolStripMenuItem;
+        private System.Windows.Forms.Button PlayButton;
     }
 }
 

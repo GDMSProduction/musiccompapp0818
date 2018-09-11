@@ -13,6 +13,7 @@ namespace Music_Comp
         float _SCALE;
 
         bool lcheck = false;
+        bool playcheck = false;
 
         Song song;
 
@@ -30,9 +31,23 @@ namespace Music_Comp
         Bitmap sixteenth = new Bitmap(Properties.Resources.SixteenthNote, new Size(80, 80));
         Bitmap whole = new Bitmap(Properties.Resources.WholeNote, new Size(70, 40));
 
+        Bitmap play = new Bitmap(Properties.Resources.play, new Size(13, 13));
+        Bitmap pause = new Bitmap(Properties.Resources.pause, new Size(13, 13));
+
         public MainForm()
         {
             InitializeComponent();
+
+            ViewTutorial tutorial = new ViewTutorial();
+            tutorial.ShowDialog();
+            if (tutorial.DialogResult == DialogResult.OK)
+            {
+                TutorialForm tutform = new TutorialForm();
+                tutform.ShowDialog();
+            }
+
+            PlayButton.Image = play;
+            PlayButton.Location = new Point((Width / 2) - (PlayButton.Width / 2), 0);
 
             songdur1.Size = SongDuration.Size;
             songdur1.Image = half;
@@ -96,6 +111,7 @@ namespace Music_Comp
                 composerTextBox.Text = startup.composer;
             }
         }
+        
         protected override bool ProcessDialogKey(Keys keyData)
         {
             return false;
@@ -106,6 +122,7 @@ namespace Music_Comp
             zoomInButton.Location = new Point(Width - 110, Height - 200);
             zoomOutButton.Location = new Point(Width - 110, Height - 150);
             SongDuration.Location = new Point(20, Height - 220);
+            PlayButton.Location = new Point((Width / 2) - (PlayButton.Width / 2), 0);
             if (lcheck)
             {
                 songdur1.Location = new Point(SongDuration.Width + 20, Height - 220);
@@ -216,6 +233,11 @@ namespace Music_Comp
 
         private void graphicsPanel_KeyUp(object sender, KeyEventArgs e)
         {
+            if (playcheck == true && e.KeyCode != Keys.Space)
+            {
+                return;
+            }
+
             bool valid = false;
 
             if ((song == null || Song.TOTAL_INSTRUMENTS == 0) && e.KeyCode != Keys.Tab && e.KeyCode != Keys.L)
@@ -545,6 +567,24 @@ namespace Music_Comp
                                     break;
                             }
                         break;
+                    case Keys.Space:
+                        {
+                            if (playcheck == false)
+                            {
+                                PlayButton.Image = pause;
+                                titleTextBox.Enabled = false;
+                                composerTextBox.Enabled = false;
+                                playcheck = true;
+                            }
+                            else
+                            {
+                                PlayButton.Image = play;
+                                titleTextBox.Enabled = true;
+                                composerTextBox.Enabled = true;
+                                playcheck = false;
+                            }
+                            break;
+                        }
                     
                 }
                 if (valid)
@@ -778,11 +818,15 @@ namespace Music_Comp
         private void SongDuration_MouseClick(object sender, MouseEventArgs e)
         {
             ActiveControl = graphicsPanel;
+
+            if (playcheck == true)
+            {
+                return;
+            }
+
             if (lcheck)
             {
-                currentDuration = Duration.Quarter;
                 songdur1.Location = songdur2.Location = songdur3.Location = songdur4.Location = new Point(-200, 0);
-                SongDuration.Image = quarter;
                 lcheck = false;
                 return;
             }
@@ -969,6 +1013,53 @@ namespace Music_Comp
             }
             songdur1.Location = songdur2.Location = songdur3.Location = songdur4.Location = new Point(-200, 0);
             lcheck = false;
+        }
+
+        private void composerTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                ActiveControl = graphicsPanel;
+            }
+        }
+
+        private void titleTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                ActiveControl = graphicsPanel;
+            }
+        }
+
+        private void tutorialToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TutorialForm tutorial = new TutorialForm();
+            tutorial.ShowDialog();
+        }
+
+        private void newSongToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            song = new Song(PAGE_WIDTH);
+            graphicsPanel.Invalidate();
+        }
+
+        private void PlayButton_Click(object sender, EventArgs e)
+        {
+            ActiveControl = graphicsPanel;
+            if (playcheck == false)
+            {
+                PlayButton.Image = pause;
+                titleTextBox.Enabled = false;
+                composerTextBox.Enabled = false;
+                playcheck = true;
+            }
+            else
+            {
+                PlayButton.Image = play;
+                titleTextBox.Enabled = true;
+                composerTextBox.Enabled = true;
+                playcheck = false;
+            }
         }
     }
 }
