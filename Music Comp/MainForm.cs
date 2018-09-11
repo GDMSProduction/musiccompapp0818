@@ -367,13 +367,13 @@ namespace Music_Comp
                             song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).SetActive(false);
                             graphicsPanel.Invalidate(new Region(song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).GetArea()));
                             selectedInstrument--;
-                            selectedStaff = song.GetInstrument(selectedInstrument).GetNumberOfStaves() - 1;
+                            selectedStaff = song.GetInstrument(selectedInstrument).GetStaffCount() - 1;
                             song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).SetActive(true);
                             graphicsPanel.Invalidate(new Region(song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).GetArea()));
                         }
                         break;
                     case Keys.Down:
-                        if (selectedStaff < song.GetInstrument(selectedInstrument).GetNumberOfStaves() - 1)
+                        if (selectedStaff < song.GetInstrument(selectedInstrument).GetStaffCount() - 1)
                         {
                             song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).SetActive(false);
                             graphicsPanel.Invalidate(new Region(song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).GetArea()));
@@ -381,7 +381,7 @@ namespace Music_Comp
                             song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).SetActive(true);
                             graphicsPanel.Invalidate(new Region(song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).GetArea()));
                         }
-                        else if (selectedStaff == song.GetInstrument(selectedInstrument).GetNumberOfStaves() - 1 &&
+                        else if (selectedStaff == song.GetInstrument(selectedInstrument).GetStaffCount() - 1 &&
                                  selectedInstrument != Song.TOTAL_INSTRUMENTS - 1)
                         {
                             song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).SetActive(false);
@@ -715,7 +715,7 @@ namespace Music_Comp
             {
                 Staff staff = song.GetInstrument(selectedInstrument).GetStaff(selectedStaff);
                 Chord remainder = staff.GetNextMeasure().AddChord(mChord);
-                mChord.Play();
+                song.Play();// mChord.Play();
                 if (remainder != null)
                     staff.GetNextMeasure().AddChord(remainder);
                 staff.Update();

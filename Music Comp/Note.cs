@@ -1,5 +1,7 @@
 ﻿using System.Windows.Forms;
 using System.Drawing;
+using System.IO;
+using System;
 
 namespace Music_Comp
 {
@@ -211,7 +213,100 @@ namespace Music_Comp
 
         public void Play()
         {
+            if (mPitch != Pitch.Rest)
+            {
+                var mStrm = new MemoryStream();
+                BinaryWriter writer = new BinaryWriter(mStrm);
 
+                int msDuration = (int)GetDuration() * 60;
+                int samplesPerSecond = 44100;
+                short bitsPerSample = 16;
+                short tracks = 1;
+                short frameSize = (short)(tracks * ((bitsPerSample + 7) / 8));
+                int bytesPerSecond = samplesPerSecond * frameSize;
+                int samples = (int)((decimal)samplesPerSecond * msDuration / 1000);
+                {
+                    int formatChunkSize = 16;
+                    int headerSize = 8;
+                    short formatType = 1;
+                    int waveSize = 4;
+                    int dataChunkSize = samples * frameSize;
+                    int fileSize = waveSize + headerSize + formatChunkSize + headerSize + dataChunkSize;
+                    // var encoding = new System.Text.UTF8Encoding();
+                    writer.Write(0x46464952); // = encoding.GetBytes("RIFF")
+                    writer.Write(fileSize);
+                    writer.Write(0x45564157); // = encoding.GetBytes("WAVE")
+                    writer.Write(0x20746D66); // = encoding.GetBytes("fmt ")
+                    writer.Write(formatChunkSize);
+                    writer.Write(formatType);
+                    writer.Write(tracks);
+                    writer.Write(samplesPerSecond);
+                    writer.Write(bytesPerSecond);
+                    writer.Write(frameSize);
+                    writer.Write(bitsPerSample);
+                    writer.Write(0x61746164); // = encoding.GetBytes("data")
+                    writer.Write(dataChunkSize);
+                }
+
+                double theta;
+                ushort frequency;
+                int samplesPerWavelength;
+                short ampStep;
+
+                ushort volume = 16383;
+                if (GetWaveForm() == WaveForm.Square)
+                    volume /= 2;
+
+                const double TAU = 2 * Math.PI;
+                double NOTE_CONSTANT = Math.Pow(2, (1.0 / 12.0));
+
+                double amp = volume / 2;
+
+                double step = (int)Pitch.A;
+                if (mPitch <= Pitch.F && mPitch >= Pitch.B)
+                    step += 0.5;
+                double exp = -2 * ((double)mPitch - step);
+
+                frequency = (ushort)(440 * Math.Pow(NOTE_CONSTANT, exp));
+                samplesPerWavelength = bytesPerSecond / frequency;
+                ampStep = (short)(amp * 2 / samplesPerWavelength);
+
+                theta = frequency * TAU / samplesPerSecond;
+
+                short tempSample = (short)-amp;
+                for (int i = 0; i < samples; i++)
+                {
+                    short s = 0;
+
+                    switch (GetWaveForm())
+                    {
+                        case WaveForm.Sine:
+                                s += (short)(amp * Math.Sin(theta * i));
+                            break;
+                        case WaveForm.Square:
+                                s += (short)(amp * Math.Sign(Math.Sin(theta * i)));
+                            break;
+                        case WaveForm.Sawtooth:
+                                tempSample += ampStep;
+                                s += (short)(tempSample / ampStep);
+                            break;
+                        case WaveForm.Triangle:
+                                if (Math.Abs(tempSample) > amp)
+                                    ampStep = (short)-ampStep;
+                                tempSample += ampStep;
+                                s += (short)(tempSample / ampStep);
+                            break;
+                        case WaveForm.Noise:
+                            s += (short)((new Random().NextDouble() * 2 - 1) * amp);
+                            break;
+                    }
+                    writer.Write(s);
+                }
+                mStrm.Seek(0, SeekOrigin.Begin);
+                new System.Media.SoundPlayer(mStrm).Play();
+                writer.Close();
+                mStrm.Close();
+            }
         }
     }
 }
