@@ -41,10 +41,10 @@
             this.KeyBox = new System.Windows.Forms.ComboBox();
             this.TimeBox = new System.Windows.Forms.ComboBox();
             this.cancelButton = new System.Windows.Forms.Button();
-            this.graphicsPanel1 = new Music_Comp.GraphicsPanel();
+            this.graphicsPanel = new Music_Comp.GraphicsPanel();
             this.composerLabel = new System.Windows.Forms.Label();
             this.titleLabel = new System.Windows.Forms.Label();
-            this.graphicsPanel1.SuspendLayout();
+            this.graphicsPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // okButton
@@ -201,14 +201,14 @@
             // 
             // graphicsPanel1
             // 
-            this.graphicsPanel1.BackColor = System.Drawing.SystemColors.Window;
-            this.graphicsPanel1.Controls.Add(this.composerLabel);
-            this.graphicsPanel1.Controls.Add(this.titleLabel);
-            this.graphicsPanel1.Location = new System.Drawing.Point(12, 12);
-            this.graphicsPanel1.Name = "graphicsPanel1";
-            this.graphicsPanel1.Size = new System.Drawing.Size(1431, 975);
-            this.graphicsPanel1.TabIndex = 12;
-            this.graphicsPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.graphicsPanel1_Paint);
+            this.graphicsPanel.BackColor = System.Drawing.SystemColors.Window;
+            this.graphicsPanel.Controls.Add(this.composerLabel);
+            this.graphicsPanel.Controls.Add(this.titleLabel);
+            this.graphicsPanel.Location = new System.Drawing.Point(12, 12);
+            this.graphicsPanel.Name = "graphicsPanel1";
+            this.graphicsPanel.Size = new System.Drawing.Size(1431, 975);
+            this.graphicsPanel.TabIndex = 12;
+            this.graphicsPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.graphicsPanel1_Paint);
             // 
             // composerLabel
             // 
@@ -242,7 +242,7 @@
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.TimeBox);
             this.Controls.Add(this.KeyBox);
-            this.Controls.Add(this.graphicsPanel1);
+            this.Controls.Add(this.graphicsPanel);
             this.Controls.Add(this.composerTextBox);
             this.Controls.Add(this.titleTextBox);
             this.Controls.Add(this.removeInstrumentButton);
@@ -257,8 +257,8 @@
             this.Text = "Template";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Startup_FormClosing);
             this.SizeChanged += new System.EventHandler(this.Startup_SizeChanged);
-            this.graphicsPanel1.ResumeLayout(false);
-            this.graphicsPanel1.PerformLayout();
+            this.graphicsPanel.ResumeLayout(false);
+            this.graphicsPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -276,7 +276,7 @@
         private System.Windows.Forms.Button removeInstrumentButton;
         private System.Windows.Forms.TextBox titleTextBox;
         private System.Windows.Forms.TextBox composerTextBox;
-        private GraphicsPanel graphicsPanel1;
+        private GraphicsPanel graphicsPanel;
         private System.Windows.Forms.Label titleLabel;
         private System.Windows.Forms.ComboBox KeyBox;
         private System.Windows.Forms.ComboBox TimeBox;

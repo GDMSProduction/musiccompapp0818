@@ -1,7 +1,7 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Collections.Generic;
+using System.Drawing;
+using System;
 
 namespace Music_Comp
 {
@@ -356,33 +356,40 @@ namespace Music_Comp
                     case Keys.Up:
                         if (selectedStaff > 0)
                         {
-                            song.GetInstrument(selectedInstrument).GetStaff(selectedStaff--).SetActive(false);
+                            song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).SetActive(false);
+                            graphicsPanel.Invalidate(new Region(song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).GetArea()));
+                            selectedStaff--;
                             song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).SetActive(true);
-                            graphicsPanel.Invalidate();
+                            graphicsPanel.Invalidate(new Region(song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).GetArea()));
                         }
                         else if (selectedStaff == 0 && selectedInstrument != 0)
                         {
-                            song.GetInstrument(selectedInstrument--).GetStaff(selectedStaff).SetActive(false);
+                            song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).SetActive(false);
+                            graphicsPanel.Invalidate(new Region(song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).GetArea()));
+                            selectedInstrument--;
                             selectedStaff = song.GetInstrument(selectedInstrument).GetNumberOfStaves() - 1;
                             song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).SetActive(true);
-                            graphicsPanel.Invalidate();
+                            graphicsPanel.Invalidate(new Region(song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).GetArea()));
                         }
                         break;
                     case Keys.Down:
                         if (selectedStaff < song.GetInstrument(selectedInstrument).GetNumberOfStaves() - 1)
                         {
-                            song.GetInstrument(selectedInstrument).GetStaff(selectedStaff++).SetActive(false);
+                            song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).SetActive(false);
+                            graphicsPanel.Invalidate(new Region(song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).GetArea()));
+                            selectedStaff++;
                             song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).SetActive(true);
-                            graphicsPanel.Invalidate();
+                            graphicsPanel.Invalidate(new Region(song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).GetArea()));
                         }
                         else if (selectedStaff == song.GetInstrument(selectedInstrument).GetNumberOfStaves() - 1 &&
                                  selectedInstrument != Song.TOTAL_INSTRUMENTS - 1)
                         {
                             song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).SetActive(false);
+                            graphicsPanel.Invalidate(new Region(song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).GetArea()));
                             selectedStaff = 0;
                             selectedInstrument++;
                             song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).SetActive(true);
-                            graphicsPanel.Invalidate();
+                            graphicsPanel.Invalidate(new Region(song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).GetArea()));
                         }
                         break;
 
@@ -542,11 +549,13 @@ namespace Music_Comp
                 }
                 if (valid)
                 {
-                    Chord remainder =
-                    song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).GetNextMeasure().AddChord(chord);
+                    Staff staff = song.GetInstrument(selectedInstrument).GetStaff(selectedStaff);
+                    Chord remainder = staff.GetNextMeasure().AddChord(chord);
                     chord.Play();
-                    song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).GetNextMeasure().AddChord(remainder);
-                    graphicsPanel.Invalidate();
+                    if (remainder != null)
+                        staff.GetNextMeasure().AddChord(remainder);
+                    staff.Update();
+                    graphicsPanel.Invalidate(new Region(staff.GetArea()));
                 }
             }
             else
@@ -704,11 +713,13 @@ namespace Music_Comp
             }
             if (!ControlCheck() && noteIndex != 0)
             {
-                Chord remainder =
-                song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).GetNextMeasure().AddChord(mChord);
+                Staff staff = song.GetInstrument(selectedInstrument).GetStaff(selectedStaff);
+                Chord remainder = staff.GetNextMeasure().AddChord(mChord);
                 mChord.Play();
-                song.GetInstrument(selectedInstrument).GetStaff(selectedStaff).GetNextMeasure().AddChord(remainder);
-                graphicsPanel.Invalidate();
+                if (remainder != null)
+                    staff.GetNextMeasure().AddChord(remainder);
+                staff.Update();
+                graphicsPanel.Invalidate(new Region(staff.GetArea()));
 
                 mChord = new Chord();
                 noteIndex = 0;
@@ -755,7 +766,7 @@ namespace Music_Comp
             {
                 song.Transpose(SongSettingsMenu.GetKeySignature());
                 song.EditTimeSignature(SongSettingsMenu.GetTimeSignature());
-                graphicsPanel.Invalidate();
+                graphicsPanel.Invalidate(new Region(song.GetArea()));
             }
         }
 

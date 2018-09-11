@@ -46,7 +46,7 @@ namespace Music_Comp
             return area;
         }
 
-        public bool GetFull()
+        public bool IsFull()
         {
             return isFull;
         }
@@ -105,6 +105,11 @@ namespace Music_Comp
                 cursor += chord.GetWidth();
             }
             mLength = cursor;
+
+            area.X = barline;
+            area.Y = yPosition + Song.STAFF_SPACING;
+            area.Width = mLength;
+            area.Height = Staff.HEIGHT + Song.STAFF_SPACING * 2;
         }
         public void Draw(PaintEventArgs e)
         {

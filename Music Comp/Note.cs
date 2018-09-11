@@ -1,5 +1,5 @@
-﻿using System.Drawing;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
+using System.Drawing;
 
 namespace Music_Comp
 {
@@ -14,17 +14,9 @@ namespace Music_Comp
         Accidental mAccidental;
         Duration mDuration;
         sbyte mOctave = 4;
-        WaveForm mWaveForm = WaveForm.Square;
+        WaveForm mWaveForm = WaveForm.Sine;
 
-        public Note(Pitch p, Accidental a, Duration d, sbyte o)
-        {
-            mPitch = p;
-            mAccidental = a;
-            mDuration = d;
-            mOctave = o;
-        }
-
-        public Note(Pitch p, Accidental a, Duration d, sbyte o, Image i, RectangleF ar)
+        public Note(Pitch p, Accidental a, Duration d, sbyte o, Image i = null, RectangleF ar = new RectangleF())
         {
             mPitch = p;
             mAccidental = a;
@@ -89,7 +81,7 @@ namespace Music_Comp
             mOctave = o;
         }
 
-        private bool isDotted()
+        private bool IsDotted()
         {
             return (int)mDuration % 9 == 0;
         }
@@ -111,7 +103,6 @@ namespace Music_Comp
             PointF location;
             SizeF size = new SizeF();
 
-
             if (mPitch == Pitch.Rest)
             {
                 switch (mDuration)
@@ -122,7 +113,7 @@ namespace Music_Comp
                         size = new SizeF(35 * Song._SCALE, 90 * Song._SCALE);
                         y += 312 * Song._SCALE;
                         x += 33 * Song._SCALE;
-                        if (isDotted())
+                        if (IsDotted())
                             dotArea = new RectangleF(x + 50 * Song._SCALE, y + size.Height - 40 * Song._SCALE, 10, 10);
                         break;
                     case Duration.Half:
@@ -131,7 +122,7 @@ namespace Music_Comp
                         size = new SizeF(120 * Song._SCALE, 170 * Song._SCALE);
                         y += 296 * Song._SCALE;
                         x -= 15 * Song._SCALE;
-                        if (isDotted())
+                        if (IsDotted())
                             dotArea = new RectangleF(x + 90 * Song._SCALE, y + size.Height - 120 * Song._SCALE, 10, 10);
                         break;
                     case Duration.Whole:
@@ -146,7 +137,7 @@ namespace Music_Comp
                         size = new SizeF(35 * Song._SCALE, 62 * Song._SCALE);
                         y += 333 * Song._SCALE;
                         x += 33 * Song._SCALE;
-                        if (isDotted())
+                        if (IsDotted())
                             dotArea = new RectangleF(x + 45 * Song._SCALE, y + size.Height - 30 * Song._SCALE, 10, 10);
                         break;
                     case Duration.Sixteenth:
@@ -168,7 +159,7 @@ namespace Music_Comp
                         image = Properties.Resources.Note;
                         size = new SizeF(90 * Song._SCALE, 135 * Song._SCALE);
                         y -= 50 * Song._SCALE;
-                        if ( isDotted())
+                        if ( IsDotted())
                             dotArea = new RectangleF(x + 80 * Song._SCALE, y + size.Height - 40 * Song._SCALE, 10, 10);
                         break;
                     case Duration.Half:
@@ -176,7 +167,7 @@ namespace Music_Comp
                         image = Properties.Resources.HalfNote;
                         size = new SizeF(120 * Song._SCALE, 135 * Song._SCALE);
                         y -= 56.5f * Song._SCALE;
-                        if (isDotted())
+                        if (IsDotted())
                             dotArea = new RectangleF(x + 90 * Song._SCALE, y + size.Height - 35 * Song._SCALE, 10, 10);
                         break;
                     case Duration.Whole:
@@ -191,7 +182,7 @@ namespace Music_Comp
                         size = new SizeF(72 * Song._SCALE, 117.5f * Song._SCALE);
                         y -= 47 * Song._SCALE;
                         x += 10 * Song._SCALE;
-                        if (isDotted())
+                        if (IsDotted())
                             dotArea = new RectangleF(x + 60 * Song._SCALE, y + size.Height - 30 * Song._SCALE, 10, 10);
                         break;
                     case Duration.Sixteenth:
@@ -204,7 +195,7 @@ namespace Music_Comp
 
             location = new PointF(x, y);
             noteArea = new RectangleF(location, size);
-            if (isDotted())
+            if (IsDotted())
                 area = new RectangleF(noteArea.X, noteArea.Y, dotArea.X - noteArea.X, dotArea.Y - noteArea.Y);
             else
                 area = noteArea;
@@ -214,7 +205,7 @@ namespace Music_Comp
         {
             if (e.Graphics.IsVisible(noteArea))
                 e.Graphics.DrawImage(image, noteArea);
-            if (isDotted())
+            if (IsDotted())
                 e.Graphics.FillEllipse(new SolidBrush(Color.Black), dotArea);
         }
 

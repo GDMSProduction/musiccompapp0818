@@ -34,7 +34,7 @@ namespace Music_Comp
 
         List<Instrument> mInstruments = new List<Instrument>();
 
-        public Song(float panelWidth)
+        public Song(float panelWidth, Key k = Key.C, Time t = Time.Common)
         {
             SCREEN_WIDTH = Screen.PrimaryScreen.Bounds.Width;
             PAGE_WIDTH = panelWidth;
@@ -52,29 +52,12 @@ namespace Music_Comp
             cursorY = TOP_MARGIN;
             cursorX = LEFT_MARGIN;
 
-            area = new Rectangle(0, (int)TOP_MARGIN - 5, (int)PAGE_WIDTH, (int)cursorY);
-
-            BARLINES = new List<float>();
-        }
-
-        public Song(float panelWidth, Key k, Time t)
-        {
-            SCREEN_WIDTH = Screen.PrimaryScreen.Bounds.Width;
-            PAGE_WIDTH = panelWidth;
-            _SCALE = PAGE_WIDTH / SCREEN_WIDTH;
-            TOP_MARGIN = 300 * _SCALE;
-            LEFT_MARGIN = 100 * _SCALE;
-            RIGHT_MARGIN = 50 * _SCALE;
-            STAFF_SPACING = 60 * _SCALE;
-            INSTRUMENT_SPACING = 80 * _SCALE;
-            TOTAL_INSTRUMENTS = 0;
-            TOTAL_STAVES = 0;
-            BARLINES = new List<float>();
-
-            area = new Rectangle(0, (int)TOP_MARGIN - 5, (int)PAGE_WIDTH, (int)cursorY);
-
             KEY = k;
             TIME = t;
+
+            area = new Rectangle(0, (int)TOP_MARGIN - 5, (int)PAGE_WIDTH, (int)cursorY);
+
+            BARLINES = new List<float>();
         }
 
         public int GetInstrumentCount()
@@ -211,6 +194,11 @@ namespace Music_Comp
         {
             foreach (Instrument instrument in mInstruments)
                 instrument.Update();
+            area.X = 0;
+            area.Y = mInstruments[0].GetArea().Y;
+            Instrument last = mInstruments[mInstruments.Count - 1];
+            area.Width = SCREEN_WIDTH;
+            area.Height = last.GetArea().Bottom - area.Top;
         }
 
         public void Draw(PaintEventArgs e)

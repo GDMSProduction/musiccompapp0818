@@ -7,6 +7,7 @@ namespace Music_Comp
     public class Staff
     {
         RectangleF area;
+        RectangleF staffArea;
         RectangleF clefArea;
         RectangleF keyArea;
         RectangleF timeArea;
@@ -58,6 +59,8 @@ namespace Music_Comp
 
             keySignature = new List<RectangleF>();
 
+            area = new RectangleF();
+
             Song.TOTAL_STAVES++;
         }
 
@@ -68,7 +71,7 @@ namespace Music_Comp
 
         public Measure GetNextMeasure()
         {
-            if (mMeasures[mMeasures.Count - 1].GetFull())
+            if (mMeasures[mMeasures.Count - 1].IsFull())
                 AddMeasure();
             return mMeasures[mMeasures.Count - 1];
         }
@@ -154,7 +157,8 @@ namespace Music_Comp
         private void UpdateCursor()
         {
             if (isActive)
-                cursorArea = new RectangleF(Song.LEFT_MARGIN + 2.0f, Song.TOP_MARGIN + mYPosition, LENGTH, HEIGHT);
+                cursorArea = new RectangleF(Song.BARLINES[0], Song.TOP_MARGIN + mYPosition,
+                    Song.PAGE_WIDTH - Song.BARLINES[0] - Song.RIGHT_MARGIN, HEIGHT);
         }
 
         private void DrawCursor(PaintEventArgs e)
@@ -168,15 +172,15 @@ namespace Music_Comp
         {
             PointF location = new PointF(Song.LEFT_MARGIN, Song.TOP_MARGIN + mYPosition);
             SizeF size = new SizeF(LENGTH, HEIGHT);
-            area = new RectangleF(location, size);
+            staffArea = new RectangleF(location, size);
         }
 
         private void DrawStaff(PaintEventArgs e)
         {
             for (int i = 0; i < 5; i++)
             {
-                PointF start = new PointF(area.X, area.Y + i * area.Height / 4);
-                PointF end = new PointF(area.X + area.Width, area.Y + i * area.Height / 4);
+                PointF start = new PointF(staffArea.X, staffArea.Y + i * staffArea.Height / 4);
+                PointF end = new PointF(staffArea.X + staffArea.Width, staffArea.Y + i * staffArea.Height / 4);
 
                 if (e.Graphics.IsVisible(new RectangleF(start.X, start.Y, end.X - start.X, 1)))
                     e.Graphics.DrawLine(new Pen(Color.Black, (int)(4.0f * Song._SCALE)), start, end);
@@ -354,14 +358,20 @@ namespace Music_Comp
             {
                 mCursorX += 30 * Song._SCALE;
 
-                if (i >= Song.BARLINES.Count)          // if the barline does not exist yet
-                    Song.BARLINES.Add(mCursorX);       // create it at the cursor
+                if (i >= Song.BARLINES.Count && mMeasures[i].IsFull())
+                {
+                    Song.BARLINES.Add(mCursorX);
+                    AddMeasure();
+                }
 
-                else if (mCursorX > Song.BARLINES[i])  // if the cursor exceedes the current barline placement
-                    Song.BARLINES[i] = mCursorX;       // move the barline
+                else if (i >= Song.BARLINES.Count)
+                    Song.BARLINES.Add(mCursorX);
 
-                else                                    // if the barline exists beyond the cursor
-                    mCursorX = Song.BARLINES[i];       // move the cursor to the barline
+                else if (mCursorX > Song.BARLINES[i])
+                    Song.BARLINES[i] = mCursorX;
+
+                else
+                    mCursorX = Song.BARLINES[i];
 
                 mCursorX += mMeasures[i].GetLength();
             }
@@ -371,8 +381,6 @@ namespace Music_Comp
         {
             mCursorX = Song.LEFT_MARGIN;
             mYPosition = instrumentNumber * Song.INSTRUMENT_SPACING + staffNumber * (HEIGHT + Song.STAFF_SPACING);
-
-            UpdateCursor();
 
             UpdateStaff();
 
@@ -384,8 +392,15 @@ namespace Music_Comp
 
             UpdateBarLines();
 
+            UpdateCursor();
+
             for (int i = 0; i < mMeasures.Count; i++)
                 mMeasures[i].Update(Song.BARLINES[i], mYPosition);
+
+            area.X = Song.BARLINES[0];
+            area.Y = staffArea.Top - Song.STAFF_SPACING;
+            area.Width = staffArea.Right - area.X;
+            area.Height += Song.STAFF_SPACING * 2 - 3;
         }
 
         public void Draw(PaintEventArgs e)

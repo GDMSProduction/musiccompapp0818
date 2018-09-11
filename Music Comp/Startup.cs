@@ -71,8 +71,8 @@ namespace Music_Comp
                 song.Update();
                 song.Draw(e);
             }
-            graphicsPanel1.Height = Height - graphicsPanel1.Location.Y - 48;
-            graphicsPanel1.Width = Width - graphicsPanel1.Location.X - (cancelButton.Width + okButton.Width) - 90;
+            graphicsPanel.Height = Height - graphicsPanel.Location.Y - 48;
+            graphicsPanel.Width = Width - graphicsPanel.Location.X - (cancelButton.Width + okButton.Width) - 90;
             okButton.Location = new Point((Width - 22) - okButton.Width, Height - 75);
             cancelButton.Location = new Point((Width - (cancelButton.Width + 25)) - cancelButton.Width, Height - 75);
             AddInstrumentButton.Location = new Point(Width - (AddInstrumentButton.Width + 40) - AddInstrumentButton.Width, 45);
@@ -91,7 +91,7 @@ namespace Music_Comp
         private void AddInstrumentButton_Click(object sender, EventArgs e)
         {
             if (song == null)
-                song = new Song(graphicsPanel1.Width, key, time);
+                song = new Song(graphicsPanel.Width, key, time);
             AddInstrumentForm options = new AddInstrumentForm();
             options.ShowDialog();
 
@@ -118,14 +118,14 @@ namespace Music_Comp
             {
                 if (song == null)
                 {
-                    song = new Song(graphicsPanel1.Width, key, time);
+                    song = new Song(graphicsPanel.Width, key, time);
                 }
                 song.AddInstrument(options.clefs, options.grouping);
                 instruments.Add(new instrumentTemplate(options.clefs, options.grouping, options.StaveCount));
                 song.GetInstrument(0).GetStaff(0).SetActive(false);
             }
 
-            graphicsPanel1.Invalidate();
+            graphicsPanel.Invalidate();
         }
 
         private void titleTextBox_TextChanged(object sender, EventArgs e)
@@ -143,7 +143,7 @@ namespace Music_Comp
         private void button3_Click(object sender, EventArgs e)
         {
             song.RemoveInstrument(0);
-            graphicsPanel1.Invalidate();
+            graphicsPanel.Invalidate();
         }
 
         private void KeyBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -152,7 +152,7 @@ namespace Music_Comp
             Song.KEY = k;
             key = k;
 
-            graphicsPanel1.Invalidate();
+            graphicsPanel.Invalidate();
         }
 
         private void TimeBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -161,7 +161,7 @@ namespace Music_Comp
             Song.TIME = t;
             time = t;
 
-            graphicsPanel1.Invalidate();
+            graphicsPanel.Invalidate();
         }
 
         private void Startup_FormClosing(object sender, FormClosingEventArgs e)
@@ -179,17 +179,17 @@ namespace Music_Comp
 
         private void composerLabel_SizeChanged(object sender, EventArgs e)
         {
-            composerLabel.Location = new Point(graphicsPanel1.Width - 45 - composerLabel.Width, 100);
+            composerLabel.Location = new Point(graphicsPanel.Width - 45 - composerLabel.Width, 100);
         }
 
         private void titleLabel_SizeChanged(object sender, EventArgs e)
         {
-            titleLabel.Location = new Point((graphicsPanel1.Width / 2) - (titleLabel.Width / 2), 25);
+            titleLabel.Location = new Point((graphicsPanel.Width / 2) - (titleLabel.Width / 2), 25);
         }
 
         private void Startup_SizeChanged(object sender, EventArgs e)
         {
-            graphicsPanel1.Invalidate();
+            graphicsPanel.Invalidate();
         }
     }
 }

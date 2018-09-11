@@ -1,5 +1,5 @@
-﻿using System.Windows.Forms;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Windows.Forms;
 using System.Drawing;
 
 namespace Music_Comp
@@ -14,6 +14,7 @@ namespace Music_Comp
 
         public Instrument(List<Clef> clefs, Grouping g)
         {
+            area = new RectangleF();
             if (clefs.Count > 4)
                 mClefs = new Clef[4];
             else
@@ -72,6 +73,13 @@ namespace Music_Comp
         {
             foreach (Staff staff in mStaves)
                 staff.Update();
+            area.Location = mStaves[0].GetArea().Location;
+            Staff last = mStaves[mStaves.Length - 1];
+            area.Width = last.GetArea().Right - area.Left;
+            area.Height = last.GetArea().Bottom - area.Top;
+
+            area.Y -= Song.INSTRUMENT_SPACING;
+            area.Height += Song.INSTRUMENT_SPACING * 2;
         }
 
         public void Draw(PaintEventArgs e)
