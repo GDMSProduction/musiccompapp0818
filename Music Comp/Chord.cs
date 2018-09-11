@@ -113,34 +113,21 @@ namespace Music_Comp
 
         public void Play()
         {
-            if (mNotes[0].GetPitch() != Pitch.Rest)
+            var mStrm = new MemoryStream();
+            BinaryWriter writer = new BinaryWriter(mStrm);
+
+            int msDuration = (int)GetDuration() * 60;
+            int samplesPerSecond = 44100;
+            short bitsPerSample = 16;
+            short tracks = 1;
+            short frameSize = (short)(tracks * ((bitsPerSample + 7) / 8));
+            int bytesPerSecond = samplesPerSecond * frameSize;
+            int samples = (int)((decimal)samplesPerSecond * msDuration / 1000);
             {
-                double[] angles = new double[mNotes.Count];
-                ushort[] frequency = new ushort[mNotes.Count];
-                int[] samplesPerWavelength = new int[mNotes.Count];
-                short[] ampSteps = new short[mNotes.Count];
-
-                int msDuration = (int)GetDuration() * 60;
-                ushort volume = 16383;
-                if (GetWaveForm() == WaveForm.Square)
-                    volume /= 2;
-
-                var mStrm = new MemoryStream();
-                BinaryWriter writer = new BinaryWriter(mStrm);
-
-                const double TAU = 2 * Math.PI;
-                double NOTE_CONSTANT = Math.Pow(2, (1.0 / 12.0));
-
                 int formatChunkSize = 16;
                 int headerSize = 8;
                 short formatType = 1;
-                short tracks = 1;
-                int samplesPerSecond = 44100;
-                short bitsPerSample = 16;
-                short frameSize = (short)(tracks * ((bitsPerSample + 7) / 8));
-                int bytesPerSecond = samplesPerSecond * frameSize;
                 int waveSize = 4;
-                int samples = (int)((decimal)samplesPerSecond * msDuration / 1000);
                 int dataChunkSize = samples * frameSize;
                 int fileSize = waveSize + headerSize + formatChunkSize + headerSize + dataChunkSize;
                 // var encoding = new System.Text.UTF8Encoding();
@@ -157,15 +144,31 @@ namespace Music_Comp
                 writer.Write(bitsPerSample);
                 writer.Write(0x61746164); // = encoding.GetBytes("data")
                 writer.Write(dataChunkSize);
+            }
 
+            if (GetNote(0).GetPitch() != Pitch.Rest)
+            {
+                double[] angles = new double[GetNoteCount()];
+                ushort[] frequency = new ushort[GetNoteCount()];
+                int[] samplesPerWavelength = new int[GetNoteCount()];
+                short[] ampSteps = new short[GetNoteCount()];
+
+                ushort volume = 16383;
+                if (GetWaveForm() == WaveForm.Square)
+                    volume /= 2;
+
+                const double TAU = 2 * Math.PI;
+                double NOTE_CONSTANT = Math.Pow(2, (1.0 / 12.0));
+
+                
                 double amp = volume / 2;
 
-                for (int i = 0; i < mNotes.Count; i++)
+                for (int i = 0; i < GetNoteCount(); i++)
                 {
                     double step = (int)Pitch.A;
-                    if (mNotes[i].GetPitch() <= Pitch.F && mNotes[i].GetPitch() >= Pitch.B)
+                    if (GetNote(i).GetPitch() <= Pitch.F && GetNote(i).GetPitch() >= Pitch.B)
                         step += 0.5;
-                    double exp = -2 * ((double)mNotes[i].GetPitch() - step);
+                    double exp = -2 * ((double)GetNote(i).GetPitch() - step);
 
                     frequency[i] = (ushort)(440 * Math.Pow(NOTE_CONSTANT, exp));
                     samplesPerWavelength[i] = bytesPerSecond / frequency[i];
