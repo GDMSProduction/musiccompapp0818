@@ -6,10 +6,8 @@ using System;
 
 namespace Music_Comp
 {
-    class Instrument
+    class Instrument : SongComponent
     {
-        RectangleF area;
-
         Staff[] mStaves;
         Clef[] mClefs;
         Grouping mGrouping;
@@ -27,6 +25,7 @@ namespace Music_Comp
             }
             AddStaves(mClefs.Length);
             mGrouping = g;
+            Song.SELECTABLES.Add(this);
         }
 
         public int GetStaffCount()

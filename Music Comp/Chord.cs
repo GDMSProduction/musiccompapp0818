@@ -6,20 +6,16 @@ using System;
 
 namespace Music_Comp
 {
-    public class Chord
+    public class Chord : SongComponent
     {
-        RectangleF area;
         List<Note> mNotes;
 
-        public Chord()
+        public Chord(List<Note> notes = null)
         {
             area = new RectangleF();
-            mNotes = new List<Note>();
-        }
-
-        public Chord(List<Note> notes)
-        {
-            mNotes = notes;
+            mNotes = notes == null ? new List<Note>() : notes;
+            if (Song.SELECTABLES != null)
+                Song.SELECTABLES.Add(this);
         }
 
         public void Add(Note n)
@@ -107,6 +103,9 @@ namespace Music_Comp
 
         public void Draw(PaintEventArgs e)
         {
+            if (isSelected)
+                if (e.Graphics.IsVisible(area))
+                    e.Graphics.FillRectangle(new SolidBrush(Color.Red), area);
             foreach (Note note in mNotes)
                 note.Draw(e);
         }

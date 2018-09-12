@@ -5,10 +5,9 @@ using System;
 
 namespace Music_Comp
 {
-    public class Note
+    public class Note : SongComponent
     {
         RectangleF noteArea;
-        RectangleF area;
         RectangleF dotArea;
         Image image;
 
@@ -26,6 +25,7 @@ namespace Music_Comp
             mOctave = o;
             image = i;
             noteArea = ar;
+            Song.SELECTABLES.Add(this);
         }
 
         public Note Clone()
@@ -205,6 +205,9 @@ namespace Music_Comp
 
         public void Draw(PaintEventArgs e)
         {
+            if (isSelected)
+                if (e.Graphics.IsVisible(area))
+                    e.Graphics.FillRectangle(new SolidBrush(Color.Yellow), area);
             if (e.Graphics.IsVisible(noteArea))
                 e.Graphics.DrawImage(image, noteArea);
             if (IsDotted())

@@ -585,20 +585,7 @@ namespace Music_Comp
                         break;
                     case Keys.Space:
                         {
-                            if (playcheck == false)
-                            {
-                                PlayButton.Image = pause;
-                                titleTextBox.Enabled = false;
-                                composerTextBox.Enabled = false;
-                                playcheck = true;
-                            }
-                            else
-                            {
-                                PlayButton.Image = play;
-                                titleTextBox.Enabled = true;
-                                composerTextBox.Enabled = true;
-                                playcheck = false;
-                            }
+                            Play();
                             break;
                         }
                     
@@ -771,7 +758,7 @@ namespace Music_Comp
             {
                 Staff staff = song.GetInstrument(selectedInstrument).GetStaff(selectedStaff);
                 Chord remainder = staff.GetNextMeasure().AddChord(mChord);
-                song.Play();// mChord.Play();
+                mChord.Play();
                 if (remainder != null)
                     staff.GetNextMeasure().AddChord(remainder);
                 staff.Update();
@@ -795,6 +782,13 @@ namespace Music_Comp
         private void graphicsPanel_Click(object sender, EventArgs e)
         {
             ActiveControl = graphicsPanel;
+            foreach (SongComponent selectable in Song.SELECTABLES)
+            {
+                selectable.Deselect();
+                if (selectable.GetArea().Contains(graphicsPanel.PointToClient(Cursor.Position)))
+                    selectable.Select();
+            }
+            graphicsPanel.Invalidate();
         }
 
         private void fullscreenToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1059,7 +1053,7 @@ namespace Music_Comp
             graphicsPanel.Invalidate();
         }
 
-        private void PlayButton_Click(object sender, EventArgs e)
+        private void Play()
         {
             ActiveControl = graphicsPanel;
             if (playcheck == false)
@@ -1068,6 +1062,7 @@ namespace Music_Comp
                 titleTextBox.Enabled = false;
                 composerTextBox.Enabled = false;
                 playcheck = true;
+                song.Play();
             }
             else
             {
@@ -1076,6 +1071,11 @@ namespace Music_Comp
                 composerTextBox.Enabled = true;
                 playcheck = false;
             }
+        }
+
+        private void PlayButton_Click(object sender, EventArgs e)
+        {
+            Play();
         }
     }
 }
