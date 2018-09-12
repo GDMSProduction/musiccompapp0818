@@ -47,7 +47,7 @@ namespace Music_Comp
 
         public bool IsFull()
         {
-            if (mTotalDuration >= (int)Song.TIME)
+            if (mTotalDuration >= ((int)Song.TIME > 0 ? (int)Song.TIME : -(int)Song.TIME))
                 return true;
             return false;
         }
