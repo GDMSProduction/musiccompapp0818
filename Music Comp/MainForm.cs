@@ -423,11 +423,11 @@ namespace Music_Comp
                                         currentNoteDuration = Duration.Sixteenth;
                                         SongDuration.Image = sixteenth;
                                         break;
-                                    case Duration.Quarter:
+                                    case Duration.DottedQuarter:
                                         currentNoteDuration = Duration.Eighth;
                                         SongDuration.Image = eighth;
                                         break;
-                                    case Duration.Half:
+                                    case Duration.DottedHalf:
                                         currentNoteDuration = Duration.DottedQuarter;
                                         SongDuration.Image = quarter;
                                         break;
