@@ -33,6 +33,7 @@ namespace Music_Comp
         public static Time TIME = Time.Common;
 
         public static List<float> BARLINES;
+        public static List<SongComponent> SELECTABLES;
 
         List<Instrument> mInstruments = new List<Instrument>();
 
@@ -60,6 +61,7 @@ namespace Music_Comp
             area = new Rectangle(0, (int)TOP_MARGIN - 5, (int)PAGE_WIDTH, (int)cursorY);
 
             BARLINES = new List<float>();
+            SELECTABLES = new List<SongComponent>();
         }
 
         public int GetInstrumentCount()

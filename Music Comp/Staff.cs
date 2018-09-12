@@ -6,9 +6,8 @@ using System;
 
 namespace Music_Comp
 {
-    public class Staff
+    public class Staff : SongComponent
     {
-        RectangleF area;
         RectangleF staffArea;
         RectangleF clefArea;
         RectangleF keyArea;
@@ -64,6 +63,7 @@ namespace Music_Comp
             area = new RectangleF();
 
             Song.TOTAL_STAVES++;
+            Song.SELECTABLES.Add(this);
         }
 
         public int GetMeasureCount()
@@ -419,11 +419,14 @@ namespace Music_Comp
             area.X = Song.BARLINES[0];
             area.Y = staffArea.Top - Song.STAFF_SPACING;
             area.Width = staffArea.Right - area.X;
-            area.Height += Song.STAFF_SPACING * 2 - 3;
+            area.Height = HEIGHT + Song.STAFF_SPACING * 2 - 3;
         }
 
         public void Draw(PaintEventArgs e)
         {
+            if (isSelected)
+                if (e.Graphics.IsVisible(area))
+                    e.Graphics.FillRectangle(new SolidBrush(Color.Green), area);
             DrawCursor(e);
 
             DrawStaff(e);

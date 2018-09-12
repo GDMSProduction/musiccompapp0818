@@ -6,10 +6,8 @@ using System;
 
 namespace Music_Comp
 {
-    public class Measure
+    public class Measure : SongComponent
     {
-        RectangleF area;
-
         List<Chord> mChords;
 
         float mLength;
@@ -24,6 +22,7 @@ namespace Music_Comp
         {
             mClef = clef;
             mChords = new List<Chord>();
+            Song.SELECTABLES.Add(this);
         }
 
         public int GetChordCount()
@@ -118,6 +117,9 @@ namespace Music_Comp
         }
         public void Draw(PaintEventArgs e)
         {
+            if (isSelected)
+                    if (e.Graphics.IsVisible(area))
+                        e.Graphics.FillRectangle(new SolidBrush(Color.Blue), area);
             foreach (Chord chord in mChords)
                 chord.Draw(e);
         }

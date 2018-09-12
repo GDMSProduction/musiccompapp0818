@@ -85,6 +85,7 @@
       <DependentUpon>Song Settings.cs</DependentUpon>
     </Compile>
     <Compile Include="Song.cs" />
+    <Compile Include="SongComponent.cs" />
     <Compile Include="Staff.cs" />
     <Compile Include="Startup.cs">
       <SubType>Form</SubType>
