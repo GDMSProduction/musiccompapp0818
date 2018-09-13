@@ -25,6 +25,9 @@ namespace Music_Comp
         public float mainLENGTH = Staff.LENGTH;
         public float mainHEIGHT = Staff.HEIGHT;
 
+        public List<float> mainBARLINES = Song.BARLINES;
+        public List<SongComponent> mainSELECTABLES = Song.SELECTABLES;
+
         public List<Clef> clefs = new List<Clef>();
         public Grouping grouping = Grouping.None;
 

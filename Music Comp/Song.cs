@@ -11,6 +11,8 @@ namespace Music_Comp
         RectangleF area;
         RectangleF groupingArea;
 
+        System.Media.SoundPlayer soundPlayer;
+
         static Image bracketImage = Properties.Resources.Bracket;
         static Image braceImage = Properties.Resources.Brace;
 
@@ -33,6 +35,7 @@ namespace Music_Comp
         public static Time TIME = Time.Common;
 
         public static List<float> BARLINES;
+        public static List<SongComponent> SELECTABLES;
 
         List<Instrument> mInstruments = new List<Instrument>();
 
@@ -60,16 +63,7 @@ namespace Music_Comp
             area = new Rectangle(0, (int)TOP_MARGIN - 5, (int)PAGE_WIDTH, (int)cursorY);
 
             BARLINES = new List<float>();
-        }
-
-        public int GetInstrumentCount()
-        {
-            return mInstruments.Count;
-        }
-
-        public Instrument GetInstrument(int i)
-        {
-            return mInstruments[i];
+            SELECTABLES = new List<SongComponent>();
         }
 
         public RectangleF GetArea()
@@ -77,12 +71,30 @@ namespace Music_Comp
             return area;
         }
 
-        public void Transpose(Key k)
+        public int GetDuration()
+        {
+            int d = 0;
+            foreach (Instrument instrument in mInstruments)
+                d = Math.Max(d, instrument.GetDuration());
+            return d;
+        }
+
+        public Instrument GetInstrument(int i)
+        {
+            return mInstruments[i];
+        }
+
+        public int GetInstrumentCount()
+        {
+            return mInstruments.Count;
+        }
+
+        public void SetKeySignature(Key k)
         {
             KEY = k;
         }
 
-        public void EditTimeSignature(Time t)
+        public void SetTimeSignature(Time t)
         {
             TIME = t;
         }
@@ -111,12 +123,60 @@ namespace Music_Comp
             \*/
         }
 
-        public int GetDuration()
+        public void Update()
         {
-            int d = 0;
             foreach (Instrument instrument in mInstruments)
-                d = Math.Max(d, instrument.GetDuration());
-            return d;
+                instrument.Update();
+            area.X = 0;
+            if (mInstruments.Count > 0)
+            {
+                area.Y = mInstruments[0].GetArea().Y;
+                Instrument last = mInstruments[mInstruments.Count - 1];
+                area.Width = SCREEN_WIDTH;
+                area.Height = last.GetArea().Bottom - area.Top;
+            }
+        }
+
+        public void UpdateGrouping(Grouping g, float instTop, float instBtm)
+        {
+            PointF location = new PointF();
+            SizeF size = new SizeF();
+
+            switch (g)
+            {
+                case Grouping.Bracket:
+                    location.X = LEFT_MARGIN - 35 * _SCALE;
+                    location.Y = instTop - 15 * _SCALE;
+                    size.Width = 40 * _SCALE;
+                    size.Height = instBtm - instTop + 30 * _SCALE;
+
+                    groupingArea = new RectangleF(location, size);
+                    break;
+                case Grouping.Brace:
+                    location.X = LEFT_MARGIN - 50 * _SCALE;
+                    location.Y = instTop;
+                    size.Width = 50 * _SCALE;
+                    size.Height = instBtm - instTop;
+
+                    groupingArea = new RectangleF(location, size);
+                    break;
+            }
+        }
+
+        public void Draw(PaintEventArgs e)
+        {
+            float btm_song_line = TOP_MARGIN + (Staff.HEIGHT + STAFF_SPACING) * TOTAL_STAVES - STAFF_SPACING + (TOTAL_INSTRUMENTS - 1) * INSTRUMENT_SPACING;
+
+            PointF start = new PointF(LEFT_MARGIN, TOP_MARGIN);
+            PointF end = new PointF(LEFT_MARGIN, btm_song_line);
+
+            if (e.Graphics.IsVisible(new RectangleF(start.X, start.Y, 1, end.Y - start.Y)))
+                e.Graphics.DrawLine(new Pen(Color.Black, 3.4f * _SCALE), start, end);
+
+            foreach (Instrument instrument in mInstruments)
+                instrument.Draw(e);
+
+            DrawBarLines(BARLINES, e);
         }
 
         public void DrawBarLines(List<float> barlines, PaintEventArgs e)
@@ -159,32 +219,6 @@ namespace Music_Comp
             barLinePen.Dispose();
         }
 
-        public void UpdateGrouping(Grouping g, float instTop, float instBtm)
-        {
-            PointF location = new PointF();
-            SizeF size = new SizeF();
-
-            switch (g)
-            {
-                case Grouping.Bracket:
-                    location.X = LEFT_MARGIN - 35 * _SCALE;
-                    location.Y = instTop - 15 * _SCALE;
-                    size.Width = 40 * _SCALE;
-                    size.Height = instBtm - instTop + 30 * _SCALE;
-
-                    groupingArea = new RectangleF(location, size);
-                    break;
-                case Grouping.Brace:
-                    location.X = LEFT_MARGIN - 50 * _SCALE;
-                    location.Y = instTop;
-                    size.Width = 50 * _SCALE;
-                    size.Height = instBtm - instTop;
-
-                    groupingArea = new RectangleF(location, size);
-                    break;
-            }
-        }
-
         public void DrawGrouping(Grouping g, PaintEventArgs e)
         {
             switch (g)
@@ -200,37 +234,7 @@ namespace Music_Comp
             }
         }
 
-        public void Update()
-        {
-            foreach (Instrument instrument in mInstruments)
-                instrument.Update();
-            area.X = 0;
-            if (mInstruments.Count > 0)
-            {
-                area.Y = mInstruments[0].GetArea().Y;
-                Instrument last = mInstruments[mInstruments.Count - 1];
-                area.Width = SCREEN_WIDTH;
-                area.Height = last.GetArea().Bottom - area.Top;
-            }
-        }
-
-        public void Draw(PaintEventArgs e)
-        {
-            float btm_song_line = TOP_MARGIN + (Staff.HEIGHT + STAFF_SPACING) * TOTAL_STAVES - STAFF_SPACING + (TOTAL_INSTRUMENTS - 1) * INSTRUMENT_SPACING;
-
-            PointF start = new PointF(LEFT_MARGIN, TOP_MARGIN);
-            PointF end = new PointF(LEFT_MARGIN, btm_song_line);
-
-            if (e.Graphics.IsVisible(new RectangleF(start.X, start.Y, 1, end.Y - start.Y)))
-                e.Graphics.DrawLine(new Pen(Color.Black, 3.4f * _SCALE), start, end);
-
-            foreach (Instrument instrument in mInstruments)
-                instrument.Draw(e);
-
-            DrawBarLines(BARLINES, e);
-        }
-
-        public void Play()
+        public int Play()
         {
             var mStrm = new MemoryStream();
             BinaryWriter writer = new BinaryWriter(mStrm);
@@ -360,9 +364,17 @@ namespace Music_Comp
                 writer.Write(s);
 
             mStrm.Seek(0, SeekOrigin.Begin);
-            new System.Media.SoundPlayer(mStrm).Play();
+            soundPlayer = new System.Media.SoundPlayer(mStrm);
+            soundPlayer.Play();
+            soundPlayer.Dispose();
             writer.Close();
             mStrm.Close();
+            return msDuration;
+        }
+
+        public void Stop()
+        {
+            soundPlayer.Stop();
         }
     }
 }

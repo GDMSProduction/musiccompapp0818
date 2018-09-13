@@ -6,9 +6,8 @@ using System;
 
 namespace Music_Comp
 {
-    public class Staff
+    public class Staff : SongComponent
     {
-        RectangleF area;
         RectangleF staffArea;
         RectangleF clefArea;
         RectangleF keyArea;
@@ -64,6 +63,7 @@ namespace Music_Comp
             area = new RectangleF();
 
             Song.TOTAL_STAVES++;
+            Song.SELECTABLES.Add(this);
         }
 
         public int GetMeasureCount()
@@ -76,25 +76,16 @@ namespace Music_Comp
             return mMeasures[i];
         }
 
+        public Measure GetCurrentMeasure()
+        {
+            return mMeasures[mMeasures.Count - 1];
+        }
+
         public Measure GetNextMeasure()
         {
             if (mMeasures[mMeasures.Count - 1].IsFull())
                 AddMeasure();
             return mMeasures[mMeasures.Count - 1];
-        }
-
-        public RectangleF GetArea()
-        {
-            return area;
-        }
-
-        public void AddMeasure()
-        {
-            mMeasures.Add(new Measure(mClef, mYPosition));
-        }
-        public void RemoveMeasure(Measure m)
-        {
-            mMeasures.Remove(m);
         }
 
         public int GetDuration()
@@ -105,19 +96,29 @@ namespace Music_Comp
             return d;
         }
 
+        public float GetYPosition()
+        {
+            return mYPosition;
+        }
+
         public bool IsActive()
         {
             return isActive;
         }
 
-        public void SetActive(bool setA)
+        public void SetActive(bool active)
         {
-            isActive = setA;
+            isActive = active;
         }
 
-        public float GetYPosition()
+        public void AddMeasure()
         {
-            return mYPosition;
+            mMeasures.Add(new Measure(mClef, mYPosition, mMeasures.Count));
+        }
+
+        public void RemoveMeasure(Measure m)
+        {
+            mMeasures.Remove(m);
         }
 
         public void AddAccidental(float x, float y, Accidental a)
@@ -419,11 +420,14 @@ namespace Music_Comp
             area.X = Song.BARLINES[0];
             area.Y = staffArea.Top - Song.STAFF_SPACING;
             area.Width = staffArea.Right - area.X;
-            area.Height += Song.STAFF_SPACING * 2 - 3;
+            area.Height = HEIGHT + Song.STAFF_SPACING * 2;
         }
 
         public void Draw(PaintEventArgs e)
         {
+            if (isSelected)
+                if (e.Graphics.IsVisible(area))
+                    e.Graphics.FillRectangle(new SolidBrush(Color.Green), area);
             DrawCursor(e);
 
             DrawStaff(e);
@@ -555,16 +559,5 @@ namespace Music_Comp
             writer.Close();
             mStrm.Close();
         }
-
-        public Measure GetCurrentMeasure()
-        {
-            return mMeasures[mMeasures.Count - 1];
-        }
-
-        public int GetMeasuresCount()
-        {
-            return mMeasures.Count;
-        }
-
     }
 }

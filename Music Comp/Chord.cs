@@ -6,40 +6,15 @@ using System;
 
 namespace Music_Comp
 {
-    public class Chord
+    public class Chord : SongComponent
     {
-        RectangleF area;
         List<Note> mNotes;
 
-        public Chord()
+        public Chord(List<Note> notes = null)
         {
-            area = new RectangleF();
-            mNotes = new List<Note>();
-        }
-
-        public Chord(List<Note> notes)
-        {
-            mNotes = notes;
-        }
-
-        public void Add(Note n)
-        {
-            mNotes.Add(n);
-            RectangleF noteArea = n.GetArea();
-            if (area == null)
-                area = noteArea;
-            else
-            {
-                area.X = Math.Min(noteArea.X, area.X);
-                area.Y = Math.Min(noteArea.Y, area.Y);
-                area.Width = Math.Max(noteArea.X + noteArea.Width, area.X + area.Width) - area.X;
-                area.Height = Math.Max(noteArea.Y + noteArea.Height, area.Y + area.Height) - area.Y;
-            }
-        }
-
-        public void Remove(Note n)
-        {
-            mNotes.Remove(n);
+            mNotes = notes == null ? new List<Note>() : notes;
+            if (Song.SELECTABLES != null)
+                Song.SELECTABLES.Add(this);
         }
 
         public Chord Clone()
@@ -62,51 +37,64 @@ namespace Music_Comp
 
         public Duration GetDuration()
         {
-            return mNotes[0].GetDuration();
+            return mNotes[0].Duration;
+        }
+
+        public WaveForm GetWaveForm()
+        {
+            return mNotes[0].Waveform;
+        }
+
+        public float GetWidth()
+        {
+            return mNotes[0].Width;
+        }
+
+        public void Add(Note n)
+        {
+            mNotes.Add(n);
+        }
+
+        public void Remove(Note n)
+        {
+            mNotes.Remove(n);
         }
 
         public void SetDuration(Duration d)
         {
             foreach (Note note in mNotes)
-                note.SetDuration(d);
-        }
-
-        public WaveForm GetWaveForm()
-        {
-            return mNotes[0].GetWaveForm();
+                note.Duration = d;
         }
 
         public void SetWaveForm(WaveForm w)
         {
             foreach (Note note in mNotes)
-                note.SetWaveForm(w);
-        }
-
-        public float GetWidth()
-        {
-            return mNotes[0].GetWidth();
-        }
-
-        public RectangleF GetArea()
-        {
-            return area;
+                note.Waveform = w;
         }
 
         public void Update(float cursorX, float yPosition, Clef clef)
         {
+            area = new RectangleF(float.MaxValue, float.MaxValue, 0, 0);
+            float right = 0;
+            float bottom = 0;
             foreach (Note note in mNotes)
             {
                 note.Update(cursorX, yPosition, clef);
                 RectangleF noteArea = note.GetArea();
                 area.X = Math.Min(noteArea.X, area.X);
                 area.Y = Math.Min(noteArea.Y, area.Y);
-                area.Width = Math.Max(noteArea.X + noteArea.Width, area.X + area.Width) - area.X;
-                area.Height = Math.Max(noteArea.Y + noteArea.Height, area.Y + area.Height) - area.Y;
+                right = Math.Max(noteArea.Right, right);
+                bottom = Math.Max(noteArea.Bottom, bottom);
             }
+            area.Width = right - area.Left;
+            area.Height = bottom - area.Top;
         }
 
         public void Draw(PaintEventArgs e)
         {
+            if (isSelected)
+                if (e.Graphics.IsVisible(area))
+                    e.Graphics.FillRectangle(new SolidBrush(Color.Red), area);
             foreach (Note note in mNotes)
                 note.Draw(e);
         }
