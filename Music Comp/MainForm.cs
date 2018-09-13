@@ -486,10 +486,10 @@ namespace Music_Comp
                                         currentNoteDuration = Duration.DottedQuarter;
                                         break;
                                     case Duration.Sixteenth:
-                                        currentNoteDuration = Duration.Eighth;
-                                        break;
+                                        //currentNoteDuration = Duration.Eighth;
+                                        //break;
                                     case Duration.DottedQuarter:
-                                        currentNoteDuration = Duration.DottedHalf;
+                                        currentNoteDuration = (Duration)((int)currentNoteDuration * 2);
                                         break;
                                     case Duration.DottedHalf:
                                         currentNoteDuration = Duration.Sixteenth;
@@ -501,10 +501,10 @@ namespace Music_Comp
                                 switch (currentNoteDuration)
                                 {
                                     case Duration.Eighth:
-                                        currentNoteDuration = Duration.Sixteenth;
-                                        break;
+                                        //currentNoteDuration = Duration.Sixteenth;
+                                        //break;
                                     case Duration.DottedHalf:
-                                        currentNoteDuration = Duration.DottedQuarter;
+                                        currentNoteDuration = (Duration)((int)currentNoteDuration / 2);
                                         break;
                                     case Duration.Sixteenth:
                                         currentNoteDuration = Duration.DottedHalf;
