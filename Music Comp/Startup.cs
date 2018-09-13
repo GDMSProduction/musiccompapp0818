@@ -122,7 +122,7 @@ namespace Music_Comp
                 {
                     song = new Song(graphicsPanel.Width, key, time);
                 }
-                song.AddInstrument(options.clefs, options.grouping);//, options.waveForms);
+                song.AddInstrument(options.clefs, options.waveForms, options.grouping);
                 instruments.Add(new instrumentTemplate(options.clefs, options.grouping, options.StaveCount, options.waveForms));
                 song.GetInstrument(0).GetStaff(0).SetActive(false);
             }

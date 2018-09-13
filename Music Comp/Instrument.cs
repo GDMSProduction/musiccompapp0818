@@ -10,12 +10,13 @@ namespace Music_Comp
     {
         Staff[] mStaves;
         Clef[] mClefs;
+        WaveForm[] mWaveForms;
         Grouping mGrouping;
 
         Staff mSelectedStaff;
         int mInstrumentNumber;
 
-        public Instrument(List<Clef> clefs, Grouping g, int instrumentNumber)
+        public Instrument(List<Clef> clefs, List<WaveForm> waveforms, Grouping g, int instrumentNumber)
         {
             area = new RectangleF();
             mInstrumentNumber = instrumentNumber;
@@ -24,10 +25,14 @@ namespace Music_Comp
             else
                 mClefs = new Clef[clefs.Count];
             for (int i = 0; i < mClefs.Length; i++)
-            {
                 mClefs[i] = clefs[i];
-            }
-            AddStaves(mClefs.Length);
+            if (waveforms.Count > 4)
+                mWaveForms = new WaveForm[4];
+            else
+                mWaveForms = new WaveForm[waveforms.Count];
+            for (int i = 0; i < mWaveForms.Length; i++)
+                mWaveForms[i] = waveforms[i];
+            AddStaves(Math.Min(mClefs.Length, mWaveForms.Length));
             mGrouping = g;
             Song.SELECTABLES.Add(this);
         }
@@ -85,11 +90,13 @@ namespace Music_Comp
             mStaves = new Staff[numberOfStaves];
             for (int i = 0; i < mStaves.Length; i++)
             {
-                mStaves[i] = new Staff(mClefs[i], Song.TOTAL_INSTRUMENTS, Song.TOTAL_STAVES, i);
+                mStaves[i] = new Staff(mClefs[i], mWaveForms[i], Song.TOTAL_INSTRUMENTS, Song.TOTAL_STAVES, i);
                 Song.cursorY += Staff.HEIGHT + Song.STAFF_SPACING;
                 if (i == mStaves.Length - 1)
                     Song.TOTAL_INSTRUMENTS++;
             }
+            if (GetStaffCount() == numberOfStaves)
+                mSelectedStaff = GetStaff(0);
         }
 
         public void Update()

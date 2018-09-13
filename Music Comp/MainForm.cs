@@ -129,7 +129,7 @@ namespace Music_Comp
                 }
 
                 for (int i = 0; i < startup.instruments.Count; i++)
-                    song.AddInstrument(startup.instruments[i].clefs, startup.instruments[i].grouping);//, startup.instruments[i].waveForms);
+                    song.AddInstrument(startup.instruments[i].clefs, startup.instruments[i].waveForms, startup.instruments[i].grouping);
                 titleTextBox.Text = startup.title;
                 composerTextBox.Text = startup.composer;
             }
@@ -251,7 +251,7 @@ namespace Music_Comp
             Song.SELECTABLES = options.mainSELECTABLES;
 
             if (options.DialogResult == DialogResult.OK)
-                song.AddInstrument(options.clefs, options.grouping);
+                song.AddInstrument(options.clefs, options.waveForms, options.grouping);
 
             graphicsPanel.Invalidate();
         }

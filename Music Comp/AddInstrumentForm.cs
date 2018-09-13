@@ -43,15 +43,15 @@ namespace Music_Comp
         public AddInstrumentForm()
         {
             InitializeComponent();
-
             clefs.Add(Clef.Treble);
+            waveForms.Add(WaveForm.Sine);
             RefreshSong();
         }
 
         private void RefreshSong()
         {
             song = new Song(graphicsPanel.Width * 2, Song.KEY, Song.TIME);
-            song.AddInstrument(clefs, grouping);
+            song.AddInstrument(clefs, waveForms, grouping);
             song.GetInstrument(0).GetStaff(0).SetActive(false);
             graphicsPanel.Invalidate();
         }

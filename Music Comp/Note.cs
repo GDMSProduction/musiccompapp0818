@@ -29,6 +29,7 @@ namespace Music_Comp
             image = i;
             noteArea = ar;
             Song.SELECTABLES.Add(this);
+            Song.TOTAL_NOTES++;
         }
 
         public Note Clone()

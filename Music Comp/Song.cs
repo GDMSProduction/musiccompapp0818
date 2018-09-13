@@ -27,6 +27,9 @@ namespace Music_Comp
 
         public static int TOTAL_INSTRUMENTS;
         public static int TOTAL_STAVES;
+        public static int TOTAL_MEASURES;
+        public static int TOTAL_CHORDS;
+        public static int TOTAL_NOTES;
 
         public static float cursorY;
         public static float cursorX;
@@ -54,6 +57,9 @@ namespace Music_Comp
 
             TOTAL_INSTRUMENTS = 0;
             TOTAL_STAVES = 0;
+            TOTAL_MEASURES = 0;
+            TOTAL_CHORDS = 0;
+            TOTAL_NOTES = 0;
 
             cursorY = TOP_MARGIN;
             cursorX = LEFT_MARGIN;
@@ -110,11 +116,14 @@ namespace Music_Comp
             mSelectedInstrument = i;
         }
 
-        public void AddInstrument(List<Clef> clefs, Grouping g)
+        public void AddInstrument(List<Clef> clefs, List<WaveForm> waveforms, Grouping g)
         {
-            mInstruments.Add(new Instrument(clefs, g, mInstruments.Count));
+            mInstruments.Add(new Instrument(clefs, waveforms, g, mInstruments.Count));
             if (TOTAL_INSTRUMENTS == 1)
+            {
                 GetInstrument(0).GetStaff(0).SetActive(true);
+                mSelectedInstrument = GetInstrument(0);
+            }
         }
 
         public void RemoveInstrument(int i)

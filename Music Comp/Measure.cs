@@ -26,6 +26,7 @@ namespace Music_Comp
             mClef = clef;
             mChords = new List<Chord>();
             Song.SELECTABLES.Add(this);
+            Song.TOTAL_MEASURES++;
         }
 
         public int GetChordCount()
@@ -76,6 +77,8 @@ namespace Music_Comp
             {
                 mChords.Add(chord);
                 mTotalDuration += (int)chord.GetDuration();
+                if (GetChordCount() == 1)
+                    mSelectedChord = GetChord(0);
                 return null;
             }
             else
@@ -97,11 +100,15 @@ namespace Music_Comp
                     remainder.SetDuration((Duration)remainderDuration);
 
                     mChords.Add(split);
+                    if (Song.TOTAL_CHORDS == 1)
+                        mSelectedChord = GetChord(0);
                     return remainder;
                 }
                 else
                 {
                     mChords.Add(chord);
+                    if (Song.TOTAL_CHORDS == 1)
+                        mSelectedChord = GetChord(0);
                     return null;
                 }
             }
