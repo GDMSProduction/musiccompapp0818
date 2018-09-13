@@ -43,6 +43,14 @@
             this.St2Clef = new System.Windows.Forms.ComboBox();
             this.St3Clef = new System.Windows.Forms.ComboBox();
             this.St4Clef = new System.Windows.Forms.ComboBox();
+            this.Wave1 = new System.Windows.Forms.Label();
+            this.Wave3 = new System.Windows.Forms.Label();
+            this.Wave4 = new System.Windows.Forms.Label();
+            this.Wave2 = new System.Windows.Forms.Label();
+            this.Wavebox1 = new System.Windows.Forms.ComboBox();
+            this.Wavebox2 = new System.Windows.Forms.ComboBox();
+            this.Wavebox3 = new System.Windows.Forms.ComboBox();
+            this.Wavebox4 = new System.Windows.Forms.ComboBox();
             this.graphicsPanel = new Music_Comp.GraphicsPanel();
             ((System.ComponentModel.ISupportInitialize)(this.StaveNumeric)).BeginInit();
             this.SuspendLayout();
@@ -137,7 +145,7 @@
             // Stave1clef
             // 
             this.Stave1clef.AutoSize = true;
-            this.Stave1clef.Location = new System.Drawing.Point(340, 91);
+            this.Stave1clef.Location = new System.Drawing.Point(340, 81);
             this.Stave1clef.Name = "Stave1clef";
             this.Stave1clef.Size = new System.Drawing.Size(95, 20);
             this.Stave1clef.TabIndex = 9;
@@ -146,7 +154,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(340, 131);
+            this.label2.Location = new System.Drawing.Point(340, 115);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(95, 20);
             this.label2.TabIndex = 10;
@@ -155,7 +163,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(340, 170);
+            this.label3.Location = new System.Drawing.Point(340, 149);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(95, 20);
             this.label3.TabIndex = 11;
@@ -164,7 +172,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(340, 206);
+            this.label4.Location = new System.Drawing.Point(340, 183);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(95, 20);
             this.label4.TabIndex = 12;
@@ -178,7 +186,7 @@
             "Alto",
             "Tenor",
             "Bass"});
-            this.St1Clef.Location = new System.Drawing.Point(475, 88);
+            this.St1Clef.Location = new System.Drawing.Point(489, 73);
             this.St1Clef.Name = "St1Clef";
             this.St1Clef.Size = new System.Drawing.Size(121, 28);
             this.St1Clef.TabIndex = 13;
@@ -194,7 +202,7 @@
             "Alto",
             "Tenor",
             "Bass"});
-            this.St2Clef.Location = new System.Drawing.Point(475, 128);
+            this.St2Clef.Location = new System.Drawing.Point(489, 106);
             this.St2Clef.Name = "St2Clef";
             this.St2Clef.Size = new System.Drawing.Size(121, 28);
             this.St2Clef.TabIndex = 14;
@@ -209,7 +217,7 @@
             "Alto",
             "Tenor",
             "Bass"});
-            this.St3Clef.Location = new System.Drawing.Point(475, 166);
+            this.St3Clef.Location = new System.Drawing.Point(489, 140);
             this.St3Clef.Name = "St3Clef";
             this.St3Clef.Size = new System.Drawing.Size(121, 28);
             this.St3Clef.TabIndex = 15;
@@ -224,11 +232,111 @@
             "Alto",
             "Tenor",
             "Bass"});
-            this.St4Clef.Location = new System.Drawing.Point(475, 203);
+            this.St4Clef.Location = new System.Drawing.Point(489, 175);
             this.St4Clef.Name = "St4Clef";
             this.St4Clef.Size = new System.Drawing.Size(121, 28);
             this.St4Clef.TabIndex = 16;
             this.St4Clef.SelectedIndexChanged += new System.EventHandler(this.St4Clef_SelectedIndexChanged);
+            // 
+            // Wave1
+            // 
+            this.Wave1.AutoSize = true;
+            this.Wave1.Location = new System.Drawing.Point(340, 217);
+            this.Wave1.Name = "Wave1";
+            this.Wave1.Size = new System.Drawing.Size(139, 20);
+            this.Wave1.TabIndex = 18;
+            this.Wave1.Text = "Stave 1 Waveform";
+            // 
+            // Wave3
+            // 
+            this.Wave3.AutoSize = true;
+            this.Wave3.Location = new System.Drawing.Point(340, 285);
+            this.Wave3.Name = "Wave3";
+            this.Wave3.Size = new System.Drawing.Size(139, 20);
+            this.Wave3.TabIndex = 19;
+            this.Wave3.Text = "Stave 3 Waveform";
+            // 
+            // Wave4
+            // 
+            this.Wave4.AutoSize = true;
+            this.Wave4.Location = new System.Drawing.Point(340, 319);
+            this.Wave4.Name = "Wave4";
+            this.Wave4.Size = new System.Drawing.Size(139, 20);
+            this.Wave4.TabIndex = 20;
+            this.Wave4.Text = "Stave 4 Waveform";
+            // 
+            // Wave2
+            // 
+            this.Wave2.AutoSize = true;
+            this.Wave2.Location = new System.Drawing.Point(340, 251);
+            this.Wave2.Name = "Wave2";
+            this.Wave2.Size = new System.Drawing.Size(139, 20);
+            this.Wave2.TabIndex = 21;
+            this.Wave2.Text = "Stave 2 Waveform";
+            // 
+            // Wavebox1
+            // 
+            this.Wavebox1.FormattingEnabled = true;
+            this.Wavebox1.Items.AddRange(new object[] {
+            "Sine",
+            "Square",
+            "Sawtooth",
+            "Triangle",
+            "Noise"});
+            this.Wavebox1.Location = new System.Drawing.Point(489, 209);
+            this.Wavebox1.Name = "Wavebox1";
+            this.Wavebox1.Size = new System.Drawing.Size(121, 28);
+            this.Wavebox1.TabIndex = 24;
+            this.Wavebox1.Text = "Sine";
+            this.Wavebox1.SelectedIndexChanged += new System.EventHandler(this.Wavebox1_SelectedIndexChanged);
+            // 
+            // Wavebox2
+            // 
+            this.Wavebox2.Enabled = false;
+            this.Wavebox2.FormattingEnabled = true;
+            this.Wavebox2.Items.AddRange(new object[] {
+            "Sine",
+            "Square",
+            "Sawtooth",
+            "Triangle",
+            "Noise"});
+            this.Wavebox2.Location = new System.Drawing.Point(489, 243);
+            this.Wavebox2.Name = "Wavebox2";
+            this.Wavebox2.Size = new System.Drawing.Size(121, 28);
+            this.Wavebox2.TabIndex = 25;
+            this.Wavebox2.SelectedIndexChanged += new System.EventHandler(this.Wavebox2_SelectedIndexChanged);
+            // 
+            // Wavebox3
+            // 
+            this.Wavebox3.Enabled = false;
+            this.Wavebox3.FormattingEnabled = true;
+            this.Wavebox3.Items.AddRange(new object[] {
+            "Sine",
+            "Square",
+            "Sawtooth",
+            "Triangle",
+            "Noise"});
+            this.Wavebox3.Location = new System.Drawing.Point(489, 277);
+            this.Wavebox3.Name = "Wavebox3";
+            this.Wavebox3.Size = new System.Drawing.Size(121, 28);
+            this.Wavebox3.TabIndex = 26;
+            this.Wavebox3.SelectedIndexChanged += new System.EventHandler(this.Wavebox3_SelectedIndexChanged);
+            // 
+            // Wavebox4
+            // 
+            this.Wavebox4.Enabled = false;
+            this.Wavebox4.FormattingEnabled = true;
+            this.Wavebox4.Items.AddRange(new object[] {
+            "Sine",
+            "Square",
+            "Sawtooth",
+            "Triangle",
+            "Noise"});
+            this.Wavebox4.Location = new System.Drawing.Point(489, 311);
+            this.Wavebox4.Name = "Wavebox4";
+            this.Wavebox4.Size = new System.Drawing.Size(121, 28);
+            this.Wavebox4.TabIndex = 27;
+            this.Wavebox4.SelectedIndexChanged += new System.EventHandler(this.Wavebox4_SelectedIndexChanged);
             // 
             // graphicsPanel
             // 
@@ -245,6 +353,14 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.Wavebox4);
+            this.Controls.Add(this.Wavebox3);
+            this.Controls.Add(this.Wavebox2);
+            this.Controls.Add(this.Wavebox1);
+            this.Controls.Add(this.Wave2);
+            this.Controls.Add(this.Wave4);
+            this.Controls.Add(this.Wave3);
+            this.Controls.Add(this.Wave1);
             this.Controls.Add(this.St4Clef);
             this.Controls.Add(this.St3Clef);
             this.Controls.Add(this.St2Clef);
@@ -292,5 +408,13 @@
         private System.Windows.Forms.ComboBox St2Clef;
         private System.Windows.Forms.ComboBox St3Clef;
         private System.Windows.Forms.ComboBox St4Clef;
+        private System.Windows.Forms.Label Wave1;
+        private System.Windows.Forms.Label Wave3;
+        private System.Windows.Forms.Label Wave4;
+        private System.Windows.Forms.Label Wave2;
+        private System.Windows.Forms.ComboBox Wavebox1;
+        private System.Windows.Forms.ComboBox Wavebox2;
+        private System.Windows.Forms.ComboBox Wavebox3;
+        private System.Windows.Forms.ComboBox Wavebox4;
     }
 }

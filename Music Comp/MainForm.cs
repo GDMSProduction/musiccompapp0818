@@ -129,7 +129,7 @@ namespace Music_Comp
                 }
 
                 for (int i = 0; i < startup.instruments.Count; i++)
-                    song.AddInstrument(startup.instruments[i].clefs, startup.instruments[i].grouping);
+                    song.AddInstrument(startup.instruments[i].clefs, startup.instruments[i].waveForms, startup.instruments[i].grouping);
                 titleTextBox.Text = startup.title;
                 composerTextBox.Text = startup.composer;
             }
@@ -251,7 +251,7 @@ namespace Music_Comp
             Song.SELECTABLES = options.mainSELECTABLES;
 
             if (options.DialogResult == DialogResult.OK)
-                song.AddInstrument(options.clefs, options.grouping);
+                song.AddInstrument(options.clefs, options.waveForms, options.grouping);
 
             graphicsPanel.Invalidate();
         }
@@ -308,40 +308,77 @@ namespace Music_Comp
                                 switch (currentNoteDuration)
                                 {
                                     case Duration.Sixteenth:
-                                        SongDuration.Image = sixteenth;
-                                        songdur1.Image = eighth;
-                                        songdur2.Image = quarter;
-                                        songdur3.Image = half;
-                                        songdur4.Image = whole;
-                                        break;
+                                        {
+                                            SongDuration.Image = sixteenth;
+                                            songdur1.Image = eighth;
+                                            songdur2.Image = quarter;
+                                            songdur3.Image = half;
+                                            songdur4.Image = whole;
+                                            break;
+                                        }
                                     case Duration.Eighth:
-                                        SongDuration.Image = eighth;
-                                        songdur1.Image = quarter;
-                                        songdur2.Image = half;
-                                        songdur3.Image = whole;
-                                        songdur4.Image = sixteenth;
-                                        break;
+                                        {
+                                            SongDuration.Image = eighth;
+                                            songdur1.Image = quarter;
+                                            songdur2.Image = half;
+                                            songdur3.Image = whole;
+                                            songdur4.Image = sixteenth;
+                                            break;
+                                        }
                                     case Duration.Quarter:
-                                        SongDuration.Image = quarter;
-                                        songdur1.Image = half;
-                                        songdur2.Image = whole;
-                                        songdur3.Image = sixteenth;
-                                        songdur4.Image = eighth;
-                                        break;
+                                        {
+                                            SongDuration.Image = quarter;
+                                            songdur1.Image = half;
+                                            songdur2.Image = whole;
+                                            songdur3.Image = sixteenth;
+                                            songdur4.Image = eighth;
+                                            break;
+                                        }
                                     case Duration.Half:
-                                        SongDuration.Image = half;
-                                        songdur1.Image = whole;
-                                        songdur2.Image = sixteenth;
-                                        songdur3.Image = eighth;
-                                        songdur4.Image = quarter;
-                                        break;
+                                        {
+                                            SongDuration.Image = half;
+                                            songdur1.Image = whole;
+                                            songdur2.Image = sixteenth;
+                                            songdur3.Image = eighth;
+                                            songdur4.Image = quarter;
+                                            break;
+                                        }
                                     case Duration.Whole:
-                                        SongDuration.Image = whole;
-                                        songdur1.Image = sixteenth;
-                                        songdur2.Image = eighth;
-                                        songdur3.Image = quarter;
-                                        songdur4.Image = half;
-                                        break;
+                                        {
+                                            SongDuration.Image = whole;
+                                            songdur1.Image = sixteenth;
+                                            songdur2.Image = eighth;
+                                            songdur3.Image = quarter;
+                                            songdur4.Image = half;
+                                            break;
+                                        }
+                                    case Duration.DottedHalf:
+                                        {
+                                            SongDuration.Image = half;
+                                            songdur1.Image = whole;
+                                            songdur2.Image = sixteenth;
+                                            songdur3.Image = eighth;
+                                            songdur4.Image = quarter;
+                                            break;
+                                        }
+                                    case Duration.DottedEighth:
+                                        {
+                                            SongDuration.Image = eighth;
+                                            songdur1.Image = quarter;
+                                            songdur2.Image = half;
+                                            songdur3.Image = whole;
+                                            songdur4.Image = sixteenth;
+                                            break;
+                                        }
+                                    case Duration.DottedQuarter:
+                                        {
+                                            SongDuration.Image = quarter;
+                                            songdur1.Image = half;
+                                            songdur2.Image = whole;
+                                            songdur3.Image = sixteenth;
+                                            songdur4.Image = eighth;
+                                            break;
+                                        }
                                 }
                             }
                             else
@@ -349,29 +386,61 @@ namespace Music_Comp
                                 switch (currentNoteDuration)
                                 {
                                     case Duration.Sixteenth:
-                                        SongDuration.Image = sixteenth;
-                                        songdur1.Image = eighth;
-                                        songdur2.Image = dottedquarter;
-                                        songdur3.Image = dottedhalf;
-                                        break;
+                                        {
+                                            SongDuration.Image = sixteenth;
+                                            songdur1.Image = eighth;
+                                            songdur2.Image = dottedquarter;
+                                            songdur3.Image = dottedhalf;
+                                            break;
+                                        }
                                     case Duration.Eighth:
-                                        SongDuration.Image = eighth;
-                                        songdur1.Image = dottedquarter;
-                                        songdur2.Image = dottedhalf;
-                                        songdur3.Image = sixteenth;
-                                        break;
+                                        {
+                                            SongDuration.Image = eighth;
+                                            songdur1.Image = dottedquarter;
+                                            songdur2.Image = dottedhalf;
+                                            songdur3.Image = sixteenth;
+                                            break;
+                                        }
+                                    case Duration.Quarter:
+                                        {
+                                            SongDuration.Image = dottedquarter;
+                                            songdur1.Image = dottedhalf;
+                                            songdur2.Image = sixteenth;
+                                            songdur3.Image = eighth;
+                                            break;
+                                        }
+                                    case Duration.Half:
+                                        {
+                                            SongDuration.Image = dottedhalf;
+                                            songdur1.Image = sixteenth;
+                                            songdur2.Image = eighth;
+                                            songdur3.Image = dottedquarter;
+                                            break;
+                                        }
                                     case Duration.DottedQuarter:
-                                        SongDuration.Image = dottedquarter;
-                                        songdur1.Image = dottedhalf;
-                                        songdur2.Image = sixteenth;
-                                        songdur3.Image = eighth;
-                                        break;
+                                        {
+                                            SongDuration.Image = dottedquarter;
+                                            songdur1.Image = dottedhalf;
+                                            songdur2.Image = sixteenth;
+                                            songdur3.Image = eighth;
+                                            break;
+                                        }
                                     case Duration.DottedHalf:
-                                        SongDuration.Image = dottedhalf;
-                                        songdur1.Image = sixteenth;
-                                        songdur2.Image = eighth;
-                                        songdur3.Image = dottedquarter;
-                                        break;
+                                        {
+                                            SongDuration.Image = dottedhalf;
+                                            songdur1.Image = sixteenth;
+                                            songdur2.Image = eighth;
+                                            songdur3.Image = dottedquarter;
+                                            break;
+                                        }
+                                    case Duration.DottedEighth:
+                                        {
+                                            SongDuration.Image = eighth;
+                                            songdur1.Image = dottedquarter;
+                                            songdur2.Image = dottedhalf;
+                                            songdur3.Image = sixteenth;
+                                            break;
+                                        }
                                 }
                             }
                             break;
@@ -382,73 +451,151 @@ namespace Music_Comp
                             {
                                 if (Song.TIME == Time.FourFour)
                                 {
-                                    switch (currentNoteDuration)
+                                    if (!ShiftCheck())
                                     {
-                                        case Duration.Sixteenth:
-                                            SongDuration.Image = sixteenth;
-                                            songdur1.Image = eighth;
-                                            songdur2.Image = quarter;
-                                            songdur3.Image = half;
-                                            songdur4.Image = whole;
-                                            break;
-                                        case Duration.Eighth:
-                                            SongDuration.Image = eighth;
-                                            songdur1.Image = quarter;
-                                            songdur2.Image = half;
-                                            songdur3.Image = whole;
-                                            songdur4.Image = sixteenth;
-                                            break;
-                                        case Duration.Quarter:
-                                            SongDuration.Image = quarter;
-                                            songdur1.Image = half;
-                                            songdur2.Image = whole;
-                                            songdur3.Image = sixteenth;
-                                            songdur4.Image = eighth;
-                                            break;
-                                        case Duration.Half:
-                                            SongDuration.Image = half;
-                                            songdur1.Image = whole;
-                                            songdur2.Image = sixteenth;
-                                            songdur3.Image = eighth;
-                                            songdur4.Image = quarter;
-                                            break;
-                                        case Duration.Whole:
-                                            SongDuration.Image = whole;
-                                            songdur1.Image = sixteenth;
-                                            songdur2.Image = eighth;
-                                            songdur3.Image = quarter;
-                                            songdur4.Image = half;
-                                            break;
+
+                                        switch (currentNoteDuration)
+                                        {
+                                            case Duration.Sixteenth:
+                                                SongDuration.Image = sixteenth;
+                                                songdur1.Image = eighth;
+                                                songdur2.Image = quarter;
+                                                songdur3.Image = half;
+                                                songdur4.Image = whole;
+                                                break;
+                                            case Duration.Eighth:
+                                                SongDuration.Image = eighth;
+                                                songdur1.Image = quarter;
+                                                songdur2.Image = half;
+                                                songdur3.Image = whole;
+                                                songdur4.Image = sixteenth;
+                                                break;
+                                            case Duration.Quarter:
+                                                SongDuration.Image = quarter;
+                                                songdur1.Image = half;
+                                                songdur2.Image = whole;
+                                                songdur3.Image = sixteenth;
+                                                songdur4.Image = eighth;
+                                                break;
+                                            case Duration.Half:
+                                                SongDuration.Image = half;
+                                                songdur1.Image = whole;
+                                                songdur2.Image = sixteenth;
+                                                songdur3.Image = eighth;
+                                                songdur4.Image = quarter;
+                                                break;
+                                            case Duration.Whole:
+                                                SongDuration.Image = whole;
+                                                songdur1.Image = sixteenth;
+                                                songdur2.Image = eighth;
+                                                songdur3.Image = quarter;
+                                                songdur4.Image = half;
+                                                break;
+                                        }
                                     }
+                                    else
+                                    {
+                                        switch (currentNoteDuration)
+                                        {
+                                            case Duration.Sixteenth:
+                                                SongDuration.Image = sixteenth;
+                                                songdur1.Image = dottedeighth;
+                                                songdur2.Image = dottedquarter;
+                                                songdur3.Image = dottedhalf;
+                                                songdur4.Image = whole;
+                                                break;
+                                            case Duration.Eighth:
+                                                SongDuration.Image = dottedeighth;
+                                                songdur1.Image = dottedquarter;
+                                                songdur2.Image = dottedhalf;
+                                                songdur3.Image = whole;
+                                                songdur4.Image = sixteenth;
+                                                break;
+                                            case Duration.Quarter:
+                                                SongDuration.Image = dottedquarter;
+                                                songdur1.Image = dottedhalf;
+                                                songdur2.Image = whole;
+                                                songdur3.Image = sixteenth;
+                                                songdur4.Image = dottedeighth;
+                                                break;
+                                            case Duration.Half:
+                                                SongDuration.Image = dottedhalf;
+                                                songdur1.Image = whole;
+                                                songdur2.Image = sixteenth;
+                                                songdur3.Image = dottedeighth;
+                                                songdur4.Image = dottedquarter;
+                                                break;
+                                            case Duration.Whole:
+                                                SongDuration.Image = whole;
+                                                songdur1.Image = sixteenth;
+                                                songdur2.Image = dottedeighth;
+                                                songdur3.Image = dottedquarter;
+                                                songdur4.Image = dottedhalf;
+                                                break;
+                                        }
+                                        }
                                 }
                                 else
                                 {
-                                    switch (currentNoteDuration)
+                                    if (!ShiftCheck())
                                     {
-                                        case Duration.Sixteenth:
-                                            SongDuration.Image = sixteenth;
-                                            songdur1.Image = eighth;
-                                            songdur2.Image = dottedquarter;
-                                            songdur3.Image = dottedhalf;
-                                            break;
-                                        case Duration.Eighth:
-                                            SongDuration.Image = eighth;
-                                            songdur1.Image = dottedquarter;
-                                            songdur2.Image = dottedhalf;
-                                            songdur3.Image = sixteenth;
-                                            break;
-                                        case Duration.DottedQuarter:
-                                            SongDuration.Image = dottedquarter;
-                                            songdur1.Image = dottedhalf;
-                                            songdur2.Image = sixteenth;
-                                            songdur3.Image = eighth;
-                                            break;
-                                        case Duration.DottedHalf:
-                                            SongDuration.Image = dottedhalf;
-                                            songdur1.Image = sixteenth;
-                                            songdur2.Image = eighth;
-                                            songdur3.Image = dottedquarter;
-                                            break;
+                                        switch (currentNoteDuration)
+                                        {
+                                            case Duration.Sixteenth:
+                                                SongDuration.Image = sixteenth;
+                                                songdur1.Image = eighth;
+                                                songdur2.Image = dottedquarter;
+                                                songdur3.Image = dottedhalf;
+                                                break;
+                                            case Duration.Eighth:
+                                                SongDuration.Image = eighth;
+                                                songdur1.Image = dottedquarter;
+                                                songdur2.Image = dottedhalf;
+                                                songdur3.Image = sixteenth;
+                                                break;
+                                            case Duration.DottedQuarter:
+                                                SongDuration.Image = dottedquarter;
+                                                songdur1.Image = dottedhalf;
+                                                songdur2.Image = sixteenth;
+                                                songdur3.Image = eighth;
+                                                break;
+                                            case Duration.DottedHalf:
+                                                SongDuration.Image = dottedhalf;
+                                                songdur1.Image = sixteenth;
+                                                songdur2.Image = eighth;
+                                                songdur3.Image = dottedquarter;
+                                                break;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        switch (currentNoteDuration)
+                                        {
+                                            case Duration.Sixteenth:
+                                                SongDuration.Image = sixteenth;
+                                                songdur1.Image = dottedeighth;
+                                                songdur2.Image = quarter;
+                                                songdur3.Image = half;
+                                                break;
+                                            case Duration.Eighth:
+                                                SongDuration.Image = dottedeighth;
+                                                songdur1.Image = quarter;
+                                                songdur2.Image = half;
+                                                songdur3.Image = sixteenth;
+                                                break;
+                                            case Duration.DottedQuarter:
+                                                SongDuration.Image = quarter;
+                                                songdur1.Image = half;
+                                                songdur2.Image = sixteenth;
+                                                songdur3.Image = dottedeighth;
+                                                break;
+                                            case Duration.DottedHalf:
+                                                SongDuration.Image = half;
+                                                songdur1.Image = sixteenth;
+                                                songdur2.Image = dottedeighth;
+                                                songdur3.Image = quarter;
+                                                break;
+                                        }
                                     }
                                 }
                                 songdur1.Location = new Point(SongDuration.Width + 20, Height - 220);
@@ -457,29 +604,95 @@ namespace Music_Comp
                                 songdur4.Location = new Point(songdur1.Width * 4 + 20, Height - 220);
                                 if (Song.TIME == Time.SixEight)
                                 {
-                                    songdur4.Location = new Point(0, - 200);
+                                    songdur4.Location = new Point(0, -200);
                                 }
                                 lcheck = true;
                             }
                             else
                             {
-                                switch (currentNoteDuration)
+                                if (Song.TIME == Time.FourFour)
                                 {
-                                    case Duration.Sixteenth:
-                                        SongDuration.Image = sixteenth;
-                                        break;
-                                    case Duration.Eighth:
-                                        SongDuration.Image = eighth;
-                                        break;
-                                    case Duration.Quarter:
-                                        SongDuration.Image = quarter;
-                                        break;
-                                    case Duration.Half:
-                                        SongDuration.Image = half;
-                                        break;
-                                    case Duration.Whole:
-                                        SongDuration.Image = whole;
-                                        break;
+                                    if (!ShiftCheck())
+                                    {
+                                        switch (currentNoteDuration)
+                                        {
+                                            case Duration.Sixteenth:
+                                                SongDuration.Image = sixteenth;
+                                                break;
+                                            case Duration.Eighth:
+                                                SongDuration.Image = eighth;
+                                                break;
+                                            case Duration.Quarter:
+                                                SongDuration.Image = quarter;
+                                                break;
+                                            case Duration.Half:
+                                                SongDuration.Image = half;
+                                                break;
+                                            case Duration.Whole:
+                                                SongDuration.Image = whole;
+                                                break;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        switch (currentNoteDuration)
+                                        {
+                                            case Duration.Sixteenth:
+                                                SongDuration.Image = sixteenth;
+                                                break;
+                                            case Duration.Eighth:
+                                                SongDuration.Image = dottedeighth;
+                                                break;
+                                            case Duration.Quarter:
+                                                SongDuration.Image = dottedquarter;
+                                                break;
+                                            case Duration.Half:
+                                                SongDuration.Image = dottedhalf;
+                                                break;
+                                            case Duration.Whole:
+                                                SongDuration.Image = whole;
+                                                break;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    if (!ShiftCheck())
+                                    {
+                                        switch (currentNoteDuration)
+                                        {
+                                            case Duration.Sixteenth:
+                                                SongDuration.Image = sixteenth;
+                                                break;
+                                            case Duration.Eighth:
+                                                SongDuration.Image = eighth;
+                                                break;
+                                            case Duration.DottedQuarter:
+                                                SongDuration.Image = dottedquarter;
+                                                break;
+                                            case Duration.DottedHalf:
+                                                SongDuration.Image = dottedhalf;
+                                                break;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        switch (currentNoteDuration)
+                                        {
+                                            case Duration.Sixteenth:
+                                                SongDuration.Image = sixteenth;
+                                                break;
+                                            case Duration.Eighth:
+                                                SongDuration.Image = dottedeighth;
+                                                break;
+                                            case Duration.DottedQuarter:
+                                                SongDuration.Image = quarter;
+                                                break;
+                                            case Duration.DottedHalf:
+                                                SongDuration.Image = half;
+                                                break;
+                                        }
+                                    }
                                 }
                                 songdur1.Location = songdur2.Location = songdur3.Location = songdur4.Location = new Point(-200, 0);
                                 lcheck = false;
@@ -487,7 +700,7 @@ namespace Music_Comp
                             break;
                         }
                     case Keys.Tab:
-                        if (Song.TIME == Time.FourFour)
+                        if (Song.TIME == Time.FourFour && !lcheck)
                         {
                             if ((int)currentNoteDuration % 9 == 0)
                                 currentNoteDuration = Duration.Quarter;
@@ -504,7 +717,7 @@ namespace Music_Comp
                                     currentNoteDuration = Duration.Whole;
                             }
                         }
-                        else if (Song.TIME == Time.SixEight)
+                        else if (Song.TIME == Time.SixEight && !lcheck)
                         {
                             if (!ShiftCheck())
                             {
@@ -514,8 +727,8 @@ namespace Music_Comp
                                         currentNoteDuration = Duration.DottedQuarter;
                                         break;
                                     case Duration.Sixteenth:
-                                        //currentNoteDuration = Duration.Eighth;
-                                        //break;
+                                    //currentNoteDuration = Duration.Eighth;
+                                    //break;
                                     case Duration.DottedQuarter:
                                         currentNoteDuration = (Duration)((int)currentNoteDuration * 2);
                                         break;
@@ -529,8 +742,8 @@ namespace Music_Comp
                                 switch (currentNoteDuration)
                                 {
                                     case Duration.Eighth:
-                                        //currentNoteDuration = Duration.Sixteenth;
-                                        //break;
+                                    //currentNoteDuration = Duration.Sixteenth;
+                                    //break;
                                     case Duration.DottedHalf:
                                         currentNoteDuration = (Duration)((int)currentNoteDuration / 2);
                                         break;
@@ -885,104 +1098,50 @@ namespace Music_Comp
 
             if (Song.TIME == Time.FourFour)
             {
-                if (!ShiftCheck())
+                switch (currentNoteDuration)
                 {
-                    switch (currentNoteDuration)
-                    {
-                        case Duration.Sixteenth:
-                            currentNoteDuration = Duration.Eighth;
-                            SongDuration.Image = eighth;
-                            break;
-                        case Duration.Eighth:
-                            currentNoteDuration = Duration.Quarter;
-                            SongDuration.Image = quarter;
-                            break;
-                        case Duration.Quarter:
-                            currentNoteDuration = Duration.Half;
-                            SongDuration.Image = half;
-                            break;
-                        case Duration.Half:
-                            currentNoteDuration = Duration.Whole;
-                            SongDuration.Image = whole;
-                            break;
-                        case Duration.Whole:
-                            currentNoteDuration = Duration.Sixteenth;
-                            SongDuration.Image = sixteenth;
-                            break;
-                    }
-                }
-                else if (ShiftCheck())
-                {
-                    switch (currentNoteDuration)
-                    {
-                        case Duration.Sixteenth:
-                            currentNoteDuration = Duration.Whole;
-                            SongDuration.Image = whole;
-                            break;
-                        case Duration.Eighth:
-                            currentNoteDuration = Duration.Sixteenth;
-                            SongDuration.Image = sixteenth;
-                            break;
-                        case Duration.Quarter:
-                            currentNoteDuration = Duration.Eighth;
-                            SongDuration.Image = eighth;
-                            break;
-                        case Duration.Half:
-                            currentNoteDuration = Duration.Quarter;
-                            SongDuration.Image = quarter;
-                            break;
-                        case Duration.Whole:
-                            currentNoteDuration = Duration.Half;
-                            SongDuration.Image = half;
-                            break;
-                    }
+                    case Duration.Sixteenth:
+                        currentNoteDuration = Duration.Eighth;
+                        SongDuration.Image = eighth;
+                        break;
+                    case Duration.Eighth:
+                        currentNoteDuration = Duration.Quarter;
+                        SongDuration.Image = quarter;
+                        break;
+                    case Duration.Quarter:
+                        currentNoteDuration = Duration.Half;
+                        SongDuration.Image = half;
+                        break;
+                    case Duration.Half:
+                        currentNoteDuration = Duration.Whole;
+                        SongDuration.Image = whole;
+                        break;
+                    case Duration.Whole:
+                        currentNoteDuration = Duration.Sixteenth;
+                        SongDuration.Image = sixteenth;
+                        break;
                 }
             }
             else if (Song.TIME == Time.SixEight)
             {
-                if (!ShiftCheck())
+                switch (currentNoteDuration)
                 {
-                    switch (currentNoteDuration)
-                    {
-                        case Duration.Sixteenth:
-                            currentNoteDuration = Duration.Eighth;
-                            SongDuration.Image = eighth;
-                            break;
-                        case Duration.DottedEighth:
-                            currentNoteDuration = Duration.DottedQuarter;
-                            SongDuration.Image = dottedquarter;
-                            break;
-                        case Duration.DottedQuarter:
-                            currentNoteDuration = Duration.DottedHalf;
-                            SongDuration.Image = dottedhalf;
-                            break;
-                        case Duration.DottedHalf:
-                            currentNoteDuration = Duration.Sixteenth;
-                            SongDuration.Image = sixteenth;
-                            break;
-                    }
-                }
-                else if (ShiftCheck())
-                {
-                    switch (currentNoteDuration)
-                    {
-                        case Duration.Sixteenth:
-                            currentNoteDuration = Duration.Half;
-                            SongDuration.Image = half;
-                            break;
-                        case Duration.Eighth:
-                            currentNoteDuration = Duration.Sixteenth;
-                            SongDuration.Image = sixteenth;
-                            break;
-                        case Duration.Quarter:
-                            currentNoteDuration = Duration.DottedEighth;
-                            SongDuration.Image = dottedeighth;
-                            break;
-                        case Duration.DottedHalf:
-                            currentNoteDuration = Duration.Quarter;
-                            SongDuration.Image = quarter;
-                            break;
-                    }
+                    case Duration.Sixteenth:
+                        currentNoteDuration = Duration.Eighth;
+                        SongDuration.Image = eighth;
+                        break;
+                    case Duration.Eighth:
+                        currentNoteDuration = Duration.DottedQuarter;
+                        SongDuration.Image = dottedquarter;
+                        break;
+                    case Duration.DottedQuarter:
+                        currentNoteDuration = Duration.DottedHalf;
+                        SongDuration.Image = dottedhalf;
+                        break;
+                    case Duration.DottedHalf:
+                        currentNoteDuration = Duration.Sixteenth;
+                        SongDuration.Image = sixteenth;
+                        break;
                 }
             }
         }
@@ -992,104 +1151,50 @@ namespace Music_Comp
             ActiveControl = graphicsPanel;
             if (Song.TIME == Time.FourFour)
             {
-                if (!ShiftCheck())
+                switch (currentNoteDuration)
                 {
-                    switch (currentNoteDuration)
-                    {
-                        case Duration.Sixteenth:
-                            currentNoteDuration = Duration.Eighth;
-                            SongDuration.Image = eighth;
-                            break;
-                        case Duration.Eighth:
-                            currentNoteDuration = Duration.Quarter;
-                            SongDuration.Image = quarter;
-                            break;
-                        case Duration.Quarter:
-                            currentNoteDuration = Duration.Half;
-                            SongDuration.Image = half;
-                            break;
-                        case Duration.Half:
-                            currentNoteDuration = Duration.Whole;
-                            SongDuration.Image = whole;
-                            break;
-                        case Duration.Whole:
-                            currentNoteDuration = Duration.Sixteenth;
-                            SongDuration.Image = sixteenth;
-                            break;
-                    }
-                }
-                else
-                {
-                    switch (currentNoteDuration)
-                    {
-                        case Duration.Sixteenth:
-                            currentNoteDuration = Duration.DottedEighth;
-                            SongDuration.Image = dottedeighth;
-                            break;
-                        case Duration.DottedEighth:
-                            currentNoteDuration = Duration.DottedQuarter;
-                            SongDuration.Image = dottedquarter;
-                            break;
-                        case Duration.DottedQuarter:
-                            currentNoteDuration = Duration.DottedHalf;
-                            SongDuration.Image = dottedhalf;
-                            break;
-                        case Duration.DottedHalf:
-                            currentNoteDuration = Duration.Whole;
-                            SongDuration.Image = whole;
-                            break;
-                        case Duration.Whole:
-                            currentNoteDuration = Duration.Sixteenth;
-                            SongDuration.Image = sixteenth;
-                            break;
-                    }
+                    case Duration.Sixteenth:
+                        currentNoteDuration = Duration.Eighth;
+                        SongDuration.Image = eighth;
+                        break;
+                    case Duration.Eighth:
+                        currentNoteDuration = Duration.Quarter;
+                        SongDuration.Image = quarter;
+                        break;
+                    case Duration.Quarter:
+                        currentNoteDuration = Duration.Half;
+                        SongDuration.Image = half;
+                        break;
+                    case Duration.Half:
+                        currentNoteDuration = Duration.Whole;
+                        SongDuration.Image = whole;
+                        break;
+                    case Duration.Whole:
+                        currentNoteDuration = Duration.Sixteenth;
+                        SongDuration.Image = sixteenth;
+                        break;
                 }
             }
             else if (Song.TIME == Time.SixEight)
             {
-                if (!ShiftCheck())
+                switch (currentNoteDuration)
                 {
-                    switch (currentNoteDuration)
-                    {
-                        case Duration.Sixteenth:
-                            currentNoteDuration = Duration.Eighth;
-                            SongDuration.Image = eighth;
-                            break;
-                        case Duration.Eighth:
-                            currentNoteDuration = Duration.DottedQuarter;
-                            SongDuration.Image = dottedquarter;
-                            break;
-                        case Duration.DottedQuarter:
-                            currentNoteDuration = Duration.DottedHalf;
-                            SongDuration.Image = dottedhalf;
-                            break;
-                        case Duration.DottedHalf:
-                            currentNoteDuration = Duration.Sixteenth;
-                            SongDuration.Image = sixteenth;
-                            break;
-                    }
-                }
-                else
-                {
-                    switch (currentNoteDuration)
-                    {
-                        case Duration.Sixteenth:
-                            currentNoteDuration = Duration.DottedEighth;
-                            SongDuration.Image = dottedeighth;
-                            break;
-                        case Duration.DottedEighth:
-                            currentNoteDuration = Duration.Quarter;
-                            SongDuration.Image = quarter;
-                            break;
-                        case Duration.Quarter:
-                            currentNoteDuration = Duration.Half;
-                            SongDuration.Image = half;
-                            break;
-                        case Duration.Half:
-                            currentNoteDuration = Duration.Sixteenth;
-                            SongDuration.Image = sixteenth;
-                            break;
-                    }
+                    case Duration.Sixteenth:
+                        currentNoteDuration = Duration.Eighth;
+                        SongDuration.Image = eighth;
+                        break;
+                    case Duration.Eighth:
+                        currentNoteDuration = Duration.DottedQuarter;
+                        SongDuration.Image = dottedquarter;
+                        break;
+                    case Duration.DottedQuarter:
+                        currentNoteDuration = Duration.DottedHalf;
+                        SongDuration.Image = dottedhalf;
+                        break;
+                    case Duration.DottedHalf:
+                        currentNoteDuration = Duration.Sixteenth;
+                        SongDuration.Image = sixteenth;
+                        break;
                 }
             }
             songdur1.Location = songdur2.Location = songdur3.Location = songdur4.Location = new Point(-200, 0);
@@ -1101,104 +1206,50 @@ namespace Music_Comp
             ActiveControl = graphicsPanel;
             if (Song.TIME == Time.FourFour)
             {
-                if (!ShiftCheck())
+                switch (currentNoteDuration)
                 {
-                    switch (currentNoteDuration)
-                    {
-                        case Duration.Sixteenth:
-                            currentNoteDuration = Duration.Quarter;
-                            SongDuration.Image = quarter;
-                            break;
-                        case Duration.Eighth:
-                            currentNoteDuration = Duration.Half;
-                            SongDuration.Image = half;
-                            break;
-                        case Duration.Quarter:
-                            currentNoteDuration = Duration.Whole;
-                            SongDuration.Image = whole;
-                            break;
-                        case Duration.Half:
-                            currentNoteDuration = Duration.Sixteenth;
-                            SongDuration.Image = sixteenth;
-                            break;
-                        case Duration.Whole:
-                            currentNoteDuration = Duration.Eighth;
-                            SongDuration.Image = eighth;
-                            break;
-                    }
-                }
-                else
-                {
-                    switch (currentNoteDuration)
-                    {
-                        case Duration.Sixteenth:
-                            currentNoteDuration = Duration.DottedQuarter;
-                            SongDuration.Image = dottedquarter;
-                            break;
-                        case Duration.DottedEighth:
-                            currentNoteDuration = Duration.DottedHalf;
-                            SongDuration.Image = dottedhalf;
-                            break;
-                        case Duration.DottedQuarter:
-                            currentNoteDuration = Duration.Whole;
-                            SongDuration.Image = whole;
-                            break;
-                        case Duration.DottedHalf:
-                            currentNoteDuration = Duration.Sixteenth;
-                            SongDuration.Image = sixteenth;
-                            break;
-                        case Duration.Whole:
-                            currentNoteDuration = Duration.DottedEighth;
-                            SongDuration.Image = dottedeighth;
-                            break;
-                    }
+                    case Duration.Sixteenth:
+                        currentNoteDuration = Duration.Quarter;
+                        SongDuration.Image = quarter;
+                        break;
+                    case Duration.Eighth:
+                        currentNoteDuration = Duration.Half;
+                        SongDuration.Image = half;
+                        break;
+                    case Duration.Quarter:
+                        currentNoteDuration = Duration.Whole;
+                        SongDuration.Image = whole;
+                        break;
+                    case Duration.Half:
+                        currentNoteDuration = Duration.Sixteenth;
+                        SongDuration.Image = sixteenth;
+                        break;
+                    case Duration.Whole:
+                        currentNoteDuration = Duration.Eighth;
+                        SongDuration.Image = eighth;
+                        break;
                 }
             }
             else if (Song.TIME == Time.SixEight)
             {
-                if (!ShiftCheck())
+                switch (currentNoteDuration)
                 {
-                    switch (currentNoteDuration)
-                    {
-                        case Duration.Sixteenth:
-                            currentNoteDuration = Duration.DottedQuarter;
-                            SongDuration.Image = dottedquarter;
-                            break;
-                        case Duration.Eighth:
-                            currentNoteDuration = Duration.DottedHalf;
-                            SongDuration.Image = dottedhalf;
-                            break;
-                        case Duration.DottedQuarter:
-                            currentNoteDuration = Duration.Sixteenth;
-                            SongDuration.Image = sixteenth;
-                            break;
-                        case Duration.DottedHalf:
-                            currentNoteDuration = Duration.Eighth;
-                            SongDuration.Image = eighth;
-                            break;
-                    }
-                }
-                else
-                {
-                    switch (currentNoteDuration)
-                    {
-                        case Duration.Sixteenth:
-                            currentNoteDuration = Duration.Quarter;
-                            SongDuration.Image = quarter;
-                            break;
-                        case Duration.DottedEighth:
-                            currentNoteDuration = Duration.Half;
-                            SongDuration.Image = half;
-                            break;
-                        case Duration.Quarter:
-                            currentNoteDuration = Duration.Sixteenth;
-                            SongDuration.Image = sixteenth;
-                            break;
-                        case Duration.Half:
-                            currentNoteDuration = Duration.DottedEighth;
-                            SongDuration.Image = dottedeighth;
-                            break;
-                    }
+                    case Duration.Sixteenth:
+                        currentNoteDuration = Duration.DottedQuarter;
+                        SongDuration.Image = dottedquarter;
+                        break;
+                    case Duration.Eighth:
+                        currentNoteDuration = Duration.DottedHalf;
+                        SongDuration.Image = dottedhalf;
+                        break;
+                    case Duration.DottedQuarter:
+                        currentNoteDuration = Duration.Sixteenth;
+                        SongDuration.Image = sixteenth;
+                        break;
+                    case Duration.DottedHalf:
+                        currentNoteDuration = Duration.Eighth;
+                        SongDuration.Image = eighth;
+                        break;
                 }
             }
             songdur1.Location = songdur2.Location = songdur3.Location = songdur4.Location = new Point(-200, 0);
@@ -1210,104 +1261,50 @@ namespace Music_Comp
             ActiveControl = graphicsPanel;
             if (Song.TIME == Time.FourFour)
             {
-                if (!ShiftCheck())
+                switch (currentNoteDuration)
                 {
-                    switch (currentNoteDuration)
-                    {
-                        case Duration.Sixteenth:
-                            currentNoteDuration = Duration.Half;
-                            SongDuration.Image = half;
-                            break;
-                        case Duration.Eighth:
-                            currentNoteDuration = Duration.Whole;
-                            SongDuration.Image = whole;
-                            break;
-                        case Duration.Quarter:
-                            currentNoteDuration = Duration.Sixteenth;
-                            SongDuration.Image = sixteenth;
-                            break;
-                        case Duration.Half:
-                            currentNoteDuration = Duration.Eighth;
-                            SongDuration.Image = eighth;
-                            break;
-                        case Duration.Whole:
-                            currentNoteDuration = Duration.Quarter;
-                            SongDuration.Image = quarter;
-                            break;
-                    }
-                }
-                else
-                {
-                    switch (currentNoteDuration)
-                    {
-                        case Duration.Sixteenth:
-                            currentNoteDuration = Duration.DottedHalf;
-                            SongDuration.Image = dottedhalf;
-                            break;
-                        case Duration.DottedEighth:
-                            currentNoteDuration = Duration.Whole;
-                            SongDuration.Image = whole;
-                            break;
-                        case Duration.DottedQuarter:
-                            currentNoteDuration = Duration.Sixteenth;
-                            SongDuration.Image = sixteenth;
-                            break;
-                        case Duration.DottedHalf:
-                            currentNoteDuration = Duration.DottedEighth;
-                            SongDuration.Image = dottedeighth;
-                            break;
-                        case Duration.Whole:
-                            currentNoteDuration = Duration.DottedQuarter;
-                            SongDuration.Image = dottedquarter;
-                            break;
-                    }
+                    case Duration.Sixteenth:
+                        currentNoteDuration = Duration.Half;
+                        SongDuration.Image = half;
+                        break;
+                    case Duration.Eighth:
+                        currentNoteDuration = Duration.Whole;
+                        SongDuration.Image = whole;
+                        break;
+                    case Duration.Quarter:
+                        currentNoteDuration = Duration.Sixteenth;
+                        SongDuration.Image = sixteenth;
+                        break;
+                    case Duration.Half:
+                        currentNoteDuration = Duration.Eighth;
+                        SongDuration.Image = eighth;
+                        break;
+                    case Duration.Whole:
+                        currentNoteDuration = Duration.Quarter;
+                        SongDuration.Image = quarter;
+                        break;
                 }
             }
             else if (Song.TIME == Time.SixEight)
             {
-                if (!ShiftCheck())
+                switch (currentNoteDuration)
                 {
-                    switch (currentNoteDuration)
-                    {
-                        case Duration.Sixteenth:
-                            currentNoteDuration = Duration.DottedHalf;
-                            SongDuration.Image = dottedhalf;
-                            break;
-                        case Duration.Eighth:
-                            currentNoteDuration = Duration.Sixteenth;
-                            SongDuration.Image = sixteenth;
-                            break;
-                        case Duration.DottedQuarter:
-                            currentNoteDuration = Duration.Eighth;
-                            SongDuration.Image = eighth;
-                            break;
-                        case Duration.DottedHalf:
-                            currentNoteDuration = Duration.DottedQuarter;
-                            SongDuration.Image = dottedquarter;
-                            break;
-                    }
-                }
-                else
-                {
-                    switch (currentNoteDuration)
-                    {
-                        case Duration.Sixteenth:
-                            currentNoteDuration = Duration.DottedHalf;
-                            SongDuration.Image = dottedhalf;
-                            break;
-                        case Duration.DottedEighth:
-                            currentNoteDuration = Duration.Sixteenth;
-                            SongDuration.Image = sixteenth;
-                            break;
-                        case Duration.Quarter:
-                            currentNoteDuration = Duration.DottedEighth;
-                            SongDuration.Image = dottedeighth;
-                            break;
-                        case Duration.Half:
-                            currentNoteDuration = Duration.DottedQuarter;
-                            SongDuration.Image = dottedquarter;
-                            break;
-                    }
+                    case Duration.Sixteenth:
+                        currentNoteDuration = Duration.DottedHalf;
+                        SongDuration.Image = dottedhalf;
+                        break;
+                    case Duration.Eighth:
+                        currentNoteDuration = Duration.Sixteenth;
+                        SongDuration.Image = sixteenth;
+                        break;
+                    case Duration.DottedQuarter:
+                        currentNoteDuration = Duration.Eighth;
+                        SongDuration.Image = eighth;
+                        break;
+                    case Duration.DottedHalf:
+                        currentNoteDuration = Duration.DottedQuarter;
+                        SongDuration.Image = dottedquarter;
+                        break;
                 }
             }
             songdur1.Location = songdur2.Location = songdur3.Location = songdur4.Location = new Point(-200, 0);
@@ -1317,80 +1314,28 @@ namespace Music_Comp
         private void songdur4_Click(object sender, EventArgs e)
         {
             ActiveControl = graphicsPanel;
-            if (!ShiftCheck())
+            switch (currentNoteDuration)
             {
-                switch (currentNoteDuration)
-                {
-                    case Duration.Sixteenth:
-                        currentNoteDuration = Duration.Whole;
-                        SongDuration.Image = whole;
-                        break;
-                    case Duration.Eighth:
-                        currentNoteDuration = Duration.Sixteenth;
-                        SongDuration.Image = sixteenth;
-                        break;
-                    case Duration.Quarter:
-                        currentNoteDuration = Duration.Eighth;
-                        SongDuration.Image = eighth;
-                        break;
-                    case Duration.Half:
-                        currentNoteDuration = Duration.Quarter;
-                        SongDuration.Image = quarter;
-                        break;
-                    case Duration.Whole:
-                        currentNoteDuration = Duration.Half;
-                        SongDuration.Image = half;
-                        break;
-                }
-                switch (currentNoteDuration)
-                {
-                    case Duration.Sixteenth:
-                        currentNoteDuration = Duration.Whole;
-                        SongDuration.Image = whole;
-                        break;
-                    case Duration.Eighth:
-                        currentNoteDuration = Duration.Sixteenth;
-                        SongDuration.Image = sixteenth;
-                        break;
-                    case Duration.Quarter:
-                        currentNoteDuration = Duration.Eighth;
-                        SongDuration.Image = eighth;
-                        break;
-                    case Duration.Half:
-                        currentNoteDuration = Duration.Quarter;
-                        SongDuration.Image = quarter;
-                        break;
-                    case Duration.Whole:
-                        currentNoteDuration = Duration.Half;
-                        SongDuration.Image = half;
-                        break;
-                }
-            }
-            else
-            {
-                switch (currentNoteDuration)
-                {
-                    case Duration.Sixteenth:
-                        currentNoteDuration = Duration.Whole;
-                        SongDuration.Image = whole;
-                        break;
-                    case Duration.DottedEighth:
-                        currentNoteDuration = Duration.Sixteenth;
-                        SongDuration.Image = sixteenth;
-                        break;
-                    case Duration.DottedQuarter:
-                        currentNoteDuration = Duration.DottedEighth;
-                        SongDuration.Image = dottedeighth;
-                        break;
-                    case Duration.DottedHalf:
-                        currentNoteDuration = Duration.DottedQuarter;
-                        SongDuration.Image = dottedquarter;
-                        break;
-                    case Duration.Whole:
-                        currentNoteDuration = Duration.DottedHalf;
-                        SongDuration.Image = dottedhalf;
-                        break;
-                }
+                case Duration.Sixteenth:
+                    currentNoteDuration = Duration.Whole;
+                    SongDuration.Image = whole;
+                    break;
+                case Duration.Eighth:
+                    currentNoteDuration = Duration.Sixteenth;
+                    SongDuration.Image = sixteenth;
+                    break;
+                case Duration.Quarter:
+                    currentNoteDuration = Duration.Eighth;
+                    SongDuration.Image = eighth;
+                    break;
+                case Duration.Half:
+                    currentNoteDuration = Duration.Quarter;
+                    SongDuration.Image = quarter;
+                    break;
+                case Duration.Whole:
+                    currentNoteDuration = Duration.Half;
+                    SongDuration.Image = half;
+                    break;
             }
 
             songdur1.Location = songdur2.Location = songdur3.Location = songdur4.Location = new Point(-200, 0);

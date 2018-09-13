@@ -42,10 +42,11 @@ namespace Music_Comp
         Measure mSelectedMeasure;
         int mStaffNumber;
         Clef mClef;
+        WaveForm mWaveForm;
 
         bool isActive = false;
 
-        public Staff(Clef c, int inst, int totalStaffNumber, int staffNumber)
+        public Staff(Clef c, WaveForm w, int inst, int totalStaffNumber, int staffNumber)
         {
             LINE_SPACING = 30 * Song._SCALE;
             LENGTH = Song.PAGE_WIDTH - Song.LEFT_MARGIN - Song.RIGHT_MARGIN;
@@ -57,6 +58,7 @@ namespace Music_Comp
             mYPosition = mTotalInstrumentNumber * Song.INSTRUMENT_SPACING + mTotalStaffNumber * (HEIGHT + Song.STAFF_SPACING);
 
             mClef = c;
+            mWaveForm = w;
             mMeasures = new List<Measure>();
             AddMeasure();
 
@@ -137,6 +139,8 @@ namespace Music_Comp
         public void AddMeasure()
         {
             mMeasures.Add(new Measure(mClef, mYPosition, mMeasures.Count));
+            if (GetMeasureCount() == 1)
+                mSelectedMeasure = GetMeasure(0);
         }
 
         public void RemoveMeasure(Measure m)

@@ -18,6 +18,7 @@ namespace Music_Comp
             mNotes = notes == null ? new List<Note>() : notes;
             if (Song.SELECTABLES != null)
                 Song.SELECTABLES.Add(this);
+            Song.TOTAL_CHORDS++;
         }
 
         public Chord Clone()
@@ -61,6 +62,8 @@ namespace Music_Comp
         public void Add(Note n)
         {
             mNotes.Add(n);
+            if (GetNoteCount() == 1)
+                mSelectedNote = GetNote(0);
         }
 
         public void Remove(Note n)
