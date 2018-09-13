@@ -129,6 +129,11 @@ namespace Music_Comp
             mSelectedMeasure = m;
         }
 
+        public void SetSelection(int m)
+        {
+            mSelectedMeasure = GetMeasure(m);
+        }
+
         public void AddMeasure()
         {
             mMeasures.Add(new Measure(mClef, mYPosition, mMeasures.Count));

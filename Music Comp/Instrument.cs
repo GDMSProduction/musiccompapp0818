@@ -80,6 +80,11 @@ namespace Music_Comp
             mSelectedStaff = s;
         }
 
+        public void SetSelection(int s)
+        {
+            mSelectedStaff = GetStaff(s);
+        }
+
         public void AddStaves(int numberOfStaves)
         {
             mStaves = new Staff[numberOfStaves];
