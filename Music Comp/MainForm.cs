@@ -24,8 +24,8 @@ namespace Music_Comp
         int selectedStaff = 0;
         int selectedInstrument = 0;
 
-        Chord mChord = new Chord();
         int noteIndex = 0;
+        Chord mChord = new Chord(0);
 
         Duration currentNoteDuration = Duration.Quarter;
 
@@ -296,8 +296,8 @@ namespace Music_Comp
 
             if (!ControlCheck())
             {
-                Chord chord = new Chord();
-                chord.Add(new Note(Pitch.C, Accidental.Natural, currentNoteDuration, 4));
+                Chord chord = new Chord(0);
+                chord.Add(new Note(Pitch.C, Accidental.Natural, currentNoteDuration, 4, 0));
 
                 switch (e.KeyCode)
                 {
@@ -686,7 +686,7 @@ namespace Music_Comp
                     case Keys.F:
                     case Keys.G:
                         valid = true;
-                        mChord.Add(new Note(Pitch.C, Accidental.Natural, currentNoteDuration, 4));
+                        mChord.Add(new Note(Pitch.C, Accidental.Natural, currentNoteDuration, 4, 0));
                         Enum.TryParse(e.KeyCode.ToString(), out Pitch p);
                         mChord.GetNote(noteIndex).SetPitch(p);
                         if (ShiftCheck())
@@ -718,7 +718,7 @@ namespace Music_Comp
                 staff.Update();
                 graphicsPanel.Invalidate(new Region(staff.GetArea()));
 
-                mChord = new Chord();
+                mChord = new Chord(0);
                 Song.SELECTABLES.Remove(mChord);
                 noteIndex = 0;
             }

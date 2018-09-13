@@ -112,7 +112,7 @@ namespace Music_Comp
 
         public void AddInstrument(List<Clef> clefs, Grouping g)
         {
-            mInstruments.Add(new Instrument(clefs, g));
+            mInstruments.Add(new Instrument(clefs, g, mInstruments.Count));
             if (TOTAL_INSTRUMENTS == 1)
                 GetInstrument(0).GetStaff(0).SetActive(true);
         }

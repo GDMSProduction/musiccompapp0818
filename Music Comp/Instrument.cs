@@ -13,10 +13,12 @@ namespace Music_Comp
         Grouping mGrouping;
 
         Staff mSelectedStaff;
+        int mInstrumentNumber;
 
-        public Instrument(List<Clef> clefs, Grouping g)
+        public Instrument(List<Clef> clefs, Grouping g, int instrumentNumber)
         {
             area = new RectangleF();
+            mInstrumentNumber = instrumentNumber;
             if (clefs.Count > 4)
                 mClefs = new Clef[4];
             else
@@ -43,6 +45,11 @@ namespace Music_Comp
         public Staff GetSelection()
         {
             return mSelectedStaff;
+        }
+
+        public int GetInstrumentNumber()
+        {
+            return mInstrumentNumber;
         }
 
         public int GetClefCount()
@@ -78,7 +85,7 @@ namespace Music_Comp
             mStaves = new Staff[numberOfStaves];
             for (int i = 0; i < mStaves.Length; i++)
             {
-                mStaves[i] = new Staff(mClefs[i], Song.TOTAL_INSTRUMENTS, Song.TOTAL_STAVES);
+                mStaves[i] = new Staff(mClefs[i], Song.TOTAL_INSTRUMENTS, Song.TOTAL_STAVES, i);
                 Song.cursorY += Staff.HEIGHT + Song.STAFF_SPACING;
                 if (i == mStaves.Length - 1)
                     Song.TOTAL_INSTRUMENTS++;

@@ -10,9 +10,11 @@ namespace Music_Comp
     {
         List<Note> mNotes;
         Note mSelectedNote;
+        int mChordNumber;
 
-        public Chord(List<Note> notes = null)
+        public Chord(int chordNumber, List<Note> notes = null)
         {
+            mChordNumber = chordNumber;
             mNotes = notes == null ? new List<Note>() : notes;
             if (Song.SELECTABLES != null)
                 Song.SELECTABLES.Add(this);
@@ -23,7 +25,7 @@ namespace Music_Comp
             List<Note> notes = new List<Note>();
             foreach (Note note in mNotes)
                 notes.Add(note.Clone());
-            return new Chord(notes);
+            return new Chord(mChordNumber, notes);
         }
 
         public Note GetNote(int i)

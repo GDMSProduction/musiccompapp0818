@@ -84,8 +84,8 @@ namespace Music_Comp
                 int time = Song.TIME > 0 ? (int)Song.TIME : -(int)Song.TIME;
                 if (mTotalDuration > time)
                 {
-                    Chord split = new Chord();
-                    Chord remainder = new Chord();
+                    Chord split = new Chord(0);
+                    Chord remainder = new Chord(0);
 
                     int remainderDuration = mTotalDuration - time;
                     int splitDuration = (int)chord.GetDuration() - remainderDuration;

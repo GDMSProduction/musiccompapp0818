@@ -11,14 +11,17 @@ namespace Music_Comp
         RectangleF dotArea;
         Image image;
 
+        int mNoteNumber;
+
         Pitch mPitch;
         Accidental mAccidental;
         Duration mDuration;
         sbyte mOctave = 4;
         WaveForm mWaveForm = WaveForm.Sine;
 
-        public Note(Pitch p, Accidental a, Duration d, sbyte o, Image i = null, RectangleF ar = new RectangleF())
+        public Note(Pitch p, Accidental a, Duration d, sbyte o, int noteNumber, Image i = null, RectangleF ar = new RectangleF())
         {
+            mNoteNumber = noteNumber;
             mPitch = p;
             mAccidental = a;
             mDuration = d;
@@ -30,7 +33,7 @@ namespace Music_Comp
 
         public Note Clone()
         {
-            return new Note(mPitch, mAccidental, mDuration, mOctave, image, noteArea);
+            return new Note(mPitch, mAccidental, mDuration, mOctave, 0, image, noteArea);
         }
 
         public Pitch GetPitch()
