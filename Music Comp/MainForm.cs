@@ -35,9 +35,9 @@ namespace Music_Comp
         Bitmap eighth = new Bitmap(Properties.Resources.EighthNote, new Size(55, 80));
         Bitmap sixteenth = new Bitmap(Properties.Resources.SixteenthNote, new Size(80, 80));
         Bitmap whole = new Bitmap(Properties.Resources.WholeNote, new Size(70, 40));
-        Bitmap dottedquarter = new Bitmap(Properties.Resources.dottedquarter, new Size(65, 100));
-        Bitmap dottedhalf = new Bitmap(Properties.Resources.dottedhalf, new Size(80, 80));
-        Bitmap dottedeighth = new Bitmap(Properties.Resources.dottedeighth, new Size(55, 80));
+        Bitmap dottedquarter = new Bitmap(Properties.Resources.dottedquarter, new Size(65, 105));
+        Bitmap dottedhalf = new Bitmap(Properties.Resources.dottedhalf, new Size(55, 90));
+        Bitmap dottedeighth = new Bitmap(Properties.Resources.dottedeighth, new Size(105, 100));
 
         Bitmap play = new Bitmap(Properties.Resources.play, new Size(13, 13));
         Bitmap pause = new Bitmap(Properties.Resources.pause, new Size(13, 13));
@@ -486,14 +486,13 @@ namespace Music_Comp
                                         currentNoteDuration = Duration.DottedQuarter;
                                         break;
                                     case Duration.Sixteenth:
+                                        currentNoteDuration = Duration.Eighth;
+                                        break;
                                     case Duration.DottedQuarter:
-                                        currentNoteDuration = (Duration)((int)currentNoteDuration * 2);
+                                        currentNoteDuration = Duration.DottedHalf;
                                         break;
                                     case Duration.DottedHalf:
                                         currentNoteDuration = Duration.Sixteenth;
-                                        break;
-                                    default:
-                                        currentNoteDuration = Duration.Eighth;
                                         break;
                                 }
                             }
@@ -502,21 +501,16 @@ namespace Music_Comp
                                 switch (currentNoteDuration)
                                 {
                                     case Duration.Eighth:
+                                        currentNoteDuration = Duration.Sixteenth;
+                                        break;
                                     case Duration.DottedHalf:
-                                        currentNoteDuration = (Duration)((int)currentNoteDuration / 2);
+                                        currentNoteDuration = Duration.DottedQuarter;
                                         break;
                                     case Duration.Sixteenth:
                                         currentNoteDuration = Duration.DottedHalf;
                                         break;
                                     case Duration.DottedQuarter:
                                         currentNoteDuration = Duration.Eighth;
-                                        break;
-                                    case Duration.DottedQuarter:
-                                        currentNoteDuration = Duration.Eighth;
-                                        break;
-                                    case Duration.DottedHalf:
-                                        currentNoteDuration = Duration.DottedQuarter;
-                                        SongDuration.Image = quarter;
                                         break;
                                 }
                             }
@@ -829,19 +823,29 @@ namespace Music_Comp
             SongSettingsMenu.SetKeySignatureButton(Song.KEY);
             SongSettingsMenu.SetTimeSignatureButton(Song.TIME);
 
-            if (Song.TIME == Time.FourFour)
-            {
-                currentNoteDuration = Duration.Quarter;
-            }
-            else if (Song.TIME == Time.SixEight)
-            {
-                currentNoteDuration = Duration.Eighth;
-            }
+
 
             if (SongSettingsMenu.ShowDialog() == DialogResult.OK)
             {
                 song.SetKeySignature(SongSettingsMenu.GetKeySignature());
                 song.SetTimeSignature(SongSettingsMenu.GetTimeSignature());
+                if (Song.TIME == Time.FourFour)
+                {
+                    currentNoteDuration = Duration.Quarter;
+                    SongDuration.Image = quarter;
+                    songdur1.Image = half;
+                    songdur2.Image = whole;
+                    songdur3.Image = sixteenth;
+                    songdur4.Image = eighth;
+                }
+                else if (Song.TIME == Time.SixEight)
+                {
+                    currentNoteDuration = Duration.Eighth;
+                    SongDuration.Image = eighth;
+                    songdur1.Image = dottedquarter;
+                    songdur2.Image = dottedhalf;
+                    songdur3.Image = sixteenth;
+                }
                 graphicsPanel.Invalidate(new Region(song.GetArea()));
             }
         }
