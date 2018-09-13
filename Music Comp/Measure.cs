@@ -9,6 +9,7 @@ namespace Music_Comp
     public class Measure : SongComponent
     {
         List<Chord> mChords;
+        Chord mSelectedChord;
         int mMeasureNumber;
 
         float mLength;
@@ -42,6 +43,11 @@ namespace Music_Comp
             return mChords[i];
         }
 
+        public Chord GetSelection()
+        {
+            return mSelectedChord;
+        }
+
         public bool IsFull()
         {
             return mTotalDuration >= (Song.TIME > 0 ? (int)Song.TIME : -(int)Song.TIME);
@@ -55,6 +61,11 @@ namespace Music_Comp
         public int GetDuration()
         {
             return mTotalDuration;
+        }
+
+        public void SetSelection(Chord c)
+        {
+            mSelectedChord = c;
         }
 
         public Chord Add(Chord chord)
@@ -73,8 +84,8 @@ namespace Music_Comp
                 int time = Song.TIME > 0 ? (int)Song.TIME : -(int)Song.TIME;
                 if (mTotalDuration > time)
                 {
-                    Chord split = new Chord();
-                    Chord remainder = new Chord();
+                    Chord split = new Chord(0);
+                    Chord remainder = new Chord(0);
 
                     int remainderDuration = mTotalDuration - time;
                     int splitDuration = (int)chord.GetDuration() - remainderDuration;

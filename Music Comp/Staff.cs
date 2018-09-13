@@ -32,27 +32,29 @@ namespace Music_Comp
         public static float LENGTH;
         public static float HEIGHT;
 
-        int instrumentNumber;
-        int staffNumber;
+        int mTotalInstrumentNumber;
+        int mTotalStaffNumber;
 
         float mYPosition;
         float mCursorX;
 
         List<Measure> mMeasures;
+        Measure mSelectedMeasure;
+        int mStaffNumber;
         Clef mClef;
 
         bool isActive = false;
 
-        public Staff(Clef c, int inst, int staff)
+        public Staff(Clef c, int inst, int totalStaffNumber, int staffNumber)
         {
             LINE_SPACING = 30 * Song._SCALE;
             LENGTH = Song.PAGE_WIDTH - Song.LEFT_MARGIN - Song.RIGHT_MARGIN;
             HEIGHT = 4 * LINE_SPACING;
 
-            instrumentNumber = inst;
-            staffNumber = staff;
+            mTotalInstrumentNumber = inst;
+            mTotalStaffNumber = totalStaffNumber;
 
-            mYPosition = instrumentNumber * Song.INSTRUMENT_SPACING + staffNumber * (HEIGHT + Song.STAFF_SPACING);
+            mYPosition = mTotalInstrumentNumber * Song.INSTRUMENT_SPACING + mTotalStaffNumber * (HEIGHT + Song.STAFF_SPACING);
 
             mClef = c;
             mMeasures = new List<Measure>();
@@ -61,6 +63,7 @@ namespace Music_Comp
             keySignature = new List<RectangleF>();
 
             area = new RectangleF();
+            mStaffNumber = staffNumber;
 
             Song.TOTAL_STAVES++;
             Song.SELECTABLES.Add(this);
@@ -74,6 +77,16 @@ namespace Music_Comp
         public Measure GetMeasure(int i)
         {
             return mMeasures[i];
+        }
+
+        public Measure GetSelection()
+        {
+            return mSelectedMeasure;
+        }
+
+        public int GetStaffNumber()
+        {
+            return mStaffNumber;
         }
 
         public Measure GetCurrentMeasure()
@@ -109,6 +122,11 @@ namespace Music_Comp
         public void SetActive(bool active)
         {
             isActive = active;
+        }
+
+        public void SetSelection(Measure m)
+        {
+            mSelectedMeasure = m;
         }
 
         public void AddMeasure()
@@ -400,7 +418,7 @@ namespace Music_Comp
         public void Update()
         {
             mCursorX = Song.LEFT_MARGIN;
-            mYPosition = instrumentNumber * Song.INSTRUMENT_SPACING + staffNumber * (HEIGHT + Song.STAFF_SPACING);
+            mYPosition = mTotalInstrumentNumber * Song.INSTRUMENT_SPACING + mTotalStaffNumber * (HEIGHT + Song.STAFF_SPACING);
 
             UpdateStaff();
 

@@ -12,9 +12,13 @@ namespace Music_Comp
         Clef[] mClefs;
         Grouping mGrouping;
 
-        public Instrument(List<Clef> clefs, Grouping g)
+        Staff mSelectedStaff;
+        int mInstrumentNumber;
+
+        public Instrument(List<Clef> clefs, Grouping g, int instrumentNumber)
         {
             area = new RectangleF();
+            mInstrumentNumber = instrumentNumber;
             if (clefs.Count > 4)
                 mClefs = new Clef[4];
             else
@@ -36,6 +40,16 @@ namespace Music_Comp
         public Staff GetStaff(int i)
         {
             return mStaves[i];
+        }
+
+        public Staff GetSelection()
+        {
+            return mSelectedStaff;
+        }
+
+        public int GetInstrumentNumber()
+        {
+            return mInstrumentNumber;
         }
 
         public int GetClefCount()
@@ -61,12 +75,17 @@ namespace Music_Comp
             return d;
         }
 
+        public void SetSelection(Staff s)
+        {
+            mSelectedStaff = s;
+        }
+
         public void AddStaves(int numberOfStaves)
         {
             mStaves = new Staff[numberOfStaves];
             for (int i = 0; i < mStaves.Length; i++)
             {
-                mStaves[i] = new Staff(mClefs[i], Song.TOTAL_INSTRUMENTS, Song.TOTAL_STAVES);
+                mStaves[i] = new Staff(mClefs[i], Song.TOTAL_INSTRUMENTS, Song.TOTAL_STAVES, i);
                 Song.cursorY += Staff.HEIGHT + Song.STAFF_SPACING;
                 if (i == mStaves.Length - 1)
                     Song.TOTAL_INSTRUMENTS++;
@@ -88,6 +107,9 @@ namespace Music_Comp
 
         public void Draw(PaintEventArgs e)
         {
+            if (isSelected)
+                if (e.Graphics.IsVisible(area))
+                    e.Graphics.FillRectangle(new SolidBrush(Color.Cyan), area);
             foreach (Staff staff in mStaves)
                 staff.Draw(e);
         }

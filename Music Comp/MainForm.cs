@@ -24,8 +24,8 @@ namespace Music_Comp
         int selectedStaff = 0;
         int selectedInstrument = 0;
 
-        Chord mChord = new Chord();
         int noteIndex = 0;
+        Chord mChord = new Chord(0);
 
         Duration currentNoteDuration = Duration.Quarter;
 
@@ -256,6 +256,34 @@ namespace Music_Comp
             graphicsPanel.Invalidate();
         }
 
+        private void graphicsPanel_Click(object sender, EventArgs e)
+        {
+            ActiveControl = graphicsPanel;
+            PointF CursorPosition = graphicsPanel.PointToClient(Cursor.Position);
+            for (int i = 0; i < Song.SELECTABLES.Count; i++)
+            {
+                if (Song.SELECTABLES[i].GetArea().Width == 0)
+                {
+                    Song.SELECTABLES.RemoveAt(i--);
+                    continue;
+                }
+                Song.SELECTABLES[i].Deselect();
+                if (Song.SELECTABLES[i].GetArea().Contains(CursorPosition))
+                {
+                    Song.SELECTABLES[i].Select();
+                    if (Song.SELECTABLES[i].GetType() == typeof(Instrument))
+                        song.SetSelection((Instrument)Song.SELECTABLES[i]);
+                    else if (Song.SELECTABLES[i].GetType() == typeof(Staff))
+                        song.GetSelection().SetSelection((Staff)Song.SELECTABLES[i]);
+                    else if (Song.SELECTABLES[i].GetType() == typeof(Measure))
+                        song.GetSelection().GetSelection().SetSelection((Measure)Song.SELECTABLES[i]);
+                    else if (Song.SELECTABLES[i].GetType() == typeof(Chord))
+                        song.GetSelection().GetSelection().GetSelection().SetSelection((Chord)Song.SELECTABLES[i]);
+                }
+            }
+            graphicsPanel.Invalidate();
+        }
+
         private void graphicsPanel_KeyUp(object sender, KeyEventArgs e)
         {
             if (playcheck == true && e.KeyCode != Keys.Space)
@@ -268,8 +296,8 @@ namespace Music_Comp
 
             if (!ControlCheck())
             {
-                Chord chord = new Chord();
-                chord.Add(new Note(Pitch.C, Accidental.Natural, currentNoteDuration, 4));
+                Chord chord = new Chord(0);
+                chord.Add(new Note(Pitch.C, Accidental.Natural, currentNoteDuration, 4, 0));
 
                 switch (e.KeyCode)
                 {
@@ -871,7 +899,7 @@ namespace Music_Comp
                     case Keys.F:
                     case Keys.G:
                         valid = true;
-                        mChord.Add(new Note(Pitch.C, Accidental.Natural, currentNoteDuration, 4));
+                        mChord.Add(new Note(Pitch.C, Accidental.Natural, currentNoteDuration, 4, 0));
                         Enum.TryParse(e.KeyCode.ToString(), out Pitch p);
                         mChord.GetNote(noteIndex).SetPitch(p);
                         if (ShiftCheck())
@@ -903,7 +931,7 @@ namespace Music_Comp
                 staff.Update();
                 graphicsPanel.Invalidate(new Region(staff.GetArea()));
 
-                mChord = new Chord();
+                mChord = new Chord(0);
                 Song.SELECTABLES.Remove(mChord);
                 noteIndex = 0;
             }
@@ -995,24 +1023,6 @@ namespace Music_Comp
         private bool ShiftCheck()
         {
             return (ModifierKeys & Keys.Shift) != 0;
-        }
-
-        private void graphicsPanel_Click(object sender, EventArgs e)
-        {
-            ActiveControl = graphicsPanel;
-            PointF CursorPosition = graphicsPanel.PointToClient(Cursor.Position);
-            for (int i = 0; i < Song.SELECTABLES.Count; i++)
-            {
-                if (Song.SELECTABLES[i].GetArea().Width == 0)
-                {
-                    Song.SELECTABLES.RemoveAt(i--);
-                    continue;
-                }
-                Song.SELECTABLES[i].Deselect();
-                if (Song.SELECTABLES[i].GetArea().Contains(CursorPosition))
-                    Song.SELECTABLES[i].Select();
-            }
-            graphicsPanel.Invalidate();
         }
 
         private void fullscreenToolStripMenuItem_Click(object sender, EventArgs e)
