@@ -203,14 +203,14 @@ namespace Music_Comp
 
         private void UpdateCursor()
         {
-            if (isActive)
+            if (isSelected)
                 cursorArea = new RectangleF(Song.BARLINES[0], Song.TOP_MARGIN + mYPosition,
                     Song.PAGE_WIDTH - Song.BARLINES[0] - Song.RIGHT_MARGIN, HEIGHT);
         }
 
         private void DrawCursor(PaintEventArgs e)
         {
-            if (isActive)
+            if (isSelected)
                 if (e.Graphics.IsVisible(cursorArea))
                     e.Graphics.FillRectangle(new SolidBrush(cursorColor), cursorArea);
         }
@@ -426,6 +426,8 @@ namespace Music_Comp
 
         public void Update()
         {
+            if (isSelected)
+                SetActive(true);
             mCursorX = Song.LEFT_MARGIN;
             mYPosition = mTotalInstrumentNumber * Song.INSTRUMENT_SPACING + mTotalStaffNumber * (HEIGHT + Song.STAFF_SPACING);
 
@@ -452,9 +454,6 @@ namespace Music_Comp
 
         public void Draw(PaintEventArgs e)
         {
-            if (isSelected)
-                if (e.Graphics.IsVisible(area))
-                    e.Graphics.FillRectangle(new SolidBrush(Color.Green), area);
             DrawCursor(e);
 
             DrawStaff(e);

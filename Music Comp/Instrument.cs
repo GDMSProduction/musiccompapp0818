@@ -119,9 +119,6 @@ namespace Music_Comp
 
         public void Draw(PaintEventArgs e)
         {
-            if (isSelected)
-                if (e.Graphics.IsVisible(area))
-                    e.Graphics.FillRectangle(new SolidBrush(Color.Cyan), area);
             foreach (Staff staff in mStaves)
                 staff.Draw(e);
         }
