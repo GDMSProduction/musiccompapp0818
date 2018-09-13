@@ -256,6 +256,34 @@ namespace Music_Comp
             graphicsPanel.Invalidate();
         }
 
+        private void graphicsPanel_Click(object sender, EventArgs e)
+        {
+            ActiveControl = graphicsPanel;
+            PointF CursorPosition = graphicsPanel.PointToClient(Cursor.Position);
+            for (int i = 0; i < Song.SELECTABLES.Count; i++)
+            {
+                if (Song.SELECTABLES[i].GetArea().Width == 0)
+                {
+                    Song.SELECTABLES.RemoveAt(i--);
+                    continue;
+                }
+                Song.SELECTABLES[i].Deselect();
+                if (Song.SELECTABLES[i].GetArea().Contains(CursorPosition))
+                {
+                    Song.SELECTABLES[i].Select();
+                    if (Song.SELECTABLES[i].GetType() == typeof(Instrument))
+                        song.SetSelection((Instrument)Song.SELECTABLES[i]);
+                    else if (Song.SELECTABLES[i].GetType() == typeof(Staff))
+                        song.GetSelection().SetSelection((Staff)Song.SELECTABLES[i]);
+                    else if (Song.SELECTABLES[i].GetType() == typeof(Measure))
+                        song.GetSelection().GetSelection().SetSelection((Measure)Song.SELECTABLES[i]);
+                    else if (Song.SELECTABLES[i].GetType() == typeof(Chord))
+                        song.GetSelection().GetSelection().GetSelection().SetSelection((Chord)Song.SELECTABLES[i]);
+                }
+            }
+            graphicsPanel.Invalidate();
+        }
+
         private void graphicsPanel_KeyUp(object sender, KeyEventArgs e)
         {
             if (playcheck == true && e.KeyCode != Keys.Space)
@@ -782,24 +810,6 @@ namespace Music_Comp
         private bool ShiftCheck()
         {
             return (ModifierKeys & Keys.Shift) != 0;
-        }
-
-        private void graphicsPanel_Click(object sender, EventArgs e)
-        {
-            ActiveControl = graphicsPanel;
-            PointF CursorPosition = graphicsPanel.PointToClient(Cursor.Position);
-            for (int i = 0; i < Song.SELECTABLES.Count; i++)
-            {
-                if (Song.SELECTABLES[i].GetArea().Width == 0)
-                {
-                    Song.SELECTABLES.RemoveAt(i--);
-                    continue;
-                }
-                Song.SELECTABLES[i].Deselect();
-                if (Song.SELECTABLES[i].GetArea().Contains(CursorPosition))
-                    Song.SELECTABLES[i].Select();
-            }
-            graphicsPanel.Invalidate();
         }
 
         private void fullscreenToolStripMenuItem_Click(object sender, EventArgs e)

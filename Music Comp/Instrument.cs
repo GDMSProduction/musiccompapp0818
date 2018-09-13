@@ -12,6 +12,8 @@ namespace Music_Comp
         Clef[] mClefs;
         Grouping mGrouping;
 
+        Staff mSelectedStaff;
+
         public Instrument(List<Clef> clefs, Grouping g)
         {
             area = new RectangleF();
@@ -38,6 +40,11 @@ namespace Music_Comp
             return mStaves[i];
         }
 
+        public Staff GetSelection()
+        {
+            return mSelectedStaff;
+        }
+
         public int GetClefCount()
         {
             return mClefs.Length;
@@ -59,6 +66,11 @@ namespace Music_Comp
             foreach (Staff staff in mStaves)
                 d = Math.Max(d, staff.GetDuration());
             return d;
+        }
+
+        public void SetSelection(Staff s)
+        {
+            mSelectedStaff = s;
         }
 
         public void AddStaves(int numberOfStaves)
@@ -88,6 +100,9 @@ namespace Music_Comp
 
         public void Draw(PaintEventArgs e)
         {
+            if (isSelected)
+                if (e.Graphics.IsVisible(area))
+                    e.Graphics.FillRectangle(new SolidBrush(Color.Cyan), area);
             foreach (Staff staff in mStaves)
                 staff.Draw(e);
         }

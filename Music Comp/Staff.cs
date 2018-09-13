@@ -39,6 +39,7 @@ namespace Music_Comp
         float mCursorX;
 
         List<Measure> mMeasures;
+        Measure mSelectedMeasure;
         Clef mClef;
 
         bool isActive = false;
@@ -76,6 +77,11 @@ namespace Music_Comp
             return mMeasures[i];
         }
 
+        public Measure GetSelection()
+        {
+            return mSelectedMeasure;
+        }
+
         public Measure GetCurrentMeasure()
         {
             return mMeasures[mMeasures.Count - 1];
@@ -109,6 +115,11 @@ namespace Music_Comp
         public void SetActive(bool active)
         {
             isActive = active;
+        }
+
+        public void SetSelection(Measure m)
+        {
+            mSelectedMeasure = m;
         }
 
         public void AddMeasure()

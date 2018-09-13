@@ -9,6 +9,7 @@ namespace Music_Comp
     public class Chord : SongComponent
     {
         List<Note> mNotes;
+        Note mSelectedNote;
 
         public Chord(List<Note> notes = null)
         {
@@ -28,6 +29,11 @@ namespace Music_Comp
         public Note GetNote(int i)
         {
             return mNotes[i];
+        }
+
+        public Note GetSelection()
+        {
+            return mSelectedNote;
         }
 
         public int GetNoteCount()
@@ -58,6 +64,11 @@ namespace Music_Comp
         public void Remove(Note n)
         {
             mNotes.Remove(n);
+        }
+
+        public void SetSelection(Note n)
+        {
+            mSelectedNote = n;
         }
 
         public void SetDuration(Duration d)

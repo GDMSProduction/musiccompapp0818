@@ -38,6 +38,7 @@ namespace Music_Comp
         public static List<SongComponent> SELECTABLES;
 
         List<Instrument> mInstruments = new List<Instrument>();
+        Instrument mSelectedInstrument;
 
         public Song(float panelWidth, Key k = Key.C, Time t = Time.Common)
         {
@@ -84,6 +85,11 @@ namespace Music_Comp
             return mInstruments[i];
         }
 
+        public Instrument GetSelection()
+        {
+            return mSelectedInstrument;
+        }
+
         public int GetInstrumentCount()
         {
             return mInstruments.Count;
@@ -97,6 +103,11 @@ namespace Music_Comp
         public void SetTimeSignature(Time t)
         {
             TIME = t;
+        }
+
+        public void SetSelection(Instrument i)
+        {
+            mSelectedInstrument = i;
         }
 
         public void AddInstrument(List<Clef> clefs, Grouping g)
