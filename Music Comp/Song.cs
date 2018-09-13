@@ -116,6 +116,11 @@ namespace Music_Comp
             mSelectedInstrument = i;
         }
 
+        public void SetSelection(int i)
+        {
+            mSelectedInstrument = GetInstrument(i);
+        }
+
         public void AddInstrument(List<Clef> clefs, List<WaveForm> waveforms, Grouping g)
         {
             mInstruments.Add(new Instrument(clefs, waveforms, g, mInstruments.Count));
