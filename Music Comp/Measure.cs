@@ -9,6 +9,7 @@ namespace Music_Comp
     public class Measure : SongComponent
     {
         List<Chord> mChords;
+        int mMeasureNumber;
 
         float mLength;
 
@@ -18,8 +19,9 @@ namespace Music_Comp
         Key mKey;
         Time mTime;
 
-        public Measure(Clef clef, float yPosition)
+        public Measure(Clef clef, float yPosition, int measureNumber)
         {
+            mMeasureNumber = measureNumber;
             mClef = clef;
             mChords = new List<Chord>();
             Song.SELECTABLES.Add(this);
@@ -111,15 +113,17 @@ namespace Music_Comp
             mLength = cursor;
 
             area.X = barline;
-            area.Y = yPosition + Song.STAFF_SPACING;
+            area.Y = Song.TOP_MARGIN + yPosition - Song.STAFF_SPACING;
             area.Width = mLength;
+            if (Song.BARLINES.Count > mMeasureNumber + 1)
+                area.Width = Song.BARLINES[mMeasureNumber + 1] - barline;
             area.Height = Staff.HEIGHT + Song.STAFF_SPACING * 2;
         }
         public void Draw(PaintEventArgs e)
         {
             if (isSelected)
-                    if (e.Graphics.IsVisible(area))
-                        e.Graphics.FillRectangle(new SolidBrush(Color.Blue), area);
+                if (e.Graphics.IsVisible(area))
+                    e.Graphics.FillRectangle(new SolidBrush(Color.Blue), area);
             foreach (Chord chord in mChords)
                 chord.Draw(e);
         }

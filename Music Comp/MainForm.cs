@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Threading;
 using System.Drawing;
+using System.Timers;
 using System;
 
 namespace Music_Comp
@@ -16,6 +18,8 @@ namespace Music_Comp
         bool playcheck = false;
 
         Song song;
+
+        System.Timers.Timer timer;
 
         int selectedStaff = 0;
         int selectedInstrument = 0;
@@ -49,6 +53,9 @@ namespace Music_Comp
 
             PlayButton.Image = play;
             PlayButton.Location = new Point((Width / 2) - (PlayButton.Width / 2), 0);
+
+            timer = new System.Timers.Timer();
+            timer.Elapsed += soundPlayer_Finished;
 
             songdur1.Size = SongDuration.Size;
             songdur1.Image = half;
@@ -235,6 +242,9 @@ namespace Music_Comp
             Staff.LINE_SPACING = options.mainLINE_SPACING;
             Staff.LENGTH = options.mainLENGTH;
             Staff.HEIGHT = options.mainHEIGHT;
+
+            Song.BARLINES = options.mainBARLINES;
+            Song.SELECTABLES = options.mainSELECTABLES;
 
             if (options.DialogResult == DialogResult.OK)
                 song.AddInstrument(options.clefs, options.grouping);
@@ -1152,7 +1162,7 @@ namespace Music_Comp
             if (!ControlCheck() && noteIndex != 0)
             {
                 Staff staff = song.GetInstrument(selectedInstrument).GetStaff(selectedStaff);
-                Chord remainder = staff.GetNextMeasure().AddChord(mChord);
+                Chord remainder = staff.GetNextMeasure().AddChord(mChord.Clone());
                 mChord.Play();
                 if (remainder != null)
                     staff.GetNextMeasure().AddChord(remainder);
@@ -1160,6 +1170,7 @@ namespace Music_Comp
                 graphicsPanel.Invalidate(new Region(staff.GetArea()));
 
                 mChord = new Chord();
+                Song.SELECTABLES.Remove(mChord);
                 noteIndex = 0;
             }
         }
@@ -1177,11 +1188,17 @@ namespace Music_Comp
         private void graphicsPanel_Click(object sender, EventArgs e)
         {
             ActiveControl = graphicsPanel;
-            foreach (SongComponent selectable in Song.SELECTABLES)
+            PointF CursorPosition = graphicsPanel.PointToClient(Cursor.Position);
+            for (int i = 0; i < Song.SELECTABLES.Count; i++)
             {
-                selectable.Deselect();
-                if (selectable.GetArea().Contains(graphicsPanel.PointToClient(Cursor.Position)))
-                    selectable.Select();
+                if (Song.SELECTABLES[i].GetArea().Width == 0)
+                {
+                    Song.SELECTABLES.RemoveAt(i--);
+                    continue;
+                }
+                Song.SELECTABLES[i].Deselect();
+                if (Song.SELECTABLES[i].GetArea().Contains(CursorPosition))
+                    Song.SELECTABLES[i].Select();
             }
             graphicsPanel.Invalidate();
         }
@@ -1457,28 +1474,51 @@ namespace Music_Comp
             graphicsPanel.Invalidate();
         }
 
+        delegate void VoidDelegateVoid();
+        private void SetEnabled()
+        {
+            titleTextBox.Enabled = true;
+            composerTextBox.Enabled = true;
+        }
+
         private void Play()
         {
-            ActiveControl = graphicsPanel;
-            if (playcheck == false)
+            if (!playcheck)
             {
                 PlayButton.Image = pause;
                 titleTextBox.Enabled = false;
                 composerTextBox.Enabled = false;
                 playcheck = true;
-                song.Play();
+                timer.Interval = song.Play();
+                timer.Enabled = true;
             }
             else
             {
                 PlayButton.Image = play;
-                titleTextBox.Enabled = true;
-                composerTextBox.Enabled = true;
+                if (titleTextBox.InvokeRequired)
+                {
+                    VoidDelegateVoid d = new VoidDelegateVoid(SetEnabled);
+                    Invoke(d, true);
+                }
+                else
+                {
+                    titleTextBox.Enabled = true;
+                    composerTextBox.Enabled = true;
+                }
+                song.Stop();
                 playcheck = false;
             }
         }
 
         private void PlayButton_Click(object sender, EventArgs e)
         {
+            ActiveControl = graphicsPanel;
+            Play();
+        }
+
+        private void soundPlayer_Finished(object source, ElapsedEventArgs e)
+        {
+            timer.Enabled = false;
             Play();
         }
     }

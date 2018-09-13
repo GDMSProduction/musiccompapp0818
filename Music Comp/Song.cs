@@ -11,6 +11,8 @@ namespace Music_Comp
         RectangleF area;
         RectangleF groupingArea;
 
+        System.Media.SoundPlayer soundPlayer;
+
         static Image bracketImage = Properties.Resources.Bracket;
         static Image braceImage = Properties.Resources.Brace;
 
@@ -232,7 +234,7 @@ namespace Music_Comp
             DrawBarLines(BARLINES, e);
         }
 
-        public void Play()
+        public int Play()
         {
             var mStrm = new MemoryStream();
             BinaryWriter writer = new BinaryWriter(mStrm);
@@ -362,9 +364,17 @@ namespace Music_Comp
                 writer.Write(s);
 
             mStrm.Seek(0, SeekOrigin.Begin);
-            new System.Media.SoundPlayer(mStrm).Play();
+            soundPlayer = new System.Media.SoundPlayer(mStrm);
+            soundPlayer.Play();
+            soundPlayer.Dispose();
             writer.Close();
             mStrm.Close();
+            return msDuration;
+        }
+
+        public void Stop()
+        {
+            soundPlayer.Stop();
         }
     }
 }

@@ -197,10 +197,9 @@ namespace Music_Comp
 
             location = new PointF(x, y);
             noteArea = new RectangleF(location, size);
+            area = noteArea;
             if (IsDotted())
-                area = new RectangleF(noteArea.X, noteArea.Y, dotArea.X - noteArea.X, dotArea.Y - noteArea.Y);
-            else
-                area = noteArea;
+                area.Width = dotArea.Right - noteArea.Left;
         }
 
         public void Draw(PaintEventArgs e)

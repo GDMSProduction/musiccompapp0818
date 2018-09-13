@@ -90,7 +90,7 @@ namespace Music_Comp
 
         public void AddMeasure()
         {
-            mMeasures.Add(new Measure(mClef, mYPosition));
+            mMeasures.Add(new Measure(mClef, mYPosition, mMeasures.Count));
         }
         public void RemoveMeasure(Measure m)
         {
@@ -419,7 +419,7 @@ namespace Music_Comp
             area.X = Song.BARLINES[0];
             area.Y = staffArea.Top - Song.STAFF_SPACING;
             area.Width = staffArea.Right - area.X;
-            area.Height = HEIGHT + Song.STAFF_SPACING * 2 - 3;
+            area.Height = HEIGHT + Song.STAFF_SPACING * 2;
         }
 
         public void Draw(PaintEventArgs e)

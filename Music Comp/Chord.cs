@@ -12,7 +12,6 @@ namespace Music_Comp
 
         public Chord(List<Note> notes = null)
         {
-            area = new RectangleF();
             mNotes = notes == null ? new List<Note>() : notes;
             if (Song.SELECTABLES != null)
                 Song.SELECTABLES.Add(this);
@@ -21,16 +20,6 @@ namespace Music_Comp
         public void Add(Note n)
         {
             mNotes.Add(n);
-            RectangleF noteArea = n.GetArea();
-            if (area == null)
-                area = noteArea;
-            else
-            {
-                area.X = Math.Min(noteArea.X, area.X);
-                area.Y = Math.Min(noteArea.Y, area.Y);
-                area.Width = Math.Max(noteArea.X + noteArea.Width, area.X + area.Width) - area.X;
-                area.Height = Math.Max(noteArea.Y + noteArea.Height, area.Y + area.Height) - area.Y;
-            }
         }
 
         public void Remove(Note n)
@@ -90,15 +79,20 @@ namespace Music_Comp
 
         public void Update(float cursorX, float yPosition, Clef clef)
         {
+            area = new RectangleF(float.MaxValue, float.MaxValue, 0, 0);
+            float right = 0;
+            float bottom = 0;
             foreach (Note note in mNotes)
             {
                 note.Update(cursorX, yPosition, clef);
                 RectangleF noteArea = note.GetArea();
                 area.X = Math.Min(noteArea.X, area.X);
                 area.Y = Math.Min(noteArea.Y, area.Y);
-                area.Width = Math.Max(noteArea.X + noteArea.Width, area.X + area.Width) - area.X;
-                area.Height = Math.Max(noteArea.Y + noteArea.Height, area.Y + area.Height) - area.Y;
+                right = Math.Max(noteArea.Right, right);
+                bottom = Math.Max(noteArea.Bottom, bottom);
             }
+            area.Width = right - area.Left;
+            area.Height = bottom - area.Top;
         }
 
         public void Draw(PaintEventArgs e)
