@@ -29,6 +29,7 @@ namespace Music_Comp
         public List<SongComponent> mainSELECTABLES = Song.SELECTABLES;
 
         public List<Clef> clefs = new List<Clef>();
+        public List<WaveForm> waveForms = new List<WaveForm>();
         public Grouping grouping = Grouping.None;
 
         Song song;
@@ -99,45 +100,76 @@ namespace Music_Comp
             clefs = new List<Clef>();
             for (int i = 0; i < StaveNumeric.Value; i++)
                 clefs.Add(Clef.Treble);
+            for (int i = 0; i < StaveNumeric.Value; i++)
+                waveForms.Add(WaveForm.Sine);
             staveCount = (int)StaveNumeric.Value;
             switch (StaveNumeric.Value)
             {
                 case 1:
                     St2Clef.Enabled = false;
                     St2Clef.Text = "";
+                    Wavebox2.Enabled = false;
+                    Wavebox2.Text = "";
                     St3Clef.Enabled = false;
                     St3Clef.Text = "";
+                    Wavebox3.Enabled = false;
+                    Wavebox3.Text = "";
                     St4Clef.Enabled = false;
                     St4Clef.Text = "";
+                    Wavebox4.Enabled = false;
+                    Wavebox4.Text = "";
                     break;
                 case 2:
                     St2Clef.Enabled = true;
                     if (St2Clef.Text == "")
                         St2Clef.Text = "Treble";
+                    Wavebox2.Enabled = true;
+                    if (Wavebox2.Text == "")
+                        Wavebox2.Text = "Sine";
                     St3Clef.Enabled = false;
                     St3Clef.Text = "";
+                    Wavebox3.Enabled = false;
+                    Wavebox3.Text = "";
                     St4Clef.Enabled = false;
                     St4Clef.Text = "";
+                    Wavebox4.Enabled = false;
+                    Wavebox4.Text = "";
                     break;
                 case 3:
                     St2Clef.Enabled = true;
                     if (St2Clef.Text == "")
                         St2Clef.Text = "Treble";
+                    Wavebox2.Enabled = true;
+                    if (Wavebox2.Text == "")
+                        Wavebox2.Text = "Sine";
                     St3Clef.Enabled = true;
                     if (St3Clef.Text == "")
                         St3Clef.Text = "Treble";
+                    Wavebox3.Enabled = true;
+                    if (Wavebox3.Text == "")
+                        Wavebox3.Text = "Sine";
                     St4Clef.Enabled = false;
                     St4Clef.Text = "";
+                    Wavebox4.Enabled = false;
+                    Wavebox4.Text = "";
                     break;
                 case 4:
                     St2Clef.Enabled = true;
                     if (St2Clef.Text == "")
                         St2Clef.Text = "Treble";
+                    Wavebox2.Enabled = true;
+                    if (Wavebox2.Text == "")
+                        Wavebox2.Text = "Sine";
                     St3Clef.Enabled = true;
                     if (St3Clef.Text == "")
                         St3Clef.Text = "Treble";
+                    Wavebox3.Enabled = true;
+                    if (Wavebox3.Text == "")
+                        Wavebox3.Text = "Sine";
                     St4Clef.Enabled = true;
                     St4Clef.Text = "Treble";
+                    Wavebox4.Enabled = true;
+                    Wavebox4.Text = "Sine";
                     break;
             }
             RefreshSong();
@@ -174,6 +206,34 @@ namespace Music_Comp
         private void AddInstrumentForm_SizeChanged(object sender, EventArgs e)
         {
             graphicsPanel.Invalidate();
+        }
+
+        private void Wavebox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Enum.TryParse(Wavebox1.Text, out WaveForm c);
+            waveForms[0] = c;
+            RefreshSong();
+        }
+
+        private void Wavebox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Enum.TryParse(Wavebox1.Text, out WaveForm c);
+            waveForms[1] = c;
+            RefreshSong();
+        }
+
+        private void Wavebox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Enum.TryParse(Wavebox1.Text, out WaveForm c);
+            waveForms[2] = c;
+            RefreshSong();
+        }
+
+        private void Wavebox4_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Enum.TryParse(Wavebox1.Text, out WaveForm c);
+            waveForms[3] = c;
+            RefreshSong();
         }
     }
 }

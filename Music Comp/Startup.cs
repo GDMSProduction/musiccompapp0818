@@ -43,12 +43,14 @@ namespace Music_Comp
             public List<Clef> clefs;
             public Grouping grouping;
             public int StaveCount;
+            public List<WaveForm> waveForms;
 
-            public instrumentTemplate(List<Clef> _clefs, Grouping _grouping, int _StaveCount)
+            public instrumentTemplate(List<Clef> _clefs, Grouping _grouping, int _StaveCount, List<WaveForm> _waveForm)
             {
                 clefs = _clefs;
                 grouping = _grouping;
                 StaveCount = _StaveCount;
+                waveForms = _waveForm;
             }
         }
 
@@ -120,8 +122,8 @@ namespace Music_Comp
                 {
                     song = new Song(graphicsPanel.Width, key, time);
                 }
-                song.AddInstrument(options.clefs, options.grouping);
-                instruments.Add(new instrumentTemplate(options.clefs, options.grouping, options.StaveCount));
+                song.AddInstrument(options.clefs, options.grouping);//, options.waveForms);
+                instruments.Add(new instrumentTemplate(options.clefs, options.grouping, options.StaveCount, options.waveForms));
                 song.GetInstrument(0).GetStaff(0).SetActive(false);
             }
 
