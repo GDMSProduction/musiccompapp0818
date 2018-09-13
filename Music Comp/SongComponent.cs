@@ -8,7 +8,7 @@ namespace Music_Comp
     {
         protected bool isSelected;
         protected RectangleF area;
-        public virtual RectangleF GetArea()
+        public RectangleF GetArea()
         {
             return area;
         }

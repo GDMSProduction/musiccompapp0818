@@ -53,50 +53,35 @@ namespace Music_Comp
             mAccidental = a;
         }
 
-        public Duration GetDuration()
+        public Duration Duration
         {
-            return mDuration;
+            get { return mDuration; }
+            set { mDuration = value; }
         }
 
-        public void SetDuration(Duration w)
+        public WaveForm Waveform
         {
-            mDuration = w;
+            get { return mWaveForm; }
+            set { mWaveForm = value; }
         }
 
-        public WaveForm GetWaveForm()
+        public sbyte Octave
         {
-            return mWaveForm;
+            get { return mOctave; }
+            set { mOctave = value; }
         }
 
-        public void SetWaveForm(WaveForm w)
-        {
-            mWaveForm = w;
-        }
-
-        public sbyte GetOctave()
-        {
-            return mOctave;
-        }
-
-        public void SetOctave(sbyte o)
-        {
-            mOctave = o;
-        }
 
         private bool IsDotted()
         {
             return (int)mDuration % 9 == 0;
         }
 
-        public float GetWidth()
+        public float Width
         {
-            return area.Width;
+            get { return area.Width; }
         }
 
-        public RectangleF GetArea()
-        {
-            return area;
-        }
 
         public void Update(float cursorX, float staffYPosition, Clef clef)
         {
@@ -220,7 +205,7 @@ namespace Music_Comp
                 var mStrm = new MemoryStream();
                 BinaryWriter writer = new BinaryWriter(mStrm);
 
-                int msDuration = (int)GetDuration() * 60;
+                int msDuration = (int)Duration * 60;
                 int samplesPerSecond = 44100;
                 short bitsPerSample = 16;
                 short tracks = 1;
@@ -256,7 +241,7 @@ namespace Music_Comp
                 short ampStep;
 
                 ushort volume = 16383;
-                if (GetWaveForm() == WaveForm.Square)
+                if (this.Waveform == WaveForm.Square)
                     volume /= 2;
 
                 const double TAU = 2 * Math.PI;
@@ -280,7 +265,7 @@ namespace Music_Comp
                 {
                     short s = 0;
 
-                    switch (GetWaveForm())
+                    switch (this.Waveform)
                     {
                         case WaveForm.Sine:
                                 s += (short)(amp * Math.Sin(theta * i));

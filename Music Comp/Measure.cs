@@ -42,16 +42,14 @@ namespace Music_Comp
             return mChords[i];
         }
 
-        public RectangleF GetArea()
-        {
-            return area;
-        }
-
         public bool IsFull()
         {
-            if (mTotalDuration >= ((int)Song.TIME > 0 ? (int)Song.TIME : -(int)Song.TIME))
-                return true;
-            return false;
+            return mTotalDuration >= (Song.TIME > 0 ? (int)Song.TIME : -(int)Song.TIME);
+        }
+
+        public bool IsEmpty()
+        {
+            return mChords.Count == 0 || mTotalDuration == 0;
         }
 
         public int GetDuration()
@@ -59,7 +57,7 @@ namespace Music_Comp
             return mTotalDuration;
         }
 
-        public Chord AddChord(Chord chord)
+        public Chord Add(Chord chord)
         {
             if (chord == null)
                 return null;
@@ -72,12 +70,13 @@ namespace Music_Comp
             else
             {
                 mTotalDuration += (int)chord.GetDuration();
-                if (mTotalDuration > (int)Song.TIME)
+                int time = Song.TIME > 0 ? (int)Song.TIME : -(int)Song.TIME;
+                if (mTotalDuration > time)
                 {
                     Chord split = new Chord();
                     Chord remainder = new Chord();
 
-                    int remainderDuration = mTotalDuration - (int)Song.TIME;
+                    int remainderDuration = mTotalDuration - time;
                     int splitDuration = (int)chord.GetDuration() - remainderDuration;
 
                     split = chord.Clone();
@@ -89,17 +88,18 @@ namespace Music_Comp
                     mChords.Add(split);
                     return remainder;
                 }
-                else if (mTotalDuration == (int)Song.TIME)
-                {
-                    mChords.Add(chord);
-                    return null;
-                }
                 else
                 {
                     mChords.Add(chord);
                     return null;
                 }
             }
+        }
+
+        public void Remove(Chord chord)
+        {
+            mTotalDuration -= (int)mChords[mChords.Count - 1].GetDuration();
+            mChords.Remove(chord);
         }
 
         public void Update(float barline, float yPosition)
@@ -119,6 +119,7 @@ namespace Music_Comp
                 area.Width = Song.BARLINES[mMeasureNumber + 1] - barline;
             area.Height = Staff.HEIGHT + Song.STAFF_SPACING * 2;
         }
+
         public void Draw(PaintEventArgs e)
         {
             if (isSelected)
@@ -242,19 +243,6 @@ namespace Music_Comp
             new System.Media.SoundPlayer(mStrm).Play();
             writer.Close();
             mStrm.Close();
-        }
-
-        public void Remove(Chord c)
-        {
-            mTotalDuration -= (int)mChords[mChords.Count - 1].GetDuration();
-            mChords.Remove(c);
-        }
-
-        public bool IsEmpty()
-        {
-            if (mChords.Count == 0 || mTotalDuration == 0)
-                return true;
-            return false;
         }
     }
 }

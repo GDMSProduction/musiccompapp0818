@@ -17,16 +17,6 @@ namespace Music_Comp
                 Song.SELECTABLES.Add(this);
         }
 
-        public void Add(Note n)
-        {
-            mNotes.Add(n);
-        }
-
-        public void Remove(Note n)
-        {
-            mNotes.Remove(n);
-        }
-
         public Chord Clone()
         {
             List<Note> notes = new List<Note>();
@@ -47,34 +37,39 @@ namespace Music_Comp
 
         public Duration GetDuration()
         {
-            return mNotes[0].GetDuration();
+            return mNotes[0].Duration;
+        }
+
+        public WaveForm GetWaveForm()
+        {
+            return mNotes[0].Waveform;
+        }
+
+        public float GetWidth()
+        {
+            return mNotes[0].Width;
+        }
+
+        public void Add(Note n)
+        {
+            mNotes.Add(n);
+        }
+
+        public void Remove(Note n)
+        {
+            mNotes.Remove(n);
         }
 
         public void SetDuration(Duration d)
         {
             foreach (Note note in mNotes)
-                note.SetDuration(d);
-        }
-
-        public WaveForm GetWaveForm()
-        {
-            return mNotes[0].GetWaveForm();
+                note.Duration = d;
         }
 
         public void SetWaveForm(WaveForm w)
         {
             foreach (Note note in mNotes)
-                note.SetWaveForm(w);
-        }
-
-        public float GetWidth()
-        {
-            return mNotes[0].GetWidth();
-        }
-
-        public RectangleF GetArea()
-        {
-            return area;
+                note.Waveform = w;
         }
 
         public void Update(float cursorX, float yPosition, Clef clef)

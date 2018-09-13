@@ -38,12 +38,7 @@ namespace Music_Comp
             return mStaves[i];
         }
 
-        public RectangleF GetArea()
-        {
-            return area;
-        }
-
-        public int GetNumberOfClefs()
+        public int GetClefCount()
         {
             return mClefs.Length;
         }

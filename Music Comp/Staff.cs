@@ -76,25 +76,16 @@ namespace Music_Comp
             return mMeasures[i];
         }
 
+        public Measure GetCurrentMeasure()
+        {
+            return mMeasures[mMeasures.Count - 1];
+        }
+
         public Measure GetNextMeasure()
         {
             if (mMeasures[mMeasures.Count - 1].IsFull())
                 AddMeasure();
             return mMeasures[mMeasures.Count - 1];
-        }
-
-        public RectangleF GetArea()
-        {
-            return area;
-        }
-
-        public void AddMeasure()
-        {
-            mMeasures.Add(new Measure(mClef, mYPosition, mMeasures.Count));
-        }
-        public void RemoveMeasure(Measure m)
-        {
-            mMeasures.Remove(m);
         }
 
         public int GetDuration()
@@ -105,19 +96,29 @@ namespace Music_Comp
             return d;
         }
 
+        public float GetYPosition()
+        {
+            return mYPosition;
+        }
+
         public bool IsActive()
         {
             return isActive;
         }
 
-        public void SetActive(bool setA)
+        public void SetActive(bool active)
         {
-            isActive = setA;
+            isActive = active;
         }
 
-        public float GetYPosition()
+        public void AddMeasure()
         {
-            return mYPosition;
+            mMeasures.Add(new Measure(mClef, mYPosition, mMeasures.Count));
+        }
+
+        public void RemoveMeasure(Measure m)
+        {
+            mMeasures.Remove(m);
         }
 
         public void AddAccidental(float x, float y, Accidental a)
@@ -558,16 +559,5 @@ namespace Music_Comp
             writer.Close();
             mStrm.Close();
         }
-
-        public Measure GetCurrentMeasure()
-        {
-            return mMeasures[mMeasures.Count - 1];
-        }
-
-        public int GetMeasuresCount()
-        {
-            return mMeasures.Count;
-        }
-
     }
 }
