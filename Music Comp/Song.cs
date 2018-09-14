@@ -126,7 +126,7 @@ namespace Music_Comp
             mInstruments.Add(new Instrument(clefs, waveforms, g, mInstruments.Count));
             if (TOTAL_INSTRUMENTS == 1)
             {
-                GetInstrument(0).GetStaff(0).SetActive(true);
+                GetInstrument(0).GetStaff(0).Select();
                 mSelectedInstrument = GetInstrument(0);
             }
         }
@@ -141,9 +141,9 @@ namespace Music_Comp
             /*\  if (mInstruments.Count > 0)
              *   {
              *       if (i != mInstruments.Count)
-             *           mInstruments[i].GetStaff(0).SetActive(true);
+             *           mInstruments[i].GetStaff(0).Select();
              *       else
-             *           mInstruments[i - 1].GetStaff(0).SetActive(true);
+             *           mInstruments[i - 1].GetStaff(0).Select();
              *   }
             \*/
         }

@@ -52,7 +52,7 @@ namespace Music_Comp
         {
             song = new Song(graphicsPanel.Width * 2, Song.KEY, Song.TIME);
             song.AddInstrument(clefs, waveForms, grouping);
-            song.GetInstrument(0).GetStaff(0).SetActive(false);
+            song.GetInstrument(0).GetStaff(0).Deselect();
             graphicsPanel.Invalidate();
         }
 

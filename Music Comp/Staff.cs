@@ -44,8 +44,6 @@ namespace Music_Comp
         Clef mClef;
         WaveForm mWaveForm;
 
-        bool isActive = false;
-
         public Staff(Clef c, WaveForm w, int inst, int totalStaffNumber, int staffNumber)
         {
             LINE_SPACING = 30 * Song._SCALE;
@@ -114,16 +112,6 @@ namespace Music_Comp
         public float GetYPosition()
         {
             return mYPosition;
-        }
-
-        public bool IsActive()
-        {
-            return isActive;
-        }
-
-        public void SetActive(bool active)
-        {
-            isActive = active;
         }
 
         public void SetSelection(Measure m)
@@ -427,7 +415,7 @@ namespace Music_Comp
         public void Update()
         {
             if (isSelected)
-                SetActive(true);
+                Select();
             mCursorX = Song.LEFT_MARGIN;
             mYPosition = mTotalInstrumentNumber * Song.INSTRUMENT_SPACING + mTotalStaffNumber * (HEIGHT + Song.STAFF_SPACING);
 

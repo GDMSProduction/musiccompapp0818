@@ -124,7 +124,7 @@ namespace Music_Comp
                 }
                 song.AddInstrument(options.clefs, options.waveForms, options.grouping);
                 instruments.Add(new instrumentTemplate(options.clefs, options.grouping, options.StaveCount, options.waveForms));
-                song.GetInstrument(0).GetStaff(0).SetActive(false);
+                song.GetInstrument(0).GetStaff(0).Deselect();
             }
 
             graphicsPanel.Invalidate();

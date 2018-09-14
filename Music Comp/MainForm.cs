@@ -274,10 +274,7 @@ namespace Music_Comp
                     if (Song.SELECTABLES[i].GetType() == typeof(Instrument))
                         song.SetSelection((Instrument)Song.SELECTABLES[i]);
                     else if (Song.SELECTABLES[i].GetType() == typeof(Staff))
-                    {
-                        song.GetSelection().GetSelection().SetActive(false);
                         song.GetSelection().SetSelection((Staff)Song.SELECTABLES[i]);
-                    }
                     else if (Song.SELECTABLES[i].GetType() == typeof(Measure))
                         song.GetSelection().GetSelection().SetSelection((Measure)Song.SELECTABLES[i]);
                     else if (Song.SELECTABLES[i].GetType() == typeof(Chord))
@@ -536,7 +533,7 @@ namespace Music_Comp
                                                 songdur4.Image = dottedhalf;
                                                 break;
                                         }
-                                        }
+                                    }
                                 }
                                 else
                                 {
@@ -793,71 +790,69 @@ namespace Music_Comp
                         {
                             if (song.GetSelection().GetSelection().GetStaffNumber() > 0)
                             {
-                                song.GetInstrument(song.GetSelection().GetInstrumentNumber()).GetStaff(song.GetSelection().GetSelection().GetStaffNumber()).SetActive(false);
-                                graphicsPanel.Invalidate(new Region(song.GetInstrument(song.GetSelection().GetInstrumentNumber()).GetStaff(song.GetSelection().GetSelection().GetStaffNumber()).GetArea()));
+                                song.GetSelection().GetSelection().Deselect();
+                                graphicsPanel.Invalidate(new Region(song.GetSelection().GetSelection().GetArea()));
                                 song.GetSelection().SetSelection(song.GetSelection().GetSelection().GetStaffNumber() - 1);
-                                song.GetInstrument(song.GetSelection().GetInstrumentNumber()).GetStaff(song.GetSelection().GetSelection().GetStaffNumber()).SetActive(true);
-                                graphicsPanel.Invalidate(new Region(song.GetInstrument(song.GetSelection().GetInstrumentNumber()).GetStaff(song.GetSelection().GetSelection().GetStaffNumber()).GetArea()));
+                                song.GetSelection().Select();
+                                song.GetSelection().GetSelection().Select();
+                                graphicsPanel.Invalidate(new Region(song.GetSelection().GetSelection().GetArea()));
                             }
                             else if (song.GetSelection().GetSelection().GetStaffNumber() == 0 && song.GetSelection().GetInstrumentNumber() != 0)
                             {
-                                song.GetInstrument(song.GetSelection().GetInstrumentNumber()).GetStaff(song.GetSelection().GetSelection().GetStaffNumber()).SetActive(false);
-                                graphicsPanel.Invalidate(new Region(song.GetInstrument(song.GetSelection().GetInstrumentNumber()).GetStaff(song.GetSelection().GetSelection().GetStaffNumber()).GetArea()));
+                                song.GetSelection().GetSelection().Deselect();
+                                graphicsPanel.Invalidate(new Region(song.GetSelection().GetSelection().GetArea()));
                                 song.SetSelection(song.GetSelection().GetInstrumentNumber() - 1);
-                                //
                                 song.GetSelection().SetSelection(song.GetInstrument(song.GetSelection().GetInstrumentNumber()).GetStaffCount() - 1);
-                                //
-                                song.GetInstrument(song.GetSelection().GetInstrumentNumber()).GetStaff(song.GetSelection().GetSelection().GetStaffNumber()).SetActive(true);
-                                graphicsPanel.Invalidate(new Region(song.GetInstrument(song.GetSelection().GetInstrumentNumber()).GetStaff(song.GetSelection().GetSelection().GetStaffNumber()).GetArea()));
+                                song.GetSelection().Select();
+                                song.GetSelection().GetSelection().Select();
+                                graphicsPanel.Invalidate(new Region(song.GetSelection().GetSelection().GetArea()));
                             }
                             break;
                         }
                     case Keys.Down:
                         {
-                            if (song.GetSelection().GetSelection().GetStaffNumber() < song.GetInstrument(song.GetSelection().GetInstrumentNumber()).GetStaffCount() - 1)
+                            if (song.GetSelection().GetSelection().GetStaffNumber() < song.GetSelection().GetStaffCount() - 1)
                             {
-                                song.GetInstrument(song.GetSelection().GetInstrumentNumber()).GetStaff(song.GetSelection().GetSelection().GetStaffNumber()).SetActive(false);
-                                graphicsPanel.Invalidate(new Region(song.GetInstrument(song.GetSelection().GetInstrumentNumber()).GetStaff(song.GetSelection().GetSelection().GetStaffNumber()).GetArea()));
+                                song.GetSelection().GetSelection().Deselect();
+                                graphicsPanel.Invalidate(new Region(song.GetSelection().GetSelection().GetArea()));
                                 song.GetSelection().SetSelection(song.GetSelection().GetSelection().GetStaffNumber() + 1);
-                                song.GetInstrument(song.GetSelection().GetInstrumentNumber()).GetStaff(song.GetSelection().GetSelection().GetStaffNumber()).SetActive(true);
-                                graphicsPanel.Invalidate(new Region(song.GetInstrument(song.GetSelection().GetInstrumentNumber()).GetStaff(song.GetSelection().GetSelection().GetStaffNumber()).GetArea()));
+                                song.GetSelection().Select();
+                                song.GetSelection().GetSelection().Select();
+                                graphicsPanel.Invalidate(new Region(song.GetSelection().GetSelection().GetArea()));
                             }
-                            else if (song.GetSelection().GetSelection().GetStaffNumber() == song.GetInstrument(song.GetSelection().GetInstrumentNumber()).GetStaffCount() - 1 &&
+                            else if (song.GetSelection().GetSelection().GetStaffNumber() == song.GetSelection().GetStaffCount() - 1 &&
                                      song.GetSelection().GetInstrumentNumber() != Song.TOTAL_INSTRUMENTS - 1)
                             {
-                                song.GetInstrument(song.GetSelection().GetInstrumentNumber()).GetStaff(song.GetSelection().GetSelection().GetStaffNumber()).SetActive(false);
-                                graphicsPanel.Invalidate(new Region(song.GetInstrument(song.GetSelection().GetInstrumentNumber()).GetStaff(song.GetSelection().GetSelection().GetStaffNumber()).GetArea()));
-                                song.GetSelection().SetSelection(0);
+                                song.GetSelection().GetSelection().Deselect();
+                                graphicsPanel.Invalidate(new Region(song.GetSelection().GetSelection().GetArea()));
                                 song.SetSelection(song.GetSelection().GetInstrumentNumber() + 1);
-                                song.GetInstrument(song.GetSelection().GetInstrumentNumber()).GetStaff(song.GetSelection().GetSelection().GetStaffNumber()).SetActive(true);
-                                graphicsPanel.Invalidate(new Region(song.GetInstrument(song.GetSelection().GetInstrumentNumber()).GetStaff(song.GetSelection().GetSelection().GetStaffNumber()).GetArea()));
+                                song.GetSelection().SetSelection(0);
+                                song.GetSelection().Select();
+                                song.GetSelection().GetSelection().Select();
+                                graphicsPanel.Invalidate(new Region(song.GetSelection().GetSelection().GetArea()));
                             }
                             break;
                         }
                     case Keys.Back:
+                        Staff staff = song.GetSelection().GetSelection();
+                        if (!staff.GetCurrentMeasure().IsEmpty())
                         {
-                            Staff staff = song.GetInstrument(song.GetSelection().GetInstrumentNumber()).GetStaff(song.GetSelection().GetSelection().GetStaffNumber());
-                            if (!staff.GetCurrentMeasure().IsEmpty())
-                            {
-                                staff.GetCurrentMeasure().Remove(staff.GetCurrentMeasure().GetChord(staff.GetCurrentMeasure().GetChordCount() - 1));
-                                staff.Update();
-                                graphicsPanel.Invalidate(new Region(staff.GetArea()));
-                            }
-                            else if (staff.GetCurrentMeasure().IsEmpty() && staff.GetMeasureCount() != 1)
-                            {
-                                staff.RemoveMeasure(staff.GetCurrentMeasure());
-                                staff.GetCurrentMeasure().Remove(staff.GetCurrentMeasure().GetChord(staff.GetCurrentMeasure().GetChordCount() - 1));
-                                //Song.BARLINES.Remove(Song.BARLINES.Count - 1);
-                                staff.Update();
-                                graphicsPanel.Invalidate(new Region(staff.GetArea()));
-                            }
-                            break;
+                            staff.GetCurrentMeasure().Remove(staff.GetCurrentMeasure().GetChord(staff.GetCurrentMeasure().GetChordCount() - 1));
+                            staff.Update();
+                            graphicsPanel.Invalidate(new Region(staff.GetArea()));
                         }
+                        else if (staff.GetCurrentMeasure().IsEmpty() && staff.GetMeasureCount() != 1)
+                        {
+                            staff.RemoveMeasure(staff.GetCurrentMeasure());
+                            staff.GetCurrentMeasure().Remove(staff.GetCurrentMeasure().GetChord(staff.GetCurrentMeasure().GetChordCount() - 1));
+                            //Song.BARLINES.Remove(Song.BARLINES.Count - 1);
+                            staff.Update();
+                            graphicsPanel.Invalidate(new Region(staff.GetArea()));
+                        }
+                        break;
                     case Keys.Space:
-                        {
-                            Play();
-                            break;
-                        }
+                        Play();
+                        break;
                     case Keys.A:
                     case Keys.B:
                     case Keys.C:
@@ -866,32 +861,30 @@ namespace Music_Comp
                     case Keys.F:
                     case Keys.G:
                     case Keys.R:
+                        valid = true;
+                        if (e.KeyCode != Keys.R)
                         {
-                            valid = true;
-                            if (e.KeyCode != Keys.R)
-                            {
-                                Enum.TryParse(e.KeyCode.ToString(), out Pitch p);
-                                chord.GetNote(0).SetPitch(p);
-                            }
-                            else
-                                chord.GetNote(0).SetPitch(Pitch.Rest);
-                            if (ShiftCheck())
-                            {
-                                switch (currentNoteDuration)
-                                {
-                                    case Duration.Eighth:
-                                    case Duration.Quarter:
-                                    case Duration.Half:
-                                        chord.GetNote(0).Duration = (Duration)((int)chord.GetNote(0).Duration * 1.5f);
-                                        break;
-                                    case Duration.DottedQuarter:
-                                    case Duration.DottedHalf:
-                                        chord.GetNote(0).Duration = (Duration)((int)chord.GetNote(0).Duration * 2 / 3);
-                                        break;
-                                }
-                            }
-                            break;
+                            Enum.TryParse(e.KeyCode.ToString(), out Pitch p);
+                            chord.GetNote(0).SetPitch(p);
                         }
+                        else
+                            chord.GetNote(0).SetPitch(Pitch.Rest);
+                        if (ShiftCheck())
+                        {
+                            switch (currentNoteDuration)
+                            {
+                                case Duration.Eighth:
+                                case Duration.Quarter:
+                                case Duration.Half:
+                                    chord.GetNote(0).Duration = (Duration)((int)chord.GetNote(0).Duration * 1.5f);
+                                    break;
+                                case Duration.DottedQuarter:
+                                case Duration.DottedHalf:
+                                    chord.GetNote(0).Duration = (Duration)((int)chord.GetNote(0).Duration * 2 / 3);
+                                    break;
+                            }
+                        }
+                        break;
                 }
                 if (valid)
                 {
@@ -915,29 +908,27 @@ namespace Music_Comp
                     case Keys.E:
                     case Keys.F:
                     case Keys.G:
+                        valid = true;
+                        mChord.Add(new Note(Pitch.C, Accidental.Natural, currentNoteDuration, 4, 0));
+                        Enum.TryParse(e.KeyCode.ToString(), out Pitch p);
+                        mChord.GetNote(noteIndex).SetPitch(p);
+                        if (ShiftCheck())
                         {
-                            valid = true;
-                            mChord.Add(new Note(Pitch.C, Accidental.Natural, currentNoteDuration, 4, 0));
-                            Enum.TryParse(e.KeyCode.ToString(), out Pitch p);
-                            mChord.GetNote(noteIndex).SetPitch(p);
-                            if (ShiftCheck())
+                            switch (currentNoteDuration)
                             {
-                                switch (currentNoteDuration)
-                                {
-                                    case Duration.Eighth:
-                                    case Duration.Quarter:
-                                    case Duration.Half:
-                                        mChord.GetNote(0).Duration = (Duration)((int)mChord.GetNote(0).Duration * 1.5f);
-                                        break;
-                                    case Duration.DottedQuarter:
-                                    case Duration.DottedHalf:
-                                        mChord.GetNote(0).Duration = (Duration)((int)mChord.GetNote(0).Duration * 2 / 3);
-                                        break;
-                                }
+                                case Duration.Eighth:
+                                case Duration.Quarter:
+                                case Duration.Half:
+                                    mChord.GetNote(0).Duration = (Duration)((int)mChord.GetNote(0).Duration * 1.5f);
+                                    break;
+                                case Duration.DottedQuarter:
+                                case Duration.DottedHalf:
+                                    mChord.GetNote(0).Duration = (Duration)((int)mChord.GetNote(0).Duration * 2 / 3);
+                                    break;
                             }
-                            noteIndex++;
-                            break;
                         }
+                        noteIndex++;
+                        break;
                 }
             }
             if (!ControlCheck() && noteIndex != 0)
@@ -1430,7 +1421,6 @@ namespace Music_Comp
                     composerTextBox.Enabled = true;
                 }
                 song.Stop();
-                timer.Enabled = false;
                 playcheck = false;
             }
         }
