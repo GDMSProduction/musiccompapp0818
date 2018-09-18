@@ -82,12 +82,16 @@ namespace Music_Comp
 
         public void SetSelection(Staff s)
         {
+            mSelectedStaff.Deselect();
             mSelectedStaff = s;
+            mSelectedStaff.Select();
         }
 
         public void SetSelection(int s)
         {
+            mSelectedStaff.Deselect();
             mSelectedStaff = GetStaff(s);
+            mSelectedStaff.Select();
         }
 
         public void AddStaves(int numberOfStaves)
