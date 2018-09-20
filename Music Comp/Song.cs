@@ -36,6 +36,7 @@ namespace Music_Comp
 
         public static Key KEY = Key.C;
         public static Time TIME = Time.Common;
+        public static sbyte OCTAVE = 4;
 
         public static List<float> BARLINES;
         public static List<SongComponent> SELECTABLES;
