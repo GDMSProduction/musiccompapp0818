@@ -915,7 +915,6 @@ namespace Music_Comp
             }
             else
             {
-                mChord.Add(new Note(Pitch.C, Accidental.Natural, currentNoteDuration, Song.OCTAVE, 0));
                 switch (e.KeyCode)
                 {
                     case Keys.A:
@@ -927,6 +926,7 @@ namespace Music_Comp
                     case Keys.G:
                         {
                             valid = true;
+                            mChord.Add(new Note(Pitch.C, Accidental.Natural, currentNoteDuration, Song.OCTAVE, 0));
                             Enum.TryParse(e.KeyCode.ToString(), out Pitch p);
                             mChord.GetNote(noteIndex).SetPitch(p);
                             if (ShiftCheck())
@@ -943,7 +943,8 @@ namespace Music_Comp
                     case Keys.D7:
                         {
                             valid = true;
-                            mChord.GetNote(0).SetPitch(CheckPitch(e));
+                            mChord.Add(new Note(Pitch.C, Accidental.Natural, currentNoteDuration, Song.OCTAVE, 0));
+                            mChord.GetNote(noteIndex).SetPitch(CheckPitch(e));
                             if (ShiftCheck())
                                 ShiftNoteDuration(mChord);
                             noteIndex++;
