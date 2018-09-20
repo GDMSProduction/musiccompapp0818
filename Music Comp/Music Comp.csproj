@@ -229,6 +229,9 @@
     <None Include="Resources\play.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\add from main.PNG" />
+    <Content Include="Resources\Add from template.PNG" />
+    <Content Include="Resources\Addinst window.PNG" />
     <Content Include="Resources\dottedeighth.png" />
     <Content Include="Resources\dottedhalf.png" />
     <Content Include="Resources\dottedquarter.png" />

@@ -12,6 +12,7 @@ namespace Music_Comp
 {
     public partial class TutorialForm : Form
     {
+        int pagenumber = 1;
         public TutorialForm()
         {
             InitializeComponent();
