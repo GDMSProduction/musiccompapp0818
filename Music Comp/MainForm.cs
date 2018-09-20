@@ -845,6 +845,7 @@ namespace Music_Comp
                             Staff staff = song.GetSelection().GetSelection();
                             if (!staff.GetCurrentMeasure().IsEmpty())
                             {
+                                Chord c = staff.GetSelection().GetSelection();
                                 staff.GetCurrentMeasure().Remove(staff.GetCurrentMeasure().GetChord(staff.GetCurrentMeasure().GetChordCount() - 1));
                                 staff.Update();
                                 graphicsPanel.Invalidate(new Region(staff.GetArea()));
@@ -853,7 +854,6 @@ namespace Music_Comp
                             {
                                 staff.RemoveMeasure(staff.GetCurrentMeasure());
                                 staff.GetCurrentMeasure().Remove(staff.GetCurrentMeasure().GetChord(staff.GetCurrentMeasure().GetChordCount() - 1));
-                                //Song.BARLINES.Remove(Song.BARLINES.Count - 1);
                                 staff.Update();
                                 graphicsPanel.Invalidate(new Region(staff.GetArea()));
                             }
@@ -880,20 +880,22 @@ namespace Music_Comp
                             else
                                 chord.GetNote(0).SetPitch(Pitch.Rest);
                             if (ShiftCheck())
-                            {
-                                switch (currentNoteDuration)
-                                {
-                                    case Duration.Eighth:
-                                    case Duration.Quarter:
-                                    case Duration.Half:
-                                        chord.GetNote(0).Duration = (Duration)((int)chord.GetNote(0).Duration * 1.5f);
-                                        break;
-                                    case Duration.DottedQuarter:
-                                    case Duration.DottedHalf:
-                                        chord.GetNote(0).Duration = (Duration)((int)chord.GetNote(0).Duration * 2 / 3);
-                                        break;
-                                }
-                            }
+                                ShiftNoteDuration(chord);
+                            break;
+                        }
+                    case Keys.D1:
+                    case Keys.D2:
+                    case Keys.D3:
+                    case Keys.D4:
+                    case Keys.D5:
+                    case Keys.D6:
+                    case Keys.D7:
+                    case Keys.D0:
+                        {
+                            valid = true;
+                                chord.GetNote(0).SetPitch(CheckPitch(e));
+                            if (ShiftCheck())
+                                ShiftNoteDuration(chord);
                             break;
                         }
                 }
@@ -910,6 +912,7 @@ namespace Music_Comp
             }
             else
             {
+                mChord.Add(new Note(Pitch.C, Accidental.Natural, currentNoteDuration, Song.OCTAVE, 0));
                 switch (e.KeyCode)
                 {
                     case Keys.A:
@@ -921,24 +924,25 @@ namespace Music_Comp
                     case Keys.G:
                         {
                             valid = true;
-                            mChord.Add(new Note(Pitch.C, Accidental.Natural, currentNoteDuration, Song.OCTAVE , 0));
                             Enum.TryParse(e.KeyCode.ToString(), out Pitch p);
                             mChord.GetNote(noteIndex).SetPitch(p);
                             if (ShiftCheck())
-                            {
-                                switch (currentNoteDuration)
-                                {
-                                    case Duration.Eighth:
-                                    case Duration.Quarter:
-                                    case Duration.Half:
-                                        mChord.GetNote(0).Duration = (Duration)((int)mChord.GetNote(0).Duration * 1.5f);
-                                        break;
-                                    case Duration.DottedQuarter:
-                                    case Duration.DottedHalf:
-                                        mChord.GetNote(0).Duration = (Duration)((int)mChord.GetNote(0).Duration * 2 / 3);
-                                        break;
-                                }
-                            }
+                                ShiftNoteDuration(mChord);
+                            noteIndex++;
+                            break;
+                        }
+                    case Keys.D1:
+                    case Keys.D2:
+                    case Keys.D3:
+                    case Keys.D4:
+                    case Keys.D5:
+                    case Keys.D6:
+                    case Keys.D7:
+                        {
+                            valid = true;
+                            mChord.GetNote(0).SetPitch(CheckPitch(e));
+                            if (ShiftCheck())
+                                ShiftNoteDuration(mChord);
                             noteIndex++;
                             break;
                         }
@@ -958,6 +962,34 @@ namespace Music_Comp
                 Song.SELECTABLES.Remove(mChord);
                 noteIndex = 0;
             }
+        }
+
+        private void ShiftNoteDuration(Chord c)
+        {
+            switch (currentNoteDuration)
+            {
+                case Duration.Eighth:
+                case Duration.Quarter:
+                case Duration.Half:
+                    c.GetNote(0).Duration = (Duration)((int)c.GetNote(0).Duration * 1.5f);
+                    break;
+                case Duration.DottedQuarter:
+                case Duration.DottedHalf:
+                    c.GetNote(0).Duration = (Duration)((int)c.GetNote(0).Duration * 2 / 3);
+                    break;
+            }
+        }
+
+        private Pitch CheckPitch (KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.D0)
+                return Pitch.Rest;
+
+            Enum.TryParse(Song.KEY.ToString(), out Pitch p);
+            int i = (int)e.KeyCode - 49;
+            if ((int)p - i < 0)
+                i -= 7;
+            return (Pitch)((int)p - i);
         }
 
         private void graphicsPanel_KeyDown(object sender, KeyEventArgs e)
