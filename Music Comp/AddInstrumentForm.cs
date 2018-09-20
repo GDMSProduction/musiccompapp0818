@@ -98,6 +98,7 @@ namespace Music_Comp
         private void StaveNumeric_ValueChanged(object sender, EventArgs e)
         {
             clefs = new List<Clef>();
+            waveForms = new List<WaveForm>();
             for (int i = 0; i < StaveNumeric.Value; i++)
                 clefs.Add(Clef.Treble);
             for (int i = 0; i < StaveNumeric.Value; i++)
@@ -217,21 +218,21 @@ namespace Music_Comp
 
         private void Wavebox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Enum.TryParse(Wavebox1.Text, out WaveForm c);
+            Enum.TryParse(Wavebox2.Text, out WaveForm c);
             waveForms[1] = c;
             RefreshSong();
         }
 
         private void Wavebox3_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Enum.TryParse(Wavebox1.Text, out WaveForm c);
+            Enum.TryParse(Wavebox3.Text, out WaveForm c);
             waveForms[2] = c;
             RefreshSong();
         }
 
         private void Wavebox4_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Enum.TryParse(Wavebox1.Text, out WaveForm c);
+            Enum.TryParse(Wavebox4.Text, out WaveForm c);
             waveForms[3] = c;
             RefreshSong();
         }

@@ -23,6 +23,7 @@ namespace Music_Comp
         Fsharp,
         Csharp
     }
+
     public enum Mode
     {
         Ionian,
@@ -75,13 +76,13 @@ namespace Music_Comp
 
     public enum Pitch
     {
-        E,
-        D,
-        C,
         B,
         A,
         G,
         F,
+        E,
+        D,
+        C,
         Rest
     }
 

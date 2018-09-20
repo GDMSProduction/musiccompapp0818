@@ -16,16 +16,17 @@ namespace Music_Comp
         Pitch mPitch;
         Accidental mAccidental;
         Duration mDuration;
-        sbyte mOctave = 4;
-        WaveForm mWaveForm = WaveForm.Sine;
+        sbyte mOctave;
+        WaveForm mWaveForm;
 
-        public Note(Pitch p, Accidental a, Duration d, sbyte o, int noteNumber, Image i = null, RectangleF ar = new RectangleF())
+        public Note(Pitch p, Accidental a, Duration d, sbyte o = 4, WaveForm w = WaveForm.Sine, int noteNumber = 0, Image i = null, RectangleF ar = new RectangleF())
         {
             mNoteNumber = noteNumber;
             mPitch = p;
             mAccidental = a;
             mDuration = d;
-            mOctave = Song.OCTAVE;
+            mOctave = o;
+            mWaveForm = w;
             image = i;
             noteArea = ar;
             Song.SELECTABLES.Add(this);
@@ -34,7 +35,7 @@ namespace Music_Comp
 
         public Note Clone()
         {
-            return new Note(mPitch, mAccidental, mDuration, mOctave, 0, image, noteArea);
+            return new Note(mPitch, mAccidental, mDuration, mOctave, mWaveForm, 0, image, noteArea);
         }
 
         public Pitch GetPitch()
@@ -75,7 +76,6 @@ namespace Music_Comp
             set { mOctave = value; }
         }
 
-
         private bool IsDotted()
         {
             return (int)mDuration % 9 == 0;
@@ -85,7 +85,6 @@ namespace Music_Comp
         {
             get { return area.Width; }
         }
-
 
         public void Update(float cursorX, float staffYPosition, Clef clef)
         {
@@ -141,7 +140,7 @@ namespace Music_Comp
             }
             else
             {
-                y += (260 + ((int)mPitch + (int)clef + (mOctave - 4) * 8) * 14.7f) * Song._SCALE;
+                y += (304.1f + ((int)mPitch + (int)clef - (mOctave - 4) * 8) * 14.7f) * Song._SCALE;
 
                 switch (mDuration)
                 {
@@ -254,8 +253,9 @@ namespace Music_Comp
                 double amp = volume / 2;
 
                 double step = (int)Pitch.A;
-                if (mPitch <= Pitch.F && mPitch >= Pitch.B)
+                if (mPitch < Pitch.E)
                     step += 0.5;
+                step += (mOctave - 4) * 6;
                 double exp = -2 * ((double)mPitch - step);
 
                 frequency = (ushort)(440 * Math.Pow(NOTE_CONSTANT, exp));
