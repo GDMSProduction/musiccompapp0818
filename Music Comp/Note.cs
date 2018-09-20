@@ -25,7 +25,7 @@ namespace Music_Comp
             mPitch = p;
             mAccidental = a;
             mDuration = d;
-            mOctave = o;
+            mOctave = Song.OCTAVE;
             image = i;
             noteArea = ar;
             Song.SELECTABLES.Add(this);

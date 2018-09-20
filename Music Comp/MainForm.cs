@@ -309,7 +309,7 @@ namespace Music_Comp
             if (!ControlCheck())
             {
                 Chord chord = new Chord(0);
-                chord.Add(new Note(Pitch.C, Accidental.Natural, currentNoteDuration, 4, 0));
+                chord.Add(new Note(Pitch.C, Accidental.Natural, currentNoteDuration, Song.OCTAVE, 0));
 
                 switch (e.KeyCode)
                 {
@@ -834,6 +834,12 @@ namespace Music_Comp
                             }
                             break;
                         }
+                    case Keys.O:
+                        Song.OCTAVE += 1;
+                        break;
+                    case Keys.P:
+                        Song.OCTAVE -= 1;
+                        break;
                     case Keys.Back:
                         {
                             Staff staff = song.GetSelection().GetSelection();
@@ -915,7 +921,7 @@ namespace Music_Comp
                     case Keys.G:
                         {
                             valid = true;
-                            mChord.Add(new Note(Pitch.C, Accidental.Natural, currentNoteDuration, 4, 0));
+                            mChord.Add(new Note(Pitch.C, Accidental.Natural, currentNoteDuration, Song.OCTAVE , 0));
                             Enum.TryParse(e.KeyCode.ToString(), out Pitch p);
                             mChord.GetNote(noteIndex).SetPitch(p);
                             if (ShiftCheck())
