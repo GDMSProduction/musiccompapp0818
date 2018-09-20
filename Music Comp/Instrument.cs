@@ -193,8 +193,9 @@ namespace Music_Comp
                             for (int i = 0; i < chord.GetNoteCount(); i++)
                             {
                                 double step = (int)Pitch.A;
-                                if (chord.GetNote(i).GetPitch() <= Pitch.F && chord.GetNote(i).GetPitch() >= Pitch.B)
-                                    step += 0.5;
+                                if (chord.GetNote(i).GetPitch() < Pitch.E)
+                                    step -= 0.5;
+                                step += (chord.GetNote(i).Octave - 4) * 6;
                                 double exp = -2 * ((double)chord.GetNote(i).GetPitch() - step);
 
                                 frequency[i] = (ushort)(440 * Math.Pow(NOTE_CONSTANT, exp));

@@ -109,6 +109,11 @@ namespace Music_Comp
             return d;
         }
 
+        public WaveForm GetWaveForm()
+        {
+            return mWaveForm;
+        }
+
         public float GetYPosition()
         {
             return mYPosition;
@@ -121,12 +126,14 @@ namespace Music_Comp
 
         public void SetSelection(int m)
         {
+            mSelectedMeasure.Deselect();
             mSelectedMeasure = GetMeasure(m);
+            mSelectedMeasure.Select();
         }
 
         public void AddMeasure()
         {
-            mMeasures.Add(new Measure(mClef, mYPosition, mMeasures.Count));
+            mMeasures.Add(new Measure(mClef, mWaveForm, mYPosition, mMeasures.Count));
             if (GetMeasureCount() == 1)
                 mSelectedMeasure = GetMeasure(0);
         }
@@ -515,8 +522,9 @@ namespace Music_Comp
                         for (int i = 0; i < chord.GetNoteCount(); i++)
                         {
                             double step = (int)Pitch.A;
-                            if (chord.GetNote(i).GetPitch() <= Pitch.F && chord.GetNote(i).GetPitch() >= Pitch.B)
-                                step += 0.5;
+                            if (chord.GetNote(i).GetPitch() < Pitch.E)
+                                step -= 0.5;
+                            step += (chord.GetNote(i).Octave - 4) * 6;
                             double exp = -2 * ((double)chord.GetNote(i).GetPitch() - step);
 
                             frequency[i] = (ushort)(440 * Math.Pow(NOTE_CONSTANT, exp));

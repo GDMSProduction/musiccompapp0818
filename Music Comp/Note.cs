@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.Drawing.Imaging;
+using System.Windows.Forms;
 using System.Drawing;
 using System.IO;
 using System;
@@ -10,31 +11,55 @@ namespace Music_Comp
         RectangleF noteArea;
         RectangleF dotArea;
         Image image;
+        ImageAttributes attr;
 
         int mNoteNumber;
 
         Pitch mPitch;
         Accidental mAccidental;
         Duration mDuration;
-        sbyte mOctave = 4;
-        WaveForm mWaveForm = WaveForm.Sine;
+        sbyte mOctave;
+        WaveForm mWaveForm;
 
-        public Note(Pitch p, Accidental a, Duration d, sbyte o, int noteNumber, Image i = null, RectangleF ar = new RectangleF())
+        public Note(Pitch p, Accidental a, Duration d, sbyte o = 4, WaveForm w = WaveForm.Sine, int noteNumber = 0, Image i = null, RectangleF ar = new RectangleF())
         {
             mNoteNumber = noteNumber;
             mPitch = p;
             mAccidental = a;
             mDuration = d;
             mOctave = o;
+            mWaveForm = w;
             image = i;
             noteArea = ar;
             Song.SELECTABLES.Add(this);
             Song.TOTAL_NOTES++;
+
+            ColorMatrix colorMatrix = new ColorMatrix(new float[][]
+            {
+                new float[] {0, 0, 0, 0, 0},
+                new float[] {0, 0, 0, 0, 0},
+                new float[] {0, 0, 0, 0, 0},
+                new float[] {0, 0, 0, 1, 0},
+                new float[] {1, 0, 0, 0, 1}
+            });
+
+            attr = new ImageAttributes();
+            attr.SetColorMatrix(colorMatrix);
         }
 
         public Note Clone()
         {
-            return new Note(mPitch, mAccidental, mDuration, mOctave, 0, image, noteArea);
+            return new Note(mPitch, mAccidental, mDuration, mOctave, mWaveForm, 0, image, noteArea);
+        }
+
+        private PointF[] GetPoints(RectangleF rectangle)
+        {
+            return new PointF[3]
+            {
+                new PointF(rectangle.Left, rectangle.Top),
+                new PointF(rectangle.Right, rectangle.Top),
+                new PointF(rectangle.Left, rectangle.Bottom)
+            };
         }
 
         public Pitch GetPitch()
@@ -75,7 +100,6 @@ namespace Music_Comp
             set { mOctave = value; }
         }
 
-
         private bool IsDotted()
         {
             return (int)mDuration % 9 == 0;
@@ -85,7 +109,6 @@ namespace Music_Comp
         {
             get { return area.Width; }
         }
-
 
         public void Update(float cursorX, float staffYPosition, Clef clef)
         {
@@ -141,7 +164,7 @@ namespace Music_Comp
             }
             else
             {
-                y += (260 + ((int)mPitch + (int)clef + (mOctave - 4) * 8) * 14.7f) * Song._SCALE;
+                y += (304.1f + ((int)mPitch + (int)clef - (mOctave - 4) * 8) * 14.7f) * Song._SCALE;
 
                 switch (mDuration)
                 {
@@ -193,13 +216,20 @@ namespace Music_Comp
 
         public void Draw(PaintEventArgs e)
         {
-            if (isSelected)
-                if (e.Graphics.IsVisible(area))
-                    e.Graphics.FillRectangle(new SolidBrush(Color.Yellow), area);
+
             if (e.Graphics.IsVisible(noteArea))
-                e.Graphics.DrawImage(image, noteArea);
-            if (IsDotted())
-                e.Graphics.FillEllipse(new SolidBrush(Color.Black), dotArea);
+                if (isSelected)
+                {
+                    e.Graphics.DrawImage(image, GetPoints(noteArea), new RectangleF(0, 0, image.Width, image.Height), GraphicsUnit.Pixel, attr);
+                    if (IsDotted())
+                        e.Graphics.FillEllipse(new SolidBrush(Color.Red), dotArea);
+                }
+                else
+                {
+                    e.Graphics.DrawImage(image, noteArea);
+                    if (IsDotted())
+                        e.Graphics.FillEllipse(new SolidBrush(Color.Black), dotArea);
+                }
         }
 
         public void Play()
@@ -254,8 +284,9 @@ namespace Music_Comp
                 double amp = volume / 2;
 
                 double step = (int)Pitch.A;
-                if (mPitch <= Pitch.F && mPitch >= Pitch.B)
+                if (mPitch < Pitch.E)
                     step += 0.5;
+                step += (mOctave - 4) * 6;
                 double exp = -2 * ((double)mPitch - step);
 
                 frequency = (ushort)(440 * Math.Pow(NOTE_CONSTANT, exp));

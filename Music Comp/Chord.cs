@@ -10,11 +10,13 @@ namespace Music_Comp
     {
         List<Note> mNotes;
         Note mSelectedNote;
+        WaveForm mWaveForm;
         int mChordNumber;
 
-        public Chord(int chordNumber, List<Note> notes = null)
+        public Chord(WaveForm wave = WaveForm.Sine, int chordNumber = 0, List<Note> notes = null)
         {
             mChordNumber = chordNumber;
+            mWaveForm = wave;
             mNotes = notes == null ? new List<Note>() : notes;
             if (Song.SELECTABLES != null)
                 Song.SELECTABLES.Add(this);
@@ -26,7 +28,7 @@ namespace Music_Comp
             List<Note> notes = new List<Note>();
             foreach (Note note in mNotes)
                 notes.Add(note.Clone());
-            return new Chord(mChordNumber, notes);
+            return new Chord(mWaveForm, mChordNumber, notes);
         }
 
         public Note GetNote(int i)
@@ -73,7 +75,9 @@ namespace Music_Comp
 
         public void SetSelection(Note n)
         {
+            mSelectedNote.Deselect();
             mSelectedNote = n;
+            mSelectedNote.Select();
         }
 
         public void SetDuration(Duration d)
@@ -84,6 +88,7 @@ namespace Music_Comp
 
         public void SetWaveForm(WaveForm w)
         {
+            mWaveForm = w;
             foreach (Note note in mNotes)
                 note.Waveform = w;
         }
@@ -108,9 +113,7 @@ namespace Music_Comp
 
         public void Draw(PaintEventArgs e)
         {
-            if (isSelected)
-                if (e.Graphics.IsVisible(area))
-                    e.Graphics.FillRectangle(new SolidBrush(Color.Red), area);
+            if (isSelected) ;
             foreach (Note note in mNotes)
                 note.Draw(e);
         }
@@ -163,15 +166,15 @@ namespace Music_Comp
 
                 const double TAU = 2 * Math.PI;
                 double NOTE_CONSTANT = Math.Pow(2, (1.0 / 12.0));
-
                 
                 double amp = volume / 2;
 
                 for (int i = 0; i < GetNoteCount(); i++)
                 {
                     double step = (int)Pitch.A;
-                    if (GetNote(i).GetPitch() <= Pitch.F && GetNote(i).GetPitch() >= Pitch.B)
-                        step += 0.5;
+                    if (GetNote(i).GetPitch() < Pitch.E)
+                        step -= 0.5;
+                    step += (GetNote(i).Octave - 4) * 6;
                     double exp = -2 * ((double)GetNote(i).GetPitch() - step);
 
                     frequency[i] = (ushort)(440 * Math.Pow(NOTE_CONSTANT, exp));

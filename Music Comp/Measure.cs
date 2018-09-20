@@ -17,13 +17,15 @@ namespace Music_Comp
         int mTotalDuration;
 
         Clef mClef;
+        WaveForm mWaveForm;
         Key mKey;
         Time mTime;
 
-        public Measure(Clef clef, float yPosition, int measureNumber)
+        public Measure(Clef clef, WaveForm wave, float yPosition, int measureNumber)
         {
             mMeasureNumber = measureNumber;
             mClef = clef;
+            mWaveForm = wave;
             mChords = new List<Chord>();
             Song.SELECTABLES.Add(this);
             Song.TOTAL_MEASURES++;
@@ -66,7 +68,9 @@ namespace Music_Comp
 
         public void SetSelection(Chord c)
         {
+            mSelectedChord.Deselect();
             mSelectedChord = c;
+            mSelectedChord.Select();
         }
 
         public Chord Add(Chord chord)
@@ -204,8 +208,9 @@ namespace Music_Comp
                     for (int i = 0; i < chord.GetNoteCount(); i++)
                     {
                         double step = (int)Pitch.A;
-                        if (chord.GetNote(i).GetPitch() <= Pitch.F && chord.GetNote(i).GetPitch() >= Pitch.B)
-                            step += 0.5;
+                        if (chord.GetNote(i).GetPitch() < Pitch.E)
+                            step -= 0.5;
+                        step += (chord.GetNote(i).Octave - 4) * 6;
                         double exp = -2 * ((double)chord.GetNote(i).GetPitch() - step);
 
                         frequency[i] = (ushort)(440 * Math.Pow(NOTE_CONSTANT, exp));

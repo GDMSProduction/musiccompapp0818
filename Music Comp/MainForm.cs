@@ -22,7 +22,7 @@ namespace Music_Comp
         System.Timers.Timer timer;
 
         int noteIndex = 0;
-        Chord mChord = new Chord(0);
+        Chord mChord = new Chord();
 
         Duration currentNoteDuration = Duration.Quarter;
 
@@ -282,6 +282,7 @@ namespace Music_Comp
                         newMeasure = (Measure)Song.SELECTABLES[i];
                     else if (Song.SELECTABLES[i].GetType() == typeof(Chord))
                         newChord = (Chord)Song.SELECTABLES[i];
+                    else ((Note)Song.SELECTABLES[i]).Select();
                 }
             }
             if (newInstrument != null)
@@ -289,9 +290,11 @@ namespace Music_Comp
             if (newStaff != null)
                 newInstrument.SetSelection(newStaff);
             if (newMeasure != null)
+            {
                 newStaff.SetSelection(newMeasure);
-            if (newChord != null)
-                newMeasure.SetSelection(newChord);
+                if (newChord != null)
+                    newMeasure.SetSelection(newChord);
+            }
 
             graphicsPanel.Invalidate();
         }
@@ -308,8 +311,8 @@ namespace Music_Comp
 
             if (!ControlCheck())
             {
-                Chord chord = new Chord(0);
-                chord.Add(new Note(Pitch.C, Accidental.Natural, currentNoteDuration, 4, 0));
+                Chord chord = new Chord();
+                chord.Add(new Note(Pitch.C, Accidental.Natural, currentNoteDuration, 4));
 
                 switch (e.KeyCode)
                 {
@@ -894,6 +897,7 @@ namespace Music_Comp
                 if (valid)
                 {
                     Staff staff = song.GetInstrument(song.GetSelection().GetInstrumentNumber()).GetStaff(song.GetSelection().GetSelection().GetStaffNumber());
+                    chord.SetWaveForm(staff.GetWaveForm());
                     Chord remainder = staff.GetNextMeasure().Add(chord);
                     chord.Play();
                     if (remainder != null)
@@ -941,6 +945,7 @@ namespace Music_Comp
             if (!ControlCheck() && noteIndex != 0)
             {
                 Staff staff = song.GetInstrument(song.GetSelection().GetInstrumentNumber()).GetStaff(song.GetSelection().GetSelection().GetStaffNumber());
+                mChord.SetWaveForm(staff.GetWaveForm());
                 Chord remainder = staff.GetNextMeasure().Add(mChord.Clone());
                 mChord.Play();
                 if (remainder != null)
@@ -948,7 +953,7 @@ namespace Music_Comp
                 staff.Update();
                 graphicsPanel.Invalidate(new Region(staff.GetArea()));
 
-                mChord = new Chord(0);
+                mChord = new Chord();
                 Song.SELECTABLES.Remove(mChord);
                 noteIndex = 0;
             }
