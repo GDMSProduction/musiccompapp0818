@@ -282,6 +282,7 @@ namespace Music_Comp
                         newMeasure = (Measure)Song.SELECTABLES[i];
                     else if (Song.SELECTABLES[i].GetType() == typeof(Chord))
                         newChord = (Chord)Song.SELECTABLES[i];
+                    else ((Note)Song.SELECTABLES[i]).Select();
                 }
             }
             if (newInstrument != null)
@@ -289,9 +290,11 @@ namespace Music_Comp
             if (newStaff != null)
                 newInstrument.SetSelection(newStaff);
             if (newMeasure != null)
+            {
                 newStaff.SetSelection(newMeasure);
-            if (newChord != null)
-                newMeasure.SetSelection(newChord);
+                if (newChord != null)
+                    newMeasure.SetSelection(newChord);
+            }
 
             graphicsPanel.Invalidate();
         }

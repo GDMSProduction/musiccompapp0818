@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.Drawing.Imaging;
+using System.Windows.Forms;
 using System.Drawing;
 using System.IO;
 using System;
@@ -10,6 +11,7 @@ namespace Music_Comp
         RectangleF noteArea;
         RectangleF dotArea;
         Image image;
+        ImageAttributes attr;
 
         int mNoteNumber;
 
@@ -31,11 +33,33 @@ namespace Music_Comp
             noteArea = ar;
             Song.SELECTABLES.Add(this);
             Song.TOTAL_NOTES++;
+
+            ColorMatrix colorMatrix = new ColorMatrix(new float[][]
+            {
+                new float[] {0, 0, 0, 0, 0},
+                new float[] {0, 0, 0, 0, 0},
+                new float[] {0, 0, 0, 0, 0},
+                new float[] {0, 0, 0, 1, 0},
+                new float[] {1, 0, 0, 0, 1}
+            });
+
+            attr = new ImageAttributes();
+            attr.SetColorMatrix(colorMatrix);
         }
 
         public Note Clone()
         {
             return new Note(mPitch, mAccidental, mDuration, mOctave, mWaveForm, 0, image, noteArea);
+        }
+
+        private PointF[] GetPoints(RectangleF rectangle)
+        {
+            return new PointF[3]
+            {
+                new PointF(rectangle.Left, rectangle.Top),
+                new PointF(rectangle.Right, rectangle.Top),
+                new PointF(rectangle.Left, rectangle.Bottom)
+            };
         }
 
         public Pitch GetPitch()
@@ -192,13 +216,20 @@ namespace Music_Comp
 
         public void Draw(PaintEventArgs e)
         {
-            if (isSelected)
-                if (e.Graphics.IsVisible(area))
-                    e.Graphics.FillRectangle(new SolidBrush(Color.Yellow), area);
+
             if (e.Graphics.IsVisible(noteArea))
-                e.Graphics.DrawImage(image, noteArea);
-            if (IsDotted())
-                e.Graphics.FillEllipse(new SolidBrush(Color.Black), dotArea);
+                if (isSelected)
+                {
+                    e.Graphics.DrawImage(image, GetPoints(noteArea), new RectangleF(0, 0, image.Width, image.Height), GraphicsUnit.Pixel, attr);
+                    if (IsDotted())
+                        e.Graphics.FillEllipse(new SolidBrush(Color.Red), dotArea);
+                }
+                else
+                {
+                    e.Graphics.DrawImage(image, noteArea);
+                    if (IsDotted())
+                        e.Graphics.FillEllipse(new SolidBrush(Color.Black), dotArea);
+                }
         }
 
         public void Play()

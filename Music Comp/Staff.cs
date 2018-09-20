@@ -126,7 +126,9 @@ namespace Music_Comp
 
         public void SetSelection(int m)
         {
+            mSelectedMeasure.Deselect();
             mSelectedMeasure = GetMeasure(m);
+            mSelectedMeasure.Select();
         }
 
         public void AddMeasure()

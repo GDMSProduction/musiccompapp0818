@@ -75,7 +75,9 @@ namespace Music_Comp
 
         public void SetSelection(Note n)
         {
+            mSelectedNote.Deselect();
             mSelectedNote = n;
+            mSelectedNote.Select();
         }
 
         public void SetDuration(Duration d)
@@ -111,9 +113,7 @@ namespace Music_Comp
 
         public void Draw(PaintEventArgs e)
         {
-            if (isSelected)
-                if (e.Graphics.IsVisible(area))
-                    e.Graphics.FillRectangle(new SolidBrush(Color.Red), area);
+            if (isSelected) ;
             foreach (Note note in mNotes)
                 note.Draw(e);
         }
