@@ -68,7 +68,9 @@ namespace Music_Comp
 
         public void SetSelection(Chord c)
         {
+            mSelectedChord.Deselect();
             mSelectedChord = c;
+            mSelectedChord.Select();
         }
 
         public Chord Add(Chord chord)
