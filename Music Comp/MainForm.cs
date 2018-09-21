@@ -1420,7 +1420,7 @@ namespace Music_Comp
         private void tutorialToolStripMenuItem_Click(object sender, EventArgs e)
         {
             TutorialForm tutorial = new TutorialForm();
-            tutorial.ShowDialog();
+            tutorial.Show();
         }
 
         private void newSongToolStripMenuItem_Click(object sender, EventArgs e)

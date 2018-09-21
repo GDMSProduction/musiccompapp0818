@@ -236,6 +236,7 @@
     <Content Include="Resources\dottedhalf.png" />
     <Content Include="Resources\dottedquarter.png" />
     <Content Include="Resources\pause.jpg" />
+    <Content Include="Resources\rightarrow.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
