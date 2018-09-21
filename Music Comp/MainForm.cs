@@ -312,7 +312,7 @@ namespace Music_Comp
             if (!ControlCheck())
             {
                 Chord chord = new Chord(0);
-                chord.Add(new Note(Pitch.C, Accidental.Natural, currentNoteDuration, Song.OCTAVE, 0));
+                chord.Add(new Note(Pitch.C, Accidental.Natural, currentNoteDuration, Song.OCTAVE));
 
                 switch (e.KeyCode)
                 {
@@ -905,6 +905,7 @@ namespace Music_Comp
                 if (valid)
                 {
                     Staff staff = song.GetInstrument(song.GetSelection().GetInstrumentNumber()).GetStaff(song.GetSelection().GetSelection().GetStaffNumber());
+                    chord.SetWaveForm(staff.GetWaveForm());
                     Chord remainder = staff.GetNextMeasure().Add(chord);
                     chord.Play();
                     if (remainder != null)
@@ -926,7 +927,7 @@ namespace Music_Comp
                     case Keys.G:
                         {
                             valid = true;
-                            mChord.Add(new Note(Pitch.C, Accidental.Natural, currentNoteDuration, Song.OCTAVE, 0));
+                            mChord.Add(new Note(Pitch.C, Accidental.Natural, currentNoteDuration, Song.OCTAVE));
                             Enum.TryParse(e.KeyCode.ToString(), out Pitch p);
                             mChord.GetNote(noteIndex).SetPitch(p);
                             if (ShiftCheck())
@@ -943,7 +944,7 @@ namespace Music_Comp
                     case Keys.D7:
                         {
                             valid = true;
-                            mChord.Add(new Note(Pitch.C, Accidental.Natural, currentNoteDuration, Song.OCTAVE, 0));
+                            mChord.Add(new Note(Pitch.C, Accidental.Natural, currentNoteDuration, Song.OCTAVE));
                             mChord.GetNote(noteIndex).SetPitch(CheckPitch(e));
                             if (ShiftCheck())
                                 ShiftNoteDuration(mChord);
@@ -955,6 +956,7 @@ namespace Music_Comp
             if (!ControlCheck() && noteIndex != 0)
             {
                 Staff staff = song.GetInstrument(song.GetSelection().GetInstrumentNumber()).GetStaff(song.GetSelection().GetSelection().GetStaffNumber());
+                mChord.SetWaveForm(staff.GetWaveForm());
                 Chord remainder = staff.GetNextMeasure().Add(mChord.Clone());
                 mChord.Play();
                 if (remainder != null)
