@@ -36,11 +36,12 @@ namespace Music_Comp
 
         public static Key KEY = Key.C;
         public static Time TIME = Time.Common;
+        public static int BPM;
         public static sbyte OCTAVE = 4;
 
         public static List<float> BARLINES;
         public static List<SongComponent> SELECTABLES;
-
+        
         List<Instrument> mInstruments = new List<Instrument>();
         Instrument mSelectedInstrument;
 
@@ -50,12 +51,12 @@ namespace Music_Comp
             PAGE_WIDTH = panelWidth;
             _SCALE = PAGE_WIDTH / SCREEN_WIDTH;
 
-            TOP_MARGIN = 300 * _SCALE;
+            TOP_MARGIN = 400 * _SCALE;
             LEFT_MARGIN = 100 * _SCALE;
             RIGHT_MARGIN = 50 * _SCALE;
             STAFF_SPACING = 60 * _SCALE;
             INSTRUMENT_SPACING = 80 * _SCALE;
-
+            
             TOTAL_INSTRUMENTS = 0;
             TOTAL_STAVES = 0;
             TOTAL_MEASURES = 0;
@@ -67,6 +68,7 @@ namespace Music_Comp
 
             KEY = k;
             TIME = t;
+            BPM = 60;
 
             area = new Rectangle(0, (int)TOP_MARGIN - 5, (int)PAGE_WIDTH, (int)cursorY);
 

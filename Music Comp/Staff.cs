@@ -294,20 +294,21 @@ namespace Music_Comp
 
         private void UpdateKeySignature()
         {
+            keySignature = new List<RectangleF>();
             PointF location = new PointF(mCursorX, mYPosition);
             SizeF size = new SizeF();
 
             if (Song.KEY < 0)                                   // Flats
                 for (int i = 0, y = 7; i > (int)Song.KEY; i--)  // B E A D G C F
                 {
-                    AddAccidental(mCursorX, mYPosition + (260 + (y + (int)mClef) * 14.5f) * Song._SCALE, Accidental.Flat);
+                    AddAccidental(mCursorX, mYPosition + Song.TOP_MARGIN + (-43.5f + (y + (int)mClef) * 14.5f) * Song._SCALE, Accidental.Flat);
                     y += (i % 2 == 0 ? -3 : 4);
                     mCursorX += 30 * Song._SCALE;
                 }
             else if (Song.KEY > 0)                                                         // Sharps
                 for (int i = 0, y = mClef != Clef.Tenor ? 3 : 10; i < (int)Song.KEY; i++)  // F C G D A E B
                 {
-                    AddAccidental(mCursorX, mYPosition + (260 + (y + (int)mClef) * 14.5f) * Song._SCALE, Accidental.Sharp);
+                    AddAccidental(mCursorX, mYPosition + Song.TOP_MARGIN + (-43.5f + (y + (int)mClef) * 14.5f) * Song._SCALE, Accidental.Sharp);
                     if (mClef == Clef.Tenor || i > 2)
                         y += i % 2 == 0 ? -4 : 3;
                     else
