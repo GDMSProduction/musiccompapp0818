@@ -1512,6 +1512,7 @@ namespace Music_Comp
                     composerTextBox.Enabled = true;
                 }
                 song.Stop();
+                timer.Enabled = false;
                 playcheck = false;
             }
         }
