@@ -82,6 +82,12 @@ namespace Music_Comp
             composerTextBox.Size = new Size((int)(615 * _SCALE), (int)(50 * _SCALE));
             composerTextBox.Location = new Point((int)(PAGE_WIDTH - composerTextBox.Width - 100 * _SCALE), (int)(220 * _SCALE));
 
+            pictureBox1.Size = new Size((int)(64 * _SCALE), (int)(93 * _SCALE));
+            pictureBox1.Location = new Point((int)(160 * _SCALE), (int)(300* _SCALE));
+            label1.Size = new Size((int)(44 * _SCALE), (int)(46 * _SCALE));
+            label1.Location = new Point((int)(220 * _SCALE), (int)(330 * _SCALE));
+            numericUpDown1.Location = new Point((int)(260 * _SCALE), (int)(337 * _SCALE));
+
             ActiveControl = graphicsPanel;
 
             (graphicsPanel as Control).KeyUp += new KeyEventHandler(graphicsPanel_KeyUp);
@@ -1491,6 +1497,11 @@ namespace Music_Comp
         protected override bool ProcessDialogKey(Keys keyData)
         {
             return false;
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            Song.BPM = (int)numericUpDown1.Value;
         }
     }
 }
