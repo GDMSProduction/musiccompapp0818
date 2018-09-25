@@ -12,6 +12,7 @@ namespace Music_Comp
 {
     public partial class TutorialForm : Form
     {
+        public bool tutcheck;
         public TutorialForm()
         {
             Bitmap rightarrow = new Bitmap(Properties.Resources.rightarrow, new Size(70, 70));
@@ -28,6 +29,7 @@ namespace Music_Comp
             button7.Image = leftarrow;
             button8.Image = rightarrow;
             button9.Image = leftarrow;
+            checkBox1.Checked = Properties.Settings.Default.AskForTutorial;
         }
 
         private void Page1_CheckedChanged(object sender, EventArgs e)
@@ -106,6 +108,18 @@ namespace Music_Comp
         {
             tabControl1.SelectTab(3);
             Page4.Select();
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+            {
+                tutcheck = true;
+            }
+            else
+            {
+                tutcheck = false;
+            }
         }
     }
 }
