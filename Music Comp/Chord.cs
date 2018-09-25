@@ -123,7 +123,7 @@ namespace Music_Comp
             var mStrm = new MemoryStream();
             BinaryWriter writer = new BinaryWriter(mStrm);
 
-            int msDuration = (int)GetDuration() * 60;
+            int msDuration = (int)GetDuration() * Song.BPM;
             int samplesPerSecond = 44100;
             short bitsPerSample = 16;
             short tracks = 1;
@@ -209,7 +209,7 @@ namespace Music_Comp
                                 else    s += (short)((samplesPerWavelength[j] - (i % samplesPerWavelength[j])) * ampSteps[j]);
                             break;
                         case WaveForm.Noise:
-                            s += (short)((new Random().NextDouble() * 2 - 1) * amp * 2);
+                            s += (short)((new Random().NextDouble() * 2 - 1) * amp * 2 + amp);
                             break;
                     }
                     writer.Write(s);

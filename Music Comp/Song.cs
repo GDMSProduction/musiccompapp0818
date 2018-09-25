@@ -271,7 +271,7 @@ namespace Music_Comp
             var mStrm = new MemoryStream();
             BinaryWriter writer = new BinaryWriter(mStrm);
 
-            int msDuration = GetDuration() * 60;
+            int msDuration = GetDuration() * 3600 / BPM;
             int formatChunkSize = 16;
             int headerSize = 8;
             short formatType = 1;
@@ -321,7 +321,7 @@ namespace Music_Comp
                                 ushort[] frequency = new ushort[chord.GetNoteCount()];
                                 int[] samplesPerWavelength = new int[chord.GetNoteCount()];
                                 short[] ampSteps = new short[chord.GetNoteCount()];
-                                int chordSamples = (int)((decimal)samplesPerSecond * (int)chord.GetDuration() * 60 / 1000);
+                                int chordSamples = (int)((decimal)samplesPerSecond * (int)chord.GetDuration() * 3600 / BPM / 1000);
 
                                 ushort volume = 16383;
                                 if (chord.GetWaveForm() == WaveForm.Square)
@@ -381,7 +381,7 @@ namespace Music_Comp
                                             }
                                             break;
                                         case WaveForm.Noise:
-                                            s += (short)((new Random().NextDouble() * 2 - 1) * amp);
+                                            s += (short)((new Random().NextDouble() * 2 - 1));
                                             break;
                                     }
                                     preSamples[chordNumber] += s;

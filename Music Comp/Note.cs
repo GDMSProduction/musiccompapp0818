@@ -113,7 +113,7 @@ namespace Music_Comp
         public void Update(float cursorX, float staffYPosition, Clef clef)
         {
             float x = cursorX;
-            float y = staffYPosition;
+            float y = Song.TOP_MARGIN + staffYPosition;
             PointF location;
             SizeF size = new SizeF();
 
@@ -125,7 +125,7 @@ namespace Music_Comp
                     case Duration.DottedQuarter:
                         image = Properties.Resources.QuarterRest;
                         size = new SizeF(35 * Song._SCALE, 90 * Song._SCALE);
-                        y += 312 * Song._SCALE;
+                        y += 12 * Song._SCALE;
                         x += 33 * Song._SCALE;
                         if (IsDotted())
                             dotArea = new RectangleF(x + 50 * Song._SCALE, y + size.Height - 40 * Song._SCALE, 10, 10);
@@ -134,7 +134,7 @@ namespace Music_Comp
                     case Duration.DottedHalf:
                         image = Properties.Resources.HalfRest;
                         size = new SizeF(120 * Song._SCALE, 170 * Song._SCALE);
-                        y += 296 * Song._SCALE;
+                        y -= 4 * Song._SCALE;
                         x -= 15 * Song._SCALE;
                         if (IsDotted())
                             dotArea = new RectangleF(x + 90 * Song._SCALE, y + size.Height - 120 * Song._SCALE, 10, 10);
@@ -142,14 +142,14 @@ namespace Music_Comp
                     case Duration.Whole:
                         image = Properties.Resources.WholeRest;
                         size = new SizeF(120 * Song._SCALE, 170 * Song._SCALE);
-                        y += 277 * Song._SCALE;
+                        y -= 23 * Song._SCALE;
                         x -= 15 * Song._SCALE;
                         break;
                     case Duration.Eighth:
                     case Duration.DottedEighth:
                         image = Properties.Resources.EighthRest;
                         size = new SizeF(35 * Song._SCALE, 62 * Song._SCALE);
-                        y += 333 * Song._SCALE;
+                        y += 33 * Song._SCALE;
                         x += 33 * Song._SCALE;
                         if (IsDotted())
                             dotArea = new RectangleF(x + 45 * Song._SCALE, y + size.Height - 30 * Song._SCALE, 10, 10);
@@ -157,14 +157,14 @@ namespace Music_Comp
                     case Duration.Sixteenth:
                         image = Properties.Resources.SixteenthRest;
                         size = new SizeF(45 * Song._SCALE, 90 * Song._SCALE);
-                        y += 333 * Song._SCALE;
+                        y += 33 * Song._SCALE;
                         x += 33 * Song._SCALE;
                         break;
                 }
             }
             else
             {
-                y += (304.1f + ((int)mPitch + (int)clef - (mOctave - 4) * 8) * 14.7f) * Song._SCALE;
+                y += (4.1f + ((int)mPitch + (int)clef - (mOctave - 4) * 8) * 14.7f) * Song._SCALE;
 
                 switch (mDuration)
                 {
