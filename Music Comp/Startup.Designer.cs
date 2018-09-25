@@ -257,6 +257,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Template";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Startup_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Startup_FormClosed);
             this.SizeChanged += new System.EventHandler(this.Startup_SizeChanged);
             this.graphicsPanel.ResumeLayout(false);
             this.graphicsPanel.PerformLayout();

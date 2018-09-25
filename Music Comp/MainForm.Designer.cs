@@ -76,7 +76,7 @@
             this.zoomInButton.BackColor = System.Drawing.Color.White;
             this.zoomInButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.zoomInButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.zoomInButton.Location = new System.Drawing.Point(7693, 12238);
+            this.zoomInButton.Location = new System.Drawing.Point(9217, 14892);
             this.zoomInButton.Name = "zoomInButton";
             this.zoomInButton.Size = new System.Drawing.Size(75, 75);
             this.zoomInButton.TabIndex = 1;
@@ -91,7 +91,7 @@
             this.zoomOutButton.BackColor = System.Drawing.Color.White;
             this.zoomOutButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.zoomOutButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.zoomOutButton.Location = new System.Drawing.Point(7693, 12313);
+            this.zoomOutButton.Location = new System.Drawing.Point(9217, 14967);
             this.zoomOutButton.Name = "zoomOutButton";
             this.zoomOutButton.Size = new System.Drawing.Size(75, 75);
             this.zoomOutButton.TabIndex = 2;
@@ -279,7 +279,7 @@
             this.songdur4.BackColor = System.Drawing.Color.White;
             this.songdur4.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.songdur4.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.songdur4.Location = new System.Drawing.Point(168, 15412);
+            this.songdur4.Location = new System.Drawing.Point(168, 20720);
             this.songdur4.Name = "songdur4";
             this.songdur4.Size = new System.Drawing.Size(150, 150);
             this.songdur4.TabIndex = 8;
@@ -293,7 +293,7 @@
             this.songdur3.BackColor = System.Drawing.Color.White;
             this.songdur3.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.songdur3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.songdur3.Location = new System.Drawing.Point(12, 15412);
+            this.songdur3.Location = new System.Drawing.Point(12, 20720);
             this.songdur3.Name = "songdur3";
             this.songdur3.Size = new System.Drawing.Size(150, 150);
             this.songdur3.TabIndex = 7;
@@ -307,7 +307,7 @@
             this.songdur1.BackColor = System.Drawing.Color.White;
             this.songdur1.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.songdur1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.songdur1.Location = new System.Drawing.Point(12, 15256);
+            this.songdur1.Location = new System.Drawing.Point(12, 20564);
             this.songdur1.Name = "songdur1";
             this.songdur1.Size = new System.Drawing.Size(150, 150);
             this.songdur1.TabIndex = 6;
@@ -321,7 +321,7 @@
             this.songdur2.BackColor = System.Drawing.Color.White;
             this.songdur2.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.songdur2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.songdur2.Location = new System.Drawing.Point(168, 15256);
+            this.songdur2.Location = new System.Drawing.Point(168, 20564);
             this.songdur2.Name = "songdur2";
             this.songdur2.Size = new System.Drawing.Size(150, 150);
             this.songdur2.TabIndex = 9;
@@ -335,7 +335,7 @@
             this.SongDuration.BackColor = System.Drawing.Color.White;
             this.SongDuration.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.SongDuration.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SongDuration.Location = new System.Drawing.Point(12, 15706);
+            this.SongDuration.Location = new System.Drawing.Point(12, 21014);
             this.SongDuration.Name = "SongDuration";
             this.SongDuration.Size = new System.Drawing.Size(150, 150);
             this.SongDuration.TabIndex = 5;
@@ -466,6 +466,7 @@
             this.Name = "MainForm";
             this.Text = "BitComposer 1.2";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.Resize += new System.EventHandler(this.MainForm_Resize);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

@@ -16,5 +16,10 @@ namespace Music_Comp
         {
             InitializeComponent();
         }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.AskForTutorial = !checkBox1.Checked;
+        }
     }
 }

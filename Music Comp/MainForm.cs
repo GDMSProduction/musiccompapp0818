@@ -43,13 +43,14 @@ namespace Music_Comp
         public MainForm()
         {
             InitializeComponent();
-
-            ViewTutorial tutorial = new ViewTutorial();
-            tutorial.ShowDialog();
-            if (tutorial.DialogResult == DialogResult.OK)
+            if (Properties.Settings.Default.AskForTutorial)
             {
-                TutorialForm tutform = new TutorialForm();
-                tutform.ShowDialog();
+                ViewTutorial tutorial = new ViewTutorial();
+                if (tutorial.ShowDialog() == DialogResult.OK)
+                {
+                    TutorialForm tutform = new TutorialForm();
+                    tutform.ShowDialog();
+                }
             }
 
             PlayButton.Image = play;
@@ -167,8 +168,6 @@ namespace Music_Comp
                 song.Draw(e);
                 if (Song.TIME > 0)
                 {
-                    currentNoteDuration = Duration.Quarter;
-                    SongDuration.Image = quarter;
                     pictureBox1.Image = Properties.Resources.Note;
                     pictureBox1.Size = new Size((int)(64 * _SCALE), (int)(93 * _SCALE));
                     pictureBox1.Location = new Point((int)(160 * _SCALE), (int)(300 * _SCALE));
@@ -178,8 +177,6 @@ namespace Music_Comp
                 }
                 else if (Song.TIME < 0)
                 {
-                    currentNoteDuration = Duration.Eighth;
-                    SongDuration.Image = eighth;
                     pictureBox1.Image = Properties.Resources.EighthNote;
                     pictureBox1.Size = new Size((int)(50 * _SCALE), (int)(93 * _SCALE));
                     pictureBox1.Location = new Point((int)(170 * _SCALE), (int)(300 * _SCALE));
@@ -1549,6 +1546,11 @@ namespace Music_Comp
                 StreamWriter stream = new StreamWriter(export.FileName);
                 stream.Close();
             }
+        }
+
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Properties.Settings.Default.Save();
         }
     }
 }
