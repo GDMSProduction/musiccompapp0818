@@ -185,7 +185,6 @@ namespace Music_Comp
                 for (int i = 0; i < angles.Length; i++)
                     angles[i] = frequency[i] * TAU / samplesPerSecond;
 
-                short tempSample = (short)-amp;
                 for (int i = 0; i < samples; i++)
                 {
                     short s = 0;
@@ -201,24 +200,16 @@ namespace Music_Comp
                                 s += (short)(amp * Math.Sign(Math.Sin(theta * i)));
                             break;
                         case WaveForm.Sawtooth:
-                            foreach (short ampStep in ampSteps)
-                            {
-                                tempSample += ampStep;
-                                s += (short)(tempSample / ampSteps.Length);
-                            }
+                            for (int j = 0; j < ampSteps.Length; j++)
+                                s += (short)((i % samplesPerWavelength[j]) * ampSteps[j]);
                             break;
                         case WaveForm.Triangle:
                             for (int j = 0; j < ampSteps.Length; j++)
-                            {
-                                if (Math.Abs(tempSample) > amp)
-                                    ampSteps[j] = (short)-ampSteps[j];
-
-                                tempSample += ampSteps[j];
-                                s += (short)(tempSample / ampSteps.Length);
-                            }
+                                if (i < samplesPerWavelength[j] / 2)    s += (short)(i % samplesPerWavelength[j] * ampSteps[j]);
+                                else    s += (short)((samplesPerWavelength[j] - (i % samplesPerWavelength[j])) * ampSteps[j]);
                             break;
                         case WaveForm.Noise:
-                            s += (short)((new Random().NextDouble() * 2 - 1) * amp);
+                            s += (short)((new Random().NextDouble() * 2 - 1) * amp * 2);
                             break;
                     }
                     writer.Write(s);
