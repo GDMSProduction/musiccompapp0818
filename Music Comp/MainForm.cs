@@ -51,10 +51,6 @@ namespace Music_Comp
                     TutorialForm tutform = new TutorialForm();
                     tutform.ShowDialog();
                 }
-                if (!tutorial.checktrue)
-                {
-                    Properties.Settings.Default.AskForTutorial = false;
-                }
             }
 
             PlayButton.Image = play;
@@ -1462,17 +1458,6 @@ namespace Music_Comp
         {
             TutorialForm tutorial = new TutorialForm();
             tutorial.Show();
-            if (tutorial.DialogResult == DialogResult.OK)
-            {
-                if (tutorial.tutcheck)
-                {
-                    Properties.Settings.Default.AskForTutorial = true;
-                }
-                else
-                {
-                    Properties.Settings.Default.AskForTutorial = false;
-                }
-            }
         }
 
         private void newSongToolStripMenuItem_Click(object sender, EventArgs e)

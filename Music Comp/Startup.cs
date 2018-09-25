@@ -193,5 +193,10 @@ namespace Music_Comp
         {
             graphicsPanel.Invalidate();
         }
+
+        private void Startup_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Properties.Settings.Default.Save();
+        }
     }
 }
