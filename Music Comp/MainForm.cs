@@ -4,6 +4,7 @@ using System.Threading;
 using System.Drawing;
 using System.Timers;
 using System;
+using System.IO;
 
 namespace Music_Comp
 {
@@ -80,14 +81,8 @@ namespace Music_Comp
 
             composerTextBox.Font = new Font("Microsoft Sans Serif", 25 * _SCALE);
             composerTextBox.Size = new Size((int)(615 * _SCALE), (int)(50 * _SCALE));
-            composerTextBox.Location = new Point((int)(PAGE_WIDTH - composerTextBox.Width - 100 * _SCALE), (int)(220 * _SCALE));
-
-            pictureBox1.Size = new Size((int)(64 * _SCALE), (int)(93 * _SCALE));
-            pictureBox1.Location = new Point((int)(160 * _SCALE), (int)(300* _SCALE));
-            label1.Size = new Size((int)(44 * _SCALE), (int)(46 * _SCALE));
-            label1.Location = new Point((int)(220 * _SCALE), (int)(330 * _SCALE));
-            numericUpDown1.Location = new Point((int)(260 * _SCALE), (int)(337 * _SCALE));
-
+            composerTextBox.Location = new Point((int)(PAGE_WIDTH - composerTextBox.Width - 100 * _SCALE), (int)(250 * _SCALE));
+            
             ActiveControl = graphicsPanel;
 
             (graphicsPanel as Control).KeyUp += new KeyEventHandler(graphicsPanel_KeyUp);
@@ -119,16 +114,27 @@ namespace Music_Comp
 
                 song = new Song(PAGE_WIDTH, startup.key, startup.time);
 
-                switch (Song.TIME)
+                if (Song.TIME > 0)
                 {
-                    case Time.FourFour:
-                        currentNoteDuration = Duration.Quarter;
-                        SongDuration.Image = quarter;
-                        break;
-                    case Time.SixEight:
-                        currentNoteDuration = Duration.Eighth;
-                        SongDuration.Image = eighth;
-                        break;
+                    currentNoteDuration = Duration.Quarter;
+                    SongDuration.Image = quarter;
+                    pictureBox1.Image = Properties.Resources.Note;
+                    pictureBox1.Size = new Size((int)(64 * _SCALE), (int)(93 * _SCALE));
+                    pictureBox1.Location = new Point((int)(160 * _SCALE), (int)(300 * _SCALE));
+                    label1.Size = new Size((int)(44 * _SCALE), (int)(46 * _SCALE));
+                    label1.Location = new Point((int)(220 * _SCALE), (int)(330 * _SCALE));
+                    numericUpDown1.Location = new Point((int)(260 * _SCALE), (int)(337 * _SCALE));
+                }
+                else if (Song.TIME < 0)
+                {
+                    currentNoteDuration = Duration.Eighth;
+                    SongDuration.Image = eighth;
+                    pictureBox1.Image = Properties.Resources.EighthNote;
+                    pictureBox1.Size = new Size((int)(50 * _SCALE), (int)(93 * _SCALE));
+                    pictureBox1.Location = new Point((int)(170 * _SCALE), (int)(300 * _SCALE));
+                    label1.Size = new Size((int)(44 * _SCALE), (int)(46 * _SCALE));
+                    label1.Location = new Point((int)(220 * _SCALE), (int)(330 * _SCALE));
+                    numericUpDown1.Location = new Point((int)(260 * _SCALE), (int)(337 * _SCALE));
                 }
 
                 for (int i = 0; i < startup.instruments.Count; i++)
@@ -159,6 +165,34 @@ namespace Music_Comp
             {
                 song.Update();
                 song.Draw(e);
+                if (Song.TIME > 0)
+                {
+                    currentNoteDuration = Duration.Quarter;
+                    SongDuration.Image = quarter;
+                    pictureBox1.Image = Properties.Resources.Note;
+                    pictureBox1.Size = new Size((int)(64 * _SCALE), (int)(93 * _SCALE));
+                    pictureBox1.Location = new Point((int)(160 * _SCALE), (int)(300 * _SCALE));
+                    label1.Size = new Size((int)(44 * _SCALE), (int)(46 * _SCALE));
+                    label1.Location = new Point((int)(220 * _SCALE), (int)(330 * _SCALE));
+                    numericUpDown1.Location = new Point((int)(260 * _SCALE), (int)(337 * _SCALE));
+                }
+                else if (Song.TIME < 0)
+                {
+                    currentNoteDuration = Duration.Eighth;
+                    SongDuration.Image = eighth;
+                    pictureBox1.Image = Properties.Resources.EighthNote;
+                    pictureBox1.Size = new Size((int)(50 * _SCALE), (int)(93 * _SCALE));
+                    pictureBox1.Location = new Point((int)(170 * _SCALE), (int)(300 * _SCALE));
+                    label1.Size = new Size((int)(44 * _SCALE), (int)(46 * _SCALE));
+                    label1.Location = new Point((int)(220 * _SCALE), (int)(330 * _SCALE));
+                    numericUpDown1.Location = new Point((int)(260 * _SCALE), (int)(337 * _SCALE));
+                }
+            }
+            else
+            {
+                pictureBox1.Location = new Point(-200, -200);
+                label1.Location = new Point(-200, -200);
+                numericUpDown1.Location = new Point(-200, -200);
             }
         }
 
@@ -1502,6 +1536,18 @@ namespace Music_Comp
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
             Song.BPM = (int)numericUpDown1.Value;
+        }
+
+        private void exportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog export = new SaveFileDialog();
+            export.DefaultExt = ".wav";
+            export.Filter = "wave file (*.wav)|*wav|png file (*.png)|*.png";
+            if (DialogResult.OK == export.ShowDialog())
+            {
+                StreamWriter stream = new StreamWriter(export.FileName);
+                stream.Close();
+            }
         }
     }
 }

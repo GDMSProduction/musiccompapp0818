@@ -37,6 +37,7 @@
             this.newInstrumentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -56,17 +57,17 @@
             this.songdur2 = new System.Windows.Forms.Button();
             this.SongDuration = new System.Windows.Forms.Button();
             this.graphicsPanel = new Music_Comp.GraphicsPanel();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.label1 = new System.Windows.Forms.Label();
             this.titleTextBox = new Music_Comp.TransparentTextBox();
             this.composerTextBox = new Music_Comp.TransparentTextBox();
-            this.PlayButton = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.PlayButton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.graphicsPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // zoomInButton
@@ -75,7 +76,7 @@
             this.zoomInButton.BackColor = System.Drawing.Color.White;
             this.zoomInButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.zoomInButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.zoomInButton.Location = new System.Drawing.Point(6931, 10911);
+            this.zoomInButton.Location = new System.Drawing.Point(7693, 12238);
             this.zoomInButton.Name = "zoomInButton";
             this.zoomInButton.Size = new System.Drawing.Size(75, 75);
             this.zoomInButton.TabIndex = 1;
@@ -90,7 +91,7 @@
             this.zoomOutButton.BackColor = System.Drawing.Color.White;
             this.zoomOutButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.zoomOutButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.zoomOutButton.Location = new System.Drawing.Point(6931, 10986);
+            this.zoomOutButton.Location = new System.Drawing.Point(7693, 12313);
             this.zoomOutButton.Name = "zoomOutButton";
             this.zoomOutButton.Size = new System.Drawing.Size(75, 75);
             this.zoomOutButton.TabIndex = 2;
@@ -127,7 +128,8 @@
             this.newSongToolStripMenuItem,
             this.newInstrumentToolStripMenuItem,
             this.saveToolStripMenuItem,
-            this.saveAsToolStripMenuItem});
+            this.saveAsToolStripMenuItem,
+            this.exportToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(50, 29);
             this.fileToolStripMenuItem.Text = "File";
@@ -135,28 +137,35 @@
             // newSongToolStripMenuItem
             // 
             this.newSongToolStripMenuItem.Name = "newSongToolStripMenuItem";
-            this.newSongToolStripMenuItem.Size = new System.Drawing.Size(252, 30);
+            this.newSongToolStripMenuItem.Size = new System.Drawing.Size(222, 30);
             this.newSongToolStripMenuItem.Text = "New Song";
             this.newSongToolStripMenuItem.Click += new System.EventHandler(this.newSongToolStripMenuItem_Click);
             // 
             // newInstrumentToolStripMenuItem
             // 
             this.newInstrumentToolStripMenuItem.Name = "newInstrumentToolStripMenuItem";
-            this.newInstrumentToolStripMenuItem.Size = new System.Drawing.Size(252, 30);
+            this.newInstrumentToolStripMenuItem.Size = new System.Drawing.Size(222, 30);
             this.newInstrumentToolStripMenuItem.Text = "New Instrument";
             this.newInstrumentToolStripMenuItem.Click += new System.EventHandler(this.Add_Instrument_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(252, 30);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(222, 30);
             this.saveToolStripMenuItem.Text = "Save";
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(252, 30);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(222, 30);
             this.saveAsToolStripMenuItem.Text = "Save As";
+            // 
+            // exportToolStripMenuItem
+            // 
+            this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(222, 30);
+            this.exportToolStripMenuItem.Text = "Export";
+            this.exportToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
             // 
@@ -170,13 +179,13 @@
             // undoToolStripMenuItem
             // 
             this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
-            this.undoToolStripMenuItem.Size = new System.Drawing.Size(252, 30);
+            this.undoToolStripMenuItem.Size = new System.Drawing.Size(140, 30);
             this.undoToolStripMenuItem.Text = "Undo";
             // 
             // redoToolStripMenuItem
             // 
             this.redoToolStripMenuItem.Name = "redoToolStripMenuItem";
-            this.redoToolStripMenuItem.Size = new System.Drawing.Size(252, 30);
+            this.redoToolStripMenuItem.Size = new System.Drawing.Size(140, 30);
             this.redoToolStripMenuItem.Text = "Redo";
             // 
             // viewToolStripMenuItem
@@ -192,21 +201,21 @@
             // fullscreenToolStripMenuItem
             // 
             this.fullscreenToolStripMenuItem.Name = "fullscreenToolStripMenuItem";
-            this.fullscreenToolStripMenuItem.Size = new System.Drawing.Size(252, 30);
+            this.fullscreenToolStripMenuItem.Size = new System.Drawing.Size(176, 30);
             this.fullscreenToolStripMenuItem.Text = "Fullscreen";
             this.fullscreenToolStripMenuItem.Click += new System.EventHandler(this.fullscreenToolStripMenuItem_Click);
             // 
             // zoomInToolStripMenuItem
             // 
             this.zoomInToolStripMenuItem.Name = "zoomInToolStripMenuItem";
-            this.zoomInToolStripMenuItem.Size = new System.Drawing.Size(252, 30);
+            this.zoomInToolStripMenuItem.Size = new System.Drawing.Size(176, 30);
             this.zoomInToolStripMenuItem.Text = "Zoom In";
             this.zoomInToolStripMenuItem.Click += new System.EventHandler(this.zoomInButton_Click);
             // 
             // zoomOutToolStripMenuItem
             // 
             this.zoomOutToolStripMenuItem.Name = "zoomOutToolStripMenuItem";
-            this.zoomOutToolStripMenuItem.Size = new System.Drawing.Size(252, 30);
+            this.zoomOutToolStripMenuItem.Size = new System.Drawing.Size(176, 30);
             this.zoomOutToolStripMenuItem.Text = "Zoom out";
             this.zoomOutToolStripMenuItem.Click += new System.EventHandler(this.zoomOutButton_Click);
             // 
@@ -223,20 +232,20 @@
             // controlsToolStripMenuItem
             // 
             this.controlsToolStripMenuItem.Name = "controlsToolStripMenuItem";
-            this.controlsToolStripMenuItem.Size = new System.Drawing.Size(252, 30);
+            this.controlsToolStripMenuItem.Size = new System.Drawing.Size(163, 30);
             this.controlsToolStripMenuItem.Text = "Controls";
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(252, 30);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(163, 30);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // tutorialToolStripMenuItem
             // 
             this.tutorialToolStripMenuItem.Name = "tutorialToolStripMenuItem";
-            this.tutorialToolStripMenuItem.Size = new System.Drawing.Size(252, 30);
+            this.tutorialToolStripMenuItem.Size = new System.Drawing.Size(163, 30);
             this.tutorialToolStripMenuItem.Text = "Tutorial";
             this.tutorialToolStripMenuItem.Click += new System.EventHandler(this.tutorialToolStripMenuItem_Click);
             // 
@@ -270,7 +279,7 @@
             this.songdur4.BackColor = System.Drawing.Color.White;
             this.songdur4.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.songdur4.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.songdur4.Location = new System.Drawing.Point(168, 12758);
+            this.songdur4.Location = new System.Drawing.Point(168, 15412);
             this.songdur4.Name = "songdur4";
             this.songdur4.Size = new System.Drawing.Size(150, 150);
             this.songdur4.TabIndex = 8;
@@ -284,7 +293,7 @@
             this.songdur3.BackColor = System.Drawing.Color.White;
             this.songdur3.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.songdur3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.songdur3.Location = new System.Drawing.Point(12, 12758);
+            this.songdur3.Location = new System.Drawing.Point(12, 15412);
             this.songdur3.Name = "songdur3";
             this.songdur3.Size = new System.Drawing.Size(150, 150);
             this.songdur3.TabIndex = 7;
@@ -298,7 +307,7 @@
             this.songdur1.BackColor = System.Drawing.Color.White;
             this.songdur1.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.songdur1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.songdur1.Location = new System.Drawing.Point(12, 12602);
+            this.songdur1.Location = new System.Drawing.Point(12, 15256);
             this.songdur1.Name = "songdur1";
             this.songdur1.Size = new System.Drawing.Size(150, 150);
             this.songdur1.TabIndex = 6;
@@ -312,7 +321,7 @@
             this.songdur2.BackColor = System.Drawing.Color.White;
             this.songdur2.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.songdur2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.songdur2.Location = new System.Drawing.Point(168, 12602);
+            this.songdur2.Location = new System.Drawing.Point(168, 15256);
             this.songdur2.Name = "songdur2";
             this.songdur2.Size = new System.Drawing.Size(150, 150);
             this.songdur2.TabIndex = 9;
@@ -326,7 +335,7 @@
             this.SongDuration.BackColor = System.Drawing.Color.White;
             this.SongDuration.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.SongDuration.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SongDuration.Location = new System.Drawing.Point(12, 13052);
+            this.SongDuration.Location = new System.Drawing.Point(12, 15706);
             this.SongDuration.Name = "SongDuration";
             this.SongDuration.Size = new System.Drawing.Size(150, 150);
             this.SongDuration.TabIndex = 5;
@@ -350,6 +359,40 @@
             this.graphicsPanel.Click += new System.EventHandler(this.graphicsPanel_Click);
             this.graphicsPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.graphicsPanel_Paint);
             this.graphicsPanel.Resize += new System.EventHandler(this.graphicsPanel_Resize);
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(132, 187);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            220,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Minimum = new decimal(new int[] {
+            40,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(88, 26);
+            this.numericUpDown1.TabIndex = 4;
+            this.numericUpDown1.Value = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(82, 177);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(44, 46);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "=";
             // 
             // titleTextBox
             // 
@@ -385,6 +428,17 @@
             this.composerTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.composerTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.composerTextBox_KeyDown);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.Image = global::Music_Comp.Properties.Resources.EighthNote;
+            this.pictureBox1.Location = new System.Drawing.Point(26, 154);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(50, 93);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 2;
+            this.pictureBox1.TabStop = false;
+            // 
             // PlayButton
             // 
             this.PlayButton.BackColor = System.Drawing.Color.Transparent;
@@ -398,51 +452,6 @@
             this.PlayButton.TabStop = false;
             this.PlayButton.UseVisualStyleBackColor = false;
             this.PlayButton.Click += new System.EventHandler(this.PlayButton_Click);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.Image = global::Music_Comp.Properties.Resources.Note;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 154);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(64, 93);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 2;
-            this.pictureBox1.TabStop = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(82, 177);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(44, 46);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "=";
-            // 
-            // numericUpDown1
-            // 
-            this.numericUpDown1.Location = new System.Drawing.Point(132, 187);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
-            220,
-            0,
-            0,
-            0});
-            this.numericUpDown1.Minimum = new decimal(new int[] {
-            40,
-            0,
-            0,
-            0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(88, 26);
-            this.numericUpDown1.TabIndex = 4;
-            this.numericUpDown1.Value = new decimal(new int[] {
-            60,
-            0,
-            0,
-            0});
-            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
             // MainForm
             // 
@@ -463,8 +472,8 @@
             this.panel1.ResumeLayout(false);
             this.graphicsPanel.ResumeLayout(false);
             this.graphicsPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -504,6 +513,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.ToolStripMenuItem exportToolStripMenuItem;
     }
 }
 
