@@ -161,7 +161,11 @@ namespace Music_Comp
         public void RemoveInstrument(int i)
         {
             if (i < mInstruments.Count && i >= 0)
+            {
+                TOTAL_STAVES -= mInstruments[i].GetStaffCount();
                 mInstruments.Remove(mInstruments[i]);
+                TOTAL_INSTRUMENTS--;
+            }
 
             //   If the active staff was in the instrument
 

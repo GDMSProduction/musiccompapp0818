@@ -169,7 +169,8 @@ namespace Music_Comp
 
         private void button3_Click(object sender, EventArgs e)
         {
-            song.RemoveInstrument(0);
+            instruments.RemoveAt(instruments.Count - 1);
+            song.RemoveInstrument(song.GetInstrumentCount() - 1);
             graphicsPanel.Invalidate();
         }
 
