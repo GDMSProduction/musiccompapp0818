@@ -79,6 +79,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
+    <Compile Include="Settings1.cs" />
     <Compile Include="Song Settings.cs">
       <SubType>Form</SubType>
     </Compile>

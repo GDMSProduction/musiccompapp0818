@@ -59,7 +59,7 @@ namespace Music_Comp
         private void AddInstrumentForm_Paint(object sender, PaintEventArgs e)
         {
             song.Update();
-            song.Draw(e);
+            song.Draw(e.Graphics);
         }
 
         private void Brace_CheckedChanged(object sender, EventArgs e)

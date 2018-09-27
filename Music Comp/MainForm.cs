@@ -165,7 +165,7 @@ namespace Music_Comp
             if (song != null && Song.TOTAL_INSTRUMENTS != 0)
             {
                 song.Update();
-                song.Draw(e);
+                song.Draw(e.Graphics);
                 if (Song.TIME > 0)
                 {
                     pictureBox1.Image = Properties.Resources.Note;
@@ -1538,14 +1538,23 @@ namespace Music_Comp
 
         private void exportToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SaveFileDialog export = new SaveFileDialog();
-            export.DefaultExt = ".wav";
-            export.Filter = "wave file (*.wav)|*wav|png file (*.png)|*.png";
-            if (DialogResult.OK == export.ShowDialog())
+            SaveFileDialog dlg = new SaveFileDialog();
+            dlg.FileName = titleTextBox.Text;
+            dlg.DefaultExt = ".wav";
+            dlg.Filter = "wave file (*.wav)|*.wav|png file (*.png)|*.png";
+            if (DialogResult.OK == dlg.ShowDialog())
             {
-                StreamWriter stream = new StreamWriter(export.FileName);
-                stream.Close();
-            }
+                string extension = Path.GetExtension(dlg.FileName);
+                switch (extension.ToLower())
+                {
+                    case ".wav":
+                        song.ExportAudio(dlg.FileName);
+                        break;
+                    case ".png":
+                        song.ExportImage(dlg.FileName);
+                        break;
+                }
+            }  
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)

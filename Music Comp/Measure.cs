@@ -142,13 +142,13 @@ namespace Music_Comp
             area.Height = Staff.HEIGHT + Song.STAFF_SPACING * 2;
         }
 
-        public void Draw(PaintEventArgs e)
+        public void Draw(Graphics g)
         {
             if (isSelected)
-                if (e.Graphics.IsVisible(area))
-                    e.Graphics.FillRectangle(new SolidBrush(Color.Blue), area);
+                if (g.IsVisible(area))
+                    g.FillRectangle(new SolidBrush(Color.Blue), area);
             foreach (Chord chord in mChords)
-                chord.Draw(e);
+                chord.Draw(g);
         }
 
         public void Play()

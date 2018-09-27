@@ -121,10 +121,10 @@ namespace Music_Comp
             area.Height += Song.INSTRUMENT_SPACING * 2;
         }
 
-        public void Draw(PaintEventArgs e)
+        public void Draw(Graphics g)
         {
             foreach (Staff staff in mStaves)
-                staff.Draw(e);
+                staff.Draw(g);
         }
 
         public void Play()

@@ -214,21 +214,21 @@ namespace Music_Comp
                 area.Width = dotArea.Right - noteArea.Left;
         }
 
-        public void Draw(PaintEventArgs e)
+        public void Draw(Graphics g)
         {
 
-            if (e.Graphics.IsVisible(noteArea))
+            if (g.IsVisible(noteArea))
                 if (isSelected)
                 {
-                    e.Graphics.DrawImage(image, GetPoints(noteArea), new RectangleF(0, 0, image.Width, image.Height), GraphicsUnit.Pixel, attr);
+                    g.DrawImage(image, GetPoints(noteArea), new RectangleF(0, 0, image.Width, image.Height), GraphicsUnit.Pixel, attr);
                     if (IsDotted())
-                        e.Graphics.FillEllipse(new SolidBrush(Color.Red), dotArea);
+                        g.FillEllipse(new SolidBrush(Color.Red), dotArea);
                 }
                 else
                 {
-                    e.Graphics.DrawImage(image, noteArea);
+                    g.DrawImage(image, noteArea);
                     if (IsDotted())
-                        e.Graphics.FillEllipse(new SolidBrush(Color.Black), dotArea);
+                        g.FillEllipse(new SolidBrush(Color.Black), dotArea);
                 }
         }
 

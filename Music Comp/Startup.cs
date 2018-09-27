@@ -71,7 +71,7 @@ namespace Music_Comp
             if (song != null && Song.TOTAL_INSTRUMENTS != 0)
             {
                 song.Update();
-                song.Draw(e);
+                song.Draw(e.Graphics);
             }
             graphicsPanel.Height = Height - graphicsPanel.Location.Y - 48;
             graphicsPanel.Width = Width - graphicsPanel.Location.X - (cancelButton.Width + okButton.Width) - 90;

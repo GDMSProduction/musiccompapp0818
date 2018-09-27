@@ -165,29 +165,29 @@ namespace Music_Comp
             }
         }
 
-        public void DrawAccidental(RectangleF rect, Accidental a, PaintEventArgs e)
+        public void DrawAccidental(RectangleF rect, Accidental a, Graphics g)
         {
             switch (a)
             {
                 case Accidental.DoubleFlat:
-                    if (e.Graphics.IsVisible(rect))
-                        e.Graphics.DrawImage(doubleflatImage, rect);
+                    if (g.IsVisible(rect))
+                        g.DrawImage(doubleflatImage, rect);
                     break;
                 case Accidental.Flat:
-                    if (e.Graphics.IsVisible(rect))
-                        e.Graphics.DrawImage(flatImage, rect);
+                    if (g.IsVisible(rect))
+                        g.DrawImage(flatImage, rect);
                     break;
                 case Accidental.Natural:
-                    if (e.Graphics.IsVisible(rect))
-                        e.Graphics.DrawImage(naturalImage, rect);
+                    if (g.IsVisible(rect))
+                        g.DrawImage(naturalImage, rect);
                     break;
                 case Accidental.Sharp:
-                    if (e.Graphics.IsVisible(rect))
-                        e.Graphics.DrawImage(sharpImage, rect);
+                    if (g.IsVisible(rect))
+                        g.DrawImage(sharpImage, rect);
                     break;
                 case Accidental.DoubleSharp:
-                    if (e.Graphics.IsVisible(rect))
-                        e.Graphics.DrawImage(doublesharpImage, rect);
+                    if (g.IsVisible(rect))
+                        g.DrawImage(doublesharpImage, rect);
                     break;
             }
         }
@@ -203,11 +203,11 @@ namespace Music_Comp
                     Song.PAGE_WIDTH - Song.BARLINES[0] - Song.RIGHT_MARGIN, HEIGHT);
         }
 
-        private void DrawCursor(PaintEventArgs e)
+        private void DrawCursor(Graphics g)
         {
             if (isSelected)
-                if (e.Graphics.IsVisible(cursorArea))
-                    e.Graphics.FillRectangle(new SolidBrush(cursorColor), cursorArea);
+                if (g.IsVisible(cursorArea))
+                    g.FillRectangle(new SolidBrush(cursorColor), cursorArea);
         }
 
         private void UpdateStaff()
@@ -217,15 +217,15 @@ namespace Music_Comp
             staffArea = new RectangleF(location, size);
         }
 
-        private void DrawStaff(PaintEventArgs e)
+        private void DrawStaff(Graphics g)
         {
             for (int i = 0; i < 5; i++)
             {
                 PointF start = new PointF(staffArea.X, staffArea.Y + i * staffArea.Height / 4);
                 PointF end = new PointF(staffArea.X + staffArea.Width, staffArea.Y + i * staffArea.Height / 4);
 
-                if (e.Graphics.IsVisible(new RectangleF(start.X, start.Y, end.X - start.X, 1)))
-                    e.Graphics.DrawLine(new Pen(Color.Black, (int)(4.0f * Song._SCALE)), start, end);
+                if (g.IsVisible(new RectangleF(start.X, start.Y, end.X - start.X, 1)))
+                    g.DrawLine(new Pen(Color.Black, (int)(4.0f * Song._SCALE)), start, end);
             }
         }
 
@@ -269,25 +269,25 @@ namespace Music_Comp
             mCursorX += 120 * Song._SCALE;
         }
 
-        private void DrawClef(PaintEventArgs e)
+        private void DrawClef(Graphics g)
         {
             switch (mClef)
             {
                 case Clef.Treble:
-                    if (e.Graphics.IsVisible(clefArea))
-                        e.Graphics.DrawImage(trebleClefImage, clefArea);
+                    if (g.IsVisible(clefArea))
+                        g.DrawImage(trebleClefImage, clefArea);
                     break;
                 case Clef.Alto:
-                    if (e.Graphics.IsVisible(clefArea))
-                        e.Graphics.DrawImage(cClefImage, clefArea);
+                    if (g.IsVisible(clefArea))
+                        g.DrawImage(cClefImage, clefArea);
                     break;
                 case Clef.Bass:
-                    if (e.Graphics.IsVisible(clefArea))
-                        e.Graphics.DrawImage(bassClefImage, clefArea);
+                    if (g.IsVisible(clefArea))
+                        g.DrawImage(bassClefImage, clefArea);
                     break;
                 case Clef.Tenor:
-                    if (e.Graphics.IsVisible(clefArea))
-                        e.Graphics.DrawImage(cClefImage, clefArea);
+                    if (g.IsVisible(clefArea))
+                        g.DrawImage(cClefImage, clefArea);
                     break;
             }
         }
@@ -324,10 +324,10 @@ namespace Music_Comp
             mCursorX += 30 * Song._SCALE;
         }
 
-        private void DrawKeySignature(PaintEventArgs e)
+        private void DrawKeySignature(Graphics g)
         {
             foreach (RectangleF rectangleF in keySignature)
-                DrawAccidental(rectangleF, Song.KEY > 0 ? Accidental.Sharp : Accidental.Flat, e);
+                DrawAccidental(rectangleF, Song.KEY > 0 ? Accidental.Sharp : Accidental.Flat, g);
         }
 
         private void UpdateTimeSignature()
@@ -368,7 +368,7 @@ namespace Music_Comp
             mCursorX += 90 * Song._SCALE;
         }
 
-        private void DrawTimeSignature(PaintEventArgs e)
+        private void DrawTimeSignature(Graphics g)
         {
             switch (Song.TIME)
             {
@@ -376,8 +376,8 @@ namespace Music_Comp
 
                     break;
                 case Time.SixEight:
-                    if (e.Graphics.IsVisible(timeArea))
-                        e.Graphics.DrawImage(sixEightImage, timeArea);
+                    if (g.IsVisible(timeArea))
+                        g.DrawImage(sixEightImage, timeArea);
                     break;
                 case Time.ThreeEight:
 
@@ -389,8 +389,8 @@ namespace Music_Comp
 
                     break;
                 case Time.FourFour:
-                    if (e.Graphics.IsVisible(timeArea))
-                        e.Graphics.DrawImage(fourFourImage, timeArea);
+                    if (g.IsVisible(timeArea))
+                        g.DrawImage(fourFourImage, timeArea);
                     break;
             }
         }
@@ -448,20 +448,20 @@ namespace Music_Comp
             area.Height = HEIGHT + Song.STAFF_SPACING * 2;
         }
 
-        public void Draw(PaintEventArgs e)
+        public void Draw(Graphics g)
         {
-            DrawCursor(e);
+            DrawCursor(g);
 
-            DrawStaff(e);
+            DrawStaff(g);
 
-            DrawClef(e);
+            DrawClef(g);
 
-            DrawKeySignature(e);
+            DrawKeySignature(g);
 
-            DrawTimeSignature(e);
+            DrawTimeSignature(g);
 
             foreach (Measure measure in mMeasures)
-                measure.Draw(e);
+                measure.Draw(g);
         }
 
         public void Play()

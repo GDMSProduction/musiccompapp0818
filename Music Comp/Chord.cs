@@ -111,16 +111,16 @@ namespace Music_Comp
             area.Height = bottom - area.Top;
         }
 
-        public void Draw(PaintEventArgs e)
+        public void Draw(Graphics g)
         {
             if (isSelected) ;
             foreach (Note note in mNotes)
-                note.Draw(e);
+                note.Draw(g);
         }
 
         public void Play()
         {
-            MemoryStream mStrm = new MemoryStream();
+            var mStrm = new MemoryStream();
             BinaryWriter writer = new BinaryWriter(mStrm);
 
             int msDuration = (int)GetDuration() * Song.BPM;
