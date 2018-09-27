@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
+using System.Collections.Generic;
 using System.Drawing.Imaging;
 using System.Windows.Forms;
 using System.Drawing;
@@ -7,8 +9,11 @@ using System;
 
 namespace Music_Comp
 {
+    [Serializable]
     class Song
     {
+        string mFileName;
+
         RectangleF area;
         RectangleF groupingArea;
 
@@ -16,6 +21,8 @@ namespace Music_Comp
 
         static Image bracketImage = Properties.Resources.Bracket;
         static Image braceImage = Properties.Resources.Brace;
+
+        public static ImageAttributes _REDSHIFT;
 
         public static float SCREEN_WIDTH;
         public static float PAGE_WIDTH;
@@ -48,6 +55,18 @@ namespace Music_Comp
 
         public Song(float panelWidth, Key k = Key.C, Time t = Time.Common)
         {
+            ColorMatrix colorMatrix = new ColorMatrix(new float[][]
+            {
+                new float[] {0, 0, 0, 0, 0},
+                new float[] {0, 0, 0, 0, 0},
+                new float[] {0, 0, 0, 0, 0},
+                new float[] {0, 0, 0, 1, 0},
+                new float[] {1, 0, 0, 0, 1}
+            });
+
+            _REDSHIFT = new ImageAttributes();
+            _REDSHIFT.SetColorMatrix(colorMatrix);
+
             SCREEN_WIDTH = Screen.PrimaryScreen.Bounds.Width;
             PAGE_WIDTH = panelWidth;
             _SCALE = PAGE_WIDTH / SCREEN_WIDTH;
@@ -545,6 +564,8 @@ namespace Music_Comp
 
         public void ExportImage(string filename, ImageFormat fileformat = null)
         {
+            foreach (SongComponent component in SELECTABLES)
+                component.Deselect();
             Bitmap bmp = new Bitmap((int)PAGE_WIDTH, (int)(PAGE_WIDTH / 8.5 * 11));
             Graphics g = Graphics.FromImage(bmp);
             g.Clear(Color.White);
@@ -553,6 +574,23 @@ namespace Music_Comp
                 bmp.Save(filename, ImageFormat.Png);
             else
                 bmp.Save(filename, fileformat);
+        }
+
+        public void Save(string filename = null)
+        {
+            if (filename != null)
+                mFileName = filename;
+
+            IFormatter formatter = new BinaryFormatter();
+            Stream stream = new FileStream(mFileName, FileMode.Create, FileAccess.Write);
+
+            formatter.Serialize(stream, this);
+            stream.Close();
+        }
+
+        public string GetFileName()
+        {
+            return mFileName;
         }
     }
 }

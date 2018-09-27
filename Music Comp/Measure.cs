@@ -6,6 +6,7 @@ using System;
 
 namespace Music_Comp
 {
+    [Serializable]
     public class Measure : SongComponent
     {
         List<Chord> mChords;
