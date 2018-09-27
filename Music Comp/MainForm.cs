@@ -1561,5 +1561,13 @@ namespace Music_Comp
         {
             Properties.Settings.Default.Save();
         }
+
+        private void numericUpDown1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                ActiveControl = graphicsPanel;
+            }
+        }
     }
 }

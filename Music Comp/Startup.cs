@@ -57,6 +57,7 @@ namespace Music_Comp
         public Startup()
         {
             InitializeComponent();
+            ActiveControl = AddInstrumentButton;
 
             key = Key.C;
             time = Time.FourFour;
@@ -84,9 +85,9 @@ namespace Music_Comp
             KeyBox.Location = new  Point(Width - 96, 93);
             label3.Location = new  Point(Width - 176, 125);
             TimeBox.Location = new Point(Width - 96, 123);
-            label1.Location = new Point(Width - 176, 155);
+            titleBoxLabel.Location = new Point(Width - 176, 155);
             titleTextBox.Location = new Point(Width - 96, 153);
-            label4.Location = new Point(Width - 176, 185);
+            composerBoxLabel.Location = new Point(Width - 176, 185);
             composerTextBox.Location = new Point(Width - 96, 183);
         }
 
@@ -134,12 +135,36 @@ namespace Music_Comp
         {
             titleLabel.Text = titleTextBox.Text;
             title = titleTextBox.Text;
+            if (titleTextBox.TextLength > 0 && composerTextBox.TextLength > 0)
+            {
+                okButton.DialogResult = DialogResult.OK;
+            }
+            else
+            {
+                okButton.DialogResult = DialogResult.None;
+            }
+            if (titleTextBox.TextLength > 0)
+            {
+                titleBoxLabel.ForeColor = Color.Black;
+            }
         }
 
         private void composerTextBox_TextChanged(object sender, EventArgs e)
         {
             composerLabel.Text = composerTextBox.Text;
             composer = composerTextBox.Text;
+            if (titleTextBox.TextLength > 0 && composerTextBox.TextLength > 0)
+            {
+                okButton.DialogResult = DialogResult.OK;
+            }
+            else
+            {
+                okButton.DialogResult = DialogResult.None;
+            }
+            if (composerTextBox.TextLength > 0)
+            {
+                composerBoxLabel.ForeColor = Color.Black;
+            }
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -176,7 +201,23 @@ namespace Music_Comp
 
         private void okButton_Click(object sender, EventArgs e)
         {
-            checkexit = false;
+            if (titleTextBox.TextLength == 0 && composerTextBox.TextLength == 0)
+            {
+                titleBoxLabel.ForeColor = Color.Red;
+                composerBoxLabel.ForeColor = Color.Red;
+            }
+            else if (titleTextBox.TextLength == 0)
+            {
+                titleBoxLabel.ForeColor = Color.Red;
+            }
+            else if (composerTextBox.TextLength == 0)
+            {
+                composerBoxLabel.ForeColor = Color.Red;
+            }
+            else
+            {
+                checkexit = false;
+            }
         }
 
         private void composerLabel_SizeChanged(object sender, EventArgs e)
