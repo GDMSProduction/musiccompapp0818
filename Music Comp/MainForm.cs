@@ -3,8 +3,8 @@ using System.Windows.Forms;
 using System.Threading;
 using System.Drawing;
 using System.Timers;
-using System;
 using System.IO;
+using System;
 
 namespace Music_Comp
 {
@@ -1541,7 +1541,7 @@ namespace Music_Comp
             SaveFileDialog dlg = new SaveFileDialog();
             dlg.FileName = titleTextBox.Text;
             dlg.DefaultExt = ".wav";
-            dlg.Filter = "wave file (*.wav)|*.wav|png file (*.png)|*.png";
+            dlg.Filter = "wave file (*.wav)|*.wav|png file (*.png)|*.png|image & audio (*.wav, *.png)|*.wav-png";
             if (DialogResult.OK == dlg.ShowDialog())
             {
                 string extension = Path.GetExtension(dlg.FileName);
@@ -1553,13 +1553,36 @@ namespace Music_Comp
                     case ".png":
                         song.ExportImage(dlg.FileName);
                         break;
+                    case ".wav-png":
+                        string pathWithoutExt = dlg.FileName.Remove(dlg.FileName.Length - extension.Length, extension.Length);
+                        song.ExportAudio(pathWithoutExt + ".wav");
+                        song.ExportImage(pathWithoutExt + ".png");
+                        break;
                 }
-            }  
+            }
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             Properties.Settings.Default.Save();
+        }
+
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog dlg = new SaveFileDialog();
+            dlg.FileName = titleTextBox.Text;
+            dlg.DefaultExt = "bcf";
+            dlg.Filter = "bitComposer file (*.bcf)|*.bcf";
+            if (DialogResult.OK == dlg.ShowDialog())
+                song.Save(dlg.FileName);
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (song.GetFileName() == null)
+                saveAsToolStripMenuItem_Click(sender, e);
+            else
+                song.Save();
         }
     }
 }

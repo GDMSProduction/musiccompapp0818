@@ -76,7 +76,7 @@
             this.zoomInButton.BackColor = System.Drawing.Color.White;
             this.zoomInButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.zoomInButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.zoomInButton.Location = new System.Drawing.Point(9217, 14892);
+            this.zoomInButton.Location = new System.Drawing.Point(9979, 16219);
             this.zoomInButton.Name = "zoomInButton";
             this.zoomInButton.Size = new System.Drawing.Size(75, 75);
             this.zoomInButton.TabIndex = 1;
@@ -91,7 +91,7 @@
             this.zoomOutButton.BackColor = System.Drawing.Color.White;
             this.zoomOutButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.zoomOutButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.zoomOutButton.Location = new System.Drawing.Point(9217, 14967);
+            this.zoomOutButton.Location = new System.Drawing.Point(9979, 16294);
             this.zoomOutButton.Name = "zoomOutButton";
             this.zoomOutButton.Size = new System.Drawing.Size(75, 75);
             this.zoomOutButton.TabIndex = 2;
@@ -137,33 +137,35 @@
             // newSongToolStripMenuItem
             // 
             this.newSongToolStripMenuItem.Name = "newSongToolStripMenuItem";
-            this.newSongToolStripMenuItem.Size = new System.Drawing.Size(222, 30);
+            this.newSongToolStripMenuItem.Size = new System.Drawing.Size(252, 30);
             this.newSongToolStripMenuItem.Text = "New Song";
             this.newSongToolStripMenuItem.Click += new System.EventHandler(this.newSongToolStripMenuItem_Click);
             // 
             // newInstrumentToolStripMenuItem
             // 
             this.newInstrumentToolStripMenuItem.Name = "newInstrumentToolStripMenuItem";
-            this.newInstrumentToolStripMenuItem.Size = new System.Drawing.Size(222, 30);
+            this.newInstrumentToolStripMenuItem.Size = new System.Drawing.Size(252, 30);
             this.newInstrumentToolStripMenuItem.Text = "New Instrument";
             this.newInstrumentToolStripMenuItem.Click += new System.EventHandler(this.Add_Instrument_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(222, 30);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(252, 30);
             this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(222, 30);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(252, 30);
             this.saveAsToolStripMenuItem.Text = "Save As";
+            this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // exportToolStripMenuItem
             // 
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(222, 30);
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(252, 30);
             this.exportToolStripMenuItem.Text = "Export";
             this.exportToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripMenuItem_Click);
             // 
@@ -279,7 +281,7 @@
             this.songdur4.BackColor = System.Drawing.Color.White;
             this.songdur4.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.songdur4.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.songdur4.Location = new System.Drawing.Point(168, 20720);
+            this.songdur4.Location = new System.Drawing.Point(168, 23374);
             this.songdur4.Name = "songdur4";
             this.songdur4.Size = new System.Drawing.Size(150, 150);
             this.songdur4.TabIndex = 8;
@@ -293,7 +295,7 @@
             this.songdur3.BackColor = System.Drawing.Color.White;
             this.songdur3.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.songdur3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.songdur3.Location = new System.Drawing.Point(12, 20720);
+            this.songdur3.Location = new System.Drawing.Point(12, 23374);
             this.songdur3.Name = "songdur3";
             this.songdur3.Size = new System.Drawing.Size(150, 150);
             this.songdur3.TabIndex = 7;
@@ -307,7 +309,7 @@
             this.songdur1.BackColor = System.Drawing.Color.White;
             this.songdur1.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.songdur1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.songdur1.Location = new System.Drawing.Point(12, 20564);
+            this.songdur1.Location = new System.Drawing.Point(12, 23218);
             this.songdur1.Name = "songdur1";
             this.songdur1.Size = new System.Drawing.Size(150, 150);
             this.songdur1.TabIndex = 6;
@@ -321,7 +323,7 @@
             this.songdur2.BackColor = System.Drawing.Color.White;
             this.songdur2.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.songdur2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.songdur2.Location = new System.Drawing.Point(168, 20564);
+            this.songdur2.Location = new System.Drawing.Point(168, 23218);
             this.songdur2.Name = "songdur2";
             this.songdur2.Size = new System.Drawing.Size(150, 150);
             this.songdur2.TabIndex = 9;
@@ -335,7 +337,7 @@
             this.SongDuration.BackColor = System.Drawing.Color.White;
             this.SongDuration.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.SongDuration.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SongDuration.Location = new System.Drawing.Point(12, 21014);
+            this.SongDuration.Location = new System.Drawing.Point(12, 23668);
             this.SongDuration.Name = "SongDuration";
             this.SongDuration.Size = new System.Drawing.Size(150, 150);
             this.SongDuration.TabIndex = 5;

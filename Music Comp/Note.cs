@@ -6,12 +6,12 @@ using System;
 
 namespace Music_Comp
 {
+    [Serializable]
     public class Note : SongComponent
     {
         RectangleF noteArea;
         RectangleF dotArea;
         Image image;
-        ImageAttributes attr;
 
         int mNoteNumber;
 
@@ -33,18 +33,6 @@ namespace Music_Comp
             noteArea = ar;
             Song.SELECTABLES.Add(this);
             Song.TOTAL_NOTES++;
-
-            ColorMatrix colorMatrix = new ColorMatrix(new float[][]
-            {
-                new float[] {0, 0, 0, 0, 0},
-                new float[] {0, 0, 0, 0, 0},
-                new float[] {0, 0, 0, 0, 0},
-                new float[] {0, 0, 0, 1, 0},
-                new float[] {1, 0, 0, 0, 1}
-            });
-
-            attr = new ImageAttributes();
-            attr.SetColorMatrix(colorMatrix);
         }
 
         public Note Clone()
@@ -220,7 +208,7 @@ namespace Music_Comp
             if (g.IsVisible(noteArea))
                 if (isSelected)
                 {
-                    g.DrawImage(image, GetPoints(noteArea), new RectangleF(0, 0, image.Width, image.Height), GraphicsUnit.Pixel, attr);
+                    g.DrawImage(image, GetPoints(noteArea), new RectangleF(0, 0, image.Width, image.Height), GraphicsUnit.Pixel, Song._REDSHIFT);
                     if (IsDotted())
                         g.FillEllipse(new SolidBrush(Color.Red), dotArea);
                 }

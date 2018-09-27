@@ -4,6 +4,7 @@ using System;
 
 namespace Music_Comp
 {
+    [Serializable]
     public class SongComponent
     {
         protected bool isSelected;

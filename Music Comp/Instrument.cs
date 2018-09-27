@@ -6,6 +6,7 @@ using System;
 
 namespace Music_Comp
 {
+    [Serializable]
     class Instrument : SongComponent
     {
         Staff[] mStaves;
