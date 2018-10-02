@@ -21,7 +21,9 @@ namespace Music_Comp
         sbyte mOctave;
         WaveForm mWaveForm;
 
-        public Note(Pitch p, Accidental a, Duration d, sbyte o = 4, WaveForm w = WaveForm.Sine, int noteNumber = 0, Image i = null, RectangleF ar = new RectangleF())
+        public Note(Pitch p, Accidental a, Duration d, sbyte o = 4,
+            WaveForm w = WaveForm.Sine, int noteNumber = 0, Image i = null,
+            RectangleF ar = new RectangleF())
         {
             mNoteNumber = noteNumber;
             mPitch = p;
@@ -152,7 +154,7 @@ namespace Music_Comp
             }
             else
             {
-                y += (4.1f + ((int)mPitch + (int)clef - (mOctave - 4) * 8) * 14.7f) * Song._SCALE;
+                y += (4.1f + ((int)mPitch + (int)clef - (mOctave - 4) * 7) * 14.7f) * Song._SCALE;
 
                 switch (mDuration)
                 {
