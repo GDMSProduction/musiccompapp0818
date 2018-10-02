@@ -49,6 +49,7 @@ namespace Music_Comp
 
         public static List<float> BARLINES;
         public static List<SongComponent> SELECTABLES;
+        public static List<Note> LASTNOTES;
         
         List<Instrument> mInstruments = new List<Instrument>();
         Instrument mSelectedInstrument;
@@ -94,6 +95,7 @@ namespace Music_Comp
 
             BARLINES = new List<float>();
             SELECTABLES = new List<SongComponent>();
+            LASTNOTES = new List<Note>();
         }
 
         public RectangleF GetArea()

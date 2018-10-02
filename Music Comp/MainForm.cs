@@ -943,6 +943,8 @@ namespace Music_Comp
                 {
                     Staff staff = song.GetInstrument(song.GetSelection().GetInstrumentNumber()).GetStaff(song.GetSelection().GetSelection().GetStaffNumber());
                     chord.SetWaveForm(staff.GetWaveForm());
+                    chord.GetNote(0).Octave = CalculateOctave(chord.GetNote(0), staff);
+                    Song.LASTNOTES[staff.GetStaffNumber()] = chord.GetNote(0);
                     Chord remainder = staff.GetNextMeasure().Add(chord);
                     chord.Play();
                     if (remainder != null)
@@ -1005,6 +1007,31 @@ namespace Music_Comp
                 Song.SELECTABLES.Remove(mChord);
                 noteIndex = 0;
             }
+        }
+
+        private sbyte CalculateOctave(Note n, Staff s)
+        {
+            int index = 0;
+            
+            Note lastNote = Song.LASTNOTES[s.GetStaffNumber()];
+            n.Octave = lastNote.Octave;
+
+            int[] pitchDiff = new int[3];
+            for (int i = 0; i < pitchDiff.Length; i++)
+            {
+                pitchDiff[i] = (int)lastNote.GetPitch() - (int)n.GetPitch();
+                int octaveDiff = n.Octave + i - 1 - lastNote.Octave;
+                pitchDiff[i] -= 7 * octaveDiff;
+            }
+
+            int min = pitchDiff[0];
+            for (int i = 1; i < pitchDiff.Length; i++)
+                if (Math.Abs(pitchDiff[i]) < min)
+                {
+                    min = pitchDiff[i];
+                    index = i;
+                }
+            return (sbyte)(n.Octave - index + 1);
         }
 
         private void ShiftNoteDuration(Chord c)
