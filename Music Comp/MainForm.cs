@@ -1574,6 +1574,7 @@ namespace Music_Comp
                 ActiveControl = graphicsPanel;
             }
         }
+
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveFileDialog dlg = new SaveFileDialog();
@@ -1590,6 +1591,16 @@ namespace Music_Comp
                 saveAsToolStripMenuItem_Click(sender, e);
             else
                 song.Save();
+        }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.DefaultExt = "bcf";
+            if (DialogResult.OK == dlg.ShowDialog())
+            {
+                //dlg.FileName
+            }
         }
     }
 }
