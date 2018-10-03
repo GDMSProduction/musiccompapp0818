@@ -68,6 +68,21 @@ namespace Music_Comp
 
             Song.TOTAL_STAVES++;
             Song.SELECTABLES.Add(this);
+            switch (mClef)
+            {
+                case Clef.Treble:
+                    Song.LASTNOTES.Add(new Note(Pitch.G, Accidental.Natural, Duration.Quarter, 4));
+                    break;
+                case Clef.Alto:
+                    Song.LASTNOTES.Add(new Note(Pitch.G, Accidental.Natural, Duration.Quarter, 4));
+                    break;
+                case Clef.Bass:
+                    Song.LASTNOTES.Add(new Note(Pitch.D, Accidental.Natural, Duration.Quarter, 3));
+                    break;
+                case Clef.Tenor:
+                    Song.LASTNOTES.Add(new Note(Pitch.G, Accidental.Natural, Duration.Quarter, 4));
+                    break;
+            }
         }
 
         public int GetMeasureCount()
@@ -108,6 +123,11 @@ namespace Music_Comp
             foreach (Measure measure in mMeasures)
                 d += measure.GetDuration();
             return d;
+        }
+
+        public Clef GetClef()
+        {
+            return mClef;
         }
 
         public WaveForm GetWaveForm()
