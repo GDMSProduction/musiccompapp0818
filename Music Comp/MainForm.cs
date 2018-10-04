@@ -88,63 +88,69 @@ namespace Music_Comp
             Startup startup = new Startup();
             startup.ShowDialog();
 
-            if (startup.DialogResult == DialogResult.OK)
+            if (true)
             {
-                Song.SCREEN_WIDTH = startup.mainSCREEN_WIDTH;
-                Song.PAGE_WIDTH = startup.mainPAGE_WIDTH;
-                Song._SCALE = startup.main_SCALE;
-                Song.TOP_MARGIN = startup.mainTOP_MARGIN;
-                Song.LEFT_MARGIN = startup.mainLEFT_MARGIN;
-                Song.RIGHT_MARGIN = startup.mainRIGHT_MARGIN;
-                Song.STAFF_SPACING = startup.mainSTAFF_SPACING;
-                Song.INSTRUMENT_SPACING = startup.mainINSTRUMENT_SPACING;
+                NewSong newsong = new NewSong();
+                newsong.ShowDialog();
 
-                Song.TOTAL_INSTRUMENTS = startup.mainTOTAL_INSTRUMENTS;
-                Song.TOTAL_STAVES = startup.mainTOTAL_STAVES;
-
-                Song.cursorY = startup.maincursorY;
-                Song.cursorX = startup.maincursorX;
-
-                Staff.LINE_SPACING = startup.mainLINE_SPACING;
-                Staff.LENGTH = startup.mainLENGTH;
-                Staff.HEIGHT = startup.mainHEIGHT;
-
-                song = new Song(PAGE_WIDTH, startup.key, startup.time);
-
-                if (Song.TIME > 0)
+                if (newsong.DialogResult == DialogResult.OK)
                 {
-                    currentNoteDuration = Duration.Quarter;
-                    SongDuration.Image = quarter;
-                    pictureBox1.Image = Properties.Resources.Note;
-                    pictureBox1.Size = new Size((int)(64 * _SCALE), (int)(93 * _SCALE));
-                    pictureBox1.Location = new Point((int)(160 * _SCALE), (int)(300 * _SCALE));
-                    label1.Size = new Size((int)(44 * _SCALE), (int)(46 * _SCALE));
-                    label1.Location = new Point((int)(220 * _SCALE), (int)(330 * _SCALE));
-                    numericUpDown1.Location = new Point((int)(260 * _SCALE), (int)(337 * _SCALE));
+                    Song.SCREEN_WIDTH = newsong.mainSCREEN_WIDTH;
+                    Song.PAGE_WIDTH = newsong.mainPAGE_WIDTH;
+                    Song._SCALE = newsong.main_SCALE;
+                    Song.TOP_MARGIN = newsong.mainTOP_MARGIN;
+                    Song.LEFT_MARGIN = newsong.mainLEFT_MARGIN;
+                    Song.RIGHT_MARGIN = newsong.mainRIGHT_MARGIN;
+                    Song.STAFF_SPACING = newsong.mainSTAFF_SPACING;
+                    Song.INSTRUMENT_SPACING = newsong.mainINSTRUMENT_SPACING;
+
+                    Song.TOTAL_INSTRUMENTS = newsong.mainTOTAL_INSTRUMENTS;
+                    Song.TOTAL_STAVES = newsong.mainTOTAL_STAVES;
+
+                    Song.cursorY = newsong.maincursorY;
+                    Song.cursorX = newsong.maincursorX;
+
+                    Staff.LINE_SPACING = newsong.mainLINE_SPACING;
+                    Staff.LENGTH = newsong.mainLENGTH;
+                    Staff.HEIGHT = newsong.mainHEIGHT;
+
+                    song = new Song(PAGE_WIDTH, newsong.key, newsong.time);
+
+                    if (Song.TIME > 0)
+                    {
+                        currentNoteDuration = Duration.Quarter;
+                        SongDuration.Image = quarter;
+                        pictureBox1.Image = Properties.Resources.Note;
+                        pictureBox1.Size = new Size((int)(64 * _SCALE), (int)(93 * _SCALE));
+                        pictureBox1.Location = new Point((int)(160 * _SCALE), (int)(300 * _SCALE));
+                        label1.Size = new Size((int)(44 * _SCALE), (int)(46 * _SCALE));
+                        label1.Location = new Point((int)(220 * _SCALE), (int)(330 * _SCALE));
+                        numericUpDown1.Location = new Point((int)(260 * _SCALE), (int)(337 * _SCALE));
+                    }
+                    else if (Song.TIME < 0)
+                    {
+                        currentNoteDuration = Duration.Eighth;
+                        SongDuration.Image = eighth;
+                        pictureBox1.Image = Properties.Resources.EighthNote;
+                        pictureBox1.Size = new Size((int)(50 * _SCALE), (int)(93 * _SCALE));
+                        pictureBox1.Location = new Point((int)(170 * _SCALE), (int)(300 * _SCALE));
+                        label1.Size = new Size((int)(44 * _SCALE), (int)(46 * _SCALE));
+                        label1.Location = new Point((int)(220 * _SCALE), (int)(330 * _SCALE));
+                        numericUpDown1.Location = new Point((int)(260 * _SCALE), (int)(337 * _SCALE));
+                    }
+
+                    for (int i = 0; i < newsong.instruments.Count; i++)
+                        song.AddInstrument(newsong.instruments[i].clefs, newsong.instruments[i].waveForms, newsong.instruments[i].grouping);
+                    titleTextBox.Text = newsong.title;
+                    composerTextBox.Text = newsong.composer;
+
+                    PlayButton.Image = play;
+                    PlayButton.Location = new Point((Width / 2) - (PlayButton.Width / 2), 0);
+
+                    menuStrip1.BringToFront();
+
+                    PlayButton.BringToFront();
                 }
-                else if (Song.TIME < 0)
-                {
-                    currentNoteDuration = Duration.Eighth;
-                    SongDuration.Image = eighth;
-                    pictureBox1.Image = Properties.Resources.EighthNote;
-                    pictureBox1.Size = new Size((int)(50 * _SCALE), (int)(93 * _SCALE));
-                    pictureBox1.Location = new Point((int)(170 * _SCALE), (int)(300 * _SCALE));
-                    label1.Size = new Size((int)(44 * _SCALE), (int)(46 * _SCALE));
-                    label1.Location = new Point((int)(220 * _SCALE), (int)(330 * _SCALE));
-                    numericUpDown1.Location = new Point((int)(260 * _SCALE), (int)(337 * _SCALE));
-                }
-
-                for (int i = 0; i < startup.instruments.Count; i++)
-                    song.AddInstrument(startup.instruments[i].clefs, startup.instruments[i].waveForms, startup.instruments[i].grouping);
-                titleTextBox.Text = startup.title;
-                composerTextBox.Text = startup.composer;
-
-                PlayButton.Image = play;
-                PlayButton.Location = new Point((Width / 2) - (PlayButton.Width / 2), 0);
-
-                menuStrip1.BringToFront();
-
-                PlayButton.BringToFront();
             }
         }
 
@@ -235,19 +241,23 @@ namespace Music_Comp
                 {
                     pictureBox1.Size = new Size((int)(64 * _SCALE), (int)(93 * _SCALE));
                     pictureBox1.Location = new Point((int)(170 * _SCALE), (int)(200 * _SCALE));
+                    label1.Font = new Font("Microsoft Sans Serif", (int)(21 * _SCALE));
                     label1.Size = new Size((int)(70 * _SCALE), (int)(70 * _SCALE));
                     label1.Location = new Point((int)(226 * _SCALE), (int)(230 * _SCALE));
                     numericUpDown1.Location = new Point((int)(258 * _SCALE), (int)(235 * _SCALE));
-                    //numericUpDown1.Size = new Size((int)(68 * _SCALE), (int)(26 * _SCALE));
+                    numericUpDown1.Font = new Font("Microsoft Sans Serif", (int)(9 * _SCALE));
+                    numericUpDown1.Size = new Size((int)(68 * _SCALE), (int)(26 * _SCALE));
                 }
                 else if (Song.TIME < 0)
                 {
                     pictureBox1.Size = new Size((int)(64 * _SCALE), (int)(93 * _SCALE));
                     pictureBox1.Location = new Point((int)(170 * _SCALE), (int)(200 * _SCALE));
+                    label1.Font = new Font("Microsoft Sans Serif", (int)(21 * _SCALE));
                     label1.Size = new Size((int)(70 * _SCALE), (int)(70 * _SCALE));
                     label1.Location = new Point((int)(226 * _SCALE), (int)(230 * _SCALE));
                     numericUpDown1.Location = new Point((int)(258 * _SCALE), (int)(235 * _SCALE));
-                    //numericUpDown1.Size = new Size((int)(68 * _SCALE), (int)(26 * _SCALE));
+                    numericUpDown1.Font = new Font("Microsoft Sans Serif", (int)(9 * _SCALE));
+                    numericUpDown1.Size = new Size((int)(68 * _SCALE), (int)(26 * _SCALE));
                 }
             }
         }
@@ -262,19 +272,23 @@ namespace Music_Comp
                 {
                     pictureBox1.Size = new Size((int)(64 * _SCALE), (int)(93 * _SCALE));
                     pictureBox1.Location = new Point((int)(170 * _SCALE), (int)(200 * _SCALE));
+                    label1.Font = new Font("Microsoft Sans Serif", (int)(21 * _SCALE));
                     label1.Size = new Size((int)(70 * _SCALE), (int)(70 * _SCALE));
                     label1.Location = new Point((int)(226 * _SCALE), (int)(230 * _SCALE));
                     numericUpDown1.Location = new Point((int)(258 * _SCALE), (int)(235 * _SCALE));
-                    //numericUpDown1.Size = new Size((int)(68 * _SCALE), (int)(26 * _SCALE));
+                    numericUpDown1.Font = new Font("Microsoft Sans Serif", (int)(9 * _SCALE));
+                    numericUpDown1.Size = new Size((int)(68 * _SCALE), (int)(26 * _SCALE));
                 }
                 else if (Song.TIME < 0)
                 {
                     pictureBox1.Size = new Size((int)(64 * _SCALE), (int)(93 * _SCALE));
                     pictureBox1.Location = new Point((int)(170 * _SCALE), (int)(200 * _SCALE));
+                    label1.Font = new Font("Microsoft Sans Serif", (int)(21 * _SCALE));
                     label1.Size = new Size((int)(70 * _SCALE), (int)(70 * _SCALE));
                     label1.Location = new Point((int)(226 * _SCALE), (int)(230 * _SCALE));
                     numericUpDown1.Location = new Point((int)(258 * _SCALE), (int)(235 * _SCALE));
-                    //numericUpDown1.Size = new Size((int)(68 * _SCALE), (int)(26 * _SCALE));
+                    numericUpDown1.Font = new Font("Microsoft Sans Serif", (int)(9 * _SCALE));
+                    numericUpDown1.Size = new Size((int)(68 * _SCALE), (int)(26 * _SCALE));
                 }
             }
             if (Song.BARLINES != null)
