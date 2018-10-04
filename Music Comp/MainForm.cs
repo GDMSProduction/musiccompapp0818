@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Threading;
 using System.Drawing;
@@ -1626,7 +1628,31 @@ namespace Music_Comp
             dlg.DefaultExt = "bcf";
             if (DialogResult.OK == dlg.ShowDialog())
             {
-                //dlg.FileName
+                byte[] buffer;
+                int read;
+                FileStream stream = new FileStream(dlg.FileName, FileMode.Open, FileAccess.Read);
+                BinaryReader reader = new BinaryReader(stream);
+                IFormatter formatter = new BinaryFormatter();
+
+                stream.Seek(-1 * sizeof(long), SeekOrigin.End);
+                long sSongSize = reader.ReadInt64();
+                stream.Seek(0, SeekOrigin.Begin);
+
+                MemoryStream sSong = new MemoryStream();
+                BinaryWriter sSongWriter = new BinaryWriter(sSong);
+                buffer = new byte[sSongSize];
+                while ((read = reader.Read(buffer, 0, buffer.Length)) > 0)
+                    sSongWriter.Write(buffer, 0, read);
+
+                MemoryStream sSettings = new MemoryStream();
+                BinaryWriter sSettingsWriter = new BinaryWriter(sSettings);
+                buffer = new byte[stream.Length - sSongSize - sizeof(long)];
+                while ((read = reader.Read(buffer, (int)sSongSize, buffer.Length)) > 0)
+                    sSettingsWriter.Write(buffer, 0, read);
+
+                SongSettings settings = (SongSettings)formatter.Deserialize(sSettings);
+                settings.Apply();
+                song = (Song)formatter.Deserialize(sSong);
             }
         }
     }

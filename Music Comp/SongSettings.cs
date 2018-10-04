@@ -13,8 +13,6 @@ namespace Music_Comp
         Image bracketImage = Properties.Resources.Bracket;
         Image braceImage = Properties.Resources.Brace;
 
-        public ImageAttributes _REDSHIFT;
-
         public float SCREEN_WIDTH;
         public float PAGE_WIDTH;
         public float _SCALE;
@@ -57,5 +55,71 @@ namespace Music_Comp
         public float LINE_SPACING;
         public float LENGTH;
         public float HEIGHT;
+
+        public SongSettings()
+        {
+            SCREEN_WIDTH = Song.SCREEN_WIDTH;
+            PAGE_WIDTH = Song.PAGE_WIDTH;
+            _SCALE = Song._SCALE;
+            TOP_MARGIN = Song.TOP_MARGIN;
+            LEFT_MARGIN = Song.LEFT_MARGIN;
+            RIGHT_MARGIN = Song.RIGHT_MARGIN;
+            STAFF_SPACING = Song.STAFF_SPACING;
+            INSTRUMENT_SPACING = Song.INSTRUMENT_SPACING;
+
+            TOTAL_INSTRUMENTS = Song.TOTAL_INSTRUMENTS;
+            TOTAL_STAVES = Song.TOTAL_STAVES;
+            TOTAL_MEASURES = Song.TOTAL_MEASURES;
+            TOTAL_CHORDS = Song.TOTAL_CHORDS;
+            TOTAL_NOTES = Song.TOTAL_NOTES;
+
+            cursorY = Song.cursorY;
+            cursorX = Song.cursorX;
+
+            KEY = Song.KEY;
+            TIME = Song.TIME;
+            BPM = Song.BPM;
+            OCTAVE = Song.OCTAVE;
+
+            BARLINES = Song.BARLINES;
+            SELECTABLES = Song.SELECTABLES;
+
+            LINE_SPACING = Staff.LINE_SPACING;
+            LENGTH = Staff.LENGTH;
+            HEIGHT = Staff.HEIGHT;
+        }
+
+        internal void Apply()
+        {
+            Song.SCREEN_WIDTH = SCREEN_WIDTH;
+            Song.PAGE_WIDTH = PAGE_WIDTH;
+            Song._SCALE = _SCALE;
+            Song.TOP_MARGIN = TOP_MARGIN;
+            Song.LEFT_MARGIN = LEFT_MARGIN;
+            Song.RIGHT_MARGIN = RIGHT_MARGIN;
+            Song.STAFF_SPACING = STAFF_SPACING;
+            Song.INSTRUMENT_SPACING = INSTRUMENT_SPACING;
+
+            Song.TOTAL_INSTRUMENTS = TOTAL_INSTRUMENTS;
+            Song.TOTAL_STAVES = TOTAL_STAVES;
+            Song.TOTAL_MEASURES = TOTAL_MEASURES;
+            Song.TOTAL_CHORDS = TOTAL_CHORDS;
+            Song.TOTAL_NOTES = TOTAL_NOTES;
+
+            Song.cursorY = cursorY;
+            Song.cursorX = cursorX;
+
+            Song.KEY = KEY;
+            Song.TIME = TIME;
+            Song.BPM = BPM;
+            Song.OCTAVE = OCTAVE;
+
+            Song.BARLINES = BARLINES;
+            Song.SELECTABLES = SELECTABLES;
+
+            Staff.LINE_SPACING = LINE_SPACING;
+            Staff.LENGTH = LENGTH;
+            Staff.HEIGHT = HEIGHT;
+        }
     }
 }
