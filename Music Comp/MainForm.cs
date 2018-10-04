@@ -345,6 +345,7 @@ namespace Music_Comp
                 return;
 
             bool valid = false;
+            bool isLetter = true;
 
             if (!ControlCheck())
             {
@@ -933,7 +934,8 @@ namespace Music_Comp
                     case Keys.D0:
                         {
                             valid = true;
-                                chord.GetNote(0).SetPitch(CheckPitch(e));
+                            isLetter = false;
+                            chord.GetNote(0).SetPitch(CheckPitch(e));
                             if (ShiftCheck())
                                 ShiftNoteDuration(chord);
                             break;
@@ -943,8 +945,12 @@ namespace Music_Comp
                 {
                     Staff staff = song.GetInstrument(song.GetSelection().GetInstrumentNumber()).GetStaff(song.GetSelection().GetSelection().GetStaffNumber());
                     chord.SetWaveForm(staff.GetWaveForm());
-                    chord.GetNote(0).Octave = CalculateOctave(chord.GetNote(0), staff);
+                    if (isLetter)
+                    {
+                        chord.GetNote(0).Octave = CalculateOctave(chord.GetNote(0), staff);
+                    }
                     Song.LASTNOTES[staff.GetStaffNumber()] = chord.GetNote(0);
+                    Song.OCTAVE = Song.LASTNOTES[staff.GetStaffNumber()].Octave;
                     Chord remainder = staff.GetNextMeasure().Add(chord);
                     chord.Play();
                     if (remainder != null)
@@ -965,7 +971,6 @@ namespace Music_Comp
                     case Keys.F:
                     case Keys.G:
                         {
-                            valid = true;
                             mChord.Add(new Note(Pitch.C, Accidental.Natural, currentNoteDuration, Song.OCTAVE));
                             Enum.TryParse(e.KeyCode.ToString(), out Pitch p);
                             mChord.GetNote(noteIndex).SetPitch(p);
@@ -982,7 +987,7 @@ namespace Music_Comp
                     case Keys.D6:
                     case Keys.D7:
                         {
-                            valid = true;
+                            isLetter = false;
                             mChord.Add(new Note(Pitch.C, Accidental.Natural, currentNoteDuration, Song.OCTAVE));
                             mChord.GetNote(noteIndex).SetPitch(CheckPitch(e));
                             if (ShiftCheck())
@@ -996,6 +1001,15 @@ namespace Music_Comp
             {
                 Staff staff = song.GetInstrument(song.GetSelection().GetInstrumentNumber()).GetStaff(song.GetSelection().GetSelection().GetStaffNumber());
                 mChord.SetWaveForm(staff.GetWaveForm());
+                if (isLetter)
+                {
+                    for (int i = 0; i < noteIndex; i++)
+                    {
+                        mChord.GetNote(i).Octave = CalculateOctave(mChord.GetNote(i), staff);
+                    }
+                }
+                Song.LASTNOTES[staff.GetStaffNumber()] = GetAverageNote(mChord);
+                Song.OCTAVE = Song.LASTNOTES[staff.GetStaffNumber()].Octave;
                 Chord remainder = staff.GetNextMeasure().Add(mChord.Clone());
                 mChord.Play();
                 if (remainder != null)
@@ -1032,6 +1046,34 @@ namespace Music_Comp
                     index = i;
                 }
             return (sbyte)(n.Octave - index + 1);
+        }
+
+        private Note GetAverageNote(Chord c)
+        {
+            int newPitch = 0;
+
+            for (int i = 0; i < noteIndex; i++)
+                newPitch += (c.GetNote(i).Octave * 8 - (int)c.GetNote(i).GetPitch() + 8);
+
+            newPitch = newPitch / noteIndex;
+
+
+            int newOctave = 0;
+            while (newPitch > 0)
+            {
+                newPitch -= 8;
+                newOctave++;
+            }
+
+            newPitch *= -1;
+            newOctave--;
+
+            if (newPitch == 7)
+                newPitch = 6;
+           
+            Note averageNote = new Note((Pitch)newPitch,Accidental.Natural,Duration.Quarter,(sbyte)newOctave);
+
+            return averageNote;
         }
 
         private void ShiftNoteDuration(Chord c)
