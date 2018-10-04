@@ -53,7 +53,7 @@
             this.okButton.Location = new System.Drawing.Point(1628, 939);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(94, 48);
-            this.okButton.TabIndex = 0;
+            this.okButton.TabIndex = 7;
             this.okButton.Text = "OK";
             this.okButton.UseVisualStyleBackColor = true;
             this.okButton.Click += new System.EventHandler(this.okButton_Click);
@@ -113,7 +113,7 @@
             this.AddInstrumentButton.Location = new System.Drawing.Point(1500, 63);
             this.AddInstrumentButton.Name = "AddInstrumentButton";
             this.AddInstrumentButton.Size = new System.Drawing.Size(108, 38);
-            this.AddInstrumentButton.TabIndex = 6;
+            this.AddInstrumentButton.TabIndex = 0;
             this.AddInstrumentButton.Text = "Add";
             this.AddInstrumentButton.UseVisualStyleBackColor = true;
             this.AddInstrumentButton.Click += new System.EventHandler(this.AddInstrumentButton_Click);
@@ -123,7 +123,7 @@
             this.removeInstrumentButton.Location = new System.Drawing.Point(1614, 63);
             this.removeInstrumentButton.Name = "removeInstrumentButton";
             this.removeInstrumentButton.Size = new System.Drawing.Size(108, 38);
-            this.removeInstrumentButton.TabIndex = 7;
+            this.removeInstrumentButton.TabIndex = 1;
             this.removeInstrumentButton.Text = "Remove";
             this.removeInstrumentButton.UseVisualStyleBackColor = true;
             this.removeInstrumentButton.Click += new System.EventHandler(this.button3_Click);
@@ -133,7 +133,7 @@
             this.titleTextBox.Location = new System.Drawing.Point(1614, 241);
             this.titleTextBox.Name = "titleTextBox";
             this.titleTextBox.Size = new System.Drawing.Size(100, 26);
-            this.titleTextBox.TabIndex = 8;
+            this.titleTextBox.TabIndex = 4;
             this.titleTextBox.TextChanged += new System.EventHandler(this.titleTextBox_TextChanged);
             // 
             // composerTextBox
@@ -141,7 +141,7 @@
             this.composerTextBox.Location = new System.Drawing.Point(1614, 294);
             this.composerTextBox.Name = "composerTextBox";
             this.composerTextBox.Size = new System.Drawing.Size(100, 26);
-            this.composerTextBox.TabIndex = 11;
+            this.composerTextBox.TabIndex = 5;
             this.composerTextBox.TextChanged += new System.EventHandler(this.composerTextBox_TextChanged);
             // 
             // KeyBox
@@ -168,7 +168,7 @@
             this.KeyBox.Location = new System.Drawing.Point(1614, 145);
             this.KeyBox.Name = "KeyBox";
             this.KeyBox.Size = new System.Drawing.Size(100, 28);
-            this.KeyBox.TabIndex = 4;
+            this.KeyBox.TabIndex = 2;
             this.KeyBox.Text = "C";
             this.KeyBox.SelectedIndexChanged += new System.EventHandler(this.KeyBox_SelectedIndexChanged);
             // 
@@ -183,7 +183,7 @@
             this.TimeBox.Location = new System.Drawing.Point(1614, 191);
             this.TimeBox.Name = "TimeBox";
             this.TimeBox.Size = new System.Drawing.Size(100, 28);
-            this.TimeBox.TabIndex = 13;
+            this.TimeBox.TabIndex = 3;
             this.TimeBox.Text = "FourFour";
             this.TimeBox.SelectedIndexChanged += new System.EventHandler(this.TimeBox_SelectedIndexChanged);
             // 
@@ -194,7 +194,7 @@
             this.cancelButton.Location = new System.Drawing.Point(1528, 939);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(94, 48);
-            this.cancelButton.TabIndex = 14;
+            this.cancelButton.TabIndex = 6;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
             // 
