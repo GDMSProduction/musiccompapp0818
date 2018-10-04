@@ -124,6 +124,8 @@ namespace Music_Comp
             var mStrm = new MemoryStream();
             BinaryWriter writer = new BinaryWriter(mStrm);
 
+            Random RG = new Random();
+
             int msDuration = (int)GetDuration() * Song.BPM;
             int samplesPerSecond = 44100;
             short bitsPerSample = 16;
@@ -170,17 +172,17 @@ namespace Music_Comp
                 
                 double amp = volume / 2;
 
-                for (int i = 0; i < GetNoteCount(); i++)
+                for (int n = 0; n < GetNoteCount(); n++)
                 {
                     double step = (int)Pitch.A;
-                    if (GetNote(i).GetPitch() < Pitch.E)
+                    if (GetNote(n).GetPitch() < Pitch.E)
                         step -= 0.5;
-                    step += (GetNote(i).Octave - 4) * 6;
-                    double exp = -2 * ((double)GetNote(i).GetPitch() - step);
+                    step += (GetNote(n).Octave - 4) * 6;
+                    double exp = -2 * ((double)GetNote(n).GetPitch() - step);
 
-                    frequency[i] = (ushort)(440 * Math.Pow(NOTE_CONSTANT, exp));
-                    samplesPerWavelength[i] = bytesPerSecond / frequency[i];
-                    ampSteps[i] = (short)(amp * 2 / samplesPerWavelength[i]);
+                    frequency[n] = (ushort)(440 * Math.Pow(NOTE_CONSTANT, exp));
+                    samplesPerWavelength[n] = bytesPerSecond / frequency[n];
+                    ampSteps[n] = (short)(amp * 2 / samplesPerWavelength[n]);
                 }
 
                 for (int i = 0; i < angles.Length; i++)
@@ -202,17 +204,26 @@ namespace Music_Comp
                             break;
                         case WaveForm.Sawtooth:
                             for (int n = 0; n < GetNoteCount(); n++)
-                                sample += (short)((s % (samplesPerWavelength[n])) * ampSteps[n]);
+                                sample += (short)(s % samplesPerWavelength[n] * ampSteps[n]);
                             break;
                         case WaveForm.Triangle:
                             for (int n = 0; n < GetNoteCount(); n++)
-                                if (s < samplesPerWavelength[n] / 4 || s > samplesPerWavelength[n] * 3 / 4)
-                                    sample += (short)(s % samplesPerWavelength[n] * ampSteps[n]);
+                            {
+                                int sLoc = s % samplesPerWavelength[n];
+                                if (sLoc < samplesPerWavelength[n] / 2)
+                                    if (sLoc < samplesPerWavelength[n] / 4)
+                                        sample += (short)(sLoc * ampSteps[n]);
+                                    else
+                                        sample += (short)((samplesPerWavelength[n] - sLoc) * ampSteps[n]);
                                 else
-                                    sample += (short)((samplesPerWavelength[n] - (s % samplesPerWavelength[n])) * ampSteps[n]);
+                                    if (sLoc < samplesPerWavelength[n] * 3 / 4)
+                                    sample += (short)(sLoc * ampSteps[n]);
+                                else
+                                    sample += (short)((samplesPerWavelength[n] - sLoc) * ampSteps[n]);
+                            }
                             break;
                         case WaveForm.Noise:
-                            sample += (short)new Random().Next((int)-amp, (int)amp);
+                            sample += (short)RG.Next((int)-amp, (int)amp);
                             break;
                     }
                     writer.Write(sample);

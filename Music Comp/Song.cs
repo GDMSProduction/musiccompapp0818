@@ -49,6 +49,7 @@ namespace Music_Comp
 
         public static List<float> BARLINES;
         public static List<SongComponent> SELECTABLES;
+        public static List<Note> LASTNOTES;
         
         List<Instrument> mInstruments = new List<Instrument>();
         Instrument mSelectedInstrument;
@@ -94,6 +95,7 @@ namespace Music_Comp
 
             BARLINES = new List<float>();
             SELECTABLES = new List<SongComponent>();
+            LASTNOTES = new List<Note>();
         }
 
         public RectangleF GetArea()
@@ -295,6 +297,8 @@ namespace Music_Comp
             var mStrm = new MemoryStream();
             BinaryWriter writer = new BinaryWriter(mStrm);
 
+            Random RG = new Random();
+
             int msDuration = GetDuration() * 3600 / BPM;
             int formatChunkSize = 16;
             int headerSize = 8;
@@ -356,59 +360,62 @@ namespace Music_Comp
 
                                 double amp = volume / 2;
 
-                                for (int i = 0; i < chord.GetNoteCount(); i++)
+                                for (int n = 0; n < chord.GetNoteCount(); n++)
                                 {
                                     double step = (int)Pitch.A;
-                                    if (chord.GetNote(i).GetPitch() < Pitch.E)
+                                    if (chord.GetNote(n).GetPitch() < Pitch.E)
                                         step -= 0.5;
-                                    step += (chord.GetNote(i).Octave - 4) * 6;
-                                    double exp = -2 * ((double)chord.GetNote(i).GetPitch() - step);
+                                    step += (chord.GetNote(n).Octave - 4) * 6;
+                                    double exp = -2 * ((double)chord.GetNote(n).GetPitch() - step);
 
-                                    frequency[i] = (ushort)(440 * Math.Pow(NOTE_CONSTANT, exp));
-                                    samplesPerWavelength[i] = bytesPerSecond / frequency[i];
-                                    ampSteps[i] = (short)(amp * 2 / samplesPerWavelength[i]);
+                                    frequency[n] = (ushort)(440 * Math.Pow(NOTE_CONSTANT, exp));
+                                    samplesPerWavelength[n] = bytesPerSecond / frequency[n];
+                                    ampSteps[n] = (short)(amp * 2 / samplesPerWavelength[n]);
                                 }
 
-                                for (int i = 0; i < angles.Length; i++)
-                                    angles[i] = frequency[i] * TAU / samplesPerSecond;
+                                for (int n = 0; n < chord.GetNoteCount(); n++)
+                                    angles[n] = frequency[n] * TAU / samplesPerSecond;
 
                                 short tempSample = (short)-amp;
-                                for (int i = 0; i < chordSamples; i++)
+                                for (int s = 0; s < chordSamples; s++)
                                 {
-                                    short s = 0;
+                                    short sample = 0;
 
                                     switch (chord.GetWaveForm())
                                     {
                                         case WaveForm.Sine:
-                                            foreach (double theta in angles)
-                                                s += (short)(amp * Math.Sin(theta * i));
+                                            for (int n = 0; n < chord.GetNoteCount(); n++)
+                                                sample += (short)(amp * Math.Sin(angles[n] * s));
                                             break;
                                         case WaveForm.Square:
-                                            foreach (double theta in angles)
-                                                s += (short)(amp * Math.Sign(Math.Sin(theta * i)));
+                                            for (int n = 0; n < chord.GetNoteCount(); n++)
+                                                sample += (short)(amp * Math.Sign(Math.Sin(angles[n] * s)));
                                             break;
                                         case WaveForm.Sawtooth:
-                                            foreach (short ampStep in ampSteps)
-                                            {
-                                                tempSample += ampStep;
-                                                s += (short)(tempSample / ampSteps.Length);
-                                            }
+                                            for (int n = 0; n < chord.GetNoteCount(); n++)
+                                                sample += (short)(s % samplesPerWavelength[n] * ampSteps[n]);
                                             break;
                                         case WaveForm.Triangle:
-                                            for (int j = 0; j < ampSteps.Length; j++)
+                                            for (int n = 0; n < chord.GetNoteCount(); n++)
                                             {
-                                                if (Math.Abs(tempSample) > amp)
-                                                    ampSteps[j] = (short)-ampSteps[j];
-
-                                                tempSample += ampSteps[j];
-                                                s += (short)(tempSample / ampSteps.Length);
+                                                int sLoc = s % samplesPerWavelength[n];
+                                                if (sLoc < samplesPerWavelength[n] / 2)
+                                                    if (sLoc < samplesPerWavelength[n] / 4)
+                                                        sample += (short)(sLoc * ampSteps[n]);
+                                                    else
+                                                        sample += (short)((samplesPerWavelength[n] - sLoc) * ampSteps[n]);
+                                                else
+                                                    if (sLoc < samplesPerWavelength[n] * 3 / 4)
+                                                    sample += (short)(sLoc * ampSteps[n]);
+                                                else
+                                                    sample += (short)((samplesPerWavelength[n] - sLoc) * ampSteps[n]);
                                             }
                                             break;
                                         case WaveForm.Noise:
-                                            s += (short)((new Random().NextDouble() * 2 - 1));
+                                            sample += (short)RG.Next((int)-amp, (int)amp);
                                             break;
                                     }
-                                    preSamples[chordNumber] += s;
+                                    preSamples[chordNumber] += sample;
                                     chordNumber++;
                                 }
                             }
@@ -438,6 +445,8 @@ namespace Music_Comp
         {
             BinaryWriter writer = new BinaryWriter(File.Open(filename, FileMode.Create));
 
+            Random RG = new Random();
+
             int msDuration = GetDuration() * 3600 / BPM;
             int formatChunkSize = 16;
             int headerSize = 8;
@@ -499,59 +508,62 @@ namespace Music_Comp
 
                                 double amp = volume / 2;
 
-                                for (int i = 0; i < chord.GetNoteCount(); i++)
+                                for (int n = 0; n < chord.GetNoteCount(); n++)
                                 {
                                     double step = (int)Pitch.A;
-                                    if (chord.GetNote(i).GetPitch() < Pitch.E)
+                                    if (chord.GetNote(n).GetPitch() < Pitch.E)
                                         step -= 0.5;
-                                    step += (chord.GetNote(i).Octave - 4) * 6;
-                                    double exp = -2 * ((double)chord.GetNote(i).GetPitch() - step);
+                                    step += (chord.GetNote(n).Octave - 4) * 6;
+                                    double exp = -2 * ((double)chord.GetNote(n).GetPitch() - step);
 
-                                    frequency[i] = (ushort)(440 * Math.Pow(NOTE_CONSTANT, exp));
-                                    samplesPerWavelength[i] = bytesPerSecond / frequency[i];
-                                    ampSteps[i] = (short)(amp * 2 / samplesPerWavelength[i]);
+                                    frequency[n] = (ushort)(440 * Math.Pow(NOTE_CONSTANT, exp));
+                                    samplesPerWavelength[n] = bytesPerSecond / frequency[n];
+                                    ampSteps[n] = (short)(amp * 2 / samplesPerWavelength[n]);
                                 }
 
-                                for (int i = 0; i < angles.Length; i++)
-                                    angles[i] = frequency[i] * TAU / samplesPerSecond;
+                                for (int n = 0; n < chord.GetNoteCount(); n++)
+                                    angles[n] = frequency[n] * TAU / samplesPerSecond;
 
                                 short tempSample = (short)-amp;
-                                for (int i = 0; i < chordSamples; i++)
+                                for (int s = 0; s < chordSamples; s++)
                                 {
-                                    short s = 0;
+                                    short sample = 0;
 
                                     switch (chord.GetWaveForm())
                                     {
                                         case WaveForm.Sine:
-                                            foreach (double theta in angles)
-                                                s += (short)(amp * Math.Sin(theta * i));
+                                            for (int n = 0; n < chord.GetNoteCount(); n++)
+                                                sample += (short)(amp * Math.Sin(angles[n] * s));
                                             break;
                                         case WaveForm.Square:
-                                            foreach (double theta in angles)
-                                                s += (short)(amp * Math.Sign(Math.Sin(theta * i)));
+                                            for (int n = 0; n < chord.GetNoteCount(); n++)
+                                                sample += (short)(amp * Math.Sign(Math.Sin(angles[n] * s)));
                                             break;
                                         case WaveForm.Sawtooth:
-                                            foreach (short ampStep in ampSteps)
-                                            {
-                                                tempSample += ampStep;
-                                                s += (short)(tempSample / ampSteps.Length);
-                                            }
+                                            for (int n = 0; n < chord.GetNoteCount(); n++)
+                                                sample += (short)(s % samplesPerWavelength[n] * ampSteps[n]);
                                             break;
                                         case WaveForm.Triangle:
-                                            for (int j = 0; j < ampSteps.Length; j++)
+                                            for (int n = 0; n < chord.GetNoteCount(); n++)
                                             {
-                                                if (Math.Abs(tempSample) > amp)
-                                                    ampSteps[j] = (short)-ampSteps[j];
-
-                                                tempSample += ampSteps[j];
-                                                s += (short)(tempSample / ampSteps.Length);
+                                                int sLoc = s % samplesPerWavelength[n];
+                                                if (sLoc < samplesPerWavelength[n] / 2)
+                                                    if (sLoc < samplesPerWavelength[n] / 4)
+                                                        sample += (short)(sLoc * ampSteps[n]);
+                                                    else
+                                                        sample += (short)((samplesPerWavelength[n] - sLoc) * ampSteps[n]);
+                                                else
+                                                    if (sLoc < samplesPerWavelength[n] * 3 / 4)
+                                                        sample += (short)(sLoc * ampSteps[n]);
+                                                    else
+                                                        sample += (short)((samplesPerWavelength[n] - sLoc) * ampSteps[n]);
                                             }
                                             break;
                                         case WaveForm.Noise:
-                                            s += (short)((new Random().NextDouble() * 2 - 1));
+                                            sample += (short)RG.Next((int)-amp, (int)amp);
                                             break;
                                     }
-                                    preSamples[chordNumber] += s;
+                                    preSamples[chordNumber] += sample;
                                     chordNumber++;
                                 }
                             }
