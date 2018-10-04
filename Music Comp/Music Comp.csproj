@@ -90,6 +90,12 @@
     <Compile Include="SongComponent.cs" />
     <Compile Include="SongSettings.cs" />
     <Compile Include="Staff.cs" />
+    <Compile Include="NewSong.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewSong.Designer.cs">
+      <DependentUpon>NewSong.cs</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -127,6 +133,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Song Settings.resx">
       <DependentUpon>Song Settings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewSong.resx">
+      <DependentUpon>NewSong.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Startup.resx">
       <DependentUpon>Startup.cs</DependentUpon>
