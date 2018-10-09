@@ -45,7 +45,7 @@ namespace Music_Comp
             pictureBoxes = new PictureBox[files.Length];
             int x = 120;
             int y = 40;
-            for (int i = 0; i < files.Length; i++)
+            for (int i = 0; i < pictureBoxes.Length; i++)
             {
                 string filename = files[i].Name;
                 pictureBoxes[i] = new PictureBox();
@@ -54,10 +54,6 @@ namespace Music_Comp
                 pictureBoxes[i].Location = new Point(x, y);
                 pictureBoxes[i].SizeMode = PictureBoxSizeMode.StretchImage;
                 pictureBoxes[i].Name = "pictureBox" + i;
-                if (filename == "new.png")
-                {
-                    pictureBoxes[i].Location = new Point(10, 40);
-                }
                 this.Controls.Add(pictureBoxes[i]);
                 x = x + 110;
                 if (x + 100 > Width)
@@ -80,7 +76,31 @@ namespace Music_Comp
 
         private void Startup_Resize(object sender, EventArgs e)
         {
+            Relocate();
             Invalidate();
+        }
+
+        private void Relocate()
+        {
+            int x = 120;
+            int y = 40;
+            for (int i = 0; i < pictureBoxes.Length; ++i)
+            {
+                pictureBoxes[i].Location = new Point(x, y);
+                x = x + 110;
+                if (x + 100 > Width)
+                {
+                    x = 10;
+                    y = y + 110;
+                }
+                if ((pictureBoxes[i].Location.X + 100 > button2.Location.X) && (pictureBoxes[i].Location.Y + 100 >= button2.Location.Y))
+                {
+                    button2.Location = new Point(button2.Location.X, button2.Location.Y + 120);
+                    button1.Location = new Point(button1.Location.X, button1.Location.Y + 120);
+                }
+                button1.Location = new Point(Width - button1.Size.Width * 2 - 40, button1.Location.Y);
+                button2.Location = new Point(Width - button2.Size.Width - 40, button2.Location.Y);
+            }
         }
     }
 }
