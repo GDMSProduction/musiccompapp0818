@@ -120,6 +120,18 @@ namespace Music_Comp
             Staff.LINE_SPACING = LINE_SPACING;
             Staff.LENGTH = LENGTH;
             Staff.HEIGHT = HEIGHT;
+
+            ColorMatrix colorMatrix = new ColorMatrix(new float[][]
+            {
+                new float[] {0, 0, 0, 0, 0},
+                new float[] {0, 0, 0, 0, 0},
+                new float[] {0, 0, 0, 0, 0},
+                new float[] {0, 0, 0, 1, 0},
+                new float[] {1, 0, 0, 0, 1}
+            });
+
+            Song._REDSHIFT = new ImageAttributes();
+            Song._REDSHIFT.SetColorMatrix(colorMatrix);
         }
     }
 }

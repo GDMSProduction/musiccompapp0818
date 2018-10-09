@@ -607,10 +607,11 @@ namespace Music_Comp
             MemoryStream settingsStream = new MemoryStream();
 
             formatter.Serialize(stream, this);
+            SongSettings settings = new SongSettings();
 
             long sSongLength = stream.Length;
 
-            formatter.Serialize(settingsStream, new SongSettings());
+            formatter.Serialize(settingsStream, settings);
             settingsStream.Position = 0;
             settingsStream.CopyTo(stream);
 

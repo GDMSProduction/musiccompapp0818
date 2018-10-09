@@ -95,69 +95,69 @@ namespace Music_Comp
             Startup startup = new Startup();
             startup.ShowDialog();
 
-            if (true)
+            NewSong newsong = new NewSong();
+            newsong.ShowDialog();
+
+            if (newsong.DialogResult == DialogResult.OK)
             {
-                NewSong newsong = new NewSong();
-                newsong.ShowDialog();
+                Song.SCREEN_WIDTH = newsong.mainSCREEN_WIDTH;
+                Song.PAGE_WIDTH = newsong.mainPAGE_WIDTH;
+                Song._SCALE = newsong.main_SCALE;
+                Song.TOP_MARGIN = newsong.mainTOP_MARGIN;
+                Song.LEFT_MARGIN = newsong.mainLEFT_MARGIN;
+                Song.RIGHT_MARGIN = newsong.mainRIGHT_MARGIN;
+                Song.STAFF_SPACING = newsong.mainSTAFF_SPACING;
+                Song.INSTRUMENT_SPACING = newsong.mainINSTRUMENT_SPACING;
 
-                if (newsong.DialogResult == DialogResult.OK)
+                Song.TOTAL_INSTRUMENTS = newsong.mainTOTAL_INSTRUMENTS;
+                Song.TOTAL_STAVES = newsong.mainTOTAL_STAVES;
+
+                Song.cursorY = newsong.maincursorY;
+                Song.cursorX = newsong.maincursorX;
+
+                Staff.LINE_SPACING = newsong.mainLINE_SPACING;
+                Staff.LENGTH = newsong.mainLENGTH;
+                Staff.HEIGHT = newsong.mainHEIGHT;
+
+                song = new Song(PAGE_WIDTH, newsong.key, newsong.time);
+
+                if (Song.TIME > 0)
                 {
-                    Song.SCREEN_WIDTH = newsong.mainSCREEN_WIDTH;
-                    Song.PAGE_WIDTH = newsong.mainPAGE_WIDTH;
-                    Song._SCALE = newsong.main_SCALE;
-                    Song.TOP_MARGIN = newsong.mainTOP_MARGIN;
-                    Song.LEFT_MARGIN = newsong.mainLEFT_MARGIN;
-                    Song.RIGHT_MARGIN = newsong.mainRIGHT_MARGIN;
-                    Song.STAFF_SPACING = newsong.mainSTAFF_SPACING;
-                    Song.INSTRUMENT_SPACING = newsong.mainINSTRUMENT_SPACING;
-
-                    Song.TOTAL_INSTRUMENTS = newsong.mainTOTAL_INSTRUMENTS;
-                    Song.TOTAL_STAVES = newsong.mainTOTAL_STAVES;
-
-                    Song.cursorY = newsong.maincursorY;
-                    Song.cursorX = newsong.maincursorX;
-
-                    Staff.LINE_SPACING = newsong.mainLINE_SPACING;
-                    Staff.LENGTH = newsong.mainLENGTH;
-                    Staff.HEIGHT = newsong.mainHEIGHT;
-
-                    song = new Song(PAGE_WIDTH, newsong.key, newsong.time);
-
-                    if (Song.TIME > 0)
-                    {
-                        currentNoteDuration = Duration.Quarter;
-                        SongDuration.Image = quarter;
-                        pictureBox1.Image = Properties.Resources.Note;
-                        pictureBox1.Size = new Size((int)(64 * _SCALE), (int)(93 * _SCALE));
-                        pictureBox1.Location = new Point((int)(160 * _SCALE), (int)(300 * _SCALE));
-                        label1.Size = new Size((int)(44 * _SCALE), (int)(46 * _SCALE));
-                        label1.Location = new Point((int)(220 * _SCALE), (int)(330 * _SCALE));
-                        numericUpDown1.Location = new Point((int)(260 * _SCALE), (int)(337 * _SCALE));
-                    }
-                    else if (Song.TIME < 0)
-                    {
-                        currentNoteDuration = Duration.Eighth;
-                        SongDuration.Image = eighth;
-                        pictureBox1.Image = Properties.Resources.EighthNote;
-                        pictureBox1.Size = new Size((int)(50 * _SCALE), (int)(93 * _SCALE));
-                        pictureBox1.Location = new Point((int)(170 * _SCALE), (int)(300 * _SCALE));
-                        label1.Size = new Size((int)(44 * _SCALE), (int)(46 * _SCALE));
-                        label1.Location = new Point((int)(220 * _SCALE), (int)(330 * _SCALE));
-                        numericUpDown1.Location = new Point((int)(260 * _SCALE), (int)(337 * _SCALE));
-                    }
-
-                    for (int i = 0; i < newsong.instruments.Count; i++)
-                        song.AddInstrument(newsong.instruments[i].clefs, newsong.instruments[i].waveForms, newsong.instruments[i].grouping);
-                    titleTextBox.Text = newsong.title;
-                    composerTextBox.Text = newsong.composer;
-
-                    PlayButton.Image = play;
-                    PlayButton.Location = new Point((Width / 2) - (PlayButton.Width / 2), 0);
-
-                    menuStrip1.BringToFront();
-
-                    PlayButton.BringToFront();
+                    currentNoteDuration = Duration.Quarter;
+                    SongDuration.Image = quarter;
+                    pictureBox1.Image = Properties.Resources.Note;
+                    pictureBox1.Size = new Size((int)(64 * _SCALE), (int)(93 * _SCALE));
+                    pictureBox1.Location = new Point((int)(160 * _SCALE), (int)(300 * _SCALE));
+                    label1.Size = new Size((int)(44 * _SCALE), (int)(46 * _SCALE));
+                    label1.Location = new Point((int)(220 * _SCALE), (int)(330 * _SCALE));
+                    numericUpDown1.Location = new Point((int)(260 * _SCALE), (int)(337 * _SCALE));
                 }
+                else if (Song.TIME < 0)
+                {
+                    currentNoteDuration = Duration.Eighth;
+                    SongDuration.Image = eighth;
+                    pictureBox1.Image = Properties.Resources.EighthNote;
+                    pictureBox1.Size = new Size((int)(50 * _SCALE), (int)(93 * _SCALE));
+                    pictureBox1.Location = new Point((int)(170 * _SCALE), (int)(300 * _SCALE));
+                    label1.Size = new Size((int)(44 * _SCALE), (int)(46 * _SCALE));
+                    label1.Location = new Point((int)(220 * _SCALE), (int)(330 * _SCALE));
+                    numericUpDown1.Location = new Point((int)(260 * _SCALE), (int)(337 * _SCALE));
+                }
+
+                for (int i = 0; i < newsong.instruments.Count; i++)
+                    song.AddInstrument(newsong.instruments[i].clefs, newsong.instruments[i].waveForms, newsong.instruments[i].grouping);
+                titleTextBox.Text = newsong.title;
+                composerTextBox.Text = newsong.composer;
+
+                PlayButton.Image = play;
+                PlayButton.Location = new Point((Width / 2) - (PlayButton.Width / 2), 0);
+
+                menuStrip1.BringToFront();
+
+                PlayButton.BringToFront();
+
+                song.Update();
+                graphicsPanel.Invalidate();
             }
         }
 
@@ -174,14 +174,10 @@ namespace Music_Comp
                 songdur3.Location = new Point(SongDuration.Width * 3 + 20, Height - 220);
                 songdur4.Location = new Point(SongDuration.Width * 4 + 20, Height - 220);
                 if (Song.TIME == Time.SixEight)
-                {
                     songdur4.Location = new Point(0, -200);
-                }
             }
             if (song != null && Song.TOTAL_INSTRUMENTS != 0)
-            {
                 song.Draw(e.Graphics);
-            }
             else
             {
                 pictureBox1.Location = new Point(-200, -200);
@@ -265,6 +261,7 @@ namespace Music_Comp
                     numericUpDown1.Font = new Font("Microsoft Sans Serif", (int)(9 * _SCALE));
                     numericUpDown1.Size = new Size((int)(68 * _SCALE), (int)(26 * _SCALE));
                 }
+                song.Update();
             }
         }
 
@@ -303,6 +300,7 @@ namespace Music_Comp
                         Song.BARLINES[i] *= _SCALE;
                     else
                         Song.BARLINES[i] /= _SCALE;
+            song.Update();
         }
 
         private void Add_Instrument_Click(object sender, EventArgs e)
@@ -335,6 +333,7 @@ namespace Music_Comp
             if (options.DialogResult == DialogResult.OK)
                 song.AddInstrument(options.clefs, options.waveForms, options.grouping);
 
+            song.Update();
             graphicsPanel.Invalidate();
         }
 
@@ -381,6 +380,7 @@ namespace Music_Comp
                     newMeasure.SetSelection(newChord);
             }
 
+            song.Update();
             graphicsPanel.Invalidate();
         }
 
@@ -886,17 +886,21 @@ namespace Music_Comp
                         {
                             if (song.GetSelection().GetSelection().GetStaffNumber() > 0)
                             {
-                                graphicsPanel.Invalidate(new Region(song.GetSelection().GetSelection().GetArea()));
+                                song.GetSelection().GetSelection().Update();
+                                graphicsPanel.Invalidate();
                                 song.GetSelection().SetSelection(song.GetSelection().GetSelection().GetStaffNumber() - 1);
-                                graphicsPanel.Invalidate(new Region(song.GetSelection().GetSelection().GetArea()));
+                                song.GetSelection().GetSelection().Update();
+                                graphicsPanel.Invalidate();
                             }
                             else if (song.GetSelection().GetInstrumentNumber() != 0)
                             {
                                 song.GetSelection().GetSelection().Deselect();
-                                graphicsPanel.Invalidate(new Region(song.GetSelection().GetSelection().GetArea()));
+                                song.GetSelection().GetSelection().Update();
+                                graphicsPanel.Invalidate();
                                 song.SetSelection(song.GetSelection().GetInstrumentNumber() - 1);
                                 song.GetSelection().SetSelection(song.GetInstrument(song.GetSelection().GetInstrumentNumber()).GetStaffCount() - 1);
-                                graphicsPanel.Invalidate(new Region(song.GetSelection().GetSelection().GetArea()));
+                                song.GetSelection().GetSelection().Update();
+                                graphicsPanel.Invalidate();
                             }
                             break;
                         }
@@ -904,25 +908,29 @@ namespace Music_Comp
                         {
                             if (song.GetSelection().GetSelection().GetStaffNumber() < song.GetSelection().GetStaffCount() - 1)
                             {
-                                graphicsPanel.Invalidate(new Region(song.GetSelection().GetSelection().GetArea()));
+                                song.GetSelection().GetSelection().Update();
+                                graphicsPanel.Invalidate();
                                 song.GetSelection().SetSelection(song.GetSelection().GetSelection().GetStaffNumber() + 1);
-                                graphicsPanel.Invalidate(new Region(song.GetSelection().GetSelection().GetArea()));
+                                song.GetSelection().GetSelection().Update();
+                                graphicsPanel.Invalidate();
                             }
                             else if (song.GetSelection().GetInstrumentNumber() != Song.TOTAL_INSTRUMENTS - 1)
                             {
                                 song.GetSelection().GetSelection().Deselect();
-                                graphicsPanel.Invalidate(new Region(song.GetSelection().GetSelection().GetArea()));
+                                song.GetSelection().GetSelection().Update();
+                                graphicsPanel.Invalidate();
                                 song.SetSelection(song.GetSelection().GetInstrumentNumber() + 1);
                                 song.GetSelection().SetSelection(0);
-                                graphicsPanel.Invalidate(new Region(song.GetSelection().GetSelection().GetArea()));
+                                song.GetSelection().GetSelection().Update();
+                                graphicsPanel.Invalidate();
                             }
                             break;
                         }
-                    case Keys.O:
-                        octaveDifference += 1;
-                        break;
-                    case Keys.P:
+                    case Keys.OemMinus:
                         octaveDifference -= 1;
+                        break;
+                    case Keys.Oemplus:
+                        octaveDifference += 1;
                         break;
                     case Keys.Back:
                         {
@@ -931,15 +939,15 @@ namespace Music_Comp
                             {
                                 Chord c = staff.GetSelection().GetSelection();
                                 staff.GetCurrentMeasure().Remove(staff.GetCurrentMeasure().GetChord(staff.GetCurrentMeasure().GetChordCount() - 1));
-                                staff.Update();
-                                graphicsPanel.Invalidate(new Region(staff.GetArea()));
+                                song.Update();
+                                graphicsPanel.Invalidate();
                             }
                             else if (staff.GetCurrentMeasure().IsEmpty() && staff.GetMeasureCount() != 1)
                             {
                                 staff.RemoveMeasure(staff.GetCurrentMeasure());
                                 staff.GetCurrentMeasure().Remove(staff.GetCurrentMeasure().GetChord(staff.GetCurrentMeasure().GetChordCount() - 1));
-                                staff.Update();
-                                graphicsPanel.Invalidate(new Region(staff.GetArea()));
+                                song.Update();
+                                graphicsPanel.Invalidate();
                             }
                             break;
                         }
@@ -1012,9 +1020,7 @@ namespace Music_Comp
                     Staff staff = song.GetInstrument(song.GetSelection().GetInstrumentNumber()).GetStaff(song.GetSelection().GetSelection().GetStaffNumber());
                     chord.SetWaveForm(staff.GetWaveForm());
                     if (isLetter)
-                    {
                         chord.GetNote(0).Octave = CalculateOctave(chord.GetNote(0), staff);
-                    }
                     Song.LASTNOTES[staff.GetStaffNumber()] = chord.GetNote(0);
                     Song.OCTAVE = Song.LASTNOTES[staff.GetStaffNumber()].Octave;
                     octaveDifference = 0;
@@ -1025,11 +1031,11 @@ namespace Music_Comp
                     chord.Play();
                     if (remainder != null)
                         staff.GetNextMeasure().Add(remainder);
-                    staff.Update();
-                    graphicsPanel.Invalidate(new Region(staff.GetArea()));
+                    song.Update();
+                    graphicsPanel.Invalidate();
                 }
             }
-            else
+            else // (ControlCheck())
             {
                 switch (e.KeyCode)
                 {
@@ -1097,12 +1103,8 @@ namespace Music_Comp
                 Staff staff = song.GetInstrument(song.GetSelection().GetInstrumentNumber()).GetStaff(song.GetSelection().GetSelection().GetStaffNumber());
                 mChord.SetWaveForm(staff.GetWaveForm());
                 if (isLetter)
-                {
                      for (int i = 0; i < noteIndex; i++)
-                    {
                         mChord.GetNote(i).Octave = CalculateOctave(mChord.GetNote(i), staff);
-                    }
-                }
                 Song.LASTNOTES[staff.GetStaffNumber()] = GetAverageNote(mChord);
                 Song.OCTAVE = Song.LASTNOTES[staff.GetStaffNumber()].Octave;
                 if (EightOrNine)
@@ -1112,8 +1114,8 @@ namespace Music_Comp
                 mChord.Play();
                 if (remainder != null)
                     staff.GetNextMeasure().Add(remainder);
-                staff.Update();
-                graphicsPanel.Invalidate(new Region(staff.GetArea()));
+                song.Update();
+                graphicsPanel.Invalidate();
 
                 mChord = new Chord(0);
                 Song.SELECTABLES.Remove(mChord);
@@ -1233,7 +1235,9 @@ namespace Music_Comp
                     case Clef.Treble:
                         if (n.GetPitch() <= Pitch.A || n.GetPitch() == Pitch.C)
                         {
-                            if (n.Octave < 3)
+                            if (n.Octave > 5)
+                                n.Octave = 5;
+                            else if (n.Octave < 3)
                                 n.Octave = 3;
                         }
                         else
@@ -1249,10 +1253,14 @@ namespace Music_Comp
                         {
                             if (n.Octave > 6)
                                 n.Octave = 6;
+                            else if (n.Octave < 4)
+                                n.Octave = 4;
                         }
                         else if (n.GetPitch() == Pitch.B || n.GetPitch() == Pitch.C)
                         {
-                            if (n.Octave < 3)
+                            if (n.Octave > 5)
+                                n.Octave = 5;
+                            else if (n.Octave < 3)
                                 n.Octave = 3;
                         }
                         else
@@ -1267,13 +1275,15 @@ namespace Music_Comp
                         if (n.GetPitch() >= Pitch.E && n.GetPitch() < Pitch.C)
                         {
                             if (n.Octave > 4)
-                            {
                                 n.Octave = 4;
-                            }
+                            else if (n.Octave < 2)
+                                n.Octave = 2;
                         }
                         else if (n.GetPitch() == Pitch.C)
                         {
-                            if (n.Octave < 1)
+                            if (n.Octave > 3)
+                                n.Octave = 3;
+                            else if (n.Octave < 1)
                                 n.Octave = 1;
                         }
                         else
@@ -1887,9 +1897,9 @@ namespace Music_Comp
                 reader.Read(buffer, 0, buffer.Length);
                 MemoryStream sSettings = new MemoryStream(buffer);
 
-                song = (Song)formatter.Deserialize(sSong);
                 SongSettings settings = (SongSettings)formatter.Deserialize(sSettings);
                 settings.Apply();
+                song = (Song)formatter.Deserialize(sSong);
 
                 graphicsPanel.Invalidate();
             }

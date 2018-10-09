@@ -155,16 +155,8 @@ namespace Music_Comp
             else
             {
                 y += (4.1f + ((int)mPitch + (int)clef - (mOctave - 4) * 7) * 14.7f) * Song._SCALE;
-                switch (clef)
-                {
-                    case Clef.Alto:
-                        break;
-                    case Clef.Bass:
-                        y -= 14.7f * 14;
-                        break;
-                    case Clef.Tenor:
-                        break;
-                }
+                if (clef == Clef.Bass)
+                    y -= 14.7f * 7 * 2;
 
                 switch (mDuration)
                 {
