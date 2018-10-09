@@ -374,6 +374,7 @@ namespace Music_Comp
 
             bool valid = false;
             bool isLetter = true;
+            bool notEightorNine = true;
 
             if (!ControlCheck())
             {
@@ -952,6 +953,26 @@ namespace Music_Comp
                                 ShiftNoteDuration(chord);
                             break;
                         }
+                    case Keys.D8:
+                        {
+                            valid = true;
+                            isLetter = false;
+                            notEightorNine = false;
+                            chord.GetNote(0).SetPitch(CheckPitch(e));
+                            if (ShiftCheck())
+                                ShiftNoteDuration(chord);
+                            break;
+                        }
+                    case Keys.D9:
+                        {
+                            valid = true;
+                            isLetter = false;
+                            notEightorNine = false;
+                            chord.GetNote(0).SetPitch(CheckPitch(e));
+                            if (ShiftCheck())
+                                ShiftNoteDuration(chord);
+                            break;
+                        }
                     case Keys.D1:
                     case Keys.D2:
                     case Keys.D3:
@@ -979,6 +1000,8 @@ namespace Music_Comp
                     }
                     Song.LASTNOTES[staff.GetStaffNumber()] = chord.GetNote(0);
                     Song.OCTAVE = Song.LASTNOTES[staff.GetStaffNumber()].Octave;
+                    if (!notEightorNine)
+                        chord.GetNote(0).Octave += 1;
                     Chord remainder = staff.GetNextMeasure().Add(chord);
                     chord.Play();
                     if (remainder != null)
@@ -1005,6 +1028,24 @@ namespace Music_Comp
                             if (ShiftCheck())
                                 ShiftNoteDuration(mChord);
                             noteIndex++;
+                            break;
+                        }
+                    case Keys.D8:
+                        {
+                            isLetter = false;
+                            notEightorNine = false;
+                            mChord.GetNote(0).SetPitch(CheckPitch(e));
+                            if (ShiftCheck())
+                                ShiftNoteDuration(mChord);
+                            break;
+                        }
+                    case Keys.D9:
+                        {
+                            isLetter = false;
+                            notEightorNine = false;
+                            mChord.GetNote(0).SetPitch(CheckPitch(e));
+                            if (ShiftCheck())
+                                ShiftNoteDuration(mChord);
                             break;
                         }
                     case Keys.D1:
@@ -1038,6 +1079,8 @@ namespace Music_Comp
                 }
                 Song.LASTNOTES[staff.GetStaffNumber()] = GetAverageNote(mChord);
                 Song.OCTAVE = Song.LASTNOTES[staff.GetStaffNumber()].Octave;
+                if (!notEightorNine)
+                    mChord.GetNote(0).Octave += 1;
                 Chord remainder = staff.GetNextMeasure().Add(mChord.Clone());
                 mChord.Play();
                 if (remainder != null)
@@ -1122,14 +1165,35 @@ namespace Music_Comp
 
         private Pitch CheckPitch (KeyEventArgs e)
         {
+            int i;
+
             if (e.KeyCode == Keys.D0)
                 return Pitch.Rest;
 
-            Enum.TryParse(Song.KEY.ToString(), out Pitch p);
-            int i = (int)e.KeyCode - 49;
-            if ((int)p - i < 0)
-                i -= 7;
-            return (Pitch)((int)p - i);
+            if (e.KeyCode == Keys.D8)
+            {
+                Enum.TryParse(Song.KEY.ToString(), out Pitch p);
+                i = 49 - 49;
+                if ((int)p - i < 0)
+                    i -= 7;
+                return (Pitch)((int)p - i);
+            }
+            else if (e.KeyCode == Keys.D9)
+            {
+                Enum.TryParse(Song.KEY.ToString(), out Pitch p);
+                i = 50 - 49;
+                if ((int)p - i < 0)
+                    i -= 7;
+                return (Pitch)((int)p - i);
+            }
+            else
+            {
+                Enum.TryParse(Song.KEY.ToString(), out Pitch p);
+                i = (int)e.KeyCode - 49;
+                if ((int)p - i < 0)
+                    i -= 7;
+                return (Pitch)((int)p - i);
+            }
         }
 
         private void graphicsPanel_KeyDown(object sender, KeyEventArgs e)
