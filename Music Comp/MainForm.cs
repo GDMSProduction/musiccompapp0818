@@ -175,7 +175,6 @@ namespace Music_Comp
             }
             if (song != null && Song.TOTAL_INSTRUMENTS != 0)
             {
-                song.Update();
                 song.Draw(e.Graphics);
             }
             else
@@ -1713,30 +1712,28 @@ namespace Music_Comp
             if (DialogResult.OK == dlg.ShowDialog())
             {
                 byte[] buffer;
-                int read;
                 FileStream stream = new FileStream(dlg.FileName, FileMode.Open, FileAccess.Read);
                 BinaryReader reader = new BinaryReader(stream);
-                IFormatter formatter = new BinaryFormatter();
+                BinaryFormatter formatter = new BinaryFormatter();
 
                 stream.Seek(-1 * sizeof(long), SeekOrigin.End);
                 long sSongSize = reader.ReadInt64();
                 stream.Seek(0, SeekOrigin.Begin);
 
-                MemoryStream sSong = new MemoryStream();
-                BinaryWriter sSongWriter = new BinaryWriter(sSong);
+                
                 buffer = new byte[sSongSize];
-                while ((read = reader.Read(buffer, 0, buffer.Length)) > 0)
-                    sSongWriter.Write(buffer, 0, read);
+                reader.Read(buffer, 0, buffer.Length);
+                MemoryStream sSong = new MemoryStream(buffer);
 
-                MemoryStream sSettings = new MemoryStream();
-                BinaryWriter sSettingsWriter = new BinaryWriter(sSettings);
                 buffer = new byte[stream.Length - sSongSize - sizeof(long)];
-                while ((read = reader.Read(buffer, (int)sSongSize, buffer.Length)) > 0)
-                    sSettingsWriter.Write(buffer, 0, read);
+                reader.Read(buffer, 0, buffer.Length);
+                MemoryStream sSettings = new MemoryStream(buffer);
 
+                song = (Song)formatter.Deserialize(sSong);
                 SongSettings settings = (SongSettings)formatter.Deserialize(sSettings);
                 settings.Apply();
-                song = (Song)formatter.Deserialize(sSong);
+
+                graphicsPanel.Invalidate();
             }
         }
     }
