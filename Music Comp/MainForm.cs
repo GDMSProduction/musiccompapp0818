@@ -30,6 +30,8 @@ namespace Music_Comp
         int noteIndex = 0;
         Chord mChord = new Chord(0);
 
+        sbyte octaveDifference = 0;
+
         Duration currentNoteDuration = Duration.Quarter;
         
         Bitmap quarter = new Bitmap(Properties.Resources.Note, new Size(65, 100));
@@ -918,10 +920,10 @@ namespace Music_Comp
                             break;
                         }
                     case Keys.O:
-                        Song.OCTAVE += 1;
+                        octaveDifference += 1;
                         break;
                     case Keys.P:
-                        Song.OCTAVE -= 1;
+                        octaveDifference -= 1;
                         break;
                     case Keys.Back:
                         {
@@ -1016,8 +1018,10 @@ namespace Music_Comp
                     }
                     Song.LASTNOTES[staff.GetStaffNumber()] = chord.GetNote(0);
                     Song.OCTAVE = Song.LASTNOTES[staff.GetStaffNumber()].Octave;
+                    octaveDifference = 0;
                     if (EightOrNine)
                         chord.GetNote(0).Octave += 1;
+                    CheckOctaveRange(staff, chord);
                     Chord remainder = staff.GetNextMeasure().Add(chord);
                     chord.Play();
                     if (remainder != null)
@@ -1104,6 +1108,7 @@ namespace Music_Comp
                 Song.OCTAVE = Song.LASTNOTES[staff.GetStaffNumber()].Octave;
                 if (EightOrNine)
                     mChord.GetNote(0).Octave += 1;
+                CheckOctaveRange(staff, mChord);
                 Chord remainder = staff.GetNextMeasure().Add(mChord.Clone());
                 mChord.Play();
                 if (remainder != null)
@@ -1139,7 +1144,7 @@ namespace Music_Comp
                     min = pitchDiff[i];
                     index = i;
                 }
-            return (sbyte)(n.Octave - index + 1);
+            return (sbyte)(n.Octave - index + 1 + octaveDifference);
         }
 
         private Note GetAverageNote(Chord c)
@@ -1186,7 +1191,7 @@ namespace Music_Comp
             }
         }
 
-        private Pitch CheckPitch (KeyEventArgs e)
+        private Pitch CheckPitch(KeyEventArgs e)
         {
             int i;
 
@@ -1216,6 +1221,88 @@ namespace Music_Comp
                 if ((int)p - i < 0)
                     i -= 7;
                 return (Pitch)((int)p - i);
+            }
+        }
+
+        private void CheckOctaveRange(Staff s, Chord c)
+        {
+            for (int i = 0; i < c.GetNoteCount(); i++)
+            {
+                Note n = c.GetNote(i);
+                switch (s.GetClef())
+                {
+                    case Clef.Treble:
+                        if (n.GetPitch() <= Pitch.A || n.GetPitch() == Pitch.C)
+                        {
+                            if (n.Octave < 3)
+                                n.Octave = 3;
+                        }
+                        else
+                        {
+                            if (n.Octave > 5)
+                                n.Octave = 5;
+                            else if (n.Octave < 4)
+                                n.Octave = 4;
+                        }
+                        break;
+                    case Clef.Alto:
+                        if (n.GetPitch() == Pitch.D)
+                        {
+                            if (n.Octave > 6)
+                                n.Octave = 6;
+                        }
+                        else if (n.GetPitch() == Pitch.B || n.GetPitch() == Pitch.C)
+                        {
+                            if (n.Octave < 3)
+                                n.Octave = 3;
+                        }
+                        else
+                        {
+                            if (n.Octave > 5)
+                                n.Octave = 5;
+                            else if (n.Octave < 4)
+                                n.Octave = 4;
+                        }
+                        break;
+                    case Clef.Bass:
+                        if (n.GetPitch() >= Pitch.E && n.GetPitch() < Pitch.C)
+                        {
+                            if (n.Octave > 4)
+                            {
+                                n.Octave = 4;
+                            }
+                        }
+                        else if (n.GetPitch() == Pitch.C)
+                        {
+                            if (n.Octave < 1)
+                                n.Octave = 1;
+                        }
+                        else
+                        {
+                            if (n.Octave > 3)
+                                n.Octave = 3;
+                            else if (n.Octave < 2)
+                                n.Octave = 2;
+                        }
+                        break;
+                    case Clef.Tenor:
+                        if (n.GetPitch() <= Pitch.G || n.GetPitch() == Pitch.C)
+                        {
+                            if (n.GetPitch() == Pitch.C)
+                                if (n.Octave > 4)
+                                    n.Octave = 4;
+                            if (n.Octave < 3)
+                                n.Octave = 3;
+                        }
+                        else
+                        {
+                            if (n.Octave > 5)
+                                n.Octave = 5;
+                            else if (n.Octave < 4)
+                                n.Octave = 4;
+                        }
+                        break;
+                }
             }
         }
 
