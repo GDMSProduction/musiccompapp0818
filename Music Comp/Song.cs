@@ -598,9 +598,17 @@ namespace Music_Comp
                 mFileName = filename;
 
             IFormatter formatter = new BinaryFormatter();
-            Stream stream = new FileStream(mFileName, FileMode.Create, FileAccess.Write);
+            Stream stream = new FileStream(mFileName, FileMode.Append, FileAccess.Write);
 
             formatter.Serialize(stream, this);
+
+            long sSongLength = stream.Length;
+
+            formatter.Serialize(stream, new SongSettings());
+
+            BinaryWriter writer = new BinaryWriter(stream);
+            writer.Write(sSongLength);
+
             stream.Close();
         }
 
