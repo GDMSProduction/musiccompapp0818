@@ -20,6 +20,9 @@ namespace Music_Comp
         bool lcheck = false;
         bool playcheck = false;
 
+        bool isLetter = true;
+        bool EightOrNine = false;
+
         Song song;
 
         System.Timers.Timer timer;
@@ -389,8 +392,6 @@ namespace Music_Comp
                 return;
 
             bool valid = false;
-            bool isLetter = true;
-            bool notEightorNine = true;
 
             if (!ControlCheck())
             {
@@ -826,8 +827,6 @@ namespace Music_Comp
                                             currentNoteDuration = Duration.DottedQuarter;
                                             break;
                                         case Duration.Sixteenth:
-                                        //currentNoteDuration = Duration.Eighth;
-                                        //break;
                                         case Duration.DottedQuarter:
                                             currentNoteDuration = (Duration)((int)currentNoteDuration * 2);
                                             break;
@@ -841,8 +840,6 @@ namespace Music_Comp
                                     switch (currentNoteDuration)
                                     {
                                         case Duration.Eighth:
-                                        //currentNoteDuration = Duration.Sixteenth;
-                                        //break;
                                         case Duration.DottedHalf:
                                             currentNoteDuration = (Duration)((int)currentNoteDuration / 2);
                                             break;
@@ -958,6 +955,8 @@ namespace Music_Comp
                     case Keys.R:
                         {
                             valid = true;
+                            isLetter = true;
+                            EightOrNine = false;
                             if (e.KeyCode != Keys.R)
                             {
                                 Enum.TryParse(e.KeyCode.ToString(), out Pitch p);
@@ -973,7 +972,7 @@ namespace Music_Comp
                         {
                             valid = true;
                             isLetter = false;
-                            notEightorNine = false;
+                            EightOrNine = true;
                             chord.GetNote(0).SetPitch(CheckPitch(e));
                             if (ShiftCheck())
                                 ShiftNoteDuration(chord);
@@ -983,7 +982,7 @@ namespace Music_Comp
                         {
                             valid = true;
                             isLetter = false;
-                            notEightorNine = false;
+                            EightOrNine = true;
                             chord.GetNote(0).SetPitch(CheckPitch(e));
                             if (ShiftCheck())
                                 ShiftNoteDuration(chord);
@@ -1000,6 +999,7 @@ namespace Music_Comp
                         {
                             valid = true;
                             isLetter = false;
+                            EightOrNine = false;
                             chord.GetNote(0).SetPitch(CheckPitch(e));
                             if (ShiftCheck())
                                 ShiftNoteDuration(chord);
@@ -1016,7 +1016,7 @@ namespace Music_Comp
                     }
                     Song.LASTNOTES[staff.GetStaffNumber()] = chord.GetNote(0);
                     Song.OCTAVE = Song.LASTNOTES[staff.GetStaffNumber()].Octave;
-                    if (!notEightorNine)
+                    if (EightOrNine)
                         chord.GetNote(0).Octave += 1;
                     Chord remainder = staff.GetNextMeasure().Add(chord);
                     chord.Play();
@@ -1038,6 +1038,8 @@ namespace Music_Comp
                     case Keys.F:
                     case Keys.G:
                         {
+                            isLetter = true;
+                            EightOrNine = false;
                             mChord.Add(new Note(Pitch.C, Accidental.Natural, currentNoteDuration, Song.OCTAVE));
                             Enum.TryParse(e.KeyCode.ToString(), out Pitch p);
                             mChord.GetNote(noteIndex).SetPitch(p);
@@ -1049,19 +1051,23 @@ namespace Music_Comp
                     case Keys.D8:
                         {
                             isLetter = false;
-                            notEightorNine = false;
-                            mChord.GetNote(0).SetPitch(CheckPitch(e));
+                            EightOrNine = true;
+                            mChord.Add(new Note(Pitch.C, Accidental.Natural, currentNoteDuration, Song.OCTAVE));
+                            mChord.GetNote(noteIndex).SetPitch(CheckPitch(e));
                             if (ShiftCheck())
                                 ShiftNoteDuration(mChord);
+                            noteIndex++;
                             break;
                         }
                     case Keys.D9:
                         {
                             isLetter = false;
-                            notEightorNine = false;
-                            mChord.GetNote(0).SetPitch(CheckPitch(e));
+                            EightOrNine = true;
+                            mChord.Add(new Note(Pitch.C, Accidental.Natural, currentNoteDuration, Song.OCTAVE));
+                            mChord.GetNote(noteIndex).SetPitch(CheckPitch(e));
                             if (ShiftCheck())
                                 ShiftNoteDuration(mChord);
+                            noteIndex++;
                             break;
                         }
                     case Keys.D1:
@@ -1073,6 +1079,7 @@ namespace Music_Comp
                     case Keys.D7:
                         {
                             isLetter = false;
+                            EightOrNine = false;
                             mChord.Add(new Note(Pitch.C, Accidental.Natural, currentNoteDuration, Song.OCTAVE));
                             mChord.GetNote(noteIndex).SetPitch(CheckPitch(e));
                             if (ShiftCheck())
@@ -1088,14 +1095,14 @@ namespace Music_Comp
                 mChord.SetWaveForm(staff.GetWaveForm());
                 if (isLetter)
                 {
-                    for (int i = 0; i < noteIndex; i++)
+                     for (int i = 0; i < noteIndex; i++)
                     {
                         mChord.GetNote(i).Octave = CalculateOctave(mChord.GetNote(i), staff);
                     }
                 }
                 Song.LASTNOTES[staff.GetStaffNumber()] = GetAverageNote(mChord);
                 Song.OCTAVE = Song.LASTNOTES[staff.GetStaffNumber()].Octave;
-                if (!notEightorNine)
+                if (EightOrNine)
                     mChord.GetNote(0).Octave += 1;
                 Chord remainder = staff.GetNextMeasure().Add(mChord.Clone());
                 mChord.Play();
