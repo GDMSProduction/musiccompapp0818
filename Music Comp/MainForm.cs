@@ -161,10 +161,55 @@ namespace Music_Comp
                     song.Update();
                     graphicsPanel.Invalidate();
                 }
-                else
-                {
+            }
+            else
+            {
+                byte[] buffer;
+                FileStream stream = new FileStream(startup.filePath + "\\" + startup.filename + ".bcf", FileMode.Open, FileAccess.Read);
+                BinaryReader reader = new BinaryReader(stream);
+                BinaryFormatter formatter = new BinaryFormatter();
 
+                stream.Seek(-1 * sizeof(long), SeekOrigin.End);
+                long sSongSize = reader.ReadInt64();
+                stream.Seek(0, SeekOrigin.Begin);
+
+
+                buffer = new byte[sSongSize];
+                reader.Read(buffer, 0, buffer.Length);
+                MemoryStream sSong = new MemoryStream(buffer);
+
+                buffer = new byte[stream.Length - sSongSize - sizeof(long)];
+                reader.Read(buffer, 0, buffer.Length);
+                MemoryStream sSettings = new MemoryStream(buffer);
+
+                SongSettings settings = (SongSettings)formatter.Deserialize(sSettings);
+                settings.Apply();
+                song = (Song)formatter.Deserialize(sSong);
+
+                if (Song.TIME > 0)
+                {
+                    currentNoteDuration = Duration.Quarter;
+                    SongDuration.Image = quarter;
+                    pictureBox1.Image = Properties.Resources.Note;
+                    pictureBox1.Size = new Size((int)(64 * _SCALE), (int)(93 * _SCALE));
+                    pictureBox1.Location = new Point((int)(160 * _SCALE), (int)(300 * _SCALE));
+                    label1.Size = new Size((int)(44 * _SCALE), (int)(46 * _SCALE));
+                    label1.Location = new Point((int)(220 * _SCALE), (int)(330 * _SCALE));
+                    numericUpDown1.Location = new Point((int)(260 * _SCALE), (int)(337 * _SCALE));
                 }
+                else if (Song.TIME < 0)
+                {
+                    currentNoteDuration = Duration.Eighth;
+                    SongDuration.Image = eighth;
+                    pictureBox1.Image = Properties.Resources.EighthNote;
+                    pictureBox1.Size = new Size((int)(50 * _SCALE), (int)(93 * _SCALE));
+                    pictureBox1.Location = new Point((int)(170 * _SCALE), (int)(300 * _SCALE));
+                    label1.Size = new Size((int)(44 * _SCALE), (int)(46 * _SCALE));
+                    label1.Location = new Point((int)(220 * _SCALE), (int)(330 * _SCALE));
+                    numericUpDown1.Location = new Point((int)(260 * _SCALE), (int)(337 * _SCALE));
+                }
+
+                graphicsPanel.Invalidate();
             }
         }
 
@@ -1869,7 +1914,10 @@ namespace Music_Comp
             dlg.DefaultExt = "bcf";
             dlg.Filter = "bitComposer file (*.bcf)|*.bcf";
             if (DialogResult.OK == dlg.ShowDialog())
+            {
                 song.Save(dlg.FileName);
+                Properties.Settings.Default.directory = Path.GetFullPath(dlg.FileName);
+            }
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)

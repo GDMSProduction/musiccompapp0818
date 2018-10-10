@@ -44,7 +44,6 @@ namespace Music_Comp
         {
             InitTimer();
             InitializeComponent();
-            Properties.Settings.Default.FirstLaunch = true;
             if (Properties.Settings.Default.FirstLaunch)
             {
                 OpenFileDialog fileDialog = new OpenFileDialog();
@@ -67,6 +66,7 @@ namespace Music_Comp
             int x = 105;
             int y = 10;
             Button newbutton = new Button();
+            newbutton.Name = "newbutton";
             newbutton.Font = new Font("Microsoft Sans Serif", 60);
             newbutton.Text = "+";
             newbutton.TextAlign = ContentAlignment.MiddleLeft;
@@ -163,7 +163,10 @@ namespace Music_Comp
             if (ActiveControl != null && ActiveControl.Name != "button2" && ActiveControl.Name != "button1")
             {
                 filename = ActiveControl.Name;
-                filename = filename.Remove(filename.Length - 4);
+                if (filename != "newbutton")
+                {
+                    filename = filename.Remove(filename.Length - 4);
+                }
                 return filename;
             }
             else
