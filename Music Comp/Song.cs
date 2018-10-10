@@ -126,6 +126,11 @@ namespace Music_Comp
             return mInstruments.Count;
         }
 
+        public string GetFileName()
+        {
+            return mFileName;
+        }
+
         public void SetKeySignature(Key k)
         {
             KEY = k;
@@ -597,24 +602,24 @@ namespace Music_Comp
             if (filename != null)
                 mFileName = filename;
 
-            IFormatter formatter = new BinaryFormatter();
-            Stream stream = new FileStream(mFileName, FileMode.Append, FileAccess.Write);
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream stream = new FileStream(mFileName, FileMode.Append, FileAccess.Write);
+            MemoryStream settingsStream = new MemoryStream();
 
             formatter.Serialize(stream, this);
+            SongSettings settings = new SongSettings();
 
             long sSongLength = stream.Length;
 
-            formatter.Serialize(stream, new SongSettings());
+            formatter.Serialize(settingsStream, settings);
+            settingsStream.Position = 0;
+            settingsStream.CopyTo(stream);
 
             BinaryWriter writer = new BinaryWriter(stream);
             writer.Write(sSongLength);
 
+            settingsStream.Close();
             stream.Close();
-        }
-
-        public string GetFileName()
-        {
-            return mFileName;
         }
     }
 }

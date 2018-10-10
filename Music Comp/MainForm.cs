@@ -30,6 +30,8 @@ namespace Music_Comp
         int noteIndex = 0;
         Chord mChord = new Chord(0);
 
+        sbyte octaveDifference = 0;
+
         Duration currentNoteDuration = Duration.Quarter;
         
         Bitmap quarter = new Bitmap(Properties.Resources.Note, new Size(65, 100));
@@ -155,11 +157,14 @@ namespace Music_Comp
                     menuStrip1.BringToFront();
 
                     PlayButton.BringToFront();
+
+                    song.Update();
+                    graphicsPanel.Invalidate();
                 }
-            }
-            else
-            {
-                
+                else
+                {
+
+                }
             }
         }
 
@@ -176,15 +181,10 @@ namespace Music_Comp
                 songdur3.Location = new Point(SongDuration.Width * 3 + 20, Height - 220);
                 songdur4.Location = new Point(SongDuration.Width * 4 + 20, Height - 220);
                 if (Song.TIME == Time.SixEight)
-                {
                     songdur4.Location = new Point(0, -200);
-                }
             }
             if (song != null && Song.TOTAL_INSTRUMENTS != 0)
-            {
-                song.Update();
                 song.Draw(e.Graphics);
-            }
             else
             {
                 pictureBox1.Location = new Point(-200, -200);
@@ -268,6 +268,7 @@ namespace Music_Comp
                     numericUpDown1.Font = new Font("Microsoft Sans Serif", (int)(9 * _SCALE));
                     numericUpDown1.Size = new Size((int)(68 * _SCALE), (int)(26 * _SCALE));
                 }
+                song.Update();
             }
         }
 
@@ -306,6 +307,7 @@ namespace Music_Comp
                         Song.BARLINES[i] *= _SCALE;
                     else
                         Song.BARLINES[i] /= _SCALE;
+            song.Update();
         }
 
         private void Add_Instrument_Click(object sender, EventArgs e)
@@ -338,6 +340,7 @@ namespace Music_Comp
             if (options.DialogResult == DialogResult.OK)
                 song.AddInstrument(options.clefs, options.waveForms, options.grouping);
 
+            song.Update();
             graphicsPanel.Invalidate();
         }
 
@@ -384,6 +387,7 @@ namespace Music_Comp
                     newMeasure.SetSelection(newChord);
             }
 
+            song.Update();
             graphicsPanel.Invalidate();
         }
 
@@ -889,17 +893,21 @@ namespace Music_Comp
                         {
                             if (song.GetSelection().GetSelection().GetStaffNumber() > 0)
                             {
-                                graphicsPanel.Invalidate(new Region(song.GetSelection().GetSelection().GetArea()));
+                                song.GetSelection().GetSelection().Update();
+                                graphicsPanel.Invalidate();
                                 song.GetSelection().SetSelection(song.GetSelection().GetSelection().GetStaffNumber() - 1);
-                                graphicsPanel.Invalidate(new Region(song.GetSelection().GetSelection().GetArea()));
+                                song.GetSelection().GetSelection().Update();
+                                graphicsPanel.Invalidate();
                             }
                             else if (song.GetSelection().GetInstrumentNumber() != 0)
                             {
                                 song.GetSelection().GetSelection().Deselect();
-                                graphicsPanel.Invalidate(new Region(song.GetSelection().GetSelection().GetArea()));
+                                song.GetSelection().GetSelection().Update();
+                                graphicsPanel.Invalidate();
                                 song.SetSelection(song.GetSelection().GetInstrumentNumber() - 1);
                                 song.GetSelection().SetSelection(song.GetInstrument(song.GetSelection().GetInstrumentNumber()).GetStaffCount() - 1);
-                                graphicsPanel.Invalidate(new Region(song.GetSelection().GetSelection().GetArea()));
+                                song.GetSelection().GetSelection().Update();
+                                graphicsPanel.Invalidate();
                             }
                             break;
                         }
@@ -907,25 +915,29 @@ namespace Music_Comp
                         {
                             if (song.GetSelection().GetSelection().GetStaffNumber() < song.GetSelection().GetStaffCount() - 1)
                             {
-                                graphicsPanel.Invalidate(new Region(song.GetSelection().GetSelection().GetArea()));
+                                song.GetSelection().GetSelection().Update();
+                                graphicsPanel.Invalidate();
                                 song.GetSelection().SetSelection(song.GetSelection().GetSelection().GetStaffNumber() + 1);
-                                graphicsPanel.Invalidate(new Region(song.GetSelection().GetSelection().GetArea()));
+                                song.GetSelection().GetSelection().Update();
+                                graphicsPanel.Invalidate();
                             }
                             else if (song.GetSelection().GetInstrumentNumber() != Song.TOTAL_INSTRUMENTS - 1)
                             {
                                 song.GetSelection().GetSelection().Deselect();
-                                graphicsPanel.Invalidate(new Region(song.GetSelection().GetSelection().GetArea()));
+                                song.GetSelection().GetSelection().Update();
+                                graphicsPanel.Invalidate();
                                 song.SetSelection(song.GetSelection().GetInstrumentNumber() + 1);
                                 song.GetSelection().SetSelection(0);
-                                graphicsPanel.Invalidate(new Region(song.GetSelection().GetSelection().GetArea()));
+                                song.GetSelection().GetSelection().Update();
+                                graphicsPanel.Invalidate();
                             }
                             break;
                         }
-                    case Keys.O:
-                        Song.OCTAVE += 1;
+                    case Keys.OemMinus:
+                        octaveDifference -= 1;
                         break;
-                    case Keys.P:
-                        Song.OCTAVE -= 1;
+                    case Keys.Oemplus:
+                        octaveDifference += 1;
                         break;
                     case Keys.Back:
                         {
@@ -934,15 +946,15 @@ namespace Music_Comp
                             {
                                 Chord c = staff.GetSelection().GetSelection();
                                 staff.GetCurrentMeasure().Remove(staff.GetCurrentMeasure().GetChord(staff.GetCurrentMeasure().GetChordCount() - 1));
-                                staff.Update();
-                                graphicsPanel.Invalidate(new Region(staff.GetArea()));
+                                song.Update();
+                                graphicsPanel.Invalidate();
                             }
                             else if (staff.GetCurrentMeasure().IsEmpty() && staff.GetMeasureCount() != 1)
                             {
                                 staff.RemoveMeasure(staff.GetCurrentMeasure());
                                 staff.GetCurrentMeasure().Remove(staff.GetCurrentMeasure().GetChord(staff.GetCurrentMeasure().GetChordCount() - 1));
-                                staff.Update();
-                                graphicsPanel.Invalidate(new Region(staff.GetArea()));
+                                song.Update();
+                                graphicsPanel.Invalidate();
                             }
                             break;
                         }
@@ -1015,22 +1027,22 @@ namespace Music_Comp
                     Staff staff = song.GetInstrument(song.GetSelection().GetInstrumentNumber()).GetStaff(song.GetSelection().GetSelection().GetStaffNumber());
                     chord.SetWaveForm(staff.GetWaveForm());
                     if (isLetter)
-                    {
                         chord.GetNote(0).Octave = CalculateOctave(chord.GetNote(0), staff);
-                    }
                     Song.LASTNOTES[staff.GetStaffNumber()] = chord.GetNote(0);
                     Song.OCTAVE = Song.LASTNOTES[staff.GetStaffNumber()].Octave;
+                    octaveDifference = 0;
                     if (EightOrNine)
                         chord.GetNote(0).Octave += 1;
+                    CheckOctaveRange(staff, chord);
                     Chord remainder = staff.GetNextMeasure().Add(chord);
                     chord.Play();
                     if (remainder != null)
                         staff.GetNextMeasure().Add(remainder);
-                    staff.Update();
-                    graphicsPanel.Invalidate(new Region(staff.GetArea()));
+                    song.Update();
+                    graphicsPanel.Invalidate();
                 }
             }
-            else
+            else // (ControlCheck())
             {
                 switch (e.KeyCode)
                 {
@@ -1098,22 +1110,19 @@ namespace Music_Comp
                 Staff staff = song.GetInstrument(song.GetSelection().GetInstrumentNumber()).GetStaff(song.GetSelection().GetSelection().GetStaffNumber());
                 mChord.SetWaveForm(staff.GetWaveForm());
                 if (isLetter)
-                {
                      for (int i = 0; i < noteIndex; i++)
-                    {
                         mChord.GetNote(i).Octave = CalculateOctave(mChord.GetNote(i), staff);
-                    }
-                }
                 Song.LASTNOTES[staff.GetStaffNumber()] = GetAverageNote(mChord);
                 Song.OCTAVE = Song.LASTNOTES[staff.GetStaffNumber()].Octave;
                 if (EightOrNine)
                     mChord.GetNote(0).Octave += 1;
+                CheckOctaveRange(staff, mChord);
                 Chord remainder = staff.GetNextMeasure().Add(mChord.Clone());
                 mChord.Play();
                 if (remainder != null)
                     staff.GetNextMeasure().Add(remainder);
-                staff.Update();
-                graphicsPanel.Invalidate(new Region(staff.GetArea()));
+                song.Update();
+                graphicsPanel.Invalidate();
 
                 mChord = new Chord(0);
                 Song.SELECTABLES.Remove(mChord);
@@ -1143,7 +1152,7 @@ namespace Music_Comp
                     min = pitchDiff[i];
                     index = i;
                 }
-            return (sbyte)(n.Octave - index + 1);
+            return (sbyte)(n.Octave - index + 1 + octaveDifference);
         }
 
         private Note GetAverageNote(Chord c)
@@ -1190,7 +1199,7 @@ namespace Music_Comp
             }
         }
 
-        private Pitch CheckPitch (KeyEventArgs e)
+        private Pitch CheckPitch(KeyEventArgs e)
         {
             int i;
 
@@ -1220,6 +1229,96 @@ namespace Music_Comp
                 if ((int)p - i < 0)
                     i -= 7;
                 return (Pitch)((int)p - i);
+            }
+        }
+
+        private void CheckOctaveRange(Staff s, Chord c)
+        {
+            for (int i = 0; i < c.GetNoteCount(); i++)
+            {
+                Note n = c.GetNote(i);
+                switch (s.GetClef())
+                {
+                    case Clef.Treble:
+                        if (n.GetPitch() <= Pitch.A || n.GetPitch() == Pitch.C)
+                        {
+                            if (n.Octave > 5)
+                                n.Octave = 5;
+                            else if (n.Octave < 3)
+                                n.Octave = 3;
+                        }
+                        else
+                        {
+                            if (n.Octave > 5)
+                                n.Octave = 5;
+                            else if (n.Octave < 4)
+                                n.Octave = 4;
+                        }
+                        break;
+                    case Clef.Alto:
+                        if (n.GetPitch() == Pitch.D)
+                        {
+                            if (n.Octave > 6)
+                                n.Octave = 6;
+                            else if (n.Octave < 4)
+                                n.Octave = 4;
+                        }
+                        else if (n.GetPitch() == Pitch.B || n.GetPitch() == Pitch.C)
+                        {
+                            if (n.Octave > 5)
+                                n.Octave = 5;
+                            else if (n.Octave < 3)
+                                n.Octave = 3;
+                        }
+                        else
+                        {
+                            if (n.Octave > 5)
+                                n.Octave = 5;
+                            else if (n.Octave < 4)
+                                n.Octave = 4;
+                        }
+                        break;
+                    case Clef.Bass:
+                        if (n.GetPitch() >= Pitch.E && n.GetPitch() < Pitch.C)
+                        {
+                            if (n.Octave > 4)
+                                n.Octave = 4;
+                            else if (n.Octave < 2)
+                                n.Octave = 2;
+                        }
+                        else if (n.GetPitch() == Pitch.C)
+                        {
+                            if (n.Octave > 3)
+                                n.Octave = 3;
+                            else if (n.Octave < 1)
+                                n.Octave = 1;
+                        }
+                        else
+                        {
+                            if (n.Octave > 3)
+                                n.Octave = 3;
+                            else if (n.Octave < 2)
+                                n.Octave = 2;
+                        }
+                        break;
+                    case Clef.Tenor:
+                        if (n.GetPitch() <= Pitch.G || n.GetPitch() == Pitch.C)
+                        {
+                            if (n.GetPitch() == Pitch.C)
+                                if (n.Octave > 4)
+                                    n.Octave = 4;
+                            if (n.Octave < 3)
+                                n.Octave = 3;
+                        }
+                        else
+                        {
+                            if (n.Octave > 5)
+                                n.Octave = 5;
+                            else if (n.Octave < 4)
+                                n.Octave = 4;
+                        }
+                        break;
+                }
             }
         }
 
@@ -1788,30 +1887,28 @@ namespace Music_Comp
             if (DialogResult.OK == dlg.ShowDialog())
             {
                 byte[] buffer;
-                int read;
                 FileStream stream = new FileStream(dlg.FileName, FileMode.Open, FileAccess.Read);
                 BinaryReader reader = new BinaryReader(stream);
-                IFormatter formatter = new BinaryFormatter();
+                BinaryFormatter formatter = new BinaryFormatter();
 
                 stream.Seek(-1 * sizeof(long), SeekOrigin.End);
                 long sSongSize = reader.ReadInt64();
                 stream.Seek(0, SeekOrigin.Begin);
 
-                MemoryStream sSong = new MemoryStream();
-                BinaryWriter sSongWriter = new BinaryWriter(sSong);
+                
                 buffer = new byte[sSongSize];
-                while ((read = reader.Read(buffer, 0, buffer.Length)) > 0)
-                    sSongWriter.Write(buffer, 0, read);
+                reader.Read(buffer, 0, buffer.Length);
+                MemoryStream sSong = new MemoryStream(buffer);
 
-                MemoryStream sSettings = new MemoryStream();
-                BinaryWriter sSettingsWriter = new BinaryWriter(sSettings);
                 buffer = new byte[stream.Length - sSongSize - sizeof(long)];
-                while ((read = reader.Read(buffer, (int)sSongSize, buffer.Length)) > 0)
-                    sSettingsWriter.Write(buffer, 0, read);
+                reader.Read(buffer, 0, buffer.Length);
+                MemoryStream sSettings = new MemoryStream(buffer);
 
                 SongSettings settings = (SongSettings)formatter.Deserialize(sSettings);
                 settings.Apply();
                 song = (Song)formatter.Deserialize(sSong);
+
+                graphicsPanel.Invalidate();
             }
         }
     }
