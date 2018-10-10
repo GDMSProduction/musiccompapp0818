@@ -93,7 +93,7 @@ namespace Music_Comp
             Startup startup = new Startup();
             startup.ShowDialog();
 
-            if (true)
+            if (startup.filename == "" || startup.filename == "button2" || startup.filename == "newbutton")
             {
                 NewSong newsong = new NewSong();
                 newsong.ShowDialog();
@@ -156,6 +156,10 @@ namespace Music_Comp
 
                     PlayButton.BringToFront();
                 }
+            }
+            else
+            {
+                
             }
         }
 
