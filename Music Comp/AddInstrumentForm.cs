@@ -27,6 +27,7 @@ namespace Music_Comp
 
         public List<float> mainBARLINES = Song.BARLINES;
         public List<SongComponent> mainSELECTABLES = Song.SELECTABLES;
+        public List<Note[]> mainLASTNOTES = Song.LASTNOTES;
 
         public List<Clef> clefs = new List<Clef>();
         public List<WaveForm> waveForms = new List<WaveForm>();
@@ -35,6 +36,7 @@ namespace Music_Comp
         Song song;
 
         private int staveCount = 1;
+
         public int StaveCount
         {
             get { return staveCount; }

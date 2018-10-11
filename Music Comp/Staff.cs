@@ -71,16 +71,16 @@ namespace Music_Comp
             switch (mClef)
             {
                 case Clef.Treble:
-                    Song.LASTNOTES.Add(new Note(Pitch.G, Accidental.Natural, Duration.Quarter, 4));
+                    Song.LASTNOTES[inst][staffNumber] = new Note(Pitch.G, Accidental.Natural, Duration.Quarter, 4);
                     break;
                 case Clef.Alto:
-                    Song.LASTNOTES.Add(new Note(Pitch.G, Accidental.Natural, Duration.Quarter, 4));
+                    Song.LASTNOTES[inst][staffNumber] = new Note(Pitch.G, Accidental.Natural, Duration.Quarter, 4);
                     break;
                 case Clef.Bass:
-                    Song.LASTNOTES.Add(new Note(Pitch.D, Accidental.Natural, Duration.Quarter, 3));
+                    Song.LASTNOTES[inst][staffNumber] = new Note(Pitch.D, Accidental.Natural, Duration.Quarter, 3);
                     break;
                 case Clef.Tenor:
-                    Song.LASTNOTES.Add(new Note(Pitch.G, Accidental.Natural, Duration.Quarter, 4));
+                    Song.LASTNOTES[inst][staffNumber] = new Note(Pitch.G, Accidental.Natural, Duration.Quarter, 4);
                     break;
             }
         }

@@ -156,7 +156,7 @@ namespace Music_Comp
             {
                 y += (4.1f + ((int)mPitch + (int)clef - (mOctave - 4) * 7) * 14.7f) * Song._SCALE;
                 if (clef == Clef.Bass)
-                    y -= 14.7f * 7 * 2;
+                    y -= 14.7f * 14;
 
                 switch (mDuration)
                 {

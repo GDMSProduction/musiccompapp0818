@@ -361,6 +361,7 @@ namespace Music_Comp
 
             Song.BARLINES = options.mainBARLINES;
             Song.SELECTABLES = options.mainSELECTABLES;
+            Song.LASTNOTES = options.mainLASTNOTES;
 
             if (options.DialogResult == DialogResult.OK)
                 song.AddInstrument(options.clefs, options.waveForms, options.grouping);
@@ -1049,12 +1050,11 @@ namespace Music_Comp
                 }
                 if (valid)
                 {
-                    Staff staff = song.GetInstrument(song.GetSelection().GetInstrumentNumber()).GetStaff(song.GetSelection().GetSelection().GetStaffNumber());
+                    Instrument instrument = song.GetInstrument(song.GetSelection().GetInstrumentNumber());
+                    Staff staff = instrument.GetStaff(song.GetSelection().GetSelection().GetStaffNumber());
                     chord.SetWaveForm(staff.GetWaveForm());
                     if (isLetter)
-                        chord.GetNote(0).Octave = CalculateOctave(chord.GetNote(0), staff);
-                    Song.LASTNOTES[staff.GetStaffNumber()] = chord.GetNote(0);
-                    Song.OCTAVE = Song.LASTNOTES[staff.GetStaffNumber()].Octave;
+                        chord.GetNote(0).Octave = CalculateOctave(chord.GetNote(0), instrument);
                     octaveDifference = 0;
                     if (EightOrNine)
                         chord.GetNote(0).Octave += 1;
@@ -1065,6 +1065,9 @@ namespace Music_Comp
                         staff.GetNextMeasure().Add(remainder);
                     song.Update();
                     graphicsPanel.Invalidate();
+
+                    Song.LASTNOTES[instrument.GetInstrumentNumber()][staff.GetStaffNumber()] = chord.GetNote(0);
+                    Song.OCTAVE = Song.LASTNOTES[instrument.GetInstrumentNumber()][staff.GetStaffNumber()].Octave;
                 }
             }
             else // (ControlCheck())
@@ -1132,13 +1135,12 @@ namespace Music_Comp
             }
             if (!ControlCheck() && noteIndex != 0)
             {
-                Staff staff = song.GetInstrument(song.GetSelection().GetInstrumentNumber()).GetStaff(song.GetSelection().GetSelection().GetStaffNumber());
+                Instrument instrument = song.GetInstrument(song.GetSelection().GetInstrumentNumber());
+                Staff staff = instrument.GetStaff(song.GetSelection().GetSelection().GetStaffNumber());
                 mChord.SetWaveForm(staff.GetWaveForm());
                 if (isLetter)
                      for (int i = 0; i < noteIndex; i++)
-                        mChord.GetNote(i).Octave = CalculateOctave(mChord.GetNote(i), staff);
-                Song.LASTNOTES[staff.GetStaffNumber()] = GetAverageNote(mChord);
-                Song.OCTAVE = Song.LASTNOTES[staff.GetStaffNumber()].Octave;
+                        mChord.GetNote(i).Octave = CalculateOctave(mChord.GetNote(i), instrument);
                 if (EightOrNine)
                     mChord.GetNote(0).Octave += 1;
                 CheckOctaveRange(staff, mChord);
@@ -1149,17 +1151,21 @@ namespace Music_Comp
                 song.Update();
                 graphicsPanel.Invalidate();
 
+                Song.LASTNOTES[instrument.GetInstrumentNumber()][staff.GetStaffNumber()] = GetAverageNote(mChord);
+                Song.OCTAVE = Song.LASTNOTES[instrument.GetInstrumentNumber()][staff.GetStaffNumber()].Octave;
+
                 mChord = new Chord(0);
                 Song.SELECTABLES.Remove(mChord);
                 noteIndex = 0;
             }
         }
 
-        private sbyte CalculateOctave(Note n, Staff s)
+        private sbyte CalculateOctave(Note n, Instrument instrument)
         {
+            Staff staff = instrument.GetSelection();
             int index = 0;
             
-            Note lastNote = Song.LASTNOTES[s.GetStaffNumber()];
+            Note lastNote = Song.LASTNOTES[instrument.GetInstrumentNumber()][staff.GetStaffNumber()];
             n.Octave = lastNote.Octave;
 
             int[] pitchDiff = new int[3];
@@ -1937,8 +1943,32 @@ namespace Music_Comp
                 song = (Song)formatter.Deserialize(sSong);
 
                 Song.SELECTABLES = new List<SongComponent>();
-                song.GetInstrument(0).Select();
-                song.GetSelection().GetStaff(0).Select();
+
+                for (int i = 0; i < song.GetInstrumentCount(); i++)
+                {
+                    Instrument instrument = song.GetInstrument(i);
+                    Song.SELECTABLES.Add(instrument);
+                    for (int s = 0; s < instrument.GetStaffCount(); s++)
+                    {
+                        Staff staff = instrument.GetStaff(s);
+                        Song.SELECTABLES.Add(staff);
+                        for (int m = 0; m < staff.GetMeasureCount(); m++)
+                        {
+                            Measure measure = staff.GetMeasure(m);
+                            Song.SELECTABLES.Add(measure);
+                            for (int c = 0; c < measure.GetChordCount(); c++)
+                            {
+                                Chord chord = measure.GetChord(c);
+                                Song.SELECTABLES.Add(chord);
+                                for (int n = 0; n < chord.GetNoteCount(); n++)
+                                    Song.SELECTABLES.Add(chord.GetNote(n));
+                            }
+                        }
+                    }
+                }
+
+                foreach (SongComponent component in Song.SELECTABLES)
+                    component.Deselect();
 
                 graphicsPanel.Invalidate();
             }

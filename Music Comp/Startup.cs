@@ -106,15 +106,11 @@ namespace Music_Comp
             filename = "newbutton";
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void button2_Click(object sender, EventArgs e)
         {
             //Properties.Settings.Default.height = Height;
             //Properties.Settings.Default.width = Width;
+            timer1.Stop();
         }
 
         private void Startup_Resize(object sender, EventArgs e)
@@ -126,10 +122,6 @@ namespace Music_Comp
                 {
                     Height = buttons[i].Location.Y + 150;
                     MinimumSize = new Size(Width, Height);
-                }
-                if (true)
-                {
-
                 }
             }
             Relocate();
@@ -151,9 +143,7 @@ namespace Music_Comp
                     y = y + 120;
                 }
                 if ((buttons[i].Location.X + 85 > button1.Location.X) && (buttons[i].Location.Y + 85 >= button1.Location.Y))
-                {
                     Height = Height + 120;
-                }
                 button1.Location = new Point(Width - 199, Height - 90);
                 button2.Location = new Point(Width - 110, Height - 90);
             }
@@ -165,15 +155,11 @@ namespace Music_Comp
             {
                 filename = ActiveControl.Name;
                 if (filename != "newbutton")
-                {
                     filename = filename.Remove(filename.Length - 4);
-                }
                 return filename;
             }
             else
-            {
                 return "";
-            }
         }
     }
 }

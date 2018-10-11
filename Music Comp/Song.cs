@@ -51,7 +51,7 @@ namespace Music_Comp
 
         public static List<float> BARLINES;
         public static List<SongComponent> SELECTABLES;
-        public static List<Note> LASTNOTES;
+        public static List<Note[]> LASTNOTES;
         
         List<Instrument> mInstruments = new List<Instrument>();
         Instrument mSelectedInstrument;
@@ -97,7 +97,7 @@ namespace Music_Comp
 
             BARLINES = new List<float>();
             SELECTABLES = new List<SongComponent>();
-            LASTNOTES = new List<Note>();
+            LASTNOTES = new List<Note[]>();
         }
 
         public string Title
@@ -186,6 +186,7 @@ namespace Music_Comp
                 TOTAL_STAVES -= mInstruments[i].GetStaffCount();
                 mInstruments.Remove(mInstruments[i]);
                 TOTAL_INSTRUMENTS--;
+                LASTNOTES.RemoveAt(i);
             }
 
             //   If the active staff was in the instrument
@@ -635,8 +636,8 @@ namespace Music_Comp
             settingsStream.Close();
             stream.Close();
 
-            ExportAudio(filename);
-            ExportImage(filename);
+            ExportAudio(filename.Substring(0, filename.Length - 3) + "wav");
+            ExportImage(filename.Substring(0, filename.Length - 3) + "png");
         }
     }
 }

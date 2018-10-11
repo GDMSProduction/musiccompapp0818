@@ -21,6 +21,7 @@ namespace Music_Comp
         {
             area = new RectangleF();
             mInstrumentNumber = instrumentNumber;
+            Song.LASTNOTES.Add(new Note[clefs.Count]);
             if (clefs.Count > 4)
                 mClefs = new Clef[4];
             else

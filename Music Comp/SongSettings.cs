@@ -37,7 +37,7 @@ namespace Music_Comp
         public sbyte OCTAVE = 4;
 
         public List<float> BARLINES;
-        public List<Note> LASTNOTES;
+        public List<Note[]> LASTNOTES;
 
         // Staff
 
