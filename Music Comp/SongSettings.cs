@@ -37,7 +37,7 @@ namespace Music_Comp
         public sbyte OCTAVE = 4;
 
         public List<float> BARLINES;
-        public List<SongComponent> SELECTABLES;
+        public List<Note> LASTNOTES;
 
         // Staff
 
@@ -82,14 +82,14 @@ namespace Music_Comp
             OCTAVE = Song.OCTAVE;
 
             BARLINES = Song.BARLINES;
-            SELECTABLES = Song.SELECTABLES;
+            LASTNOTES = Song.LASTNOTES;
 
             LINE_SPACING = Staff.LINE_SPACING;
             LENGTH = Staff.LENGTH;
             HEIGHT = Staff.HEIGHT;
         }
 
-        internal void Apply()
+        public void Apply()
         {
             Song.SCREEN_WIDTH = SCREEN_WIDTH;
             Song.PAGE_WIDTH = PAGE_WIDTH;
@@ -115,7 +115,7 @@ namespace Music_Comp
             Song.OCTAVE = OCTAVE;
 
             Song.BARLINES = BARLINES;
-            Song.SELECTABLES = SELECTABLES;
+            Song.LASTNOTES = LASTNOTES;
 
             Staff.LINE_SPACING = LINE_SPACING;
             Staff.LENGTH = LENGTH;
