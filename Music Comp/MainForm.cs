@@ -95,7 +95,7 @@ namespace Music_Comp
             Startup startup = new Startup();
             startup.ShowDialog();
 
-            if (startup.filename == "" || startup.filename == "button2" || startup.filename == "newbutton")
+            if (startup.filename == "" || startup.filename == "button2" || startup.filename == "newbutton" || startup.filename == "button3")
             {
                 NewSong newsong = new NewSong();
                 newsong.ShowDialog();
