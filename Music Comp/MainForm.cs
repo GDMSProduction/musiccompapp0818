@@ -1936,6 +1936,10 @@ namespace Music_Comp
                 settings.Apply();
                 song = (Song)formatter.Deserialize(sSong);
 
+                Song.SELECTABLES = new List<SongComponent>();
+                song.GetInstrument(0).Select();
+                song.GetSelection().GetStaff(0).Select();
+
                 graphicsPanel.Invalidate();
             }
         }
