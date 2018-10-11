@@ -113,8 +113,7 @@ namespace Music_Comp
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //Properties.Settings.Default.height = Height;
-            //Properties.Settings.Default.width = Width;
+
         }
 
         private void Startup_Resize(object sender, EventArgs e)
