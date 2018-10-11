@@ -164,27 +164,7 @@ namespace Music_Comp
             }
             else
             {
-                byte[] buffer;
-                FileStream stream = new FileStream(startup.filePath + "\\" + startup.filename + ".bcf", FileMode.Open, FileAccess.Read);
-                BinaryReader reader = new BinaryReader(stream);
-                BinaryFormatter formatter = new BinaryFormatter();
-
-                stream.Seek(-1 * sizeof(long), SeekOrigin.End);
-                long sSongSize = reader.ReadInt64();
-                stream.Seek(0, SeekOrigin.Begin);
-
-
-                buffer = new byte[sSongSize];
-                reader.Read(buffer, 0, buffer.Length);
-                MemoryStream sSong = new MemoryStream(buffer);
-
-                buffer = new byte[stream.Length - sSongSize - sizeof(long)];
-                reader.Read(buffer, 0, buffer.Length);
-                MemoryStream sSettings = new MemoryStream(buffer);
-
-                SongSettings settings = (SongSettings)formatter.Deserialize(sSettings);
-                settings.Apply();
-                song = (Song)formatter.Deserialize(sSong);
+                openToolStripMenuItem_Click(new object(), new EventArgs());
 
                 if (Song.TIME > 0)
                 {
