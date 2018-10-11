@@ -13,6 +13,8 @@ namespace Music_Comp
     class Song
     {
         string mFileName;
+        string mTitle;
+        string mComposer;
 
         RectangleF area;
         RectangleF groupingArea;
@@ -96,6 +98,18 @@ namespace Music_Comp
             BARLINES = new List<float>();
             SELECTABLES = new List<SongComponent>();
             LASTNOTES = new List<Note>();
+        }
+
+        public string Title
+        {
+            get { return mTitle; }
+            set { mTitle = value; }
+        }
+
+        public string Composer
+        {
+            get { return mComposer; }
+            set { mComposer = value; }
         }
 
         public RectangleF GetArea()
@@ -620,6 +634,9 @@ namespace Music_Comp
 
             settingsStream.Close();
             stream.Close();
+
+            ExportAudio(filename);
+            ExportImage(filename);
         }
     }
 }
