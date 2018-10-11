@@ -150,6 +150,8 @@ namespace Music_Comp
                         song.AddInstrument(newsong.instruments[i].clefs, newsong.instruments[i].waveForms, newsong.instruments[i].grouping);
                     titleTextBox.Text = newsong.title;
                     composerTextBox.Text = newsong.composer;
+                    song.Title = newsong.title;
+                    song.Composer = newsong.composer;
 
                     PlayButton.Image = play;
                     PlayButton.Location = new Point((Width / 2) - (PlayButton.Width / 2), 0);
@@ -189,6 +191,9 @@ namespace Music_Comp
                 Song.SELECTABLES = new List<SongComponent>();
                 song.GetInstrument(0).Select();
                 song.GetSelection().GetStaff(0).Select();
+
+                titleTextBox.Text = song.Title;
+                composerTextBox.Text = song.Composer;
 
                 if (Song.TIME > 0)
                 {
@@ -2018,6 +2023,16 @@ namespace Music_Comp
 
                 graphicsPanel.Invalidate();
             }
+        }
+
+        private void titleTextBox_TextChanged(object sender, EventArgs e)
+        {
+            song.Title = titleTextBox.Text;
+        }
+
+        private void composerTextBox_TextChanged(object sender, EventArgs e)
+        {
+            song.Composer = composerTextBox.Text;
         }
     }
 }

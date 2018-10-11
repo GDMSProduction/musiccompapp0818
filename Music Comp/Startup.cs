@@ -110,11 +110,6 @@ namespace Music_Comp
             filename = "newbutton";
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void button2_Click(object sender, EventArgs e)
         {
             timer1.Stop();
