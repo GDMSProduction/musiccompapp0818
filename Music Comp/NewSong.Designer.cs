@@ -230,7 +230,7 @@
             this.titleLabel.TabIndex = 2;
             this.titleLabel.SizeChanged += new System.EventHandler(this.titleLabel_SizeChanged);
             // 
-            // Startup
+            // NewSong
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -252,7 +252,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.titleBoxLabel);
             this.MinimumSize = new System.Drawing.Size(970, 580);
-            this.Name = "Startup";
+            this.Name = "NewSong";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Template";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Startup_FormClosing);
