@@ -44,7 +44,7 @@ namespace Music_Comp
         {
             InitTimer();
             InitializeComponent();
-            if (Properties.Settings.Default.FirstLaunch)
+            if (Properties.Settings.Default.FirstLaunch || !new DirectoryInfo(Properties.Settings.Default.directory).Exists)
             {
                 OpenFileDialog fileDialog = new OpenFileDialog();
                 fileDialog.ValidateNames = false;
