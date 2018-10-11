@@ -16,16 +16,34 @@ namespace Music_Comp
         public bool newinstrument;
         public int selected;
         public string filePath;
+        public string filename;
 
         public FileInfo[] files;
-        PictureBox[] pictureBoxes;
+        Image[] images;
+        Bitmap[] bitmaps;
+        Button[] buttons;
 
         DirectoryInfo info;
 
+        private Timer timer1;
+
+        public void InitTimer()
+        {
+            timer1 = new Timer();
+            timer1.Tick += new EventHandler(timer1_Tick);
+            timer1.Interval = 20;
+            timer1.Start();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            ReturnButton();
+        }
+
         public Startup()
         {
+            InitTimer();
             InitializeComponent();
-            Properties.Settings.Default.FirstLaunch = true;
             if (Properties.Settings.Default.FirstLaunch)
             {
                 OpenFileDialog fileDialog = new OpenFileDialog();
@@ -42,29 +60,47 @@ namespace Music_Comp
             filePath = Properties.Settings.Default.directory;
             info = new DirectoryInfo(filePath);
             files = info.GetFiles("*.png");
-            pictureBoxes = new PictureBox[files.Length];
-            int x = 120;
-            int y = 40;
-            for (int i = 0; i < pictureBoxes.Length; i++)
+            images = new Image[files.Length];
+            bitmaps = new Bitmap[files.Length];
+            buttons = new Button[images.Length];
+            int x = 105;
+            int y = 10;
+            Button newbutton = new Button();
+            newbutton.Name = "newbutton";
+            newbutton.Font = new Font("Microsoft Sans Serif", 60);
+            newbutton.Text = "+";
+            newbutton.TextAlign = ContentAlignment.MiddleLeft;
+            newbutton.Size = new Size(85, 110);
+            newbutton.Location = new Point(8, 8);
+            this.Controls.Add(newbutton);
+            for (int i = 0; i < images.Length; i++)
             {
-                string filename = files[i].Name;
-                pictureBoxes[i] = new PictureBox();
-                pictureBoxes[i].Image = Image.FromFile(filePath + "\\" + filename);
-                pictureBoxes[i].Size = new Size(100, 100);
-                pictureBoxes[i].Location = new Point(x, y);
-                pictureBoxes[i].SizeMode = PictureBoxSizeMode.StretchImage;
-                pictureBoxes[i].Name = "pictureBox" + i;
-                this.Controls.Add(pictureBoxes[i]);
-                x = x + 110;
-                if (x + 100 > Width)
+                filename = files[i].Name;
+                images[i] = Image.FromFile(filePath + "\\" + filename);
+                buttons[i] = new Button();
+                bitmaps[i] = new Bitmap(images[i], new Size(85, 110));
+                buttons[i].Size = new Size(85, 110);
+                buttons[i].Location = new Point(x, y);
+                buttons[i].Name = filename;
+                this.Controls.Add(buttons[i]);
+                buttons[i].Image = bitmaps[i];
+                x = x + 95;
+                if (x + 88 > Width)
                 {
                     x = 10;
-                    y = y + 110;
+                    y = y + 120;
                 }
-                if ((pictureBoxes[i].Location.X + 100 > button2.Location.X) && (pictureBoxes[i].Location.Y + 100 >= button2.Location.Y))
+            }
+            for (int i = 0; i < buttons.Length; ++i)
+            {
+                if (buttons[i].Location.Y + 110 > Height)
                 {
-                    button1.Location = new Point(button1.Location.X, button1.Location.Y + 120);
-                    button2.Location = new Point(button2.Location.X, button2.Location.Y + 120);
+                    Height = buttons[i].Location.Y + 150;
+                    MinimumSize = new Size(Width, Height);
+                }
+                if (buttons[i].Location.X + buttons[i].Width > Width - 20)
+                {
+                    Width = buttons[i].Location.X + buttons[i].Width + 20;
                 }
             }
         }
@@ -74,32 +110,68 @@ namespace Music_Comp
 
         }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            //Properties.Settings.Default.height = Height;
+            //Properties.Settings.Default.width = Width;
+        }
+
         private void Startup_Resize(object sender, EventArgs e)
         {
+            MinimumSize = new Size(0, 0);
+            for (int i = 0; i < buttons.Length; ++i)
+            {
+                if (buttons[i].Location.Y + 160 > Height)
+                {
+                    Height = buttons[i].Location.Y + 150;
+                    MinimumSize = new Size(Width, Height);
+                }
+                if (true)
+                {
+
+                }
+            }
             Relocate();
             Invalidate();
         }
 
         private void Relocate()
         {
-            int x = 120;
-            int y = 40;
-            for (int i = 0; i < pictureBoxes.Length; ++i)
+            int x = 105;
+            int y = 10;
+            for (int i = 0; i < buttons.Length; ++i)
             {
-                pictureBoxes[i].Location = new Point(x, y);
-                x = x + 110;
-                if (x + 100 > Width)
+                buttons[i].Location = new Point(x, y);
+                buttons[i].Location = new Point(x - 3, y - 3);
+                x = x + 95;
+                if (x + 88 > Width)
                 {
                     x = 10;
-                    y = y + 110;
+                    y = y + 120;
                 }
-                if ((pictureBoxes[i].Location.X + 100 > button2.Location.X) && (pictureBoxes[i].Location.Y + 100 >= button2.Location.Y))
+                if ((buttons[i].Location.X + 85 > button1.Location.X) && (buttons[i].Location.Y + 85 >= button1.Location.Y))
                 {
-                    button2.Location = new Point(button2.Location.X, button2.Location.Y + 120);
-                    button1.Location = new Point(button1.Location.X, button1.Location.Y + 120);
+                    Height = Height + 120;
                 }
-                button1.Location = new Point(Width - button1.Size.Width * 2 - 40, button1.Location.Y);
-                button2.Location = new Point(Width - button2.Size.Width - 40, button2.Location.Y);
+                button1.Location = new Point(Width - 199, Height - 90);
+                button2.Location = new Point(Width - 110, Height - 90);
+            }
+        }
+
+        private string ReturnButton()
+        {
+            if (ActiveControl != null && ActiveControl.Name != "button2" && ActiveControl.Name != "button1")
+            {
+                filename = ActiveControl.Name;
+                if (filename != "newbutton")
+                {
+                    filename = filename.Remove(filename.Length - 4);
+                }
+                return filename;
+            }
+            else
+            {
+                return "";
             }
         }
     }
