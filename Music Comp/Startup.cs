@@ -103,6 +103,7 @@ namespace Music_Comp
                     Width = buttons[i].Location.X + buttons[i].Width + 20;
                 }
             }
+            filename = "newbutton";
         }
 
         private void button1_Click(object sender, EventArgs e)
