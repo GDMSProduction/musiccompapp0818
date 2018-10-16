@@ -19,6 +19,11 @@ namespace Music_Comp
             isSelected = true;
         }
 
+        public bool isItSelected()
+        {
+            return isSelected;
+        }
+
         public void Deselect()
         {
             isSelected = false;

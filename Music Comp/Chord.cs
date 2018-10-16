@@ -37,6 +37,11 @@ namespace Music_Comp
             return mNotes[i];
         }
 
+        public void SetChordNumber(int number)
+        {
+            mChordNumber = number;
+        }
+
         public Note GetSelection()
         {
             return mSelectedNote;
