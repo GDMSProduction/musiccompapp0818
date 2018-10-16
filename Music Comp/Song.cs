@@ -50,6 +50,8 @@ namespace Music_Comp
         public static sbyte OCTAVE = 4;
 
         public static List<float> BARLINES;
+        public static List<float[]> CHORD_POSITIONS;
+
         public static List<SongComponent> SELECTABLES;
         public static List<Note[]> LASTNOTES;
         
@@ -96,6 +98,8 @@ namespace Music_Comp
             area = new Rectangle(0, (int)TOP_MARGIN - 5, (int)PAGE_WIDTH, (int)cursorY);
 
             BARLINES = new List<float>();
+            CHORD_POSITIONS = new List<float[]>();
+
             SELECTABLES = new List<SongComponent>();
             LASTNOTES = new List<Note[]>();
         }
@@ -203,6 +207,8 @@ namespace Music_Comp
 
         public void Update()
         {
+            foreach (Instrument instrument in mInstruments)
+                instrument.Update();
             foreach (Instrument instrument in mInstruments)
                 instrument.Update();
             area.X = 0;

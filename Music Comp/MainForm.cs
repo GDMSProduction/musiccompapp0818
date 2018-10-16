@@ -389,6 +389,8 @@ namespace Music_Comp
             Staff.HEIGHT = options.mainHEIGHT;
 
             Song.BARLINES = options.mainBARLINES;
+            Song.CHORD_POSITIONS = options.mainCHORD_POSITIONS;
+
             Song.SELECTABLES = options.mainSELECTABLES;
             Song.LASTNOTES = options.mainLASTNOTES;
 

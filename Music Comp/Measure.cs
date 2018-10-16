@@ -29,6 +29,29 @@ namespace Music_Comp
             mWaveForm = wave;
             mChords = new List<Chord>();
             Song.SELECTABLES.Add(this);
+            if (Song.CHORD_POSITIONS.Count <= mMeasureNumber)
+            {
+                int last = Song.CHORD_POSITIONS.Count;
+                switch (Song.TIME)
+                {
+                    case Time.NineEight:
+                        Song.CHORD_POSITIONS.Add(new float[18]);
+                        break;
+                    case Time.SixEight:
+                    case Time.ThreeFour:
+                        Song.CHORD_POSITIONS.Add(new float[12]);
+                        break;
+                    case Time.ThreeEight:
+                    case Time.FourFour:
+                        Song.CHORD_POSITIONS.Add(new float[16]);
+                        break;
+                    case Time.TwoFour:
+                        Song.CHORD_POSITIONS.Add(new float[8]);
+                        break;
+                }
+                for (int i = 0; i < Song.CHORD_POSITIONS[last].Length; i++)
+                    Song.CHORD_POSITIONS[last][i] = 0;
+            }
             Song.TOTAL_MEASURES++;
         }
 
@@ -89,7 +112,7 @@ namespace Music_Comp
             else
             {
                 mTotalDuration += (int)chord.GetDuration();
-                int time = Song.TIME > 0 ? (int)Song.TIME : -(int)Song.TIME;
+                int time = Math.Abs((int)Song.TIME);
                 if (mTotalDuration > time)
                 {
                     Chord split = new Chord(0);
@@ -128,10 +151,14 @@ namespace Music_Comp
         public void Update(float barline, float yPosition)
         {
             float cursor = 0;
+            int durationCursor = 0;
             foreach (Chord chord in mChords)
             {
-                chord.Update(barline + cursor, yPosition, mClef);
+                if (Song.CHORD_POSITIONS[mMeasureNumber][durationCursor] < cursor)
+                    Song.CHORD_POSITIONS[mMeasureNumber][durationCursor] = cursor;
+                chord.Update(barline + Song.CHORD_POSITIONS[mMeasureNumber][durationCursor], yPosition, mClef);
                 cursor += chord.GetWidth();
+                durationCursor += (int)chord.GetDuration() / 3;
             }
             mLength = cursor;
 
@@ -140,6 +167,9 @@ namespace Music_Comp
             area.Width = mLength;
             if (Song.BARLINES.Count > mMeasureNumber + 1)
                 area.Width = Song.BARLINES[mMeasureNumber + 1] - barline;
+            if (mMeasureNumber < Song.BARLINES.Count - 1)
+                if (Song.BARLINES[mMeasureNumber + 1] < barline + cursor)
+                    Song.BARLINES[mMeasureNumber + 1] = barline + cursor;
             area.Height = Staff.HEIGHT + Song.STAFF_SPACING * 2;
         }
 
