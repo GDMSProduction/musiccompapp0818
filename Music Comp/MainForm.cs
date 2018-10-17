@@ -23,6 +23,12 @@ namespace Music_Comp
         bool isLetter = true;
         bool EightOrNine = false;
 
+        bool isdown = false;
+
+        bool songloaded = false;
+
+        Point toolpoint;
+
         Song song;
 
         System.Timers.Timer timer;
@@ -59,6 +65,8 @@ namespace Music_Comp
                 }
             }
 
+            panel2.Location = new Point(-200, -200);
+
             timer = new System.Timers.Timer();
             timer.Elapsed += soundPlayer_Finished;
 
@@ -78,14 +86,6 @@ namespace Music_Comp
             PAGE_HEIGHT = graphicsPanel.Height;
 
             _SCALE = PAGE_WIDTH / SCREEN_WIDTH;
-
-            titleTextBox.Font = new Font("Microsoft Sans Serif", 70 * _SCALE);
-            titleTextBox.Size = new Size((int)(1470 * _SCALE), (int)(140 * _SCALE));
-            titleTextBox.Location = new Point((int)(PAGE_WIDTH / 2 - titleTextBox.Width / 2), (int)(120 * _SCALE));
-
-            composerTextBox.Font = new Font("Microsoft Sans Serif", 25 * _SCALE);
-            composerTextBox.Size = new Size((int)(615 * _SCALE), (int)(50 * _SCALE));
-            composerTextBox.Location = new Point((int)(PAGE_WIDTH - composerTextBox.Width - 100 * _SCALE), (int)(250 * _SCALE));
             
             ActiveControl = graphicsPanel;
 
@@ -127,29 +127,15 @@ namespace Music_Comp
                     {
                         currentNoteDuration = Duration.Quarter;
                         SongDuration.Image = quarter;
-                        pictureBox1.Image = Properties.Resources.Note;
-                        pictureBox1.Size = new Size((int)(64 * _SCALE), (int)(93 * _SCALE));
-                        pictureBox1.Location = new Point((int)(160 * _SCALE), (int)(300 * _SCALE));
-                        label1.Size = new Size((int)(44 * _SCALE), (int)(46 * _SCALE));
-                        label1.Location = new Point((int)(220 * _SCALE), (int)(330 * _SCALE));
-                        numericUpDown1.Location = new Point((int)(260 * _SCALE), (int)(337 * _SCALE));
                     }
                     else if (Song.TIME < 0)
                     {
                         currentNoteDuration = Duration.Eighth;
                         SongDuration.Image = eighth;
-                        pictureBox1.Image = Properties.Resources.EighthNote;
-                        pictureBox1.Size = new Size((int)(50 * _SCALE), (int)(93 * _SCALE));
-                        pictureBox1.Location = new Point((int)(170 * _SCALE), (int)(300 * _SCALE));
-                        label1.Size = new Size((int)(44 * _SCALE), (int)(46 * _SCALE));
-                        label1.Location = new Point((int)(220 * _SCALE), (int)(330 * _SCALE));
-                        numericUpDown1.Location = new Point((int)(260 * _SCALE), (int)(337 * _SCALE));
                     }
 
                     for (int i = 0; i < newsong.instruments.Count; i++)
                         song.AddInstrument(newsong.instruments[i].clefs, newsong.instruments[i].waveForms, newsong.instruments[i].grouping);
-                    titleTextBox.Text = newsong.title;
-                    composerTextBox.Text = newsong.composer;
                     song.Title = newsong.title;
                     song.Composer = newsong.composer;
 
@@ -166,6 +152,7 @@ namespace Music_Comp
             }
             else
             {
+                songloaded = true;
                 byte[] buffer;
                 FileStream stream = new FileStream(startup.filePath + "\\" + startup.filename + ".bcf", FileMode.Open, FileAccess.Read);
                 BinaryReader reader = new BinaryReader(stream);
@@ -192,30 +179,15 @@ namespace Music_Comp
                 song.GetInstrument(0).Select();
                 song.GetSelection().GetStaff(0).Select();
 
-                titleTextBox.Text = song.Title;
-                composerTextBox.Text = song.Composer;
-
                 if (Song.TIME > 0)
                 {
                     currentNoteDuration = Duration.Quarter;
                     SongDuration.Image = quarter;
-                    pictureBox1.Image = Properties.Resources.Note;
-                    pictureBox1.Size = new Size((int)(64 * _SCALE), (int)(93 * _SCALE));
-                    pictureBox1.Location = new Point((int)(160 * _SCALE), (int)(300 * _SCALE));
-                    label1.Size = new Size((int)(44 * _SCALE), (int)(46 * _SCALE));
-                    label1.Location = new Point((int)(220 * _SCALE), (int)(330 * _SCALE));
-                    numericUpDown1.Location = new Point((int)(260 * _SCALE), (int)(337 * _SCALE));
                 }
                 else if (Song.TIME < 0)
                 {
                     currentNoteDuration = Duration.Eighth;
                     SongDuration.Image = eighth;
-                    pictureBox1.Image = Properties.Resources.EighthNote;
-                    pictureBox1.Size = new Size((int)(50 * _SCALE), (int)(93 * _SCALE));
-                    pictureBox1.Location = new Point((int)(170 * _SCALE), (int)(300 * _SCALE));
-                    label1.Size = new Size((int)(44 * _SCALE), (int)(46 * _SCALE));
-                    label1.Location = new Point((int)(220 * _SCALE), (int)(330 * _SCALE));
-                    numericUpDown1.Location = new Point((int)(260 * _SCALE), (int)(337 * _SCALE));
                 }
 
                 graphicsPanel.Invalidate();
@@ -239,12 +211,6 @@ namespace Music_Comp
             }
             if (song != null && Song.TOTAL_INSTRUMENTS != 0)
                 song.Draw(e.Graphics);
-            else
-            {
-                pictureBox1.Location = new Point(-200, -200);
-                label1.Location = new Point(-200, -200);
-                numericUpDown1.Location = new Point(-200, -200);
-            }
         }
 
         private void MainForm_Resize(object sender, EventArgs e)
@@ -265,14 +231,6 @@ namespace Music_Comp
 
             PlayButton.Image = play;
             PlayButton.Location = new Point((Width / 2) - (PlayButton.Width / 2), 0);
-
-            titleTextBox.Font = new Font("Microsoft Sans Serif", 70 * _SCALE);
-            titleTextBox.Size = new Size((int)(1470 * _SCALE), (int)(140 * _SCALE));
-            titleTextBox.Location = new Point((int)(PAGE_WIDTH / 2 - titleTextBox.Width / 2), (int)(120 * _SCALE));
-
-            composerTextBox.Font = new Font("Microsoft Sans Serif", 25 * _SCALE);
-            composerTextBox.Size = new Size((int)(615 * _SCALE), (int)(50 * _SCALE));
-            composerTextBox.Location = new Point((int)(PAGE_WIDTH - composerTextBox.Width - 100 * _SCALE), (int)(220 * _SCALE));
 
             Song.PAGE_WIDTH = graphicsPanel.Width;
             Song._SCALE = _SCALE;
@@ -300,29 +258,22 @@ namespace Music_Comp
             if (Song.PAGE_WIDTH < 5000)
             {
                 graphicsPanel.Size = new Size((int)(PAGE_WIDTH + 100), (int)(PAGE_HEIGHT + 100 * PAGE_HEIGHT / PAGE_WIDTH));
-                if (Song.TIME > 0)
-                {
-                    pictureBox1.Size = new Size((int)(64 * _SCALE), (int)(93 * _SCALE));
-                    pictureBox1.Location = new Point((int)(170 * _SCALE), (int)(200 * _SCALE));
-                    label1.Font = new Font("Microsoft Sans Serif", (int)(21 * _SCALE));
-                    label1.Size = new Size((int)(70 * _SCALE), (int)(70 * _SCALE));
-                    label1.Location = new Point((int)(226 * _SCALE), (int)(230 * _SCALE));
-                    numericUpDown1.Location = new Point((int)(258 * _SCALE), (int)(235 * _SCALE));
-                    numericUpDown1.Font = new Font("Microsoft Sans Serif", (int)(9 * _SCALE));
-                    numericUpDown1.Size = new Size((int)(68 * _SCALE), (int)(26 * _SCALE));
-                }
-                else if (Song.TIME < 0)
-                {
-                    pictureBox1.Size = new Size((int)(64 * _SCALE), (int)(93 * _SCALE));
-                    pictureBox1.Location = new Point((int)(170 * _SCALE), (int)(200 * _SCALE));
-                    label1.Font = new Font("Microsoft Sans Serif", (int)(21 * _SCALE));
-                    label1.Size = new Size((int)(70 * _SCALE), (int)(70 * _SCALE));
-                    label1.Location = new Point((int)(226 * _SCALE), (int)(230 * _SCALE));
-                    numericUpDown1.Location = new Point((int)(258 * _SCALE), (int)(235 * _SCALE));
-                    numericUpDown1.Font = new Font("Microsoft Sans Serif", (int)(9 * _SCALE));
-                    numericUpDown1.Size = new Size((int)(68 * _SCALE), (int)(26 * _SCALE));
-                }
                 song.Update();
+            }
+            if (toolboxToolStripMenuItem.Text == "Hide Toolbox" && toolpoint != null)
+            {
+                panel2.Location = toolpoint;
+            }
+            else if (toolboxToolStripMenuItem.Text == "Hide Toolbox" && toolpoint == null)
+            {
+                if (songloaded)
+                {
+                    panel2.Location = new Point(0, 0);
+                }
+                else
+                {
+                    panel2.Location = new Point(0, menuStrip1.Height);
+                }
             }
         }
 
@@ -332,28 +283,7 @@ namespace Music_Comp
             if (Song.PAGE_WIDTH > 500)
             {
                 graphicsPanel.Size = new Size((int)(PAGE_WIDTH - 100), (int)(PAGE_HEIGHT - 100 * PAGE_HEIGHT / PAGE_WIDTH));
-                if (Song.TIME > 0)
-                {
-                    pictureBox1.Size = new Size((int)(64 * _SCALE), (int)(93 * _SCALE));
-                    pictureBox1.Location = new Point((int)(170 * _SCALE), (int)(200 * _SCALE));
-                    label1.Font = new Font("Microsoft Sans Serif", (int)(21 * _SCALE));
-                    label1.Size = new Size((int)(70 * _SCALE), (int)(70 * _SCALE));
-                    label1.Location = new Point((int)(226 * _SCALE), (int)(230 * _SCALE));
-                    numericUpDown1.Location = new Point((int)(258 * _SCALE), (int)(235 * _SCALE));
-                    numericUpDown1.Font = new Font("Microsoft Sans Serif", (int)(9 * _SCALE));
-                    numericUpDown1.Size = new Size((int)(68 * _SCALE), (int)(26 * _SCALE));
-                }
-                else if (Song.TIME < 0)
-                {
-                    pictureBox1.Size = new Size((int)(64 * _SCALE), (int)(93 * _SCALE));
-                    pictureBox1.Location = new Point((int)(170 * _SCALE), (int)(200 * _SCALE));
-                    label1.Font = new Font("Microsoft Sans Serif", (int)(21 * _SCALE));
-                    label1.Size = new Size((int)(70 * _SCALE), (int)(70 * _SCALE));
-                    label1.Location = new Point((int)(226 * _SCALE), (int)(230 * _SCALE));
-                    numericUpDown1.Location = new Point((int)(258 * _SCALE), (int)(235 * _SCALE));
-                    numericUpDown1.Font = new Font("Microsoft Sans Serif", (int)(9 * _SCALE));
-                    numericUpDown1.Size = new Size((int)(68 * _SCALE), (int)(26 * _SCALE));
-                }
+                
             }
             if (Song.BARLINES != null)
                 for (int i = 0; i < Song.BARLINES.Count; i++)
@@ -361,6 +291,22 @@ namespace Music_Comp
                         Song.BARLINES[i] *= _SCALE;
                     else
                         Song.BARLINES[i] /= _SCALE;
+
+            if (toolboxToolStripMenuItem.Text == "Hide Toolbox" && toolpoint != null)
+            {
+                panel2.Location = toolpoint;
+            }
+            else if (toolboxToolStripMenuItem.Text == "Hide Toolbox" && toolpoint == null)
+            {
+                if (songloaded)
+                {
+                    panel2.Location = new Point(0, 0);
+                }
+                else
+                {
+                    panel2.Location = new Point(0, menuStrip1.Height);
+                }
+            }
             song.Update();
         }
 
@@ -1785,22 +1731,6 @@ namespace Music_Comp
             lcheck = false;
         }
 
-        private void composerTextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                ActiveControl = graphicsPanel;
-            }
-        }
-
-        private void titleTextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                ActiveControl = graphicsPanel;
-            }
-        }
-
         private void tutorialToolStripMenuItem_Click(object sender, EventArgs e)
         {
             TutorialForm tutorial = new TutorialForm();
@@ -1813,28 +1743,11 @@ namespace Music_Comp
             graphicsPanel.Invalidate();
         }
 
-        delegate void VoidDelegateBool(bool enabled);
-        private void SetEnabled(bool enabled)
-        {
-            titleTextBox.Enabled = enabled;
-            composerTextBox.Enabled = enabled;
-        }
-
         private void Play()
         {
             if (!playcheck)
             {
                 PlayButton.Image = pause;
-                if (titleTextBox.InvokeRequired)
-                {
-                    VoidDelegateBool d = new VoidDelegateBool(SetEnabled);
-                    Invoke(d, false);
-                }
-                else
-                {
-                    titleTextBox.Enabled = false;
-                    composerTextBox.Enabled = false;
-                }
                 playcheck = true;
                 int interval = song.Play();
                 if (interval == 0)
@@ -1845,16 +1758,6 @@ namespace Music_Comp
             else
             {
                 PlayButton.Image = play;
-                if (titleTextBox.InvokeRequired)
-                {
-                    VoidDelegateBool d = new VoidDelegateBool(SetEnabled);
-                    Invoke(d, true);
-                }
-                else
-                {
-                    titleTextBox.Enabled = true;
-                    composerTextBox.Enabled = true;
-                }
                 song.Stop();
                 timer.Enabled = false;
                 playcheck = false;
@@ -1886,7 +1789,7 @@ namespace Music_Comp
         private void exportToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveFileDialog dlg = new SaveFileDialog();
-            dlg.FileName = titleTextBox.Text;
+            dlg.FileName = textBox1.Text;
             dlg.DefaultExt = ".wav";
             dlg.Filter = "wave file (*.wav)|*.wav|png file (*.png)|*.png|image & audio (*.wav, *.png)|*.wav-png";
             if (DialogResult.OK == dlg.ShowDialog())
@@ -1925,7 +1828,7 @@ namespace Music_Comp
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveFileDialog dlg = new SaveFileDialog();
-            dlg.FileName = titleTextBox.Text;
+            dlg.FileName = textBox1.Text;
             dlg.DefaultExt = "bcf";
             dlg.Filter = "bitComposer file (*.bcf)|*.bcf";
             if (DialogResult.OK == dlg.ShowDialog())
@@ -2002,37 +1905,162 @@ namespace Music_Comp
                 {
                     currentNoteDuration = Duration.Quarter;
                     SongDuration.Image = quarter;
-                    pictureBox1.Image = Properties.Resources.Note;
-                    pictureBox1.Size = new Size((int)(64 * _SCALE), (int)(93 * _SCALE));
-                    pictureBox1.Location = new Point((int)(160 * _SCALE), (int)(300 * _SCALE));
-                    label1.Size = new Size((int)(44 * _SCALE), (int)(46 * _SCALE));
-                    label1.Location = new Point((int)(220 * _SCALE), (int)(330 * _SCALE));
-                    numericUpDown1.Location = new Point((int)(260 * _SCALE), (int)(337 * _SCALE));
                 }
                 else if (Song.TIME < 0)
                 {
                     currentNoteDuration = Duration.Eighth;
                     SongDuration.Image = eighth;
-                    pictureBox1.Image = Properties.Resources.EighthNote;
-                    pictureBox1.Size = new Size((int)(50 * _SCALE), (int)(93 * _SCALE));
-                    pictureBox1.Location = new Point((int)(170 * _SCALE), (int)(300 * _SCALE));
-                    label1.Size = new Size((int)(44 * _SCALE), (int)(46 * _SCALE));
-                    label1.Location = new Point((int)(220 * _SCALE), (int)(330 * _SCALE));
-                    numericUpDown1.Location = new Point((int)(260 * _SCALE), (int)(337 * _SCALE));
                 }
 
                 graphicsPanel.Invalidate();
             }
         }
 
-        private void titleTextBox_TextChanged(object sender, EventArgs e)
+        private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            song.Title = titleTextBox.Text;
+            song.Title = textBox1.Text;
         }
 
-        private void composerTextBox_TextChanged(object sender, EventArgs e)
+        private void textBox2_TextChanged(object sender, EventArgs e)
         {
-            song.Composer = composerTextBox.Text;
+            song.Composer = textBox2.Text;
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void toolboxToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (toolboxToolStripMenuItem.Text == "Show Toolbox")
+            {
+                if (songloaded)
+                {
+                    panel2.Location = new Point(0, 0);
+                }
+                else
+                {
+                    panel2.Location = new Point(0, menuStrip1.Height);
+                }
+                toolboxToolStripMenuItem.Text = "Hide Toolbox";
+            }
+            else if (toolboxToolStripMenuItem.Text == "Hide Toolbox")
+            {
+                panel2.Location = new Point(-200, -200);
+                toolboxToolStripMenuItem.Text = "Show Toolbox";
+            }
+        }
+
+        private void KeyBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Enum.TryParse(KeyBox.Text, out Key k);
+            Song.KEY = k;
+
+            graphicsPanel.Invalidate();
+        }
+
+        private void TimeBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Enum.TryParse(TimeBox.Text, out Time t);
+            Song.TIME = t;
+
+            graphicsPanel.Invalidate();
+        }
+
+        int left;
+        int top;
+        int right;
+        int bottom;
+
+        private void panel2_MouseDown(object sender, MouseEventArgs e)
+        {
+            left = MousePosition.X - panel2.Location.X;
+            top = MousePosition.Y - panel2.Location.Y;
+            right = panel2.Location.X + panel2.Width - MousePosition.X;
+            bottom = panel2.Location.Y + panel2.Height - MousePosition.Y;
+            isdown = true;
+        }
+
+        private void panel2_MouseUp(object sender, MouseEventArgs e)
+        {
+            isdown = false;
+            toolpoint = panel2.Location;
+        }
+
+        private void panel2_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (isdown)
+            {
+                if (!songloaded)
+                {
+                    if (MousePosition.X - left > 0 && MousePosition.Y - top > menuStrip1.Height && MousePosition.X + right < Width - 25 && MousePosition.Y + bottom < Height - 40)
+                    {
+                        panel2.Location = new Point(MousePosition.X - left, MousePosition.Y - top);
+                    }
+                    else if (MousePosition.X - left > 0 && MousePosition.Y - top <= menuStrip1.Height)
+                    {
+                        panel2.Location = new Point(MousePosition.X - left, menuStrip1.Height);
+                    }
+                    else if (MousePosition.X - left <= 0 && MousePosition.Y - top > menuStrip1.Height)
+                    {
+                        panel2.Location = new Point(0, MousePosition.Y - top);
+                    }
+                    else if (MousePosition.X - left > 0 && MousePosition.Y + bottom >= Height - 40)
+                    {
+                        panel2.Location = new Point(MousePosition.X - left, Height - panel2.Height - 40);
+                    }
+                    else if (MousePosition.X + right >= Width - 25 && MousePosition.Y + bottom < Height - 40)
+                    {
+                        panel2.Location = new Point(Width - 40 - panel2.Width, MousePosition.Y - top);
+                    }
+                }
+                else
+                {
+                    if (MousePosition.X - left > 0 && MousePosition.Y - top > 0 && MousePosition.X + right < Width - 25 && MousePosition.Y + bottom < Height - 55)
+                    {
+                        panel2.Location = new Point(MousePosition.X - left, MousePosition.Y - top);
+                    }
+                    else if (MousePosition.X - left > 0 && MousePosition.Y - top <= 0)
+                    {
+                        panel2.Location = new Point(MousePosition.X - left, 0);
+                    }
+                    else if (MousePosition.X - left <= 0 && MousePosition.Y - top > 0)
+                    {
+                        panel2.Location = new Point(0, MousePosition.Y - top);
+                    }
+                    else if (MousePosition.X - left > 0 && MousePosition.Y + bottom >= Height - 40)
+                    {
+                        panel2.Location = new Point(MousePosition.X - left, Height - panel2.Height - 40);
+                    }
+                    else if (MousePosition.X + right >= Width - 25 && MousePosition.Y + bottom < Height - 40)
+                    {
+                        panel2.Location = new Point(Width - 40 - panel2.Width, MousePosition.Y - top);
+                    }
+                }
+            }
+        }
+
+        private void panel2_LocationChanged(object sender, EventArgs e)
+        {
+            if (!isdown)
+            {
+                if (toolboxToolStripMenuItem.Text == "Hide Toolbox" && toolpoint != null)
+                {
+                    panel2.Location = toolpoint;
+                }
+                else if (toolboxToolStripMenuItem.Text == "Hide Toolbox" && toolpoint == null)
+                {
+                    if (songloaded)
+                    {
+                        panel2.Location = new Point(0, 0);
+                    }
+                    else
+                    {
+                        panel2.Location = new Point(0, menuStrip1.Height);
+                    }
+                }
+            }
         }
     }
 }
