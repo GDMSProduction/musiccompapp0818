@@ -26,6 +26,9 @@ namespace Music_Comp
         public float mainHEIGHT = Staff.HEIGHT;
 
         public List<float> mainBARLINES = Song.BARLINES;
+        public List<float[]> mainCHORD_POSITIONS = Song.CHORD_POSITIONS;
+
+
         public List<SongComponent> mainSELECTABLES = Song.SELECTABLES;
         public List<Note[]> mainLASTNOTES = Song.LASTNOTES;
 
