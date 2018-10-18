@@ -162,7 +162,7 @@ namespace Music_Comp
                 long sSongSize = reader.ReadInt64();
                 stream.Seek(0, SeekOrigin.Begin);
 
-
+                
                 buffer = new byte[sSongSize];
                 reader.Read(buffer, 0, buffer.Length);
                 MemoryStream sSong = new MemoryStream(buffer);
@@ -176,8 +176,32 @@ namespace Music_Comp
                 song = (Song)formatter.Deserialize(sSong);
 
                 Song.SELECTABLES = new List<SongComponent>();
-                song.GetInstrument(0).Select();
-                song.GetSelection().GetStaff(0).Select();
+
+                for (int i = 0; i < song.GetInstrumentCount(); i++)
+                {
+                    Instrument instrument = song.GetInstrument(i);
+                    Song.SELECTABLES.Add(instrument);
+                    for (int s = 0; s < instrument.GetStaffCount(); s++)
+                    {
+                        Staff staff = instrument.GetStaff(s);
+                        Song.SELECTABLES.Add(staff);
+                        for (int m = 0; m < staff.GetMeasureCount(); m++)
+                        {
+                            Measure measure = staff.GetMeasure(m);
+                            Song.SELECTABLES.Add(measure);
+                            for (int c = 0; c < measure.GetChordCount(); c++)
+                            {
+                                Chord chord = measure.GetChord(c);
+                                Song.SELECTABLES.Add(chord);
+                                for (int n = 0; n < chord.GetNoteCount(); n++)
+                                    Song.SELECTABLES.Add(chord.GetNote(n));
+                            }
+                        }
+                    }
+                }
+
+                foreach (SongComponent component in Song.SELECTABLES)
+                    component.Deselect();
 
                 if (Song.TIME > 0)
                 {
