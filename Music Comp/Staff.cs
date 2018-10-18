@@ -426,7 +426,9 @@ namespace Music_Comp
 
         private void UpdateBarLines()
         {
-            int stnza = mTotalInstrumentNumber / Song.stanzas;
+            int stnza = 0;
+            //if (mTotalInstrumentNumber / Song.TOTAL_INSTRUMENTS > Song.stanzas)
+            //    stnza++;
             for (int i = 0; i < mMeasures.Count; i++)
             {
                 mCursorX += 30 * Song._SCALE;

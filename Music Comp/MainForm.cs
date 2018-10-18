@@ -328,6 +328,8 @@ namespace Music_Comp
             AddInstrumentForm options = new AddInstrumentForm();
             options.ShowDialog();
 
+            Song.stanzas = options.mainstanzas;
+
             Song.SCREEN_WIDTH = options.mainSCREEN_WIDTH;
             Song.PAGE_WIDTH = options.mainPAGE_WIDTH;
             Song._SCALE = options.main_SCALE;
@@ -352,6 +354,8 @@ namespace Music_Comp
 
             Song.SELECTABLES = options.mainSELECTABLES;
             Song.LASTNOTES = options.mainLASTNOTES;
+
+            Song.OVERFLOW = options.mainOVERFLOW;
 
             if (options.DialogResult == DialogResult.OK)
                 song.AddInstrument(options.clefs, options.waveForms, options.grouping);

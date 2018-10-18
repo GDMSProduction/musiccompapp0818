@@ -191,7 +191,9 @@ namespace Music_Comp
             {
                 float margin = Song.LEFT_MARGIN + Staff.LENGTH - barline;
                 float extra = margin / (Song.BARLINES.Count * ((float)(Song.BARLINES.Count - 1) / 2));
-                float scale = (Song.BARLINES[1] - Song.BARLINES[0] + extra) / (Song.BARLINES[1] - Song.BARLINES[0]);
+                float scale = float.MaxValue;
+                if (Song.BARLINES.Count > 1)
+                    scale = (Song.BARLINES[1] - Song.BARLINES[0] + extra) / (Song.BARLINES[1] - Song.BARLINES[0]);
                 for (int i = 1; i < Song.BARLINES.Count; i++)
                     Song.BARLINES[i] += extra * i * Song._SCALE;
                 for (int i = 0; i < Song.CHORD_POSITIONS.Count; i++)

@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>screen_shot_2018_10_17_at_11_46_16_am_7LY_icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -249,6 +252,11 @@
     <Content Include="Resources\dottedquarter.png" />
     <Content Include="Resources\pause.jpg" />
     <Content Include="Resources\rightarrow.png" />
+    <Content Include="screen_shot_2018_10_17_at_11_46_16_am_7LY_icon.ico" />
+    <None Include="Resources\screen_shot_2018_10_17_at_11_46_16_am_7LY_icon.ico" />
+    <None Include="Resources\Screen_Shot_2018-10-17_at_11.46.16_AM.png" />
+    <None Include="Resources\Screen_Shot_2018-10-17_at_11.44.44_AM.png" />
+    <None Include="Resources\Screen_Shot_2018-10-17_at_11.44.53_AM.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

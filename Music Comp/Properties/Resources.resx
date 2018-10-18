@@ -205,4 +205,16 @@
   <data name="rightarrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\rightarrow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\screen_shot_2018_10_17_at_11_46_16_am_7LY_icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Screen_Shot_2018_10_17_at_11_44_44_AM" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Screen_Shot_2018-10-17_at_11.44.44_AM.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Screen_Shot_2018_10_17_at_11_44_53_AM" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Screen_Shot_2018-10-17_at_11.44.53_AM.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Screen_Shot_2018_10_17_at_11_46_16_AM" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Screen_Shot_2018-10-17_at_11.46.16_AM.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

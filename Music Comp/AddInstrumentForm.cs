@@ -6,6 +6,8 @@ namespace Music_Comp
 {
     public partial class AddInstrumentForm : Form
     {
+        public int mainstanzas = Song.stanzas;
+
         public float mainSCREEN_WIDTH = Song.SCREEN_WIDTH;
         public float mainPAGE_WIDTH = Song.PAGE_WIDTH;
         public float main_SCALE = Song._SCALE;
@@ -31,6 +33,8 @@ namespace Music_Comp
 
         public List<SongComponent> mainSELECTABLES = Song.SELECTABLES;
         public List<Note[]> mainLASTNOTES = Song.LASTNOTES;
+
+        public Measure mainOVERFLOW = Song.OVERFLOW;
 
         public List<Clef> clefs = new List<Clef>();
         public List<WaveForm> waveForms = new List<WaveForm>();

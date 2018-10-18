@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.zoomInButton = new System.Windows.Forms.Button();
             this.zoomOutButton = new System.Windows.Forms.Button();
             this.directorySearcher1 = new System.DirectoryServices.DirectorySearcher();
@@ -71,8 +72,8 @@
             this.songdur1 = new System.Windows.Forms.Button();
             this.songdur2 = new System.Windows.Forms.Button();
             this.SongDuration = new System.Windows.Forms.Button();
-            this.PlayButton = new System.Windows.Forms.Button();
             this.graphicsPanel = new Music_Comp.GraphicsPanel();
+            this.PlayButton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -85,7 +86,7 @@
             this.zoomInButton.BackColor = System.Drawing.Color.White;
             this.zoomInButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.zoomInButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.zoomInButton.Location = new System.Drawing.Point(16852, 28167);
+            this.zoomInButton.Location = new System.Drawing.Point(17617, 29495);
             this.zoomInButton.Name = "zoomInButton";
             this.zoomInButton.Size = new System.Drawing.Size(75, 75);
             this.zoomInButton.TabIndex = 1;
@@ -100,7 +101,7 @@
             this.zoomOutButton.BackColor = System.Drawing.Color.White;
             this.zoomOutButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.zoomOutButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.zoomOutButton.Location = new System.Drawing.Point(16852, 28242);
+            this.zoomOutButton.Location = new System.Drawing.Point(17617, 29570);
             this.zoomOutButton.Name = "zoomOutButton";
             this.zoomOutButton.Size = new System.Drawing.Size(75, 75);
             this.zoomOutButton.TabIndex = 2;
@@ -542,6 +543,18 @@
             this.SongDuration.UseVisualStyleBackColor = false;
             this.SongDuration.MouseClick += new System.Windows.Forms.MouseEventHandler(this.SongDuration_MouseClick);
             // 
+            // graphicsPanel
+            // 
+            this.graphicsPanel.AutoScroll = true;
+            this.graphicsPanel.BackColor = System.Drawing.Color.White;
+            this.graphicsPanel.Location = new System.Drawing.Point(6, 3);
+            this.graphicsPanel.Name = "graphicsPanel";
+            this.graphicsPanel.Size = new System.Drawing.Size(2550, 3300);
+            this.graphicsPanel.TabIndex = 0;
+            this.graphicsPanel.Click += new System.EventHandler(this.graphicsPanel_Click);
+            this.graphicsPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.graphicsPanel_Paint);
+            this.graphicsPanel.Resize += new System.EventHandler(this.graphicsPanel_Resize);
+            // 
             // PlayButton
             // 
             this.PlayButton.BackColor = System.Drawing.Color.Transparent;
@@ -556,18 +569,6 @@
             this.PlayButton.UseVisualStyleBackColor = false;
             this.PlayButton.Click += new System.EventHandler(this.PlayButton_Click);
             // 
-            // graphicsPanel
-            // 
-            this.graphicsPanel.AutoScroll = true;
-            this.graphicsPanel.BackColor = System.Drawing.Color.White;
-            this.graphicsPanel.Location = new System.Drawing.Point(6, 3);
-            this.graphicsPanel.Name = "graphicsPanel";
-            this.graphicsPanel.Size = new System.Drawing.Size(2550, 3300);
-            this.graphicsPanel.TabIndex = 0;
-            this.graphicsPanel.Click += new System.EventHandler(this.graphicsPanel_Click);
-            this.graphicsPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.graphicsPanel_Paint);
-            this.graphicsPanel.Resize += new System.EventHandler(this.graphicsPanel_Resize);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -577,6 +578,7 @@
             this.Controls.Add(this.PlayButton);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.Text = "BitComposer 1.2";

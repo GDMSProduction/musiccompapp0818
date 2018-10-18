@@ -211,6 +211,16 @@ namespace Music_Comp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon Icon {
+            get {
+                object obj = ResourceManager.GetObject("Icon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap Natural {
@@ -266,6 +276,36 @@ namespace Music_Comp.Properties {
         internal static System.Drawing.Bitmap rightarrow {
             get {
                 object obj = ResourceManager.GetObject("rightarrow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Screen_Shot_2018_10_17_at_11_44_44_AM {
+            get {
+                object obj = ResourceManager.GetObject("Screen_Shot_2018_10_17_at_11_44_44_AM", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Screen_Shot_2018_10_17_at_11_44_53_AM {
+            get {
+                object obj = ResourceManager.GetObject("Screen_Shot_2018_10_17_at_11_44_53_AM", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Screen_Shot_2018_10_17_at_11_46_16_AM {
+            get {
+                object obj = ResourceManager.GetObject("Screen_Shot_2018_10_17_at_11_46_16_AM", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
