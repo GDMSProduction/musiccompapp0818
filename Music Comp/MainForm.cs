@@ -395,8 +395,8 @@ namespace Music_Comp
 
             if (!ControlCheck())
             {
-                Chord chord = new Chord(0);
-                chord.Add(new Note(Pitch.C, Accidental.Natural, currentNoteDuration, Song.OCTAVE));
+                    Chord chord = new Chord(0);
+                    chord.Add(new Note(Pitch.C, Accidental.Natural, currentNoteDuration, Song.OCTAVE));
 
                 switch (e.KeyCode)
                 {
@@ -926,7 +926,8 @@ namespace Music_Comp
                         {
                             Staff staff = song.GetSelection().GetSelection();
                             Instrument instrument = song.GetInstrument(song.GetSelection().GetInstrumentNumber());
-                            if (!CheckChordSelection() || staff.GetCurrentMeasure().GetChord(staff.GetCurrentMeasure().GetChordCount()-1).isItSelected())
+
+                            if (!CheckChordSelection())
                             {
                                 if (!staff.GetCurrentMeasure().IsEmpty())
                                 {
@@ -951,6 +952,7 @@ namespace Music_Comp
                                     else
                                         Song.LASTNOTES[instrument.GetInstrumentNumber()][staff.GetStaffNumber()] = GetAverageNote(staff.GetCurrentMeasure().GetChord(staff.GetCurrentMeasure().GetChordCount() - 1));
                                     Song.OCTAVE = Song.LASTNOTES[instrument.GetInstrumentNumber()][staff.GetStaffNumber()].Octave;
+
                                     song.Update();
                                     graphicsPanel.Invalidate();
                                 }
@@ -1050,7 +1052,14 @@ namespace Music_Comp
                     Song.OCTAVE = Song.LASTNOTES[instrument.GetInstrumentNumber()][staff.GetStaffNumber()].Octave;
                 }
                 else if (valid)
+                {
                     ChangeSingleNoteChord(chord.GetNote(0).GetPitch());
+                    for (int i = 0; i < chord.GetNoteCount(); i++)
+                    {
+                        Song.SELECTABLES.Remove(chord.GetNote(i));
+                    }
+                    Song.SELECTABLES.Remove(chord);
+                }
             }
             else // (ControlCheck())
             {
@@ -1173,6 +1182,56 @@ namespace Music_Comp
                         break;
                     }
                     chordNumber++;
+                }
+            }
+        }
+
+        private void ChangeMultipleNoteChord(Pitch p)
+        {
+            Instrument instrument = song.GetInstrument(song.GetSelection().GetInstrumentNumber());
+            Staff staff = instrument.GetStaff(song.GetSelection().GetSelection().GetStaffNumber());
+            int chordNumber = 0;
+            int iValue = 0;
+            for (int i = 0; i < Song.SELECTABLES.Count; i++)
+            {
+                if (Song.SELECTABLES[i].GetType() == typeof(Chord))
+                {
+                    for (int j = 0; j < (Song.SELECTABLES[i] as Chord).GetNoteCount() ; j++)
+                    {
+                        if ((Song.SELECTABLES[i] as Chord).GetNote(j).isItSelected() )
+                        {
+                            iValue = i;
+                            break;
+                        }
+                    }
+                    chordNumber++;
+                }
+            }
+            for (int i = 0; i < Song.SELECTABLES.Count; i++)
+            {
+                if (Song.SELECTABLES[i].GetType() == typeof(Note))
+                {
+                    if (Song.SELECTABLES[i].isItSelected())
+                    {
+                        (Song.SELECTABLES[i] as Note).SetPitch(p);
+                        (Song.SELECTABLES[iValue] as Chord).SetWaveForm(staff.GetWaveForm());
+                        if (isLetter)
+                            (Song.SELECTABLES[i] as Note).Octave = CalculateOctave((Song.SELECTABLES[i] as Note), instrument);
+                        octaveDifference = 0;
+                        if (EightOrNine)
+                            (Song.SELECTABLES[i] as Note).Octave += 1;
+                        CheckOctaveRange(staff, (Song.SELECTABLES[iValue] as Chord));
+                        (Song.SELECTABLES[iValue] as Chord).Play();
+                        song.Update();
+                        graphicsPanel.Invalidate();
+
+                        if (GetChordNumber(staff) == chordNumber)
+                        {
+                            Song.LASTNOTES[instrument.GetInstrumentNumber()][staff.GetStaffNumber()] = (Song.SELECTABLES[i] as Chord).GetNote(0);
+                            Song.OCTAVE = Song.LASTNOTES[instrument.GetInstrumentNumber()][staff.GetStaffNumber()].Octave;
+                        }
+                        break;
+                    }
                 }
             }
         }
