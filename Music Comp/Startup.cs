@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Media;
 
 namespace Music_Comp
 {
@@ -46,6 +48,10 @@ namespace Music_Comp
         {
             InitializeComponent();
             InitTimer();
+            Image playimage = Properties.Resources.play;
+            Bitmap playbitmap = new Bitmap(playimage, new Size(25, 25));
+            PlayButton.Image = playbitmap;
+            PlayButton.Location = new Point((Width / 2) - (PlayButton.Width / 2), Height - 90);
             if (Properties.Settings.Default.FirstLaunch || !new DirectoryInfo(Properties.Settings.Default.directory).Exists)
             {
                 OpenFileDialog fileDialog = new OpenFileDialog();
@@ -170,7 +176,7 @@ namespace Music_Comp
 
         private string ReturnButton()
         {
-            if (ActiveControl != null && ActiveControl.Name != "button2" && ActiveControl.Name != "button1" && ActiveControl.Name != "button3")
+            if (ActiveControl != null && ActiveControl.Name != "button2" && ActiveControl.Name != "button1" && ActiveControl.Name != "button3" && ActiveControl.Name != "PlayButton")
             {
                 filename = ActiveControl.Name;
                 if (filename != "newbutton")
@@ -252,7 +258,7 @@ namespace Music_Comp
 
         private void Startup_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (checkexit)
+            if (checkexit && !Properties.Settings.Default.Loaded)
                 Application.Exit();
         }
 
@@ -265,6 +271,22 @@ namespace Music_Comp
                 images[i].Dispose();
             }
             Properties.Settings.Default.Save();
+        }
+
+        private void PlayButton_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < buttons.Length; i++)
+            {
+                if (buttons[i].Name == filename + ".png")
+                {
+                    ActiveControl = buttons[i];
+                }
+            }
+            if (filename != "newbutton" && filename != "button1" && filename != "button2" && filename != "button3" && filename != "PlayButton")
+            {
+                SoundPlayer sound = new SoundPlayer(filePath + "\\" + filename + ".wav");
+                sound.Play();
+            }
         }
     }
 }

@@ -194,7 +194,7 @@ namespace Music_Comp
 
         private void Startup_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (checkexit)
+            if (checkexit && !Properties.Settings.Default.Loaded)
             {
                 Application.Exit();
             }

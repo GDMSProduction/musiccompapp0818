@@ -145,8 +145,12 @@ namespace Music_Comp
                     menuStrip1.BringToFront();
 
                     PlayButton.BringToFront();
-
+                    
                     song.Update();
+
+                    textBox1.Text = newsong.title;
+                    textBox2.Text = newsong.composer;
+
                     graphicsPanel.Invalidate();
                 }
             }
@@ -214,7 +218,11 @@ namespace Music_Comp
                     SongDuration.Image = eighth;
                 }
 
+                textBox1.Text = song.Title;
+                textBox2.Text = song.Composer;
+
                 graphicsPanel.Invalidate();
+                Properties.Settings.Default.Loaded = true;
             }
         }
 
@@ -233,7 +241,6 @@ namespace Music_Comp
                 if (Song.TIME == Time.SixEight)
                     songdur4.Location = new Point(0, -200);
             }
-            if (song != null && Song.TOTAL_INSTRUMENTS != 0)
                 song.Paint(e.Graphics);
         }
 
@@ -423,8 +430,8 @@ namespace Music_Comp
 
             if (!ControlCheck())
             {
-                Chord chord = new Chord(0);
-                chord.Add(new Note(Pitch.C, Accidental.Natural, currentNoteDuration, Song.OCTAVE));
+                    Chord chord = new Chord(0);
+                    chord.Add(new Note(Pitch.C, Accidental.Natural, currentNoteDuration, Song.OCTAVE));
 
                 switch (e.KeyCode)
                 {
@@ -954,7 +961,8 @@ namespace Music_Comp
                         {
                             Staff staff = song.GetSelection().GetSelection();
                             Instrument instrument = song.GetInstrument(song.GetSelection().GetInstrumentNumber());
-                            if (!CheckChordSelection() || staff.GetCurrentMeasure().GetChord(staff.GetCurrentMeasure().GetChordCount()-1).isItSelected())
+
+                            if (!CheckChordSelection())
                             {
                                 if (!staff.GetCurrentMeasure().IsEmpty())
                                 {
@@ -979,12 +987,13 @@ namespace Music_Comp
                                     else
                                         Song.LASTNOTES[instrument.GetInstrumentNumber()][staff.GetStaffNumber()] = GetAverageNote(staff.GetCurrentMeasure().GetChord(staff.GetCurrentMeasure().GetChordCount() - 1));
                                     Song.OCTAVE = Song.LASTNOTES[instrument.GetInstrumentNumber()][staff.GetStaffNumber()].Octave;
+
                                     song.Update();
                                     graphicsPanel.Invalidate();
                                 }
                             }
                             else
-                                 ChangeChord(Pitch.Rest);
+                                 ChangeSingleNoteChord(Pitch.Rest);
                             break;
                         }
                     case Keys.Space:
@@ -1078,7 +1087,14 @@ namespace Music_Comp
                     Song.OCTAVE = Song.LASTNOTES[instrument.GetInstrumentNumber()][staff.GetStaffNumber()].Octave;
                 }
                 else if (valid)
-                    ChangeChord(chord.GetNote(0).GetPitch());
+                {
+                    ChangeSingleNoteChord(chord.GetNote(0).GetPitch());
+                    for (int i = 0; i < chord.GetNoteCount(); i++)
+                    {
+                        Song.SELECTABLES.Remove(chord.GetNote(i));
+                    }
+                    Song.SELECTABLES.Remove(chord);
+                }
             }
             else // (ControlCheck())
             {
@@ -1170,7 +1186,7 @@ namespace Music_Comp
             }
         }
 
-        private void ChangeChord(Pitch p)
+        private void ChangeSingleNoteChord(Pitch p)
         {
             Instrument instrument = song.GetInstrument(song.GetSelection().GetInstrumentNumber());
             Staff staff = instrument.GetStaff(song.GetSelection().GetSelection().GetStaffNumber());
@@ -1201,6 +1217,56 @@ namespace Music_Comp
                         break;
                     }
                     chordNumber++;
+                }
+            }
+        }
+
+        private void ChangeMultipleNoteChord(Pitch p)
+        {
+            Instrument instrument = song.GetInstrument(song.GetSelection().GetInstrumentNumber());
+            Staff staff = instrument.GetStaff(song.GetSelection().GetSelection().GetStaffNumber());
+            int chordNumber = 0;
+            int iValue = 0;
+            for (int i = 0; i < Song.SELECTABLES.Count; i++)
+            {
+                if (Song.SELECTABLES[i].GetType() == typeof(Chord))
+                {
+                    for (int j = 0; j < (Song.SELECTABLES[i] as Chord).GetNoteCount() ; j++)
+                    {
+                        if ((Song.SELECTABLES[i] as Chord).GetNote(j).isItSelected() )
+                        {
+                            iValue = i;
+                            break;
+                        }
+                    }
+                    chordNumber++;
+                }
+            }
+            for (int i = 0; i < Song.SELECTABLES.Count; i++)
+            {
+                if (Song.SELECTABLES[i].GetType() == typeof(Note))
+                {
+                    if (Song.SELECTABLES[i].isItSelected())
+                    {
+                        (Song.SELECTABLES[i] as Note).SetPitch(p);
+                        (Song.SELECTABLES[iValue] as Chord).SetWaveForm(staff.GetWaveForm());
+                        if (isLetter)
+                            (Song.SELECTABLES[i] as Note).Octave = CalculateOctave((Song.SELECTABLES[i] as Note), instrument);
+                        octaveDifference = 0;
+                        if (EightOrNine)
+                            (Song.SELECTABLES[i] as Note).Octave += 1;
+                        CheckOctaveRange(staff, (Song.SELECTABLES[iValue] as Chord));
+                        (Song.SELECTABLES[iValue] as Chord).Play();
+                        song.Update();
+                        graphicsPanel.Invalidate();
+
+                        if (GetChordNumber(staff) == chordNumber)
+                        {
+                            Song.LASTNOTES[instrument.GetInstrumentNumber()][staff.GetStaffNumber()] = (Song.SELECTABLES[i] as Chord).GetNote(0);
+                            Song.OCTAVE = Song.LASTNOTES[instrument.GetInstrumentNumber()][staff.GetStaffNumber()].Octave;
+                        }
+                        break;
+                    }
                 }
             }
         }
@@ -1908,6 +1974,7 @@ namespace Music_Comp
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
+            Properties.Settings.Default.Loaded = false;
             Properties.Settings.Default.Save();
         }
 
@@ -1941,12 +2008,69 @@ namespace Music_Comp
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog dlg = new OpenFileDialog();
-            dlg.DefaultExt = "bcf";
-            if (DialogResult.OK == dlg.ShowDialog())
+            Startup startup = new Startup();
+            startup.ShowDialog();
+
+            if (startup.filename == "" || startup.filename == "button2" || startup.filename == "newbutton" || startup.filename == "button3")
             {
+                NewSong newsong = new NewSong();
+                newsong.ShowDialog();
+
+                if (newsong.DialogResult == DialogResult.OK)
+                {
+                    Song.SCREEN_WIDTH = newsong.mainSCREEN_WIDTH;
+                    Song.PAGE_WIDTH = newsong.mainPAGE_WIDTH;
+                    Song._SCALE = newsong.main_SCALE;
+                    Song.TOP_MARGIN = newsong.mainTOP_MARGIN;
+                    Song.LEFT_MARGIN = newsong.mainLEFT_MARGIN;
+                    Song.RIGHT_MARGIN = newsong.mainRIGHT_MARGIN;
+                    Song.STAFF_SPACING = newsong.mainSTAFF_SPACING;
+                    Song.INSTRUMENT_SPACING = newsong.mainINSTRUMENT_SPACING;
+
+                    Song.TOTAL_INSTRUMENTS = newsong.mainTOTAL_INSTRUMENTS;
+                    Song.TOTAL_STAVES = newsong.mainTOTAL_STAVES;
+
+                    Song.cursorY = newsong.maincursorY;
+                    Song.cursorX = newsong.maincursorX;
+
+                    Staff.LINE_SPACING = newsong.mainLINE_SPACING;
+                    Staff.LENGTH = newsong.mainLENGTH;
+                    Staff.HEIGHT = newsong.mainHEIGHT;
+
+                    song = new Song(PAGE_WIDTH, newsong.key, newsong.time);
+
+                    if (Song.TIME > 0)
+                    {
+                        currentNoteDuration = Duration.Quarter;
+                        SongDuration.Image = quarter;
+                    }
+                    else if (Song.TIME < 0)
+                    {
+                        currentNoteDuration = Duration.Eighth;
+                        SongDuration.Image = eighth;
+                    }
+
+                    for (int i = 0; i < newsong.instruments.Count; i++)
+                        song.AddInstrument(newsong.instruments[i].clefs, newsong.instruments[i].waveForms, newsong.instruments[i].grouping);
+                    song.Title = newsong.title;
+                    song.Composer = newsong.composer;
+
+                    PlayButton.Image = play;
+                    PlayButton.Location = new Point((Width / 2) - (PlayButton.Width / 2), 0);
+
+                    menuStrip1.BringToFront();
+
+                    PlayButton.BringToFront();
+
+                    song.Update();
+                    graphicsPanel.Invalidate();
+                }
+            }
+            else
+            {
+                songloaded = true;
                 byte[] buffer;
-                FileStream stream = new FileStream(dlg.FileName, FileMode.Open, FileAccess.Read);
+                FileStream stream = new FileStream(startup.filePath + "\\" + startup.filename + ".bcf", FileMode.Open, FileAccess.Read);
                 BinaryReader reader = new BinaryReader(stream);
                 BinaryFormatter formatter = new BinaryFormatter();
 
@@ -1954,7 +2078,7 @@ namespace Music_Comp
                 long sSongSize = reader.ReadInt64();
                 stream.Seek(0, SeekOrigin.Begin);
 
-                
+
                 buffer = new byte[sSongSize];
                 reader.Read(buffer, 0, buffer.Length);
                 MemoryStream sSong = new MemoryStream(buffer);
@@ -1968,32 +2092,8 @@ namespace Music_Comp
                 song = (Song)formatter.Deserialize(sSong);
 
                 Song.SELECTABLES = new List<SongComponent>();
-
-                for (int i = 0; i < song.GetInstrumentCount(); i++)
-                {
-                    Instrument instrument = song.GetInstrument(i);
-                    Song.SELECTABLES.Add(instrument);
-                    for (int s = 0; s < instrument.GetStaffCount(); s++)
-                    {
-                        Staff staff = instrument.GetStaff(s);
-                        Song.SELECTABLES.Add(staff);
-                        for (int m = 0; m < staff.GetMeasureCount(); m++)
-                        {
-                            Measure measure = staff.GetMeasure(m);
-                            Song.SELECTABLES.Add(measure);
-                            for (int c = 0; c < measure.GetChordCount(); c++)
-                            {
-                                Chord chord = measure.GetChord(c);
-                                Song.SELECTABLES.Add(chord);
-                                for (int n = 0; n < chord.GetNoteCount(); n++)
-                                    Song.SELECTABLES.Add(chord.GetNote(n));
-                            }
-                        }
-                    }
-                }
-
-                foreach (SongComponent component in Song.SELECTABLES)
-                    component.Deselect();
+                song.GetInstrument(0).Select();
+                song.GetSelection().GetStaff(0).Select();
 
                 if (Song.TIME > 0)
                 {
@@ -2013,11 +2113,15 @@ namespace Music_Comp
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             song.Title = textBox1.Text;
+            song.Update();
+            graphicsPanel.Invalidate();
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
             song.Composer = textBox2.Text;
+            song.Update();
+            graphicsPanel.Invalidate();
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2050,7 +2154,7 @@ namespace Music_Comp
         {
             Enum.TryParse(KeyBox.Text, out Key k);
             song.SetKeySignature(k);
-
+            song.Update();
             graphicsPanel.Invalidate();
         }
 
@@ -2058,7 +2162,7 @@ namespace Music_Comp
         {
             Enum.TryParse(TimeBox.Text, out Time t);
             song.SetTimeSignature(t);
-
+            song.Update();
             graphicsPanel.Invalidate();
         }
 
@@ -2070,6 +2174,38 @@ namespace Music_Comp
             right = panel2.Location.X + panel2.Width - MousePosition.X;
             bottom = panel2.Location.Y + panel2.Height - MousePosition.Y;
             isdown = true;
+        }
+
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                ActiveControl = graphicsPanel;
+            }
+        }
+
+        private void textBox2_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                ActiveControl = graphicsPanel;
+            }
+        }
+
+        private void KeyBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                ActiveControl = graphicsPanel;
+            }
+        }
+
+        private void TimeBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                ActiveControl = graphicsPanel;
+            }
         }
 
         private void panel2_MouseUp(object sender, MouseEventArgs e)
@@ -2084,48 +2220,48 @@ namespace Music_Comp
             {
                 if (!songloaded)
                 {
-                    if (MousePosition.X - left > 0 && MousePosition.Y - top > menuStrip1.Height && MousePosition.X + right < Width - 25 && MousePosition.Y + bottom < Height - 40)
+                    if (MousePosition.X - left >= 0 && MousePosition.Y - top >= menuStrip1.Height && MousePosition.X + right <= Width - 25 && MousePosition.Y + bottom <= Height - 40)
                     {
                         panel2.Location = new Point(MousePosition.X - left, MousePosition.Y - top);
                     }
-                    else if (MousePosition.X - left > 0 && MousePosition.Y - top <= menuStrip1.Height)
-                    {
-                        panel2.Location = new Point(MousePosition.X - left, menuStrip1.Height);
-                    }
-                    else if (MousePosition.X - left <= 0 && MousePosition.Y - top > menuStrip1.Height)
+                    if (MousePosition.X - left < 0 && MousePosition.Y - top >= menuStrip1.Height && MousePosition.Y + bottom <= Height - 40)
                     {
                         panel2.Location = new Point(0, MousePosition.Y - top);
                     }
-                    else if (MousePosition.X - left > 0 && MousePosition.Y + bottom >= Height - 40)
+                    if (MousePosition.X + right > Width - 25 && MousePosition.Y - top > menuStrip1.Height && MousePosition.Y + bottom <= Height - 40)
+                    {
+                        panel2.Location = new Point(Width - panel2.Width - 25, MousePosition.Y - top);
+                    }
+                    if (MousePosition.Y - top < menuStrip1.Height && MousePosition.X - left >= 0 && MousePosition.X + right <= Width - 25)
+                    {
+                        panel2.Location = new Point(MousePosition.X - left, menuStrip1.Height);
+                    }
+                    if (MousePosition.Y + bottom > Height - 40 && MousePosition.X - left >= 0 && MousePosition.X + right <= Width - 25)
                     {
                         panel2.Location = new Point(MousePosition.X - left, Height - panel2.Height - 40);
-                    }
-                    else if (MousePosition.X + right >= Width - 25 && MousePosition.Y + bottom < Height - 40)
-                    {
-                        panel2.Location = new Point(Width - 40 - panel2.Width, MousePosition.Y - top);
                     }
                 }
                 else
                 {
-                    if (MousePosition.X - left > 0 && MousePosition.Y - top > 0 && MousePosition.X + right < Width - 25 && MousePosition.Y + bottom < Height - 55)
+                    if (MousePosition.X - left >= 0 && MousePosition.Y - top >= 0 && MousePosition.X + right <= Width - 25 && MousePosition.Y + bottom <= Height - 55)
                     {
                         panel2.Location = new Point(MousePosition.X - left, MousePosition.Y - top);
                     }
-                    else if (MousePosition.X - left > 0 && MousePosition.Y - top <= 0)
-                    {
-                        panel2.Location = new Point(MousePosition.X - left, 0);
-                    }
-                    else if (MousePosition.X - left <= 0 && MousePosition.Y - top > 0)
+                    if (MousePosition.X - left < 0 && MousePosition.Y - top >= 0 && MousePosition.Y + bottom <= Height - 55)
                     {
                         panel2.Location = new Point(0, MousePosition.Y - top);
                     }
-                    else if (MousePosition.X - left > 0 && MousePosition.Y + bottom >= Height - 40)
+                    if (MousePosition.X + right > Width - 25 && MousePosition.Y - top > 0 && MousePosition.Y + bottom <= Height - 55)
                     {
-                        panel2.Location = new Point(MousePosition.X - left, Height - panel2.Height - 40);
+                        panel2.Location = new Point(Width - panel2.Width - 25, MousePosition.Y - top);
                     }
-                    else if (MousePosition.X + right >= Width - 25 && MousePosition.Y + bottom < Height - 40)
+                    if (MousePosition.Y - top < 0 && MousePosition.X - left >= 0 && MousePosition.X + right <= Width - 25)
                     {
-                        panel2.Location = new Point(Width - 40 - panel2.Width, MousePosition.Y - top);
+                        panel2.Location = new Point(MousePosition.X - left, 0);
+                    }
+                    if (MousePosition.Y + bottom > Height - 55 && MousePosition.X - left >= 0 && MousePosition.X + right <= Width - 25)
+                    {
+                        panel2.Location = new Point(MousePosition.X - left, Height - panel2.Height - 55);
                     }
                 }
             }
