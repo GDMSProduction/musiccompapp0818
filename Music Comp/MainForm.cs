@@ -191,6 +191,7 @@ namespace Music_Comp
                 }
 
                 graphicsPanel.Invalidate();
+                Properties.Settings.Default.Loaded = true;
             }
         }
 
@@ -1899,6 +1900,7 @@ namespace Music_Comp
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
+            Properties.Settings.Default.Loaded = false;
             Properties.Settings.Default.Save();
         }
 
@@ -1932,12 +1934,69 @@ namespace Music_Comp
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog dlg = new OpenFileDialog();
-            dlg.DefaultExt = "bcf";
-            if (DialogResult.OK == dlg.ShowDialog())
+            Startup startup = new Startup();
+            startup.ShowDialog();
+
+            if (startup.filename == "" || startup.filename == "button2" || startup.filename == "newbutton" || startup.filename == "button3")
             {
+                NewSong newsong = new NewSong();
+                newsong.ShowDialog();
+
+                if (newsong.DialogResult == DialogResult.OK)
+                {
+                    Song.SCREEN_WIDTH = newsong.mainSCREEN_WIDTH;
+                    Song.PAGE_WIDTH = newsong.mainPAGE_WIDTH;
+                    Song._SCALE = newsong.main_SCALE;
+                    Song.TOP_MARGIN = newsong.mainTOP_MARGIN;
+                    Song.LEFT_MARGIN = newsong.mainLEFT_MARGIN;
+                    Song.RIGHT_MARGIN = newsong.mainRIGHT_MARGIN;
+                    Song.STAFF_SPACING = newsong.mainSTAFF_SPACING;
+                    Song.INSTRUMENT_SPACING = newsong.mainINSTRUMENT_SPACING;
+
+                    Song.TOTAL_INSTRUMENTS = newsong.mainTOTAL_INSTRUMENTS;
+                    Song.TOTAL_STAVES = newsong.mainTOTAL_STAVES;
+
+                    Song.cursorY = newsong.maincursorY;
+                    Song.cursorX = newsong.maincursorX;
+
+                    Staff.LINE_SPACING = newsong.mainLINE_SPACING;
+                    Staff.LENGTH = newsong.mainLENGTH;
+                    Staff.HEIGHT = newsong.mainHEIGHT;
+
+                    song = new Song(PAGE_WIDTH, newsong.key, newsong.time);
+
+                    if (Song.TIME > 0)
+                    {
+                        currentNoteDuration = Duration.Quarter;
+                        SongDuration.Image = quarter;
+                    }
+                    else if (Song.TIME < 0)
+                    {
+                        currentNoteDuration = Duration.Eighth;
+                        SongDuration.Image = eighth;
+                    }
+
+                    for (int i = 0; i < newsong.instruments.Count; i++)
+                        song.AddInstrument(newsong.instruments[i].clefs, newsong.instruments[i].waveForms, newsong.instruments[i].grouping);
+                    song.Title = newsong.title;
+                    song.Composer = newsong.composer;
+
+                    PlayButton.Image = play;
+                    PlayButton.Location = new Point((Width / 2) - (PlayButton.Width / 2), 0);
+
+                    menuStrip1.BringToFront();
+
+                    PlayButton.BringToFront();
+
+                    song.Update();
+                    graphicsPanel.Invalidate();
+                }
+            }
+            else
+            {
+                songloaded = true;
                 byte[] buffer;
-                FileStream stream = new FileStream(dlg.FileName, FileMode.Open, FileAccess.Read);
+                FileStream stream = new FileStream(startup.filePath + "\\" + startup.filename + ".bcf", FileMode.Open, FileAccess.Read);
                 BinaryReader reader = new BinaryReader(stream);
                 BinaryFormatter formatter = new BinaryFormatter();
 
@@ -1945,7 +2004,7 @@ namespace Music_Comp
                 long sSongSize = reader.ReadInt64();
                 stream.Seek(0, SeekOrigin.Begin);
 
-                
+
                 buffer = new byte[sSongSize];
                 reader.Read(buffer, 0, buffer.Length);
                 MemoryStream sSong = new MemoryStream(buffer);
@@ -1959,32 +2018,8 @@ namespace Music_Comp
                 song = (Song)formatter.Deserialize(sSong);
 
                 Song.SELECTABLES = new List<SongComponent>();
-
-                for (int i = 0; i < song.GetInstrumentCount(); i++)
-                {
-                    Instrument instrument = song.GetInstrument(i);
-                    Song.SELECTABLES.Add(instrument);
-                    for (int s = 0; s < instrument.GetStaffCount(); s++)
-                    {
-                        Staff staff = instrument.GetStaff(s);
-                        Song.SELECTABLES.Add(staff);
-                        for (int m = 0; m < staff.GetMeasureCount(); m++)
-                        {
-                            Measure measure = staff.GetMeasure(m);
-                            Song.SELECTABLES.Add(measure);
-                            for (int c = 0; c < measure.GetChordCount(); c++)
-                            {
-                                Chord chord = measure.GetChord(c);
-                                Song.SELECTABLES.Add(chord);
-                                for (int n = 0; n < chord.GetNoteCount(); n++)
-                                    Song.SELECTABLES.Add(chord.GetNote(n));
-                            }
-                        }
-                    }
-                }
-
-                foreach (SongComponent component in Song.SELECTABLES)
-                    component.Deselect();
+                song.GetInstrument(0).Select();
+                song.GetSelection().GetStaff(0).Select();
 
                 if (Song.TIME > 0)
                 {
@@ -2075,48 +2110,48 @@ namespace Music_Comp
             {
                 if (!songloaded)
                 {
-                    if (MousePosition.X - left > 0 && MousePosition.Y - top > menuStrip1.Height && MousePosition.X + right < Width - 25 && MousePosition.Y + bottom < Height - 40)
+                    if (MousePosition.X - left >= 0 && MousePosition.Y - top >= menuStrip1.Height && MousePosition.X + right <= Width - 25 && MousePosition.Y + bottom <= Height - 40)
                     {
                         panel2.Location = new Point(MousePosition.X - left, MousePosition.Y - top);
                     }
-                    else if (MousePosition.X - left > 0 && MousePosition.Y - top <= menuStrip1.Height)
-                    {
-                        panel2.Location = new Point(MousePosition.X - left, menuStrip1.Height);
-                    }
-                    else if (MousePosition.X - left <= 0 && MousePosition.Y - top > menuStrip1.Height)
+                    if (MousePosition.X - left < 0 && MousePosition.Y - top >= menuStrip1.Height && MousePosition.Y + bottom <= Height - 40)
                     {
                         panel2.Location = new Point(0, MousePosition.Y - top);
                     }
-                    else if (MousePosition.X - left > 0 && MousePosition.Y + bottom >= Height - 40)
+                    if (MousePosition.X + right > Width - 25 && MousePosition.Y - top > menuStrip1.Height && MousePosition.Y + bottom <= Height - 40)
+                    {
+                        panel2.Location = new Point(Width - panel2.Width - 25, MousePosition.Y - top);
+                    }
+                    if (MousePosition.Y - top < menuStrip1.Height && MousePosition.X - left >= 0 && MousePosition.X + right <= Width - 25)
+                    {
+                        panel2.Location = new Point(MousePosition.X - left, menuStrip1.Height);
+                    }
+                    if (MousePosition.Y + bottom > Height - 40 && MousePosition.X - left >= 0 && MousePosition.X + right <= Width - 25)
                     {
                         panel2.Location = new Point(MousePosition.X - left, Height - panel2.Height - 40);
-                    }
-                    else if (MousePosition.X + right >= Width - 25 && MousePosition.Y + bottom < Height - 40)
-                    {
-                        panel2.Location = new Point(Width - 40 - panel2.Width, MousePosition.Y - top);
                     }
                 }
                 else
                 {
-                    if (MousePosition.X - left > 0 && MousePosition.Y - top > 0 && MousePosition.X + right < Width - 25 && MousePosition.Y + bottom < Height - 55)
+                    if (MousePosition.X - left >= 0 && MousePosition.Y - top >= 0 && MousePosition.X + right <= Width - 25 && MousePosition.Y + bottom <= Height - 55)
                     {
                         panel2.Location = new Point(MousePosition.X - left, MousePosition.Y - top);
                     }
-                    else if (MousePosition.X - left > 0 && MousePosition.Y - top <= 0)
-                    {
-                        panel2.Location = new Point(MousePosition.X - left, 0);
-                    }
-                    else if (MousePosition.X - left <= 0 && MousePosition.Y - top > 0)
+                    if (MousePosition.X - left < 0 && MousePosition.Y - top >= 0 && MousePosition.Y + bottom <= Height - 55)
                     {
                         panel2.Location = new Point(0, MousePosition.Y - top);
                     }
-                    else if (MousePosition.X - left > 0 && MousePosition.Y + bottom >= Height - 40)
+                    if (MousePosition.X + right > Width - 25 && MousePosition.Y - top > 0 && MousePosition.Y + bottom <= Height - 55)
                     {
-                        panel2.Location = new Point(MousePosition.X - left, Height - panel2.Height - 40);
+                        panel2.Location = new Point(Width - panel2.Width - 25, MousePosition.Y - top);
                     }
-                    else if (MousePosition.X + right >= Width - 25 && MousePosition.Y + bottom < Height - 40)
+                    if (MousePosition.Y - top < 0 && MousePosition.X - left >= 0 && MousePosition.X + right <= Width - 25)
                     {
-                        panel2.Location = new Point(Width - 40 - panel2.Width, MousePosition.Y - top);
+                        panel2.Location = new Point(MousePosition.X - left, 0);
+                    }
+                    if (MousePosition.Y + bottom > Height - 55 && MousePosition.X - left >= 0 && MousePosition.X + right <= Width - 25)
+                    {
+                        panel2.Location = new Point(MousePosition.X - left, Height - panel2.Height - 55);
                     }
                 }
             }
