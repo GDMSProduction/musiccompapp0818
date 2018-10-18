@@ -975,7 +975,7 @@ namespace Music_Comp
                                 }
                             }
                             else
-                                 ChangeChord(Pitch.Rest);
+                                 ChangeSingleNoteChord(Pitch.Rest);
                             break;
                         }
                     case Keys.Space:
@@ -1069,7 +1069,7 @@ namespace Music_Comp
                     Song.OCTAVE = Song.LASTNOTES[instrument.GetInstrumentNumber()][staff.GetStaffNumber()].Octave;
                 }
                 else if (valid)
-                    ChangeChord(chord.GetNote(0).GetPitch());
+                    ChangeSingleNoteChord(chord.GetNote(0).GetPitch());
             }
             else // (ControlCheck())
             {
@@ -1161,7 +1161,7 @@ namespace Music_Comp
             }
         }
 
-        private void ChangeChord(Pitch p)
+        private void ChangeSingleNoteChord(Pitch p)
         {
             Instrument instrument = song.GetInstrument(song.GetSelection().GetInstrumentNumber());
             Staff staff = instrument.GetStaff(song.GetSelection().GetSelection().GetStaffNumber());
