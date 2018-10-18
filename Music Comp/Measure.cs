@@ -19,8 +19,6 @@ namespace Music_Comp
 
         Clef mClef;
         WaveForm mWaveForm;
-        Key mKey;
-        Time mTime;
 
         public Measure(Clef clef, WaveForm wave, float yPosition, int measureNumber)
         {
@@ -155,9 +153,18 @@ namespace Music_Comp
             foreach (Chord chord in mChords)
             {
                 if (Song.CHORD_POSITIONS[mMeasureNumber][durationCursor] < cursor)
-                    Song.CHORD_POSITIONS[mMeasureNumber][durationCursor] = cursor;
+                {
+                    float diff = cursor - Song.CHORD_POSITIONS[mMeasureNumber][durationCursor];
+                    for (int i = durationCursor; i < Song.CHORD_POSITIONS[mMeasureNumber].Length; i++)
+                        Song.CHORD_POSITIONS[mMeasureNumber][i] += diff;
+                    if (Song.BARLINES.Count > mMeasureNumber + 1)
+                        for (int i = mMeasureNumber + 1; i < Song.BARLINES.Count; i++)
+                            Song.BARLINES[i] += diff;
+                }
                 chord.Update(barline + Song.CHORD_POSITIONS[mMeasureNumber][durationCursor], yPosition, mClef);
                 cursor += chord.GetWidth();
+                if (chord == mChords[GetChordCount() - 1])
+                    cursor = Song.CHORD_POSITIONS[mMeasureNumber][durationCursor] + chord.GetWidth();
                 durationCursor += (int)chord.GetDuration() / 3;
             }
             mLength = cursor;

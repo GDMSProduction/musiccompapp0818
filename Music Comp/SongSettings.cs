@@ -37,6 +37,8 @@ namespace Music_Comp
         public sbyte OCTAVE = 4;
 
         public List<float> BARLINES;
+        public static List<float[]> CHORD_POSITIONS;
+
         public List<Note[]> LASTNOTES;
 
         // Staff
@@ -82,6 +84,8 @@ namespace Music_Comp
             OCTAVE = Song.OCTAVE;
 
             BARLINES = Song.BARLINES;
+            CHORD_POSITIONS = Song.CHORD_POSITIONS;
+
             LASTNOTES = Song.LASTNOTES;
 
             LINE_SPACING = Staff.LINE_SPACING;
@@ -115,6 +119,8 @@ namespace Music_Comp
             Song.OCTAVE = OCTAVE;
 
             Song.BARLINES = BARLINES;
+            Song.CHORD_POSITIONS = CHORD_POSITIONS;
+
             Song.LASTNOTES = LASTNOTES;
 
             Staff.LINE_SPACING = LINE_SPACING;

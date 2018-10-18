@@ -16,6 +16,8 @@ namespace Music_Comp
         string mTitle;
         string mComposer;
 
+        Image image;
+
         RectangleF area;
         RectangleF groupingArea;
 
@@ -23,6 +25,8 @@ namespace Music_Comp
 
         static Image bracketImage = Properties.Resources.Bracket;
         static Image braceImage = Properties.Resources.Brace;
+
+        public static bool needsFullUpdate;
 
         public static ImageAttributes _REDSHIFT;
 
@@ -54,7 +58,7 @@ namespace Music_Comp
 
         public static List<SongComponent> SELECTABLES;
         public static List<Note[]> LASTNOTES;
-        
+
         List<Instrument> mInstruments = new List<Instrument>();
         Instrument mSelectedInstrument;
 
@@ -69,6 +73,10 @@ namespace Music_Comp
                 new float[] {1, 0, 0, 0, 1}
             });
 
+            image = new Bitmap(2550, 3300);
+
+            needsFullUpdate = true;
+
             _REDSHIFT = new ImageAttributes();
             _REDSHIFT.SetColorMatrix(colorMatrix);
 
@@ -81,7 +89,7 @@ namespace Music_Comp
             RIGHT_MARGIN = 50 * _SCALE;
             STAFF_SPACING = 60 * _SCALE;
             INSTRUMENT_SPACING = 80 * _SCALE;
-            
+
             TOTAL_INSTRUMENTS = 0;
             TOTAL_STAVES = 0;
             TOTAL_MEASURES = 0;
@@ -152,11 +160,13 @@ namespace Music_Comp
         public void SetKeySignature(Key k)
         {
             KEY = k;
+            needsFullUpdate = true;
         }
 
         public void SetTimeSignature(Time t)
         {
             TIME = t;
+            needsFullUpdate = true;
         }
 
         public void SetSelection(Instrument i)
@@ -181,6 +191,7 @@ namespace Music_Comp
                 GetInstrument(0).GetStaff(0).Select();
                 mSelectedInstrument = GetInstrument(0);
             }
+            needsFullUpdate = true;
         }
 
         public void RemoveInstrument(int i)
@@ -192,17 +203,7 @@ namespace Music_Comp
                 TOTAL_INSTRUMENTS--;
                 LASTNOTES.RemoveAt(i);
             }
-
-            //   If the active staff was in the instrument
-
-            /*\  if (mInstruments.Count > 0)
-             *   {
-             *       if (i != mInstruments.Count)
-             *           mInstruments[i].GetStaff(0).Select();
-             *       else
-             *           mInstruments[i - 1].GetStaff(0).Select();
-             *   }
-            \*/
+            needsFullUpdate = true;
         }
 
         public void Update()
@@ -219,9 +220,21 @@ namespace Music_Comp
                 area.Width = SCREEN_WIDTH;
                 area.Height = last.GetArea().Bottom - area.Top;
             }
+            Graphics g = Graphics.FromImage(image);
+            if (!needsFullUpdate)
+            {
+                Brush brush = new TextureBrush(image);
+                g.Clear(Color.Transparent);
+                g.FillRectangle(brush, 0, 0, BARLINES[0], 3300);
+            }
+            else
+                g.Clear(Color.Transparent);
+            Draw(g);
+
+            needsFullUpdate = false;
         }
 
-        public void UpdateGrouping(Grouping g, float instTop, float instBtm)
+        private void UpdateGrouping(Grouping g, float instTop, float instBtm)
         {
             PointF location = new PointF();
             SizeF size = new SizeF();
@@ -247,7 +260,7 @@ namespace Music_Comp
             }
         }
 
-        public void Draw(Graphics g)
+        private void Draw(Graphics g)
         {
             float btm_song_line = TOP_MARGIN + (Staff.HEIGHT + STAFF_SPACING) * TOTAL_STAVES - STAFF_SPACING + (TOTAL_INSTRUMENTS - 1) * INSTRUMENT_SPACING;
 
@@ -263,7 +276,12 @@ namespace Music_Comp
             DrawBarLines(BARLINES, g);
         }
 
-        public void DrawBarLines(List<float> barlines, Graphics g)
+        public void Paint(Graphics g)
+        {
+            g.DrawImage(image, 0, 0);
+        }
+
+        private void DrawBarLines(List<float> barlines, Graphics g)
         {
             Pen barLinePen = new Pen(Color.Black, 3.5f * _SCALE);
 
@@ -303,7 +321,7 @@ namespace Music_Comp
             barLinePen.Dispose();
         }
 
-        public void DrawGrouping(Grouping grouping, Graphics g)
+        private void DrawGrouping(Grouping grouping, Graphics g)
         {
             switch (grouping)
             {
@@ -369,44 +387,44 @@ namespace Music_Comp
                         for (int c = 0; c < measure.GetChordCount(); c++)
                         {
                             Chord chord = measure.GetChord(c);
-                            if (chord.GetNote(0).GetPitch() != Pitch.Rest)
+
+                            double[] angles = new double[chord.GetNoteCount()];
+                            ushort[] frequency = new ushort[chord.GetNoteCount()];
+                            int[] samplesPerWavelength = new int[chord.GetNoteCount()];
+                            short[] ampSteps = new short[chord.GetNoteCount()];
+                            int chordSamples = (int)((decimal)samplesPerSecond * (int)chord.GetDuration() * 3600 / BPM / 1000);
+
+                            ushort volume = 16383;
+                            if (chord.GetWaveForm() == WaveForm.Square)
+                                volume /= 2;
+
+                            const double TAU = 2 * Math.PI;
+                            double NOTE_CONSTANT = Math.Pow(2, (1.0 / 12.0));
+
+                            double amp = volume / 2;
+
+                            for (int n = 0; n < chord.GetNoteCount(); n++)
                             {
-                                double[] angles = new double[chord.GetNoteCount()];
-                                ushort[] frequency = new ushort[chord.GetNoteCount()];
-                                int[] samplesPerWavelength = new int[chord.GetNoteCount()];
-                                short[] ampSteps = new short[chord.GetNoteCount()];
-                                int chordSamples = (int)((decimal)samplesPerSecond * (int)chord.GetDuration() * 3600 / BPM / 1000);
+                                double step = (int)Pitch.A;
+                                if (chord.GetNote(n).GetPitch() < Pitch.E)
+                                    step -= 0.5;
+                                step += (chord.GetNote(n).Octave - 4) * 6;
+                                double exp = -2 * ((double)chord.GetNote(n).GetPitch() - step);
 
-                                ushort volume = 16383;
-                                if (chord.GetWaveForm() == WaveForm.Square)
-                                    volume /= 2;
+                                frequency[n] = (ushort)(440 * Math.Pow(NOTE_CONSTANT, exp));
+                                samplesPerWavelength[n] = bytesPerSecond / frequency[n];
+                                ampSteps[n] = (short)(amp * 2 / samplesPerWavelength[n]);
+                            }
 
-                                const double TAU = 2 * Math.PI;
-                                double NOTE_CONSTANT = Math.Pow(2, (1.0 / 12.0));
+                            for (int n = 0; n < chord.GetNoteCount(); n++)
+                                angles[n] = frequency[n] * TAU / samplesPerSecond;
 
-                                double amp = volume / 2;
+                            short tempSample = (short)-amp;
+                            for (int s = 0; s < chordSamples; s++)
+                            {
+                                short sample = 0;
 
-                                for (int n = 0; n < chord.GetNoteCount(); n++)
-                                {
-                                    double step = (int)Pitch.A;
-                                    if (chord.GetNote(n).GetPitch() < Pitch.E)
-                                        step -= 0.5;
-                                    step += (chord.GetNote(n).Octave - 4) * 6;
-                                    double exp = -2 * ((double)chord.GetNote(n).GetPitch() - step);
-
-                                    frequency[n] = (ushort)(440 * Math.Pow(NOTE_CONSTANT, exp));
-                                    samplesPerWavelength[n] = bytesPerSecond / frequency[n];
-                                    ampSteps[n] = (short)(amp * 2 / samplesPerWavelength[n]);
-                                }
-
-                                for (int n = 0; n < chord.GetNoteCount(); n++)
-                                    angles[n] = frequency[n] * TAU / samplesPerSecond;
-
-                                short tempSample = (short)-amp;
-                                for (int s = 0; s < chordSamples; s++)
-                                {
-                                    short sample = 0;
-
+                                if (chord.GetNote(0).GetPitch() != Pitch.Rest)
                                     switch (chord.GetWaveForm())
                                     {
                                         case WaveForm.Sine:
@@ -441,9 +459,9 @@ namespace Music_Comp
                                             sample += (short)RG.Next((int)-amp, (int)amp);
                                             break;
                                     }
-                                    preSamples[chordNumber] += sample;
-                                    chordNumber++;
-                                }
+
+                                preSamples[chordNumber] += sample;
+                                chordNumber++;
                             }
                         }
                     }
@@ -580,9 +598,9 @@ namespace Music_Comp
                                                         sample += (short)((samplesPerWavelength[n] - sLoc) * ampSteps[n]);
                                                 else
                                                     if (sLoc < samplesPerWavelength[n] * 3 / 4)
-                                                        sample += (short)(sLoc * ampSteps[n]);
-                                                    else
-                                                        sample += (short)((samplesPerWavelength[n] - sLoc) * ampSteps[n]);
+                                                    sample += (short)(sLoc * ampSteps[n]);
+                                                else
+                                                    sample += (short)((samplesPerWavelength[n] - sLoc) * ampSteps[n]);
                                             }
                                             break;
                                         case WaveForm.Noise:

@@ -72,7 +72,7 @@ namespace Music_Comp
             if (song != null && Song.TOTAL_INSTRUMENTS != 0)
             {
                 song.Update();
-                song.Draw(e.Graphics);
+                song.Paint(e.Graphics);
             }
             graphicsPanel.Height = Height - graphicsPanel.Location.Y - 48;
             graphicsPanel.Width = Width - graphicsPanel.Location.X - (cancelButton.Width + okButton.Width) - 90;
@@ -177,7 +177,7 @@ namespace Music_Comp
         private void KeyBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             Enum.TryParse(KeyBox.Text, out Key k);
-            Song.KEY = k;
+            song.SetKeySignature(k);
             key = k;
 
             graphicsPanel.Invalidate();
@@ -186,7 +186,7 @@ namespace Music_Comp
         private void TimeBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             Enum.TryParse(TimeBox.Text, out Time t);
-            Song.TIME = t;
+            song.SetTimeSignature(t);
             time = t;
 
             graphicsPanel.Invalidate();

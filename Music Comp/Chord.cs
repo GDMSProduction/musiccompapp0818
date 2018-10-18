@@ -119,7 +119,6 @@ namespace Music_Comp
 
         public void Draw(Graphics g)
         {
-            if (isSelected) ;
             foreach (Note note in mNotes)
                 note.Draw(g);
         }
@@ -161,42 +160,41 @@ namespace Music_Comp
                 writer.Write(dataChunkSize);
             }
 
-            if (GetNote(0).GetPitch() != Pitch.Rest)
+            double[] angles = new double[GetNoteCount()];
+            ushort[] frequency = new ushort[GetNoteCount()];
+            int[] samplesPerWavelength = new int[GetNoteCount()];
+            short[] ampSteps = new short[GetNoteCount()];
+
+            ushort volume = 16383;
+            if (GetWaveForm() == WaveForm.Square)
+                volume /= 2;
+
+            const double TAU = 2 * Math.PI;
+            double NOTE_CONSTANT = Math.Pow(2, (1.0 / 12.0));
+
+            double amp = volume / 2;
+
+            for (int n = 0; n < GetNoteCount(); n++)
             {
-                double[] angles = new double[GetNoteCount()];
-                ushort[] frequency = new ushort[GetNoteCount()];
-                int[] samplesPerWavelength = new int[GetNoteCount()];
-                short[] ampSteps = new short[GetNoteCount()];
+                double step = (int)Pitch.A;
+                if (GetNote(n).GetPitch() < Pitch.E)
+                    step -= 0.5;
+                step += (GetNote(n).Octave - 4) * 6;
+                double exp = -2 * ((double)GetNote(n).GetPitch() - step);
 
-                ushort volume = 16383;
-                if (GetWaveForm() == WaveForm.Square)
-                    volume /= 2;
+                frequency[n] = (ushort)(440 * Math.Pow(NOTE_CONSTANT, exp));
+                samplesPerWavelength[n] = bytesPerSecond / frequency[n];
+                ampSteps[n] = (short)(amp * 2 / samplesPerWavelength[n]);
+            }
 
-                const double TAU = 2 * Math.PI;
-                double NOTE_CONSTANT = Math.Pow(2, (1.0 / 12.0));
-                
-                double amp = volume / 2;
+            for (int i = 0; i < angles.Length; i++)
+                angles[i] = frequency[i] * TAU / samplesPerSecond;
 
-                for (int n = 0; n < GetNoteCount(); n++)
-                {
-                    double step = (int)Pitch.A;
-                    if (GetNote(n).GetPitch() < Pitch.E)
-                        step -= 0.5;
-                    step += (GetNote(n).Octave - 4) * 6;
-                    double exp = -2 * ((double)GetNote(n).GetPitch() - step);
+            for (int s = 0; s < samples; s++)
+            {
+                short sample = 0;
 
-                    frequency[n] = (ushort)(440 * Math.Pow(NOTE_CONSTANT, exp));
-                    samplesPerWavelength[n] = bytesPerSecond / frequency[n];
-                    ampSteps[n] = (short)(amp * 2 / samplesPerWavelength[n]);
-                }
-
-                for (int i = 0; i < angles.Length; i++)
-                    angles[i] = frequency[i] * TAU / samplesPerSecond;
-
-                for (int s = 0; s < samples; s++)
-                {
-                    short sample = 0;
-
+                if (GetNote(0).GetPitch() != Pitch.Rest)
                     switch (GetWaveForm())
                     {
                         case WaveForm.Sine:
@@ -231,14 +229,14 @@ namespace Music_Comp
                             sample += (short)RG.Next((int)-amp, (int)amp);
                             break;
                     }
-                    writer.Write(sample);
-                }
 
-                mStrm.Seek(0, SeekOrigin.Begin);
-                new System.Media.SoundPlayer(mStrm).Play();
-                writer.Close();
-                mStrm.Close();
+                writer.Write(sample);
             }
+
+            mStrm.Seek(0, SeekOrigin.Begin);
+            new System.Media.SoundPlayer(mStrm).Play();
+            writer.Close();
+            mStrm.Close();
         }
     }
 }

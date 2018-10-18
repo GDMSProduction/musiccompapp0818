@@ -210,7 +210,7 @@ namespace Music_Comp
                     songdur4.Location = new Point(0, -200);
             }
             if (song != null && Song.TOTAL_INSTRUMENTS != 0)
-                song.Draw(e.Graphics);
+                song.Paint(e.Graphics);
         }
 
         private void MainForm_Resize(object sender, EventArgs e)
@@ -406,8 +406,8 @@ namespace Music_Comp
 
             if (!ControlCheck())
             {
-                    Chord chord = new Chord(0);
-                    chord.Add(new Note(Pitch.C, Accidental.Natural, currentNoteDuration, Song.OCTAVE));
+                Chord chord = new Chord(0);
+                chord.Add(new Note(Pitch.C, Accidental.Natural, currentNoteDuration, Song.OCTAVE));
 
                 switch (e.KeyCode)
                 {
@@ -563,7 +563,6 @@ namespace Music_Comp
                                 {
                                     if (!ShiftCheck())
                                     {
-
                                         switch (currentNoteDuration)
                                         {
                                             case Duration.Sixteenth:
@@ -964,6 +963,8 @@ namespace Music_Comp
                                 {
                                     staff.RemoveMeasure(staff.GetCurrentMeasure());
                                     staff.GetCurrentMeasure().Remove(staff.GetCurrentMeasure().GetChord(staff.GetCurrentMeasure().GetChordCount() - 1));
+                                    if (staff.GetCurrentMeasure().IsEmpty())
+                                        staff.RemoveMeasure(staff.GetCurrentMeasure());
                                     if (staff.GetCurrentMeasure().GetChord(staff.GetCurrentMeasure().GetChordCount() - 1).GetNoteCount() == 1)
                                         Song.LASTNOTES[instrument.GetInstrumentNumber()][staff.GetStaffNumber()] = staff.GetMeasure(staff.GetMeasureCount() - 1).GetChord(staff.GetCurrentMeasure().GetChordCount() - 1).GetNote(0);
                                     else
@@ -974,9 +975,7 @@ namespace Music_Comp
                                 }
                             }
                             else
-                            {
                                  ChangeChord(Pitch.Rest);
-                            }
                             break;
                         }
                     case Keys.Space:
@@ -1069,10 +1068,8 @@ namespace Music_Comp
                     Song.LASTNOTES[instrument.GetInstrumentNumber()][staff.GetStaffNumber()] = chord.GetNote(0);
                     Song.OCTAVE = Song.LASTNOTES[instrument.GetInstrumentNumber()][staff.GetStaffNumber()].Octave;
                 }
-                else if (valid && CheckChordSelection())
-                {
+                else if (valid)
                     ChangeChord(chord.GetNote(0).GetPitch());
-                }
             }
             else // (ControlCheck())
             {
@@ -2043,7 +2040,7 @@ namespace Music_Comp
         private void KeyBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             Enum.TryParse(KeyBox.Text, out Key k);
-            Song.KEY = k;
+            song.SetKeySignature(k);
 
             graphicsPanel.Invalidate();
         }
@@ -2051,16 +2048,12 @@ namespace Music_Comp
         private void TimeBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             Enum.TryParse(TimeBox.Text, out Time t);
-            Song.TIME = t;
+            song.SetTimeSignature(t);
 
             graphicsPanel.Invalidate();
         }
 
-        int left;
-        int top;
-        int right;
-        int bottom;
-
+        int left, top, right, bottom;
         private void panel2_MouseDown(object sender, MouseEventArgs e)
         {
             left = MousePosition.X - panel2.Location.X;

@@ -387,6 +387,14 @@ namespace Music_Comp
             }
 
             mCursorX += 90 * Song._SCALE;
+
+            if (Song.BARLINES.Count != 0)
+                if (Song.BARLINES[0] > mCursorX + 30 * Song._SCALE)
+                {
+                    float diff = Song.BARLINES[0] - mCursorX + 30 * Song._SCALE;
+                    for (int i = 0; i < Song.BARLINES.Count; i++)
+                        Song.BARLINES[i] -= diff;
+                }
         }
 
         private void DrawTimeSignature(Graphics g)
@@ -443,8 +451,6 @@ namespace Music_Comp
 
         public void Update()
         {
-            if (isSelected)
-                Select();
             mCursorX = Song.LEFT_MARGIN;
             mYPosition = mTotalInstrumentNumber * Song.INSTRUMENT_SPACING + mTotalStaffNumber * (HEIGHT + Song.STAFF_SPACING);
 
@@ -475,11 +481,14 @@ namespace Music_Comp
 
             DrawStaff(g);
 
-            DrawClef(g);
+            if (Song.needsFullUpdate)
+            {
+                DrawClef(g);
 
-            DrawKeySignature(g);
+                DrawKeySignature(g);
 
-            DrawTimeSignature(g);
+                DrawTimeSignature(g);
+            }
 
             foreach (Measure measure in mMeasures)
                 measure.Draw(g);
