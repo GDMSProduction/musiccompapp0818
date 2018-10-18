@@ -13,33 +13,35 @@ namespace Music_Comp
         Image bracketImage = Properties.Resources.Bracket;
         Image braceImage = Properties.Resources.Brace;
 
-        public float SCREEN_WIDTH;
-        public float PAGE_WIDTH;
-        public float _SCALE;
-        public float TOP_MARGIN;
-        public float LEFT_MARGIN;
-        public float RIGHT_MARGIN;
-        public float STAFF_SPACING;
-        public float INSTRUMENT_SPACING;
+        int stanzas;
 
-        public int TOTAL_INSTRUMENTS;
-        public int TOTAL_STAVES;
-        public int TOTAL_MEASURES;
-        public int TOTAL_CHORDS;
-        public int TOTAL_NOTES;
+        float SCREEN_WIDTH;
+        float PAGE_WIDTH;
+        float _SCALE;
+        float TOP_MARGIN;
+        float LEFT_MARGIN;
+        float RIGHT_MARGIN;
+        float STAFF_SPACING;
+        float INSTRUMENT_SPACING;
 
-        public float cursorY;
-        public float cursorX;
+        int TOTAL_INSTRUMENTS;
+        int TOTAL_STAVES;
+        int TOTAL_MEASURES;
+        int TOTAL_CHORDS;
+        int TOTAL_NOTES;
 
-        public Key KEY = Key.C;
-        public Time TIME = Time.Common;
-        public int BPM;
-        public sbyte OCTAVE = 4;
+        float cursorY;
+        float cursorX;
 
-        public List<float> BARLINES;
-        public static List<float[]> CHORD_POSITIONS;
+        Key KEY = Key.C;
+        Time TIME = Time.Common;
+        int BPM;
+        sbyte OCTAVE = 4;
 
-        public List<Note[]> LASTNOTES;
+        List<float> BARLINES;
+        List<float[]> CHORD_POSITIONS;
+
+        List<Note[]> LASTNOTES;
 
         // Staff
 
@@ -60,6 +62,8 @@ namespace Music_Comp
 
         public SongSettings()
         {
+            stanzas = Song.stanzas;
+
             SCREEN_WIDTH = Song.SCREEN_WIDTH;
             PAGE_WIDTH = Song.PAGE_WIDTH;
             _SCALE = Song._SCALE;
@@ -95,6 +99,8 @@ namespace Music_Comp
 
         public void Apply()
         {
+            Song.stanzas = stanzas;
+
             Song.SCREEN_WIDTH = SCREEN_WIDTH;
             Song.PAGE_WIDTH = PAGE_WIDTH;
             Song._SCALE = _SCALE;

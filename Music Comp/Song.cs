@@ -138,10 +138,15 @@ namespace Music_Comp
 
         public int GetDuration()
         {
-            int d = 0;
-            foreach (Instrument instrument in mInstruments)
-                d = Math.Max(d, instrument.GetDuration());
-            return d * stanzas;
+            int t = 0;
+            for (int sz = 0; sz < stanzas; sz++)
+            {
+                int d = 0;
+                for (int inst = GetInstrumentCount() * sz / stanzas; inst < GetInstrumentCount() * (sz + 1) / stanzas; inst++)
+                    d = Math.Max(d, GetInstrument(inst).GetDuration());
+                t += d;
+            }
+            return t;
         }
 
         public Instrument GetInstrument(int i)
@@ -579,22 +584,23 @@ namespace Music_Comp
                 writer.Write(dataChunkSize);
             }
 
-            short[] preSamples = new short[samples];
-
-            foreach (Instrument instrument in mInstruments)
+            for (int sz = 0; sz < stanzas; sz++)
             {
-                for (int st = 0; st < instrument.GetStaffCount(); st++)
+                short[] preSamples = new short[samples];
+                for (int inst = GetInstrumentCount() * sz / stanzas; inst < GetInstrumentCount() * (sz + 1) / stanzas; inst++)
                 {
-                    int chordNumber = 0;
-                    Staff staff = instrument.GetStaff(st);
-                    for (int m = 0; m < staff.GetMeasureCount(); m++)
+                    Instrument instrument = GetInstrument(inst);
+                    for (int st = 0; st < instrument.GetStaffCount(); st++)
                     {
-                        Measure measure = staff.GetMeasure(m);
-                        for (int c = 0; c < measure.GetChordCount(); c++)
+                        int chordNumber = 0;
+                        Staff staff = instrument.GetStaff(st);
+                        for (int m = 0; m < staff.GetMeasureCount(); m++)
                         {
-                            Chord chord = measure.GetChord(c);
-                            if (chord.GetNote(0).GetPitch() != Pitch.Rest)
+                            Measure measure = staff.GetMeasure(m);
+                            for (int c = 0; c < measure.GetChordCount(); c++)
                             {
+                                Chord chord = measure.GetChord(c);
+
                                 double[] angles = new double[chord.GetNoteCount()];
                                 ushort[] frequency = new ushort[chord.GetNoteCount()];
                                 int[] samplesPerWavelength = new int[chord.GetNoteCount()];
@@ -631,40 +637,42 @@ namespace Music_Comp
                                 {
                                     short sample = 0;
 
-                                    switch (chord.GetWaveForm())
-                                    {
-                                        case WaveForm.Sine:
-                                            for (int n = 0; n < chord.GetNoteCount(); n++)
-                                                sample += (short)(amp * Math.Sin(angles[n] * s));
-                                            break;
-                                        case WaveForm.Square:
-                                            for (int n = 0; n < chord.GetNoteCount(); n++)
-                                                sample += (short)(amp * Math.Sign(Math.Sin(angles[n] * s)));
-                                            break;
-                                        case WaveForm.Sawtooth:
-                                            for (int n = 0; n < chord.GetNoteCount(); n++)
-                                                sample += (short)(s % samplesPerWavelength[n] * ampSteps[n]);
-                                            break;
-                                        case WaveForm.Triangle:
-                                            for (int n = 0; n < chord.GetNoteCount(); n++)
-                                            {
-                                                int sLoc = s % samplesPerWavelength[n];
-                                                if (sLoc < samplesPerWavelength[n] / 2)
-                                                    if (sLoc < samplesPerWavelength[n] / 4)
+                                    if (chord.GetNote(0).GetPitch() != Pitch.Rest)
+                                        switch (chord.GetWaveForm())
+                                        {
+                                            case WaveForm.Sine:
+                                                for (int n = 0; n < chord.GetNoteCount(); n++)
+                                                    sample += (short)(amp * Math.Sin(angles[n] * s));
+                                                break;
+                                            case WaveForm.Square:
+                                                for (int n = 0; n < chord.GetNoteCount(); n++)
+                                                    sample += (short)(amp * Math.Sign(Math.Sin(angles[n] * s)));
+                                                break;
+                                            case WaveForm.Sawtooth:
+                                                for (int n = 0; n < chord.GetNoteCount(); n++)
+                                                    sample += (short)(s % samplesPerWavelength[n] * ampSteps[n]);
+                                                break;
+                                            case WaveForm.Triangle:
+                                                for (int n = 0; n < chord.GetNoteCount(); n++)
+                                                {
+                                                    int sLoc = s % samplesPerWavelength[n];
+                                                    if (sLoc < samplesPerWavelength[n] / 2)
+                                                        if (sLoc < samplesPerWavelength[n] / 4)
+                                                            sample += (short)(sLoc * ampSteps[n]);
+                                                        else
+                                                            sample += (short)((samplesPerWavelength[n] - sLoc) * ampSteps[n]);
+                                                    else
+                                                        if (sLoc < samplesPerWavelength[n] * 3 / 4)
                                                         sample += (short)(sLoc * ampSteps[n]);
                                                     else
                                                         sample += (short)((samplesPerWavelength[n] - sLoc) * ampSteps[n]);
-                                                else
-                                                    if (sLoc < samplesPerWavelength[n] * 3 / 4)
-                                                    sample += (short)(sLoc * ampSteps[n]);
-                                                else
-                                                    sample += (short)((samplesPerWavelength[n] - sLoc) * ampSteps[n]);
-                                            }
-                                            break;
-                                        case WaveForm.Noise:
-                                            sample += (short)RG.Next((int)-amp, (int)amp);
-                                            break;
-                                    }
+                                                }
+                                                break;
+                                            case WaveForm.Noise:
+                                                sample += (short)RG.Next((int)-amp, (int)amp);
+                                                break;
+                                        }
+
                                     preSamples[chordNumber] += sample;
                                     chordNumber++;
                                 }
@@ -672,10 +680,10 @@ namespace Music_Comp
                         }
                     }
                 }
-            }
 
-            foreach (short s in preSamples)
-                writer.Write(s);
+                foreach (short s in preSamples)
+                    writer.Write(s);
+            }
 
             writer.Close();
         }
