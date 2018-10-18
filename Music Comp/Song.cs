@@ -260,7 +260,7 @@ namespace Music_Comp
                 area.Height = last.GetArea().Bottom - area.Top;
             }
             Graphics g = Graphics.FromImage(image);
-            if (!needsFullUpdate)
+            if (!needsFullUpdate && BARLINES.Count != 0)
             {
                 Brush brush = new TextureBrush(image);
                 g.Clear(Color.Transparent);
@@ -314,24 +314,27 @@ namespace Music_Comp
             layoutRectangle = new RectangleF(PAGE_WIDTH * 2 / 3, TOP_MARGIN * 3 / 4, PAGE_WIDTH / 3, TOP_MARGIN / 4);
             g.DrawString(Composer, font, new SolidBrush(Color.Black), layoutRectangle, stringFormat);
 
-            float stanzaHeight = ((Staff.HEIGHT + STAFF_SPACING) * TOTAL_STAVES - STAFF_SPACING + (TOTAL_INSTRUMENTS - 1) * INSTRUMENT_SPACING) / stanzas
-                    - (stanzas - 1) * 68 * _SCALE;
-            PointF start = new PointF(LEFT_MARGIN, TOP_MARGIN);
-            PointF end = new PointF(LEFT_MARGIN, TOP_MARGIN);
-            for (int i = 0; i < stanzas; i++)
+            if (TOTAL_INSTRUMENTS != 0)
             {
-                end.Y = start.Y + stanzaHeight;
+                float stanzaHeight = ((Staff.HEIGHT + STAFF_SPACING) * TOTAL_STAVES - STAFF_SPACING + (TOTAL_INSTRUMENTS - 1) * INSTRUMENT_SPACING) / stanzas
+                    - (stanzas - 1) * 68 * _SCALE;
+                PointF start = new PointF(LEFT_MARGIN, TOP_MARGIN);
+                PointF end = new PointF(LEFT_MARGIN, TOP_MARGIN);
+                for (int i = 0; i < stanzas; i++)
+                {
+                    end.Y = start.Y + stanzaHeight;
 
-                if (g.IsVisible(new RectangleF(start.X, start.Y, 1, end.Y - start.Y)))
-                    g.DrawLine(new Pen(Color.Black, 3.4f * _SCALE), start, end);
+                    if (g.IsVisible(new RectangleF(start.X, start.Y, 1, end.Y - start.Y)))
+                        g.DrawLine(new Pen(Color.Black, 3.4f * _SCALE), start, end);
 
-                start.Y = end.Y + 136 *_SCALE;
+                    start.Y = end.Y + 136 * _SCALE;
+                }
+
+                foreach (Instrument instrument in mInstruments)
+                    instrument.Draw(g);
+
+                DrawBarLines(BARLINES, g);
             }
-
-            foreach (Instrument instrument in mInstruments)
-                instrument.Draw(g);
-
-            DrawBarLines(BARLINES, g);
         }
 
         public void Paint(Graphics g)

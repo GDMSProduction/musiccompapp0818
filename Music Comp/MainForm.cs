@@ -145,8 +145,12 @@ namespace Music_Comp
                     menuStrip1.BringToFront();
 
                     PlayButton.BringToFront();
-
+                    
                     song.Update();
+
+                    textBox1.Text = newsong.title;
+                    textBox2.Text = newsong.composer;
+
                     graphicsPanel.Invalidate();
                 }
             }
@@ -237,7 +241,6 @@ namespace Music_Comp
                 if (Song.TIME == Time.SixEight)
                     songdur4.Location = new Point(0, -200);
             }
-            if (song != null && Song.TOTAL_INSTRUMENTS != 0)
                 song.Paint(e.Graphics);
         }
 
@@ -2106,12 +2109,14 @@ namespace Music_Comp
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             song.Title = textBox1.Text;
+            song.Update();
             graphicsPanel.Invalidate();
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
             song.Composer = textBox2.Text;
+            song.Update();
             graphicsPanel.Invalidate();
         }
 
@@ -2145,7 +2150,7 @@ namespace Music_Comp
         {
             Enum.TryParse(KeyBox.Text, out Key k);
             song.SetKeySignature(k);
-
+            song.Update();
             graphicsPanel.Invalidate();
         }
 
@@ -2153,7 +2158,7 @@ namespace Music_Comp
         {
             Enum.TryParse(TimeBox.Text, out Time t);
             song.SetTimeSignature(t);
-
+            song.Update();
             graphicsPanel.Invalidate();
         }
 
