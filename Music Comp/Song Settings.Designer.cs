@@ -56,9 +56,10 @@
             // button1
             // 
             this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button1.Location = new System.Drawing.Point(21, 383);
+            this.button1.Location = new System.Drawing.Point(16, 306);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(104, 55);
+            this.button1.Size = new System.Drawing.Size(78, 44);
             this.button1.TabIndex = 0;
             this.button1.Text = "OK";
             this.button1.UseVisualStyleBackColor = true;
@@ -66,9 +67,10 @@
             // button2
             // 
             this.button2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.button2.Location = new System.Drawing.Point(155, 383);
+            this.button2.Location = new System.Drawing.Point(116, 306);
+            this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(104, 55);
+            this.button2.Size = new System.Drawing.Size(78, 44);
             this.button2.TabIndex = 1;
             this.button2.Text = "Cancel";
             this.button2.UseVisualStyleBackColor = true;
@@ -91,9 +93,11 @@
             this.SongKeySignature.Controls.Add(this.G_Button);
             this.SongKeySignature.Controls.Add(this.C_Button);
             this.SongKeySignature.Controls.Add(this.F_Button);
-            this.SongKeySignature.Location = new System.Drawing.Point(12, 12);
+            this.SongKeySignature.Location = new System.Drawing.Point(9, 10);
+            this.SongKeySignature.Margin = new System.Windows.Forms.Padding(2);
             this.SongKeySignature.Name = "SongKeySignature";
-            this.SongKeySignature.Size = new System.Drawing.Size(478, 326);
+            this.SongKeySignature.Padding = new System.Windows.Forms.Padding(2);
+            this.SongKeySignature.Size = new System.Drawing.Size(358, 261);
             this.SongKeySignature.TabIndex = 5;
             this.SongKeySignature.TabStop = false;
             this.SongKeySignature.Text = "Song Key Signature";
@@ -101,9 +105,11 @@
             // cFlat_Button
             // 
             this.cFlat_Button.AutoSize = true;
-            this.cFlat_Button.Location = new System.Drawing.Point(164, 55);
+            this.cFlat_Button.CheckAlign = System.Drawing.ContentAlignment.TopRight;
+            this.cFlat_Button.Location = new System.Drawing.Point(96, 221);
+            this.cFlat_Button.Margin = new System.Windows.Forms.Padding(2);
             this.cFlat_Button.Name = "cFlat_Button";
-            this.cFlat_Button.Size = new System.Drawing.Size(100, 29);
+            this.cFlat_Button.Size = new System.Drawing.Size(76, 24);
             this.cFlat_Button.TabIndex = 14;
             this.cFlat_Button.Text = "C Flat";
             this.cFlat_Button.UseVisualStyleBackColor = true;
@@ -111,9 +117,11 @@
             // cSharp_Button
             // 
             this.cSharp_Button.AutoSize = true;
-            this.cSharp_Button.Location = new System.Drawing.Point(336, 90);
+            this.cSharp_Button.CheckAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.cSharp_Button.Location = new System.Drawing.Point(182, 221);
+            this.cSharp_Button.Margin = new System.Windows.Forms.Padding(2);
             this.cSharp_Button.Name = "cSharp_Button";
-            this.cSharp_Button.Size = new System.Drawing.Size(121, 29);
+            this.cSharp_Button.Size = new System.Drawing.Size(92, 24);
             this.cSharp_Button.TabIndex = 13;
             this.cSharp_Button.Text = "C Sharp";
             this.cSharp_Button.UseVisualStyleBackColor = true;
@@ -121,9 +129,10 @@
             // fSharp_Button
             // 
             this.fSharp_Button.AutoSize = true;
-            this.fSharp_Button.Location = new System.Drawing.Point(336, 55);
+            this.fSharp_Button.Location = new System.Drawing.Point(209, 193);
+            this.fSharp_Button.Margin = new System.Windows.Forms.Padding(2);
             this.fSharp_Button.Name = "fSharp_Button";
-            this.fSharp_Button.Size = new System.Drawing.Size(119, 29);
+            this.fSharp_Button.Size = new System.Drawing.Size(91, 24);
             this.fSharp_Button.TabIndex = 12;
             this.fSharp_Button.Text = "F Sharp";
             this.fSharp_Button.UseVisualStyleBackColor = true;
@@ -131,9 +140,10 @@
             // B_Button
             // 
             this.B_Button.AutoSize = true;
-            this.B_Button.Location = new System.Drawing.Point(29, 265);
+            this.B_Button.Location = new System.Drawing.Point(234, 165);
+            this.B_Button.Margin = new System.Windows.Forms.Padding(2);
             this.B_Button.Name = "B_Button";
-            this.B_Button.Size = new System.Drawing.Size(57, 29);
+            this.B_Button.Size = new System.Drawing.Size(45, 24);
             this.B_Button.TabIndex = 11;
             this.B_Button.Text = "B";
             this.B_Button.UseVisualStyleBackColor = true;
@@ -141,9 +151,11 @@
             // gFlat_Button
             // 
             this.gFlat_Button.AutoSize = true;
-            this.gFlat_Button.Location = new System.Drawing.Point(165, 90);
+            this.gFlat_Button.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.gFlat_Button.Location = new System.Drawing.Point(64, 193);
+            this.gFlat_Button.Margin = new System.Windows.Forms.Padding(2);
             this.gFlat_Button.Name = "gFlat_Button";
-            this.gFlat_Button.Size = new System.Drawing.Size(101, 29);
+            this.gFlat_Button.Size = new System.Drawing.Size(78, 24);
             this.gFlat_Button.TabIndex = 10;
             this.gFlat_Button.Text = "G Flat";
             this.gFlat_Button.UseVisualStyleBackColor = true;
@@ -151,9 +163,11 @@
             // dFlat_Button
             // 
             this.dFlat_Button.AutoSize = true;
-            this.dFlat_Button.Location = new System.Drawing.Point(165, 125);
+            this.dFlat_Button.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.dFlat_Button.Location = new System.Drawing.Point(42, 165);
+            this.dFlat_Button.Margin = new System.Windows.Forms.Padding(2);
             this.dFlat_Button.Name = "dFlat_Button";
-            this.dFlat_Button.Size = new System.Drawing.Size(100, 29);
+            this.dFlat_Button.Size = new System.Drawing.Size(77, 24);
             this.dFlat_Button.TabIndex = 9;
             this.dFlat_Button.Text = "D Flat";
             this.dFlat_Button.UseVisualStyleBackColor = true;
@@ -161,9 +175,11 @@
             // aFlat_Button
             // 
             this.aFlat_Button.AutoSize = true;
-            this.aFlat_Button.Location = new System.Drawing.Point(167, 160);
+            this.aFlat_Button.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.aFlat_Button.Location = new System.Drawing.Point(31, 137);
+            this.aFlat_Button.Margin = new System.Windows.Forms.Padding(2);
             this.aFlat_Button.Name = "aFlat_Button";
-            this.aFlat_Button.Size = new System.Drawing.Size(99, 29);
+            this.aFlat_Button.Size = new System.Drawing.Size(76, 24);
             this.aFlat_Button.TabIndex = 8;
             this.aFlat_Button.Text = "A Flat";
             this.aFlat_Button.UseVisualStyleBackColor = true;
@@ -171,9 +187,11 @@
             // bFlat_Button
             // 
             this.bFlat_Button.AutoSize = true;
-            this.bFlat_Button.Location = new System.Drawing.Point(167, 230);
+            this.bFlat_Button.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.bFlat_Button.Location = new System.Drawing.Point(52, 81);
+            this.bFlat_Button.Margin = new System.Windows.Forms.Padding(2);
             this.bFlat_Button.Name = "bFlat_Button";
-            this.bFlat_Button.Size = new System.Drawing.Size(99, 29);
+            this.bFlat_Button.Size = new System.Drawing.Size(76, 24);
             this.bFlat_Button.TabIndex = 7;
             this.bFlat_Button.Text = "B Flat";
             this.bFlat_Button.UseVisualStyleBackColor = true;
@@ -181,9 +199,10 @@
             // E_Button
             // 
             this.E_Button.AutoSize = true;
-            this.E_Button.Location = new System.Drawing.Point(29, 230);
+            this.E_Button.Location = new System.Drawing.Point(246, 137);
+            this.E_Button.Margin = new System.Windows.Forms.Padding(2);
             this.E_Button.Name = "E_Button";
-            this.E_Button.Size = new System.Drawing.Size(57, 29);
+            this.E_Button.Size = new System.Drawing.Size(45, 24);
             this.E_Button.TabIndex = 6;
             this.E_Button.Text = "E";
             this.E_Button.UseVisualStyleBackColor = true;
@@ -191,9 +210,10 @@
             // A_Button
             // 
             this.A_Button.AutoSize = true;
-            this.A_Button.Location = new System.Drawing.Point(29, 195);
+            this.A_Button.Location = new System.Drawing.Point(246, 109);
+            this.A_Button.Margin = new System.Windows.Forms.Padding(2);
             this.A_Button.Name = "A_Button";
-            this.A_Button.Size = new System.Drawing.Size(57, 29);
+            this.A_Button.Size = new System.Drawing.Size(45, 24);
             this.A_Button.TabIndex = 5;
             this.A_Button.Text = "A";
             this.A_Button.UseVisualStyleBackColor = true;
@@ -201,9 +221,10 @@
             // D_Button
             // 
             this.D_Button.AutoSize = true;
-            this.D_Button.Location = new System.Drawing.Point(27, 160);
+            this.D_Button.Location = new System.Drawing.Point(223, 81);
+            this.D_Button.Margin = new System.Windows.Forms.Padding(2);
             this.D_Button.Name = "D_Button";
-            this.D_Button.Size = new System.Drawing.Size(58, 29);
+            this.D_Button.Size = new System.Drawing.Size(46, 24);
             this.D_Button.TabIndex = 4;
             this.D_Button.Text = "D";
             this.D_Button.UseVisualStyleBackColor = true;
@@ -211,9 +232,11 @@
             // eFlat_Button
             // 
             this.eFlat_Button.AutoSize = true;
-            this.eFlat_Button.Location = new System.Drawing.Point(167, 195);
+            this.eFlat_Button.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.eFlat_Button.Location = new System.Drawing.Point(31, 109);
+            this.eFlat_Button.Margin = new System.Windows.Forms.Padding(2);
             this.eFlat_Button.Name = "eFlat_Button";
-            this.eFlat_Button.Size = new System.Drawing.Size(99, 29);
+            this.eFlat_Button.Size = new System.Drawing.Size(76, 24);
             this.eFlat_Button.TabIndex = 3;
             this.eFlat_Button.Text = "E Flat";
             this.eFlat_Button.UseVisualStyleBackColor = true;
@@ -221,9 +244,11 @@
             // G_Button
             // 
             this.G_Button.AutoSize = true;
-            this.G_Button.Location = new System.Drawing.Point(27, 125);
+            this.G_Button.CheckAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.G_Button.Location = new System.Drawing.Point(198, 53);
+            this.G_Button.Margin = new System.Windows.Forms.Padding(2);
             this.G_Button.Name = "G_Button";
-            this.G_Button.Size = new System.Drawing.Size(59, 29);
+            this.G_Button.Size = new System.Drawing.Size(47, 24);
             this.G_Button.TabIndex = 2;
             this.G_Button.Text = "G";
             this.G_Button.UseVisualStyleBackColor = true;
@@ -231,9 +256,11 @@
             // C_Button
             // 
             this.C_Button.AutoSize = true;
-            this.C_Button.Location = new System.Drawing.Point(28, 90);
+            this.C_Button.CheckAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.C_Button.Location = new System.Drawing.Point(161, 23);
+            this.C_Button.Margin = new System.Windows.Forms.Padding(2);
             this.C_Button.Name = "C_Button";
-            this.C_Button.Size = new System.Drawing.Size(58, 29);
+            this.C_Button.Size = new System.Drawing.Size(24, 44);
             this.C_Button.TabIndex = 1;
             this.C_Button.Text = "C";
             this.C_Button.UseVisualStyleBackColor = true;
@@ -241,9 +268,11 @@
             // F_Button
             // 
             this.F_Button.AutoSize = true;
-            this.F_Button.Location = new System.Drawing.Point(28, 55);
+            this.F_Button.CheckAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.F_Button.Location = new System.Drawing.Point(107, 53);
+            this.F_Button.Margin = new System.Windows.Forms.Padding(2);
             this.F_Button.Name = "F_Button";
-            this.F_Button.Size = new System.Drawing.Size(56, 29);
+            this.F_Button.Size = new System.Drawing.Size(44, 24);
             this.F_Button.TabIndex = 0;
             this.F_Button.Text = "F";
             this.F_Button.UseVisualStyleBackColor = true;
@@ -253,9 +282,11 @@
             this.SongTimeSignature.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.SongTimeSignature.Controls.Add(this.FourFour_Button);
             this.SongTimeSignature.Controls.Add(this.SixEight_Button);
-            this.SongTimeSignature.Location = new System.Drawing.Point(523, 12);
+            this.SongTimeSignature.Location = new System.Drawing.Point(392, 10);
+            this.SongTimeSignature.Margin = new System.Windows.Forms.Padding(2);
             this.SongTimeSignature.Name = "SongTimeSignature";
-            this.SongTimeSignature.Size = new System.Drawing.Size(265, 326);
+            this.SongTimeSignature.Padding = new System.Windows.Forms.Padding(2);
+            this.SongTimeSignature.Size = new System.Drawing.Size(199, 261);
             this.SongTimeSignature.TabIndex = 6;
             this.SongTimeSignature.TabStop = false;
             this.SongTimeSignature.Text = "Song Time SIgnature";
@@ -263,9 +294,10 @@
             // FourFour_Button
             // 
             this.FourFour_Button.AutoSize = true;
-            this.FourFour_Button.Location = new System.Drawing.Point(24, 90);
+            this.FourFour_Button.Location = new System.Drawing.Point(18, 53);
+            this.FourFour_Button.Margin = new System.Windows.Forms.Padding(2);
             this.FourFour_Button.Name = "FourFour_Button";
-            this.FourFour_Button.Size = new System.Drawing.Size(137, 29);
+            this.FourFour_Button.Size = new System.Drawing.Size(104, 24);
             this.FourFour_Button.TabIndex = 1;
             this.FourFour_Button.Text = "Four/Four";
             this.FourFour_Button.UseVisualStyleBackColor = true;
@@ -273,23 +305,25 @@
             // SixEight_Button
             // 
             this.SixEight_Button.AutoSize = true;
-            this.SixEight_Button.Location = new System.Drawing.Point(24, 54);
+            this.SixEight_Button.Location = new System.Drawing.Point(18, 81);
+            this.SixEight_Button.Margin = new System.Windows.Forms.Padding(2);
             this.SixEight_Button.Name = "SixEight_Button";
-            this.SixEight_Button.Size = new System.Drawing.Size(128, 29);
+            this.SixEight_Button.Size = new System.Drawing.Size(96, 24);
             this.SixEight_Button.TabIndex = 0;
             this.SixEight_Button.Text = "Six/Eight";
             this.SixEight_Button.UseVisualStyleBackColor = true;
             // 
             // Song_Settings
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(600, 360);
             this.Controls.Add(this.SongTimeSignature);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.SongKeySignature);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Song_Settings";

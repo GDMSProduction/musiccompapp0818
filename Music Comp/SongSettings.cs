@@ -138,6 +138,8 @@ namespace Music_Comp
 
             Song._REDSHIFT = new ImageAttributes();
             Song._REDSHIFT.SetColorMatrix(colorMatrix);
+
+            Song.needsFullUpdate = true;
         }
     }
 }

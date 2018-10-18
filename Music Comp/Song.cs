@@ -3,6 +3,7 @@ using System.Runtime.Serialization;
 using System.Collections.Generic;
 using System.Drawing.Imaging;
 using System.Windows.Forms;
+using System.Drawing.Text;
 using System.Drawing;
 using System.IO;
 using System;
@@ -262,6 +263,19 @@ namespace Music_Comp
 
         private void Draw(Graphics g)
         {
+            g.TextRenderingHint = TextRenderingHint.AntiAlias;
+
+            Font font = new Font("Arial", 64 * _SCALE);
+            RectangleF layoutRectangle = new RectangleF(0, 0, PAGE_WIDTH, TOP_MARGIN);
+            StringFormat stringFormat = new StringFormat();
+            stringFormat.LineAlignment = StringAlignment.Center;
+            stringFormat.Alignment = StringAlignment.Center;
+            g.DrawString(Title, font, new SolidBrush(Color.Black), layoutRectangle, stringFormat);
+
+            font = new Font("Arial", 36 * _SCALE);
+            layoutRectangle = new RectangleF(PAGE_WIDTH * 2 / 3, TOP_MARGIN * 3 / 4, PAGE_WIDTH / 3, TOP_MARGIN / 4);
+            g.DrawString(Composer, font, new SolidBrush(Color.Black), layoutRectangle, stringFormat);
+
             float btm_song_line = TOP_MARGIN + (Staff.HEIGHT + STAFF_SPACING) * TOTAL_STAVES - STAFF_SPACING + (TOTAL_INSTRUMENTS - 1) * INSTRUMENT_SPACING;
 
             PointF start = new PointF(LEFT_MARGIN, TOP_MARGIN);

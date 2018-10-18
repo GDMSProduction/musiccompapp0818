@@ -174,15 +174,10 @@ namespace Music_Comp
             {
                 filename = ActiveControl.Name;
                 if (filename != "newbutton")
-                {
                     filename = filename.Remove(filename.Length - 4);
-                }
                 return filename;
             }
-            else
-            {
-                return "";
-            }
+            return "";
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -258,9 +253,7 @@ namespace Music_Comp
         private void Startup_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (checkexit)
-            {
                 Application.Exit();
-            }
         }
 
         private void Startup_FormClosed(object sender, FormClosedEventArgs e)
