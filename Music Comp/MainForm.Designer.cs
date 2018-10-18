@@ -71,8 +71,8 @@
             this.songdur1 = new System.Windows.Forms.Button();
             this.songdur2 = new System.Windows.Forms.Button();
             this.SongDuration = new System.Windows.Forms.Button();
-            this.PlayButton = new System.Windows.Forms.Button();
             this.graphicsPanel = new Music_Comp.GraphicsPanel();
+            this.PlayButton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -85,7 +85,7 @@
             this.zoomInButton.BackColor = System.Drawing.Color.White;
             this.zoomInButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.zoomInButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.zoomInButton.Location = new System.Drawing.Point(16852, 28167);
+            this.zoomInButton.Location = new System.Drawing.Point(18382, 30823);
             this.zoomInButton.Name = "zoomInButton";
             this.zoomInButton.Size = new System.Drawing.Size(75, 75);
             this.zoomInButton.TabIndex = 1;
@@ -100,7 +100,7 @@
             this.zoomOutButton.BackColor = System.Drawing.Color.White;
             this.zoomOutButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.zoomOutButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.zoomOutButton.Location = new System.Drawing.Point(16852, 28242);
+            this.zoomOutButton.Location = new System.Drawing.Point(18382, 30898);
             this.zoomOutButton.Name = "zoomOutButton";
             this.zoomOutButton.Size = new System.Drawing.Size(75, 75);
             this.zoomOutButton.TabIndex = 2;
@@ -365,6 +365,7 @@
             this.KeyBox.TabIndex = 12;
             this.KeyBox.Text = "C";
             this.KeyBox.SelectedIndexChanged += new System.EventHandler(this.KeyBox_SelectedIndexChanged);
+            this.KeyBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyBox_KeyDown);
             // 
             // TimeBox
             // 
@@ -380,6 +381,7 @@
             this.TimeBox.TabIndex = 11;
             this.TimeBox.Text = "FourFour";
             this.TimeBox.SelectedIndexChanged += new System.EventHandler(this.TimeBox_SelectedIndexChanged);
+            this.TimeBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TimeBox_KeyDown);
             // 
             // label2
             // 
@@ -408,6 +410,7 @@
             this.textBox2.Size = new System.Drawing.Size(100, 26);
             this.textBox2.TabIndex = 8;
             this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            this.textBox2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox2_KeyDown);
             // 
             // ComposerLabel
             // 
@@ -426,6 +429,7 @@
             this.textBox1.Size = new System.Drawing.Size(100, 26);
             this.textBox1.TabIndex = 6;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
             // 
             // TitleLabel
             // 
@@ -542,6 +546,18 @@
             this.SongDuration.UseVisualStyleBackColor = false;
             this.SongDuration.MouseClick += new System.Windows.Forms.MouseEventHandler(this.SongDuration_MouseClick);
             // 
+            // graphicsPanel
+            // 
+            this.graphicsPanel.AutoScroll = true;
+            this.graphicsPanel.BackColor = System.Drawing.Color.White;
+            this.graphicsPanel.Location = new System.Drawing.Point(6, 3);
+            this.graphicsPanel.Name = "graphicsPanel";
+            this.graphicsPanel.Size = new System.Drawing.Size(2550, 3300);
+            this.graphicsPanel.TabIndex = 0;
+            this.graphicsPanel.Click += new System.EventHandler(this.graphicsPanel_Click);
+            this.graphicsPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.graphicsPanel_Paint);
+            this.graphicsPanel.Resize += new System.EventHandler(this.graphicsPanel_Resize);
+            // 
             // PlayButton
             // 
             this.PlayButton.BackColor = System.Drawing.Color.Transparent;
@@ -555,18 +571,6 @@
             this.PlayButton.TabStop = false;
             this.PlayButton.UseVisualStyleBackColor = false;
             this.PlayButton.Click += new System.EventHandler(this.PlayButton_Click);
-            // 
-            // graphicsPanel
-            // 
-            this.graphicsPanel.AutoScroll = true;
-            this.graphicsPanel.BackColor = System.Drawing.Color.White;
-            this.graphicsPanel.Location = new System.Drawing.Point(6, 3);
-            this.graphicsPanel.Name = "graphicsPanel";
-            this.graphicsPanel.Size = new System.Drawing.Size(2550, 3300);
-            this.graphicsPanel.TabIndex = 0;
-            this.graphicsPanel.Click += new System.EventHandler(this.graphicsPanel_Click);
-            this.graphicsPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.graphicsPanel_Paint);
-            this.graphicsPanel.Resize += new System.EventHandler(this.graphicsPanel_Resize);
             // 
             // MainForm
             // 

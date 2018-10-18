@@ -214,6 +214,9 @@ namespace Music_Comp
                     SongDuration.Image = eighth;
                 }
 
+                textBox1.Text = song.Title;
+                textBox2.Text = song.Composer;
+
                 graphicsPanel.Invalidate();
                 Properties.Settings.Default.Loaded = true;
             }
@@ -2044,11 +2047,13 @@ namespace Music_Comp
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             song.Title = textBox1.Text;
+            graphicsPanel.Invalidate();
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
             song.Composer = textBox2.Text;
+            graphicsPanel.Invalidate();
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2101,6 +2106,38 @@ namespace Music_Comp
             right = panel2.Location.X + panel2.Width - MousePosition.X;
             bottom = panel2.Location.Y + panel2.Height - MousePosition.Y;
             isdown = true;
+        }
+
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                ActiveControl = graphicsPanel;
+            }
+        }
+
+        private void textBox2_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                ActiveControl = graphicsPanel;
+            }
+        }
+
+        private void KeyBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                ActiveControl = graphicsPanel;
+            }
+        }
+
+        private void TimeBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                ActiveControl = graphicsPanel;
+            }
         }
 
         private void panel2_MouseUp(object sender, MouseEventArgs e)
