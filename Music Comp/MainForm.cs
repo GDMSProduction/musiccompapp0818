@@ -162,7 +162,7 @@ namespace Music_Comp
                 long sSongSize = reader.ReadInt64();
                 stream.Seek(0, SeekOrigin.Begin);
 
-
+                
                 buffer = new byte[sSongSize];
                 reader.Read(buffer, 0, buffer.Length);
                 MemoryStream sSong = new MemoryStream(buffer);
@@ -176,8 +176,32 @@ namespace Music_Comp
                 song = (Song)formatter.Deserialize(sSong);
 
                 Song.SELECTABLES = new List<SongComponent>();
-                song.GetInstrument(0).Select();
-                song.GetSelection().GetStaff(0).Select();
+
+                for (int i = 0; i < song.GetInstrumentCount(); i++)
+                {
+                    Instrument instrument = song.GetInstrument(i);
+                    Song.SELECTABLES.Add(instrument);
+                    for (int s = 0; s < instrument.GetStaffCount(); s++)
+                    {
+                        Staff staff = instrument.GetStaff(s);
+                        Song.SELECTABLES.Add(staff);
+                        for (int m = 0; m < staff.GetMeasureCount(); m++)
+                        {
+                            Measure measure = staff.GetMeasure(m);
+                            Song.SELECTABLES.Add(measure);
+                            for (int c = 0; c < measure.GetChordCount(); c++)
+                            {
+                                Chord chord = measure.GetChord(c);
+                                Song.SELECTABLES.Add(chord);
+                                for (int n = 0; n < chord.GetNoteCount(); n++)
+                                    Song.SELECTABLES.Add(chord.GetNote(n));
+                            }
+                        }
+                    }
+                }
+
+                foreach (SongComponent component in Song.SELECTABLES)
+                    component.Deselect();
 
                 if (Song.TIME > 0)
                 {
@@ -259,56 +283,45 @@ namespace Music_Comp
             if (Song.PAGE_WIDTH < 5000)
             {
                 graphicsPanel.Size = new Size((int)(PAGE_WIDTH + 100), (int)(PAGE_HEIGHT + 100 * PAGE_HEIGHT / PAGE_WIDTH));
+                Song.needsFullUpdate = true;
                 song.Update();
-            }
-            if (toolboxToolStripMenuItem.Text == "Hide Toolbox" && toolpoint != null)
-            {
-                panel2.Location = toolpoint;
-            }
-            else if (toolboxToolStripMenuItem.Text == "Hide Toolbox" && toolpoint == null)
-            {
-                if (songloaded)
-                {
-                    panel2.Location = new Point(0, 0);
-                }
-                else
-                {
-                    panel2.Location = new Point(0, menuStrip1.Height);
-                }
+
+                if (toolboxToolStripMenuItem.Text == "Hide Toolbox" && toolpoint != null)
+                    panel2.Location = toolpoint;
+                else if (toolboxToolStripMenuItem.Text == "Hide Toolbox" && toolpoint == null)
+                    if (songloaded)
+                        panel2.Location = new Point(0, 0);
+                    else
+                        panel2.Location = new Point(0, menuStrip1.Height);
             }
         }
 
         private void zoomOutButton_Click(object sender, EventArgs e)
         {
             ActiveControl = graphicsPanel;
+
             if (Song.PAGE_WIDTH > 500)
             {
                 graphicsPanel.Size = new Size((int)(PAGE_WIDTH - 100), (int)(PAGE_HEIGHT - 100 * PAGE_HEIGHT / PAGE_WIDTH));
-                
-            }
-            if (Song.BARLINES != null)
-                for (int i = 0; i < Song.BARLINES.Count; i++)
-                    if (_SCALE < 1)
-                        Song.BARLINES[i] *= _SCALE;
-                    else
-                        Song.BARLINES[i] /= _SCALE;
 
-            if (toolboxToolStripMenuItem.Text == "Hide Toolbox" && toolpoint != null)
-            {
-                panel2.Location = toolpoint;
+                /*if (Song.BARLINES != null)
+                    for (int i = 0; i < Song.BARLINES.Count; i++)
+                        if (_SCALE < 1)
+                            Song.BARLINES[i] *= _SCALE;
+                        else
+                            Song.BARLINES[i] /= _SCALE;*/
+
+                Song.needsFullUpdate = true;
+                song.Update();
+
+                if (toolboxToolStripMenuItem.Text == "Hide Toolbox" && toolpoint != null)
+                    panel2.Location = toolpoint;
+                else if (toolboxToolStripMenuItem.Text == "Hide Toolbox" && toolpoint == null)
+                    if (songloaded)
+                        panel2.Location = new Point(0, 0);
+                    else
+                        panel2.Location = new Point(0, menuStrip1.Height);
             }
-            else if (toolboxToolStripMenuItem.Text == "Hide Toolbox" && toolpoint == null)
-            {
-                if (songloaded)
-                {
-                    panel2.Location = new Point(0, 0);
-                }
-                else
-                {
-                    panel2.Location = new Point(0, menuStrip1.Height);
-                }
-            }
-            song.Update();
         }
 
         private void Add_Instrument_Click(object sender, EventArgs e)
@@ -896,20 +909,16 @@ namespace Music_Comp
                         {
                             if (song.GetSelection().GetSelection().GetStaffNumber() > 0)
                             {
-                                song.GetSelection().GetSelection().Update();
-                                graphicsPanel.Invalidate();
                                 song.GetSelection().SetSelection(song.GetSelection().GetSelection().GetStaffNumber() - 1);
-                                song.GetSelection().GetSelection().Update();
+                                song.Update();
                                 graphicsPanel.Invalidate();
                             }
                             else if (song.GetSelection().GetInstrumentNumber() != 0)
                             {
                                 song.GetSelection().GetSelection().Deselect();
-                                song.GetSelection().GetSelection().Update();
-                                graphicsPanel.Invalidate();
                                 song.SetSelection(song.GetSelection().GetInstrumentNumber() - 1);
                                 song.GetSelection().SetSelection(song.GetInstrument(song.GetSelection().GetInstrumentNumber()).GetStaffCount() - 1);
-                                song.GetSelection().GetSelection().Update();
+                                song.Update();
                                 graphicsPanel.Invalidate();
                             }
                             break;
@@ -918,20 +927,16 @@ namespace Music_Comp
                         {
                             if (song.GetSelection().GetSelection().GetStaffNumber() < song.GetSelection().GetStaffCount() - 1)
                             {
-                                song.GetSelection().GetSelection().Update();
-                                graphicsPanel.Invalidate();
                                 song.GetSelection().SetSelection(song.GetSelection().GetSelection().GetStaffNumber() + 1);
-                                song.GetSelection().GetSelection().Update();
+                                song.Update();
                                 graphicsPanel.Invalidate();
                             }
                             else if (song.GetSelection().GetInstrumentNumber() != Song.TOTAL_INSTRUMENTS - 1)
                             {
                                 song.GetSelection().GetSelection().Deselect();
-                                song.GetSelection().GetSelection().Update();
-                                graphicsPanel.Invalidate();
                                 song.SetSelection(song.GetSelection().GetInstrumentNumber() + 1);
                                 song.GetSelection().SetSelection(0);
-                                song.GetSelection().GetSelection().Update();
+                                song.Update();
                                 graphicsPanel.Invalidate();
                             }
                             break;

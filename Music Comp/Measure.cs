@@ -148,20 +148,27 @@ namespace Music_Comp
 
         public void Update(float barline, float yPosition)
         {
+            int stnza = 0;
+            for (int i = mMeasureNumber; i < Song.BARLINES.Count; i++)
+                if (Song.BARLINES[i] > (Song.PAGE_WIDTH - Song.RIGHT_MARGIN) * stnza)
+                    stnza++;
             float cursor = 0;
             int durationCursor = 0;
             foreach (Chord chord in mChords)
             {
-                if (Song.CHORD_POSITIONS[mMeasureNumber][durationCursor] < cursor)
+                if (Song.CHORD_POSITIONS[mMeasureNumber][durationCursor] - stnza * (Song.PAGE_WIDTH - Song.RIGHT_MARGIN) < cursor)
                 {
-                    float diff = cursor - Song.CHORD_POSITIONS[mMeasureNumber][durationCursor];
+                    float diff = cursor - Song.CHORD_POSITIONS[mMeasureNumber][durationCursor] * Song._SCALE;
                     for (int i = durationCursor; i < Song.CHORD_POSITIONS[mMeasureNumber].Length; i++)
                         Song.CHORD_POSITIONS[mMeasureNumber][i] += diff;
                     if (Song.BARLINES.Count > mMeasureNumber + 1)
                         for (int i = mMeasureNumber + 1; i < Song.BARLINES.Count; i++)
-                            Song.BARLINES[i] += diff;
+                        {
+                            if (Song.BARLINES[i] < (Song.PAGE_WIDTH - Song.RIGHT_MARGIN) * (Song.stanzas - 1))
+                                Song.BARLINES[i] += diff;
+                        }
                 }
-                chord.Update(barline + Song.CHORD_POSITIONS[mMeasureNumber][durationCursor], yPosition, mClef);
+                chord.Update(barline + Song.CHORD_POSITIONS[mMeasureNumber][durationCursor] * Song._SCALE, yPosition, mClef);
                 cursor += chord.GetWidth();
                 if (chord == mChords[GetChordCount() - 1])
                     cursor = Song.CHORD_POSITIONS[mMeasureNumber][durationCursor] + chord.GetWidth();
@@ -171,6 +178,7 @@ namespace Music_Comp
 
             area.X = barline;
             area.Y = Song.TOP_MARGIN + yPosition - Song.STAFF_SPACING;
+
             area.Width = mLength;
             if (Song.BARLINES.Count > mMeasureNumber + 1)
                 area.Width = Song.BARLINES[mMeasureNumber + 1] - barline;
@@ -178,6 +186,20 @@ namespace Music_Comp
                 if (Song.BARLINES[mMeasureNumber + 1] < barline + cursor)
                     Song.BARLINES[mMeasureNumber + 1] = barline + cursor;
             area.Height = Staff.HEIGHT + Song.STAFF_SPACING * 2;
+
+            if (area.Right > (Song.PAGE_WIDTH - Song.RIGHT_MARGIN) * Song.stanzas)
+            {
+                float margin = Song.LEFT_MARGIN + Staff.LENGTH - barline;
+                float extra = margin / (Song.BARLINES.Count * ((float)(Song.BARLINES.Count - 1) / 2));
+                float scale = (Song.BARLINES[1] - Song.BARLINES[0] + extra) / (Song.BARLINES[1] - Song.BARLINES[0]);
+                for (int i = 1; i < Song.BARLINES.Count; i++)
+                    Song.BARLINES[i] += extra * i * Song._SCALE;
+                for (int i = 0; i < Song.CHORD_POSITIONS.Count; i++)
+                    for (int j = 0; j < Song.CHORD_POSITIONS[i].Length; j++)
+                        Song.CHORD_POSITIONS[i][j] *= scale * Song._SCALE;
+                Song.BARLINES[Song.BARLINES.Count - 1] = Song.BARLINES[0] + (Song.PAGE_WIDTH - Song.RIGHT_MARGIN) * Song.stanzas;
+                Song.OVERFLOW = this;
+            }
         }
 
         public void Draw(Graphics g)

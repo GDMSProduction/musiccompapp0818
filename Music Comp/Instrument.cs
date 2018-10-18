@@ -39,6 +39,17 @@ namespace Music_Comp
             Song.SELECTABLES.Add(this);
         }
 
+        public Instrument CloneAttributes()
+        {
+            List<Clef> clefs = new List<Clef>();
+            List<WaveForm> waveforms = new List<WaveForm>();
+            foreach (Clef clef in mClefs)
+                clefs.Add(clef);
+            foreach (WaveForm waveform in mWaveForms)
+                waveforms.Add(waveform);
+            return new Instrument(clefs, waveforms, mGrouping, Song.TOTAL_INSTRUMENTS);
+        }
+
         public int GetStaffCount()
         {
             return mStaves.Length;
