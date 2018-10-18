@@ -53,7 +53,7 @@
             this.okButton.Location = new System.Drawing.Point(1628, 939);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(94, 48);
-            this.okButton.TabIndex = 7;
+            this.okButton.TabIndex = 6;
             this.okButton.Text = "OK";
             this.okButton.UseVisualStyleBackColor = true;
             this.okButton.Click += new System.EventHandler(this.okButton_Click);
@@ -64,9 +64,9 @@
             this.titleBoxLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.titleBoxLabel.Location = new System.Drawing.Point(1495, 240);
             this.titleBoxLabel.Name = "titleBoxLabel";
-            this.titleBoxLabel.Size = new System.Drawing.Size(62, 25);
+            this.titleBoxLabel.Size = new System.Drawing.Size(57, 25);
             this.titleBoxLabel.TabIndex = 1;
-            this.titleBoxLabel.Text = "Title *";
+            this.titleBoxLabel.Text = "Title*";
             // 
             // label2
             // 
@@ -94,9 +94,9 @@
             this.composerBoxLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.composerBoxLabel.Location = new System.Drawing.Point(1495, 293);
             this.composerBoxLabel.Name = "composerBoxLabel";
-            this.composerBoxLabel.Size = new System.Drawing.Size(116, 25);
+            this.composerBoxLabel.Size = new System.Drawing.Size(111, 25);
             this.composerBoxLabel.TabIndex = 4;
-            this.composerBoxLabel.Text = "Composer *";
+            this.composerBoxLabel.Text = "Composer*";
             // 
             // label5
             // 
@@ -194,7 +194,7 @@
             this.cancelButton.Location = new System.Drawing.Point(1528, 939);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(94, 48);
-            this.cancelButton.TabIndex = 6;
+            this.cancelButton.TabIndex = 7;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
             // 

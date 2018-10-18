@@ -426,24 +426,25 @@ namespace Music_Comp
 
         private void UpdateBarLines()
         {
+            int stnza = mTotalInstrumentNumber / Song.stanzas;
             for (int i = 0; i < mMeasures.Count; i++)
             {
                 mCursorX += 30 * Song._SCALE;
 
                 if (i >= Song.BARLINES.Count && mMeasures[i].IsFull())
                 {
-                    Song.BARLINES.Add(mCursorX);
+                    Song.BARLINES.Add(mCursorX + stnza * (Song.PAGE_WIDTH - Song.RIGHT_MARGIN));
                     AddMeasure();
                 }
 
                 else if (i >= Song.BARLINES.Count)
-                    Song.BARLINES.Add(mCursorX);
+                    Song.BARLINES.Add(mCursorX + stnza * (Song.PAGE_WIDTH - Song.RIGHT_MARGIN));
 
-                else if (mCursorX > Song.BARLINES[i])
-                    Song.BARLINES[i] = mCursorX;
+                else if (mCursorX > Song.BARLINES[i] - stnza * (Song.PAGE_WIDTH - Song.RIGHT_MARGIN))
+                    Song.BARLINES[i] = mCursorX + stnza * (Song.PAGE_WIDTH - Song.RIGHT_MARGIN);
 
                 else
-                    mCursorX = Song.BARLINES[i];
+                    mCursorX = Song.BARLINES[i] - stnza * (Song.PAGE_WIDTH - Song.RIGHT_MARGIN);
 
                 mCursorX += mMeasures[i].GetLength();
             }
@@ -452,6 +453,7 @@ namespace Music_Comp
         public void Update()
         {
             mCursorX = Song.LEFT_MARGIN;
+
             mYPosition = mTotalInstrumentNumber * Song.INSTRUMENT_SPACING + mTotalStaffNumber * (HEIGHT + Song.STAFF_SPACING);
 
             UpdateStaff();
